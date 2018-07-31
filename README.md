@@ -28,8 +28,13 @@
 </ul>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>First we load motmot.2.0</p>
-<pre class="r"><code>library(motmot.2.0, quietly=T)</code></pre>
+<p>First we install motmot.2.0 from gihtub (and simultaneously check if devtools also needs to be installed)</p>
+<pre class="r"><code>need.dev <- "devtools" %in% rownames(installed.packages())
+if(!need.dev) install.packages("devtools")
+library(devtools)
+install_github("PuttickMacroevolution/motmot.2.0")
+library(motmot.2.0, quietly=TRUE)
+</code></pre>
 <p>For these examples we will use anolis data available from motmot. A time-calibrated phylogeny of anolis species (“anolis.tree”), and various trait and biogeographical trait data (“anolis.data”)</p>
 <pre class="r"><code>data(anolis.tree)
 data(anolis.data)
