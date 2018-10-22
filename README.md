@@ -2,17 +2,12 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
+<h1 class="title toc-ignore">motmot.2.0</h1>
+<h4 class="author"><em>Mark Puttick</em></h4>
+<h4 class="date"><em>2018-10-22</em></h4>
+    
+ </div>   
 
-<head>
-
-<meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="pandoc" />
-<meta name="author" content="Mark Puttick" />
-<meta name="date" content="2018-10-22" />
-<title>motmot.2.0</title>
-
-</div>
 
 <p>Models Of Trait Macroevolution On Trees (MOTMOT) is an R package that allows for testing of models of trait evolution (Thomas <em>et al.</em> 2012).</p>
 <ul>
