@@ -8,7 +8,7 @@
 #' @param meserr Logical. Include measurement error.
 #' @return mu phylogenetically corrected mean
 #' @references Thomas GH, Freckleton RP, & Szekely T. 2006. Comparative analyses of the influence of developmental mode on phenotypic diversification rates in shorebirds. Proceedings of the Royal Society B 273, 1619-1624.
-#' Thomas GH, Meiri S, & Phillimore AB. 2009. Body size diversification in Anolis: novel environments and island effects. Evolution 63, 2017-2030.
+#' @references Thomas GH, Meiri S, & Phillimore AB. 2009. Body size diversification in Anolis: novel environments and island effects. Evolution 63, 2017-2030.
 #' @author Gavin Thomas, Rob Freckleton
 #' @note The means are output as treatment contrasts.
 #' @examples

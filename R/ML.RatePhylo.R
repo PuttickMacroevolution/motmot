@@ -6,54 +6,52 @@
 #' @param pretty Display the output nicely (\code{pretty=TRUE}) or as a list (\code{pretty=FALSE})
 #' @param rateMIN Minimum value for the rate parameters.
 #' @param rateMAX Maximum value for the rate parameters
-#' @param common.mean a logical specififying whether each rate category should have its own mean (\code{common.mean=FALSE}) or all categories should have the same mean (\code{common.mean=FALSE}). See Thomas et al. (2009) for a discussion on the impact of assumptions about mean on rate estimates.
+#' @param common.mean a logical specififying whether each rate category should have its own mean (\code{common.mean=FALSE}) or all categories should have the same mean (\code{common.mean=TRUE}). See Thomas et al. (2009) for a discussion on the impact of assumptions about mean on rate estimates.
 #' @param lambda.est Logical. Estimate Pagel's lambda.
 #' @param est.CI Logical. Estimate approximate confidence intervals for rate parameters.
 #' @param meserr Logical. Incorporate measurement error.
 #' @param file File string for output. Only used if \code{pretty=TRUE}.
 #' @return If \code{pretty=FALSE}, returns a list containing:
-#' @return MLRate Maximum likelihood estimates of the rate parameters
-#' @return Lambda  Maximum likelihood estimate of lambda
-#' @return LCI Approximate lower confidence intervals for rate
-#' @return UCI Approximate upper confidence intervals for rate parameters
-#' @return means Means for each category
-#' @return nParam Number of parameters in the model (how many means and rate categories)
-#' @return Max.lik Maximum (log) likeihood
-#' @return AIC for maximum likelihood model
-#' @return AICc for maximum likelihood model
-#' @return LambdaSingle Maximum likelihood estimate of lambda for the single rate model
-#' @return Lik1  Likelihood of the equivalent single rate model
-#' @return Likelihood ratio statistic of "Max.lik" vs "Lik1"
-#' @return P  P values for the LR statistic
-#' @return df Degrees of freedom for the LR statistic
-#' @return AIC.rate1 AIC for single rate model
-#' @return AICc.rate1 AICc for single rate model
+#' \itemize{
+#' \item {MLRate} Maximum likelihood estimates of the rate parameters
+#' \item {Lambda}  Maximum likelihood estimate of lambda
+#' \item {LCI} Approximate lower confidence intervals for rate
+#' \item {UCI} Approximate upper confidence intervals for rate parameters
+#' \item {means} Means for each category
+#' \item {nParam} Number of parameters in the model (how many means and rate categories)
+#' \item {Max.lik} Maximum (log) likeihood
+#' \item {AIC} for maximum likelihood model
+#' \item {AICc} for maximum likelihood model
+#' \item {LambdaSingle} Maximum likelihood estimate of lambda for the single rate model
+#' \item {Lik1}  Likelihood of the equivalent single rate model
+#' \item {Likelihood} ratio statistic of "Max.lik" vs "Lik1"
+#' \item {P}  P values for the LR statistic
+#' \item {df} Degrees of freedom for the LR statistic
+#' \item {AIC.rate1} AIC for single rate model
+#' \item {AICc.rate1} AICc for single rate model
+#' }
 #' @return If \code{pretty=TRUE}, prints a nice version of the list to screen. If \code{file} is specified the pretty output will be sent to file, not the console.
 #' @note Unlike phyloMean and likRatePhylo (that use treatment contrasts), the means reported here are the actual values
 #' @references Thomas GH, Freckleton RP, & Szekely T. 2006. Comparative analyses of the influence of developmental mode on phenotypic diversification rates in shorebirds. Proceedings of the Royal Society B 273, 1619-1624.
-#' Thomas GH, Meiri S, & Phillimore AB. 2009. Body size diversification in Anolis: novel environments and island effects. Evolution 63, 2017-2030.
+#' @references Thomas GH, Meiri S, & Phillimore AB. 2009. Body size diversification in Anolis: novel environments and island effects. Evolution 63, 2017-2030.
 #' @author Gavin Thomas, Rob Freckleton
-#'  @examples
-#' ## Read in phylogeny and data from Thomas et al. (2009)
-#' data(anolis.tree)
-#' data(anolis.data)
-#' 
-#' ## Convert data to class rateData with a rateMatrix object as input
-#' anolis.rateMatrix <- as.rateMatrix(phy=anolis.tree, x="geo_ecomorph",
-#' data=anolis.data)
-#' 
-#' anolis.rateData <- as.rateData(y="Female_SVL", x="geo_ecomorph", 
-#' rateMatrix = anolis.rateMatrix, phy=NULL, data=anolis.data, log.y=TRUE)
-#' # A model with a different rate in each of the four groups. The 'fixed' command is used to determine
-#' # whether a particular rate is to be constrained or not. Use '1' to fix a group and 'FALSE' to show
-#' # that the parameter is not fixed and should be estimated. The values should be entered in the same 
-#' # order as the ranking of the groups. That is, group 0 (small islands) takes position one in the 
-#' # fixed vector, group 1 (large island trunk crown and trunk ground) takes position 2 and so on. 
-#' # The default is to allow each group to take a different mean. 
-#'
-#' ML.RatePhylo(anolis.rateData, fixed=c(1,FALSE,FALSE, FALSE), pretty=TRUE)
-#' # Run the same model, but this time assuming a common mean across all four groups
-#' ML.RatePhylo(anolis.rateData, fixed=c(1,FALSE,FALSE, FALSE), pretty=TRUE, common.mean=TRUE)
+#' @examples ## Read in phylogeny and data from Thomas et al. (2009)
+#' @examples data(anolis.tree)
+#' @examples data(anolis.data)
+#' @examples ## Convert data to class rateData with a rateMatrix object as input
+#' @examples anolis.rateMatrix <- as.rateMatrix(phy=anolis.tree, x="geo_ecomorph",
+#' @examples data=anolis.data)
+#' @examples anolis.rateData <- as.rateData(y="Female_SVL", x="geo_ecomorph", 
+#' @examples rateMatrix = anolis.rateMatrix, phy=NULL, data=anolis.data, log.y=TRUE)
+#' @examples # A model with a different rate in each of the four groups. The 'fixed' command is used to determine
+#' @examples # whether a particular rate is to be constrained or not. Use '1' to fix a group and 'FALSE' to show
+#' @examples # that the parameter is not fixed and should be estimated. The values should be entered in the same 
+#' @examples # order as the ranking of the groups. That is, group 0 (small islands) takes position one in the 
+#' @examples # fixed vector, group 1 (large island trunk crown and trunk ground) takes position 2 and so on. 
+#' @examples # The default is to allow each group to take a different mean. 
+#' @examples ML.RatePhylo(anolis.rateData, fixed=c(1,FALSE,FALSE, FALSE), pretty=TRUE)
+#' @examples # Run the same model, but this time assuming a common mean across all four groups
+#' @examples ML.RatePhylo(anolis.rateData, fixed=c(1,FALSE,FALSE, FALSE), pretty=TRUE, common.mean=TRUE)
 #' @export
 
 ML.RatePhylo <-

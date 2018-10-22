@@ -1,5 +1,5 @@
-#' Tree plotting for rates
-#' Plots trees with colours based on rates of trait evolution. Also provides simple coloured plotting for trait values using the \code{\link[ape]{ace}} function in the \pkg{ape} library.
+#' @title Tree plotting for rates
+#' @description Plots trees with colours based on rates of trait evolution. Also provides simple coloured plotting for trait values using the \code{\link[ape]{ace}} function in the \pkg{ape} library.
 #' @param phy An object of class \code{phylo} (see \pkg{ape})
 #' @param x A matrix of trait values.
 #' @param traitMedusaObject Output from traitMedusaSummary.
@@ -112,7 +112,7 @@ switch (reconType,
 	"rates" = {
 		
 		
-		if(traitMedusaObject$Rates[1] == "Single rate") stop("BM model - no shifts to plot")
+		if(traitMedusaObject$Rates[1,1] == "0") stop("BM model - no shifts to plot")
 		cladeRates <- traitMedusaObject$Rates[,3]
 		nodes <- traitMedusaObject$Rates[,1]
 		rateType <- traitMedusaObject$Rates[,2]
@@ -165,7 +165,7 @@ switch (reconType,
 		
 		
 	plot.phylo(x=phy, edge.color = edgeColours, edge.width = edge.width, type=type, use.edge.length=use.edge.length, cex=cex, label.offset=label.offset, show.tip.label=show.tip.label, no.margin=no.margin, direction=direction, adj=adj)
-	return(as.data.frame(t(rbind(use.colors, exp(color.bin)))))
+	invisible(as.data.frame(t(rbind(use.colors, exp(color.bin)))))
     }
     
    

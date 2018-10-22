@@ -8,7 +8,7 @@
 #' @param meserr Logical. Include measurement error.
 #' @return phylo.var  phylogenetic variance (Brownian variance)
 #' @references Thomas GH, Freckleton RP, & Szekely T. 2006. Comparative analyses of the influence of developmental mode on phenotypic diversification rates in shorebirds. Proceedings of the Royal Society B 273, 1619-1624.
-#' Thomas GH, Meiri S, & Phillimore AB. 2009. Body size diversification in Anolis: novel environments and island effects. Evolution 63, 2017-2030.
+#'  @references Thomas GH, Meiri S, & Phillimore AB. 2009. Body size diversification in Anolis: novel environments and island effects. Evolution 63, 2017-2030.
 #' @author Gavin Thomas, Rob Freckleton
 #' @examples
 #'  ## Read in phylogeny and data from Thomas et al. (2009)

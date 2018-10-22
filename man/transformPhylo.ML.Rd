@@ -12,7 +12,7 @@ transformPhylo.ML(y, phy, model = NULL, modelCIs = TRUE, nodeIDs = NULL,
   lowerBound = NULL, upperBound = NULL, covPIC = TRUE, n.cores = 1,
   tol = NULL, meserr = NULL, controlList = c(fnscale = -1, maxit = 100,
   factr = 1e-07, pgtol = 0, type = 2, lmm = 5), returnPhy = FALSE,
-  print.warnings = TRUE)
+  print.warnings = FALSE)
 }
 \arguments{
 \item{y}{A matrix of trait values.}
@@ -51,7 +51,7 @@ transformPhylo.ML(y, phy, model = NULL, modelCIs = TRUE, nodeIDs = NULL,
 
 \item{useMean}{Logical. Use the branch-based estimates of extinction of mean (TRUE, default) for the "psi" and "multispi" models. Only applicable if "hiddenSpeciation" = TRUE. If FALSE, this will generate a single realisation of the numbers of hidden speciation events on each branch}
 
-\item{profilePlot}{Logical.  For the single parameter models "kappa", "lambda", "delta", "OU", "psi", "multipsi", and "ACDC", plot the profile of the likelihood.}
+\item{profilePlot}{Logical. For the single parameter models "kappa", "lambda", "delta", "OU", "psi", "multipsi", and "ACDC", plot the profile of the likelihood.}
 
 \item{lowerBound}{Minimum value for parameter estimates}
 
@@ -72,7 +72,7 @@ transformPhylo.ML(y, phy, model = NULL, modelCIs = TRUE, nodeIDs = NULL,
 \item{print.warnings}{Logical. If TRUE, warnings are issued if confidence intervals fall outside upper or lower bounds}
 }
 \value{
-Returns the maximum log-likelihood and parameter estimates (with 95 percent confidence intervals if specified). If model="bm" instead returns the Brownian (co)variance and log-likelihood.
+Returns the maximum log-likelihood and parameter estimates (with 95 percent confidence intervals if specified). If model="bm" instead returns the Brownian (co)variance and log-likelihood. Also returned are the root estimate, the AIC, and AICc.
 
 traitMedusaObject A list in which the first element contains a matrix summarising the parameter estimates and node ids, log-likelihoods, number of parameters (k), AIC and AICc for the best one-rate model, two-rate model, three rate model and so on. The second element is a sub-list where the first element contains all two-rate models, the second element contains all three-rate models and so on. This can be summarised using traitMedusaSummary. The third element is the input trait data. The fourth element is the input phylogeny.
 }
@@ -88,6 +88,7 @@ This function finds the maximum likelihood parameter values for continuous chara
 \item {model="delta"} {fits Pagel's delta by raising all node depths to the power delta. If delta <1, trait evolution is concentrated early in the tree whereas if delta >1 trait evolution is concentrated towards the tips. Values of delta above one can be difficult to fit reliably. If a nodeIDs is supplied, the model will fit a delta model nested within a clade, with a BM fit to the rest of the tree. Default bounds from ~0 - 5.}
 \item {model="OU"} {fits an Ornstein-Uhlenbeck model - a random walk with a central tendency proportional to alpha. High values of alpha can be interpreted as evidence of evolutionary constraints, stabilising selection or weak phylogenetic signal. It is often difficult to distinguish among these possibilities. If a nodeIDs is supplied, the model will fit a OU model nested within a clade, with a BM fit to the rest of the tree. For OU models, alternative optimisation are performed with different starting values (1e-8, 0.01, 0.1, 1, 5). Default bounds from ~0 - 10.}
 \item {model="ACDC"} {fits a model to in which rates can exponentially increased or decrease through time (Blomberg et al. 2003). If the upper bound is < 0, the model is equivalent to the 'Early Burst' model of Harmon et al. 2010. If a nodeIDs is supplied, the model will fit a ACDC model nested within a clade, with a BM fit to the rest of the tree. Default rate parameter bounds from ln(1e-10) ~ ln(20) divided by the root age. Note this process starts on the stem branch leading to the MRCA of the common node, unlike the other methods that start at the common node.}
+\item {model="trend"} {fits a model in which the expectated mean change through time is non-zero, signifying a directional evolution to a larger or smaller trait value. This model is only appliacble to non-ultrametric trees.}
 \item {model="psi"} {fits a model to assess to the relative contributions of speciation and gradual evolution to a trait's evolutionary rate (Ingram 2010). Note that the algorithm will automatically estimate speciation and extinction estimates, and will incorporate estimates of 'hidden' speciation if death estimates are greater than 0. }
 \item {model="multipsi"} {fits a model to assess to the relative contributions of speciation and gradual evolution to a trait's evolutionary rate but allows seperate values of psi fitted to seperate branches (Ingram 2010; Ingram et al. 2016). Note that the algorithm will automatically estimate speciation and extinction estimates, and will incorporate estimates of 'hidden' speciation if death estimates are greater than 0.}
 \item {model="free"} {fits Mooers et al's free model where each branch has its own rate of trait evolution. This can be a useful exploratory analysis but it is slow due to the number of parameters, particularly for large trees. Default rate parameter bounds from ~0 - 200.}
@@ -104,9 +105,8 @@ Confidence intervals are based on the assumption of an asymptotic Chi-square dis
 # Data and phylogeny
 data(anolis.tree)
 data(anolis.data)
-attach(anolis.data)
-male.length <- matrix(Male_SVL, dimnames=list(rownames(anolis.data)))
-sortedData <- sortTraitData(anolis.tree, male.length)
+sortedData <- sortTraitData(anolis.tree, anolis.data,
+data.name = "Male_SVL", log.trait = TRUE, pass.ultrametric = TRUE)
 phy <- sortedData$phy
 male.length <- sortedData$trait
 phy.clade <- extract.clade(phy, 182)

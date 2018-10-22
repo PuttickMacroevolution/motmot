@@ -54,12 +54,13 @@ common.mean=FALSE, lambda.est=FALSE)
 
 # Confidence intervals for the first two parameters
 
-RatePhylo.CI(rateData=anolis.rateData, MLrate = anole.ML$MLRate, 
+RatePhylo.allCI(rateData=anolis.rateData, MLrate = anole.ML$MLRate, 
 fixed=c(FALSE, TRUE, TRUE, TRUE), rateMIN = 0.001, rateMAX = 50, 
 common.mean = FALSE)
 }
 \references{
 Thomas GH, Freckleton RP, & Szekely T. 2006. Comparative analyses of the influence of developmental mode on phenotypic diversification rates in shorebirds. Proceedings of the Royal Society B 273, 1619-1624.
+
 Thomas GH, Meiri S, & Phillimore AB. 2009. Body size diversification in Anolis: novel environments and island effects. Evolution 63, 2017-2030.
 }
 \author{

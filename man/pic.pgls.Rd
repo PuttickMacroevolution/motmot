@@ -2,8 +2,7 @@
 % Please edit documentation in R/pic.pgls.R
 \name{pic.pgls}
 \alias{pic.pgls}
-\title{Fast PLGS estimation based on contrasts
-Estimates regression parameters for a phylogenetic generalised least-squares analysis using the fast constrasts method (Felsenstein 1973; 1985; Freckleton 2012). This implementation is applicable for continuous traits only and not factors}
+\title{Fast PLGS estimation based on contrasts}
 \usage{
 pic.pgls(formula, phy, y, lambda = "ML", return.intercept.stat = FALSE)
 }
@@ -22,7 +21,6 @@ pic.pgls(formula, phy, y, lambda = "ML", return.intercept.stat = FALSE)
 A list containing the model, model summary, intercept, estimate of Lambda, model log-Likelihood, model AIC
 }
 \description{
-Fast PLGS estimation based on contrasts
 Estimates regression parameters for a phylogenetic generalised least-squares analysis using the fast constrasts method (Felsenstein 1973; 1985; Freckleton 2012). This implementation is applicable for continuous traits only and not factors
 }
 \examples{

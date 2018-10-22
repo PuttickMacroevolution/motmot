@@ -1,4 +1,4 @@
-#' @title Identify nodes and tips descended from a node (internal function). 
+#' @title Identify nodes and tips descended from a node 
 #' @description Obtains a vector of the tips and nodes subtending from a node in a phylogeny.
 #' @note \code{as.rateMatrix} calls the CAIC function \code{vcv.array} multiple times and this can be slow for large phylogenies (though faster than using the \pkg{ape} equivalent \code{vcv.phylo}).
 #' @param x A positive integer

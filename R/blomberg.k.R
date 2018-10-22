@@ -7,14 +7,12 @@
 #' @importFrom Rcpp sourceCpp
 #' @seealso \code{\link{transformPhylo.ML}}, the Picante package
 #' @references Blomberg SP, Garland T, & Ives AR. 2003. Testing for phylogenetic signal in comparative data: behavioral traits are more labile. Evolution 57, 717-745.
-#' @author Mark Puttick
 #' @examples
 #' # Data and phylogeny
 #' data(anolis.tree)
 #' data(anolis.data)
-#' attach(anolis.data)
-#' male.length <- matrix(Male_SVL, dimnames=list(rownames(anolis.data)))
-#' sortedData <- sortTraitData(anolis.tree, male.length)
+#' sortedData <- sortTraitData(anolis.tree, anolis.data,
+#' data.name="Male_SVL", log.trait=TRUE)
 #' phy <- sortedData$phy
 #' male.length <- sortedData$trait
 #' phy.clade <- extract.clade(phy, 182)

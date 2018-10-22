@@ -16,6 +16,7 @@
 #' @param fine.tune.bound The distance (+/-) from the optimal acceptance rate of 0.44 at which the fine-tune algorithm will stop. Default = 0.05.
 #' @param fine.tune.n The number of iterations with which to optimise the acceptance rate. 
 #' @param random.start Use a random starting value for the MCMC run (TRUE), or use the environment set.seed() value
+#' @param covPIC Logical. For multivariate analyses, allow for co-variance between traits rates (TRUE) or no covariance in trait rates (FALSE). If FALSE, only the trait variances not co-variances are used.
 #' @details fine.tune.n The method estimates posterior probabilities using a Metropolis-Hastings MCMC approach. To aide convergence, the model will attempt to reach an acceptable proposal ratio (~0.44) when opt.accept.rate=TRUE. These initial fine-tune repititions only save the standard deviation for the truncated normal distribution that is used for the proposal mechanism. The chain is discarded. Posterior probabilites and MCMC diagnostics come from the seperate output chain that commences after this fine-tune procedure. The MCMC model will estimate the posterior probability for the following models. 
 #' \itemize{
 #' \item {model="kappa"} {fits Pagel's kappa by raising all branch lengths to the power kappa. As kappa approaches zero, trait change becomes focused at branching events. For complete phylogenies, if kappa approaches zero this infers speciational trait change. Default bounds from ~0 - 1.}
@@ -48,7 +49,18 @@
 #' model="lambda", mcmc.iteration=100, burn.in=0.1)
 #' @export 
 
-transformPhylo.MCMC <- function(y, phy, model, mcmc.iteration=1000, burn.in=0.1, hiddenSpeciation = FALSE, full.phy=NULL, lowerBound = NULL, upperBound = NULL, opt.accept.rate=TRUE, acceptance.sd=NULL, opt.prop=0.25, fine.tune.bound=0.05, fine.tune.n=30, useMean = FALSE, random.start=TRUE) {
+transformPhylo.MCMC <- function(y, phy, model, mcmc.iteration=1000, burn.in=0.1, hiddenSpeciation = FALSE, full.phy=NULL, lowerBound = NULL, upperBound = NULL, opt.accept.rate=TRUE, acceptance.sd=NULL, opt.prop=0.25, fine.tune.bound=0.05, fine.tune.n=30, useMean = FALSE, random.start=TRUE, covPIC=TRUE) {
+	
+if(length(model) > 1) stop("please provide one model only")
+	model <- tolower(model)
+	
+	all.models <- c("lambda", "delta", "kappa", "ou", "acdc", "psi")
+	
+	if(is.na((match(model, all.models)))) stop(paste(model, "not recognised - please provide one of", paste0(all.models, collapse=", ")))
+   
+    bounds <- matrix(c(1e-08, 1, 1e-08, 1, 1e-08, 5, 1e-08, 20, 0, 1, 1e-08, 1000, 1e-10, 20), 7, 2, byrow = TRUE)
+    rownames(bounds) <-
+      c("kappa", "lambda", "delta", "alpha", "psi", "rate", "acdcrate")
 
 if(random.start) set.seed(as.numeric(Sys.time()))
 
@@ -72,7 +84,7 @@ upperBound <- bounds["lambda", 2]
 
 lik.model <- function(pram) {
 lambda.phy <- transformPhylo(phy, model="lambda", y=y, lambda=pram)
-return(likTraitPhylo(y, lambda.phy)[[2]])
+return(likTraitPhylo(y, lambda.phy, covPIC=covPIC)[[2]])
 }
 
 prior.uniform <- function(pram) {
@@ -105,7 +117,7 @@ upperBound <- bounds["delta", 2]
 
 lik.model <- function(pram) {
 delta.phy <- transformPhylo(phy, model="delta", y=y, delta=pram)
-return(likTraitPhylo(y, delta.phy)[[2]])
+return(likTraitPhylo(y, delta.phy, covPIC=covPIC)[[2]])
 }
 
 prior.uniform <- function(pram) {
@@ -122,7 +134,7 @@ stn.dev <- acceptance.sd
 sd.fine.tune <- stn.dev / 2
 }	
 
-name.param <- c("Delta")
+name.param <- c("delta")
 }
 
 if(model == "kappa") {
@@ -138,7 +150,7 @@ upperBound <- bounds["kappa", 2]
 
 lik.model <- function(pram) {
 kappa.phy <- transformPhylo(phy, model="kappa", y=y, kappa=pram)
-return(likTraitPhylo(y, kappa.phy)[[2]])
+return(likTraitPhylo(y, kappa.phy, covPIC=covPIC)[[2]])
 }
 
 prior.uniform <- function(pram) {
@@ -155,10 +167,10 @@ stn.dev <- acceptance.sd
 sd.fine.tune <- stn.dev / 2
 }	
 
-name.param <- c("Kappa")
+name.param <- c("kappa")
 }
 
-if(model == "OU") {
+if(model == "ou") {
 
 input.value <- runif(1, 0, 1)
 
@@ -169,9 +181,13 @@ if (is.null(upperBound)) {
 upperBound <- bounds["alpha", 2]
 }
 
+if(!is.ultrametric(phy)) {
+	stop("non-ultrametric OU model not available in transformPhylo.MCMC at current, sorry")
+}
+
 lik.model <- function(pram) {
 alpha.phy <- transformPhylo(phy, model="OU", y=y, alpha=pram)
-return(likTraitPhylo(y, alpha.phy)[[2]])
+return(likTraitPhylo(y, alpha.phy, covPIC=covPIC)[[2]])
 }
 
 prior.uniform <- function(pram) {
@@ -191,7 +207,7 @@ sd.fine.tune <- stn.dev / 2
 name.param <- c("alpha")
 }
 
-if(model == "ACDC") {
+if(model == "acdc") {
 
 input.value <- runif(1, 0, 1)
 
@@ -205,7 +221,7 @@ upperBound <- log(bounds["acdcRate", 2]) / rootBranchingTime
 
 lik.model <- function(pram) {
 acdc.phy <- transformPhylo(phy, model="ACDC", y=y, acdcRate=pram)
-return(likTraitPhylo(y, acdc.phy)[[2]])
+return(likTraitPhylo(y, acdc.phy, covPIC=covPIC)[[2]])
 }
 
 prior.uniform <- function(pram) {
@@ -214,7 +230,7 @@ return(sum(acdc.prior))
 }
 
 if(is.null(acceptance.sd)) {
-stn.dev <- suppressWarnings(diff(range(transformPhylo.ML(y, phy, model="ACDC")$acdc, na.rm=T)))
+stn.dev <- suppressWarnings(diff(range(transformPhylo.ML(y, phy, model="ACDC")$ACDC, na.rm=T)))
 if(stn.dev == 0) stn.dev <- 1
 sd.fine.tune <- stn.dev / 2
 } else {
@@ -257,7 +273,7 @@ phy$hidden.speciation <- NULL
 
 lik.model <- function(pram) {
 psi.phy <- transformPhylo(phy, model="psi", y=y, psi=pram)
-return(likTraitPhylo(y, psi.phy)[[2]])
+return(likTraitPhylo(y, psi.phy, covPIC=covPIC)[[2]])
 }
 
 prior.uniform <- function(pram) {
@@ -361,6 +377,7 @@ colnames(hpd.mcmc) <- name.param
 }
 
 cat("\n")
+rownames(chain) <- NULL
 output.mcmc <- list(median.mcmc, hpd.mcmc, ess.mcmc, acceptance.1, chain)
 rownames(chain) <- NULL
 names(output.mcmc) <- c("median", "95.HPD", "ESS", "acceptance.rate", "mcmc.chain")

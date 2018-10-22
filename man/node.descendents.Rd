@@ -2,7 +2,7 @@
 % Please edit documentation in R/node.descendents.R
 \name{node.descendents}
 \alias{node.descendents}
-\title{Identify nodes and tips descended from a node (internal function).}
+\title{Identify nodes and tips descended from a node}
 \usage{
 node.descendents(x, phy, tip.labels = FALSE)
 }

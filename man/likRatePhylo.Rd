@@ -58,6 +58,7 @@ likRatePhylo(rateData=anolis.rateData, rate = c(1,2,0.1,1), common.mean = FALSE)
 }
 \references{
 Thomas GH, Freckleton RP, & Szekely T. 2006. Comparative analyses of the influence of developmental mode on phenotypic diversification rates in shorebirds. Proceedings of the Royal Society B 273, 1619-1624.
+
 Thomas GH, Meiri S, & Phillimore AB. 2009. Body size diversification in Anolis: novel environments and island effects. Evolution 63, 2017-2030.
 }
 \author{

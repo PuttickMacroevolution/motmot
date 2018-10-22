@@ -15,6 +15,8 @@
 #' @param nodeIDs Integer - ancestral nodes of clades.
 #' @param rateType If model="clade", a vector specifying if rate shift occurs in a clade ("clade") or on the single branch leading to a clade ("branch").
 #' @param acdcRate Value of ACDC transform.
+#' @param trend value of the expectation mean change through time
+#' @param trend.anc.state the expected ancestal state for the trend model (default is 0)
 #' @param branchLabels Branches on which different psi parameters are estimated in the "multipsi" model.
 #' @param branchRates Numeric vector specifying relative rates for individual branches
 #' @param cladeRates Numeric vector specifying telative rates for clades.
@@ -39,8 +41,12 @@
 #' group.means=c(0,5,0,0))
 #' @export
 
-transformPhylo.sim <- function(phy, n=1, x=NULL, model=NULL, kappa=NULL, lambda=NULL, delta=NULL, alpha=NULL, psi=NULL, acdcRate=NULL, lambda.sp = NULL, nodeIDs=NULL, rateType=NULL, cladeRates=NULL, branchRates=NULL, rate=NULL, group.means=NULL, splitTime=NULL, timeRates=NULL, branchLabels = NULL) {
+transformPhylo.sim <- function(phy, n=1, x=NULL, model=NULL, kappa=NULL, lambda=NULL, delta=NULL, alpha=NULL, psi=NULL, acdcRate=NULL, lambda.sp = NULL, trend=NULL, trend.anc.state=0, nodeIDs=NULL, rateType=NULL, cladeRates=NULL, branchRates=NULL, rate=NULL, group.means=NULL, splitTime=NULL, timeRates=NULL, branchLabels = NULL) {
 	
+	  model <- tolower(model)
+	all.models <- c("bm", "trend", "kappa", "lambda", "delta", "free", "clade", "ou", "acdc", "psi", "multipsi", "timeslice", "mixedrate")
+	if (any(is.na((match(model, all.models))))) stop(paste(model, "not recognised - please provide one of", paste0(all.models, collapse = ", ")))
+
 	switch(model,		  
 		   
 		   "bm" = {
@@ -48,6 +54,16 @@ transformPhylo.sim <- function(phy, n=1, x=NULL, model=NULL, kappa=NULL, lambda=
 					phyMat <- VCV.array(transformPhy)
 					attr(phyMat, "class") <- "matrix"
 					ydum <- as.matrix(t(rmvnorm(n, sigma = phyMat)))
+					rownames(ydum) <- rownames(phyMat)
+					},
+			
+			 "trend" = {
+					transformPhy <- phy
+					phyMat <- VCV.array(transformPhy)
+					attr(phyMat, "class") <- "matrix"
+					tip.distance <- diag(vcv(transformPhy))
+					trend.mean <- trend.anc.state + (tip.distance * trend)
+					ydum <- as.matrix(t(rmvnorm(n, mean=trend.mean, sigma = phyMat)))
 					rownames(ydum) <- rownames(phyMat)
 					},
 		   
@@ -91,14 +107,23 @@ transformPhylo.sim <- function(phy, n=1, x=NULL, model=NULL, kappa=NULL, lambda=
 					rownames(ydum) <- rownames(phyMat)
 					},
 		   
-		   "OU" = {
-					transformPhy <- transformPhylo(phy=phy, model="OU", alpha=alpha, nodeIDs=nodeIDs)
-					phyMat <- VCV.array(transformPhy)
-					attr(phyMat, "class") <- "matrix"
-					ydum <- as.matrix(t(rmvnorm(n, sigma = phyMat)))
-					rownames(ydum) <- rownames(phyMat)
+		   "ou" = {
+		   	
+		   			if (!is.ultrametric(phy)) {
+      			        cophenetic.dist <- cophenetic.phylo(phy)
+      			        vcv.matrix <- VCV.array(vcv.matrix)
+      			        phyMat <- transformPhylo(phy=phy, model="OU", alpha=alpha, nodeIDs=nodeIDs, cophenetic.dist=cophenetic.dist, vcv.matrix=vcv.matrix)
+      			        ydum <- as.matrix(t(rmvnorm(n, sigma = phyMat)))
+      			        rownames(ydum) <- rownames(phyMat)
+      			        } else {
+      			        transformPhy <- transformPhylo(phy=phy, model="OU", alpha=alpha, nodeIDs=nodeIDs)
+						phyMat <- VCV.array(transformPhy)
+						attr(phyMat, "class") <- "matrix"
+						ydum <- as.matrix(t(rmvnorm(n, sigma = phyMat)))
+						rownames(ydum) <- rownames(phyMat)
+						}
 					},
-			"ACDC" = {
+			"acdc" = {
 					transformPhy <- transformPhylo(phy=phy, model="ACDC", acdcRate=acdcRate, nodeIDs=nodeIDs, cladeRates=cladeRates)
 					phyMat <- VCV.array(transformPhy)
 					attr(phyMat, "class") <- "matrix"
@@ -120,7 +145,7 @@ transformPhylo.sim <- function(phy, n=1, x=NULL, model=NULL, kappa=NULL, lambda=
         			rownames(ydum) <- rownames(phyMat)
     				},
 					
-			"timeSlice" = {
+			"timeslice" = {
 				phy2 <- phy	   
 		   		transformPhy <- transformPhylo.sim(phy=phy, model="timeSlice", splitTime=splitTime, timeRates=timeRates)
 		   		phyMat <- VCV.array(transformPhy)
@@ -129,7 +154,7 @@ transformPhylo.sim <- function(phy, n=1, x=NULL, model=NULL, kappa=NULL, lambda=
 				rownames(ydum) <- rownames(phyMat)
 		   		} ,
 
-			"mixedRate" = {
+			"mixedrate" = {
         			x <- as.matrix(x)
 		        dat <- data.frame(x = x, y = rep(0, length(x[, 1])))
 		        rateData <- as.rateData(y = "y", x = "x", rateMatrix = NULL, phy = phy, data = dat)

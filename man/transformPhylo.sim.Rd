@@ -6,10 +6,10 @@
 \usage{
 transformPhylo.sim(phy, n = 1, x = NULL, model = NULL, kappa = NULL,
   lambda = NULL, delta = NULL, alpha = NULL, psi = NULL,
-  acdcRate = NULL, lambda.sp = NULL, nodeIDs = NULL, rateType = NULL,
-  cladeRates = NULL, branchRates = NULL, rate = NULL,
-  group.means = NULL, splitTime = NULL, timeRates = NULL,
-  branchLabels = NULL)
+  acdcRate = NULL, lambda.sp = NULL, trend = NULL, trend.anc.state = 0,
+  nodeIDs = NULL, rateType = NULL, cladeRates = NULL,
+  branchRates = NULL, rate = NULL, group.means = NULL, splitTime = NULL,
+  timeRates = NULL, branchLabels = NULL)
 }
 \arguments{
 \item{phy}{An object of class \code{phylo} (see \pkg{ape}).}
@@ -33,6 +33,10 @@ transformPhylo.sim(phy, n = 1, x = NULL, model = NULL, kappa = NULL,
 \item{acdcRate}{Value of ACDC transform.}
 
 \item{lambda.sp}{Estimate of speciation (lambda) for the psi models}
+
+\item{trend}{value of the expectation mean change through time}
+
+\item{trend.anc.state}{the expected ancestal state for the trend model (default is 0)}
 
 \item{nodeIDs}{Integer - ancestral nodes of clades.}
 

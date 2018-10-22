@@ -19,6 +19,8 @@
 #' @param branchLabels A vector of length equal to the number of internal branches, signifying the which "multiPsi" class it belongs to
 #' @param meserr A vector (or matrix) of measurement error for each tip. This is only applicable to univariate analyses. Largely untested - please use cautiously
 #' @param sigmaScale If meserr is included, a scaling factor for the amount of error that is added
+#' @param cophenetic.dist a cophenetic distance matrix showing the absolute distance between taxa - only applicable for OU models run on non-ultrmetric trees. If null will be calculated internally, but supplying the data can speed up run time
+#' @param vcv.matrix a variance-covariance matrix - only applicable for OU models run on non-ultrmetric trees. If null will be calculated internally, but supplying the data can speed up run time
 #' @details Transforms the branch lengths of a phylo object according to one of the following models:
 #' \itemize{
 #'  \item {model="bm"}- Brownian motion (constant rates random walk)
@@ -33,10 +35,11 @@
 #' \item {model="ACDC"} {fits a model to in which rates can exponentially increased or decrease through time (Blomberg et al. 2003). If the upper bound is < 0, the model is equivalent to the 'Early Burst' model of Harmon et al. 2010. If a nodeIDs is supplied, the model will fit a ACDC model nested within a clade, with a BM fit to the rest of the tree.}
 #' \item {model="timeSlice"} {A model in which all branch rates change at time(s) in the past.}
 #'  }
-#' @return phy  A phylo object
+#' @return phy  A phylo object with branch lengths scaled according to the given model and parameters
 #' @seealso \code{\link{transformPhylo.ML}}, \code{\link{transformPhylo.ll}}, \code{\link{transformPhylo.MCMC}}
 #' @references Ingram T. 2011. Speciation along a depth gradient in a marine adaptive radiation. Proc. Roy. Soc. B. 278, 613-618.
-#' @references Ingram T,  Harrison AD, Mahler L, Castaneda MdR, Glor RE, Herrel A, Stuart YE, and Losos JB. Comparative tests of the role of dewlap size in Anolis lizard speciation. Proc. Roy. Soc. B. 283, 20162199. #' @references Mooers AO, Vamosi S, & Schluter D. 1999. Using phylogenies to test macroevolutionary models of trait evolution: sexual selection and speciation in Cranes (Gruinae). American Naturalist 154, 249-259.
+#' @references Ingram T,  Harrison AD, Mahler L, Castaneda MdR, Glor RE, Herrel A, Stuart YE, and Losos JB. Comparative tests of the role of dewlap size in Anolis lizard speciation. Proc. Roy. Soc. B. 283, 20162199.
+#' @references Mooers AO, Vamosi S, & Schluter D. 1999. Using phylogenies to test macroevolutionary models of trait evolution: sexual selection and speciation in Cranes (Gruinae). American Naturalist 154, 249-259.
 #' @references O'Meara BC, Ane C, Sanderson MJ & Wainwright PC. 2006. Testing for different rates of continuous trait evolution using likelihood. Evolution 60, 922-933
 #' @references Pagel M. 1997. Inferring evolutionary processes from phylogenies. Zoologica Scripta 26, 331-348.
 #' @references Pagel M. 1999 Inferring the historical patterns of biological evolution. Nature 401, 877-884.
@@ -48,8 +51,7 @@
 #' anolis.treeDelta <- transformPhylo(phy=anolis.tree, model="delta", delta=0.5)
 #' @export
 
-transformPhylo <- function (phy, model = NULL, y = NULL, meserr=NULL, sigmaScale=NULL, kappa = NULL, lambda = NULL, delta = NULL, alpha = NULL, psi = NULL, lambda.sp = NULL, nodeIDs = NULL, rateType = NULL, branchRates = NULL, cladeRates = NULL,  splitTime = NULL, timeRates = NULL, acdcRate=NULL,  branchLabels = NULL) 
- {
+transformPhylo <- function (phy, model = NULL, y = NULL, meserr=NULL, sigmaScale=NULL, kappa = NULL, lambda = NULL, delta = NULL, alpha = NULL, psi = NULL, lambda.sp = NULL, nodeIDs = NULL, rateType = NULL, branchRates = NULL, cladeRates = NULL,  splitTime = NULL, timeRates = NULL, acdcRate=NULL,  branchLabels = NULL, cophenetic.dist=NULL, vcv.matrix=NULL) {
 
     n <- length(phy$tip.label)
 	
@@ -240,21 +242,24 @@ transformPhylo <- function (phy, model = NULL, y = NULL, meserr=NULL, sigmaScale
         	}
 		   
 		   }, OU = {
+		   	
+		   is.contemp <- is.ultrametric(phy)
 		   
 		   if(is.null(nodeIDs)) { 
 		   	node <- Ntip(phy) + 1
 		   	} else { 
 		   	node <- nodeIDs
 		   	}
-		   times <- nodeTimes(phy)
-   		   height <- times[1,1]
-		   times <- times[match(c((Ntip(phy) + 1) : (Nnode(phy) + Ntip(phy))), phy$edge[,1]) , 1]
-		   names(times) <- (Ntip(phy) + 1):(Ntip(phy) + Nnode(phy))
-		   
+		   	
 		   if (is.null(meserr) == FALSE) {
 		   		interns <- which(phy$edge[, 2] > n)
 		   		externs <- which(phy$edge[, 2] <= n)
 		   }
+		   
+		   times <- nodeTimes(phy)
+   		   height <- times[1,1]
+		   times <- times[match(c((Ntip(phy) + 1) : (Nnode(phy) + Ntip(phy))), phy$edge[,1]) , 1]
+		   names(times) <- (Ntip(phy) + 1):(Ntip(phy) + Nnode(phy))
 		   
 			if(node == (Ntip(phy) + 1)) {
 		   		relations_num <- 1:(Nnode(phy) + Ntip(phy))
@@ -271,26 +276,43 @@ transformPhylo <- function (phy, model = NULL, y = NULL, meserr=NULL, sigmaScale
 			times2 <- nodeTimes(phy)[,1]
 		
 			phy2 <- phy
-			edge.length.branches <- sapply(branches, function(i) {
-				Tmax <- originTime
-				bl <- phy$edge.length[i]
-				age <- times2[i]
-				t1 = originTime - age
-				t2 = t1 + bl
-				(1/(2 * alpha)) * exp(-2 * alpha * (Tmax - t2)) * (1 - exp(-2 * alpha * t2)) - (1/(2 * alpha)) * exp(-2 * alpha * (Tmax - t1)) * (1 - exp(-2 * alpha * t1))
-			})
-				
-			phy2$edge.length[branches] <- edge.length.branches
+			
+			if(is.contemp) {
+				edge.length.branches <- sapply(branches, function(i) {
+					Tmax <- originTime
+					bl <- phy$edge.length[i]
+					age <- times2[i]
+					t1 = originTime - age
+					t2 = t1 + bl
+					(1/(2 * alpha)) * exp(-2 * alpha * (Tmax - t2)) * (1 - exp(-2 * alpha * t2)) - (1/(2 * alpha)) * exp(-2 * alpha * (Tmax - t1)) * (1 - exp(-2 * alpha * t1))
+					}
+				)
+				phy2$edge.length[branches] <- edge.length.branches
+				phy <- phy2
+				if (is.null(meserr) == FALSE) {
+					phy$edge.length[externs] <- phy$edge.length[externs] + (meserr^2)/(var(y)/height)[1]
+		   		}
+		   		
+			} else {
+   	
+   				if(is.null(cophenetic.dist)) {
+   					t_ij <- cophenetic(phy)
+	   				} else {
+    				t_ij <- cophenetic.dist
+    				}
+    			if(is.null(vcv.matrix)) {
+    				c_ij <- vcv(phy)
+    				} else {
+    				c_ij <- vcv.matrix
+    				}
+    			vcv.out <- (1 / (2 * alpha)) * exp(-alpha * t_ij) * (1 - exp(-2 * alpha * c_ij))
+    			if (is.null(meserr) == FALSE) { 
+    				diag(vcv.out) <- diag(vcv.out) + (meserr^2)/(var(y)/height)[1]
+    			}
+    			phy <- vcv.out
+			}
 		   
-		   phy <- phy2
-		   if (is.null(meserr) == FALSE) { 
-		   	phy$edge.length[externs] <- phy$edge.length[externs] + (meserr^2)/(var(y)/height)[1]
-		   	}
-		   # times <- nodeTimes(phy)
-		   # times <- times[match(c((Ntip(phy) + 1) : (Nnode(phy) + Ntip(phy))), phy$edge[,1]) , 1]
-		   # names(times) <- (Ntip(phy) + 1):(Ntip(phy) + Nnode(phy))
-		   # originTime2 <- times[which(names(times) == node)][1]
-		   # phy$edge.length[branches] <- phy$edge.length[branches] * ( originTime /  originTime2)
+		 	
 		   		   
 		}, psi = {
         if (is.null(meserr) == FALSE) {

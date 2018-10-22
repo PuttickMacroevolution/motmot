@@ -2,8 +2,7 @@
 % Please edit documentation in R/plotPhylo.motmot.R
 \name{plotPhylo.motmot}
 \alias{plotPhylo.motmot}
-\title{Tree plotting for rates
-Plots trees with colours based on rates of trait evolution. Also provides simple coloured plotting for trait values using the \code{\link[ape]{ace}} function in the \pkg{ape} library.}
+\title{Tree plotting for rates}
 \usage{
 plotPhylo.motmot(phy, x = NULL, traitMedusaObject = NULL,
   reconType = "rates", type = "phylogram", use.edge.length = TRUE,
@@ -69,7 +68,6 @@ plotPhylo.motmot(phy, x = NULL, traitMedusaObject = NULL,
 Returns a data frame of colours used in plot along with rate (or ancestral state) range for each colour.
 }
 \description{
-Tree plotting for rates
 Plots trees with colours based on rates of trait evolution. Also provides simple coloured plotting for trait values using the \code{\link[ape]{ace}} function in the \pkg{ape} library.
 }
 \examples{

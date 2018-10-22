@@ -1,5 +1,5 @@
-#' Fast PLGS estimation based on contrasts
-#' Estimates regression parameters for a phylogenetic generalised least-squares analysis using the fast constrasts method (Felsenstein 1973; 1985; Freckleton 2012). This implementation is applicable for continuous traits only and not factors
+#' @title Fast PLGS estimation based on contrasts
+#' @description Estimates regression parameters for a phylogenetic generalised least-squares analysis using the fast constrasts method (Felsenstein 1973; 1985; Freckleton 2012). This implementation is applicable for continuous traits only and not factors
 #' @param formula A model formula with continuous variables only
 #' @param phy An object of class \code{phylo} (see \pkg{ape}).
 #' @param y A matrix of trait values with rownames corresponding to the phy tip labels, and column names corresponding to the formula variable names

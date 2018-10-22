@@ -5,8 +5,8 @@
 #' @param estimator Should Brownian variance (or covariance) be based on the unbiased ("unbiased" - default) or maximum likelihood ("ML") estimator.
 #' @return brownianVariance Brownian variance (or covariance for multiple traits) given the data and phylogeny
 #' @references Felsenstein J. 1973. Maximum-likelihood estimation of evolutionary trees from continuous characters. Am. J. Hum. Genet. 25, 471-492.
-#' Felsenstein J. 1985. Phylogenies and the comparative method. American Naturalist 125, 1-15.
-#' Freckleton RP & Jetz W. 2009. Space versus phylogeny: disentangling phylogenetic and spatial signals in comparative data. Proc. Roy. Soc. B 276, 21-30.
+#' @references Felsenstein J. 1985. Phylogenies and the comparative method. American Naturalist 125, 1-15.
+#' @references Freckleton RP & Jetz W. 2009. Space versus phylogeny: disentangling phylogenetic and spatial signals in comparative data. Proc. Roy. Soc. B 276, 21-30.
 #' @author Gavin Thomas, Rob Freckleton
 #' @examples 
 #' data(anolis.tree)

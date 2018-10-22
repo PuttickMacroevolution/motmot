@@ -9,7 +9,7 @@ transformPhylo(phy, model = NULL, y = NULL, meserr = NULL,
   alpha = NULL, psi = NULL, lambda.sp = NULL, nodeIDs = NULL,
   rateType = NULL, branchRates = NULL, cladeRates = NULL,
   splitTime = NULL, timeRates = NULL, acdcRate = NULL,
-  branchLabels = NULL)
+  branchLabels = NULL, cophenetic.dist = NULL, vcv.matrix = NULL)
 }
 \arguments{
 \item{phy}{An object of class \code{phylo} (see \pkg{ape}).}
@@ -49,9 +49,13 @@ transformPhylo(phy, model = NULL, y = NULL, meserr = NULL,
 \item{acdcRate}{Value of ACDC transform.}
 
 \item{branchLabels}{A vector of length equal to the number of internal branches, signifying the which "multiPsi" class it belongs to}
+
+\item{cophenetic.dist}{a cophenetic distance matrix showing the absolute distance between taxa - only applicable for OU models run on non-ultrmetric trees. If null will be calculated internally, but supplying the data can speed up run time}
+
+\item{vcv.matrix}{a variance-covariance matrix - only applicable for OU models run on non-ultrmetric trees. If null will be calculated internally, but supplying the data can speed up run time}
 }
 \value{
-phy  A phylo object
+phy  A phylo object with branch lengths scaled according to the given model and parameters
 }
 \description{
 Transforms the branch lengths of a phylo object according to a model of trait evolution (see details).
@@ -79,7 +83,9 @@ anolis.treeDelta <- transformPhylo(phy=anolis.tree, model="delta", delta=0.5)
 \references{
 Ingram T. 2011. Speciation along a depth gradient in a marine adaptive radiation. Proc. Roy. Soc. B. 278, 613-618.
 
-Ingram T,  Harrison AD, Mahler L, Castaneda MdR, Glor RE, Herrel A, Stuart YE, and Losos JB. Comparative tests of the role of dewlap size in Anolis lizard speciation. Proc. Roy. Soc. B. 283, 20162199. #' @references Mooers AO, Vamosi S, & Schluter D. 1999. Using phylogenies to test macroevolutionary models of trait evolution: sexual selection and speciation in Cranes (Gruinae). American Naturalist 154, 249-259.
+Ingram T,  Harrison AD, Mahler L, Castaneda MdR, Glor RE, Herrel A, Stuart YE, and Losos JB. Comparative tests of the role of dewlap size in Anolis lizard speciation. Proc. Roy. Soc. B. 283, 20162199.
+
+Mooers AO, Vamosi S, & Schluter D. 1999. Using phylogenies to test macroevolutionary models of trait evolution: sexual selection and speciation in Cranes (Gruinae). American Naturalist 154, 249-259.
 
 O'Meara BC, Ane C, Sanderson MJ & Wainwright PC. 2006. Testing for different rates of continuous trait evolution using likelihood. Evolution 60, 922-933
 

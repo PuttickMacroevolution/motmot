@@ -8,7 +8,7 @@ transformPhylo.MCMC(y, phy, model, mcmc.iteration = 1000, burn.in = 0.1,
   hiddenSpeciation = FALSE, full.phy = NULL, lowerBound = NULL,
   upperBound = NULL, opt.accept.rate = TRUE, acceptance.sd = NULL,
   opt.prop = 0.25, fine.tune.bound = 0.05, fine.tune.n = 30,
-  useMean = FALSE, random.start = TRUE)
+  useMean = FALSE, random.start = TRUE, covPIC = TRUE)
 }
 \arguments{
 \item{y}{A matrix of trait values.}
@@ -42,6 +42,8 @@ transformPhylo.MCMC(y, phy, model, mcmc.iteration = 1000, burn.in = 0.1,
 \item{useMean}{Logical. Use the branch-based estimates of extinction of mean (TRUE, default) for the "psi" and "multispi" models only applicable if "hiddenSpeciation" = TRUE}
 
 \item{random.start}{Use a random starting value for the MCMC run (TRUE), or use the environment set.seed() value}
+
+\item{covPIC}{Logical. For multivariate analyses, allow for co-variance between traits rates (TRUE) or no covariance in trait rates (FALSE). If FALSE, only the trait variances not co-variances are used.}
 }
 \value{
 median The median estimate of the posterior for the parameter

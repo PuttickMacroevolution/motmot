@@ -40,33 +40,19 @@ For these examples we will use anolis data available from motmot. A time-calibra
 data(anolis.tree)
 data(anolis.data)
 
-names(anolis.data)
 attach(anolis.data)
 anolis.tree
 ```
 
-We will use the continuous trait data: male snout-ventral length 'Male_SVL'. We will construct a matrix of just these data, and check if we have missing data
+We will use the continuous trait data: male snout-ventral length 'Male_SVL'. We will construct a matrix of just these data, remove missing data, and log-transform the values. All this can be done using the function 'sortTraitData'
 
 ```{r}
-male.length <- matrix(Male_SVL, dimnames=list(rownames(anolis.data)))
-any(is.na(male.length[,1]))
-```
-
-We do. So we will remove these data from the male.length data, and log the trait data. This can de done using the function 'sortTraitData'
-
-```{r}
-sortedData <- sortTraitData(anolis.tree, male.length)
+sortedData <- sortTraitData(phy=anolis.tree, y=anolis.data, data.name="Male_SVL", pass.ultrametric = TRUE)
 phy <- sortedData$phy
 male.length <- sortedData$trait
 ```
 
-Finally, we will 'prune' the species from the tree using 'drop.tip' from APE. Do our species from the data and tree now match?
-
-```{r}
-name.check(phy, male.length)
-```
-
-They do. We can now plot our tree and data using the "traitData.plot" function 
+Finally, we will 'prune' the species from the tree using 'drop.tip' from APE. We can now plot our tree and data using the "traitData.plot" function 
 
 ```{r plot1, fig.cap = "Figure 1. TraitData showing the realtive male snout ventral length at the tips", echo = T, fig.height = 5, fig.width = 5, fig.path='figures/', dev=c('png', 'pdf'), dpi=200}
 traitData.plot(y=male.length, phy)
@@ -199,14 +185,12 @@ psi.ml <- transformPhylo.ML(phy=phy.clade, y=male.length.clade, model="psi", pro
 psi.ml
 ```
 
-This indicates strong support for the psi model. 
+This indicates support for the psi model but it is not a significant improvement on Brownian motion
 
 ```{r}
 p.value.psi <- 1 - pchisq(acdc.ml$MaximumLikelihood - bm.ml$logLikelihood , 1)
 p.value.psi
 ```
-
-And it is significant improvement on Brownian motion
 
 We could also get a potentially more accurate of speciation rates by using the full tree, rather than the pruned tree. If death rates are over 0, then the estimates will differ from the simple model above. 
 
@@ -288,7 +272,7 @@ tm2.ml <- transformPhylo.ML(y=male.length.clade, phy=phy.clade, model="tm2", min
 
 We can now summarise the results of these data using 'traitMedusaSummary' and plotting the shifts on the phylogeny using 'plotPhylo.motmot'. These results show a decrease at node 39 that we can visualise on the phylogeny. 
 
-```{r plot11, fig.cap = "Figure 11. The subset of the tree", echo = T, fig.height = 5, fig.width = 5, fig.path='figures/', dev=c('png', 'pdf'), dpi=200}
+```{r plot11, fig.cap = "Figure 11. The subset of the tree showing the rate heterogeneity estimated from the traitMedusa model", echo = T, fig.height = 5, fig.width = 5, fig.path='figures/', dev=c('png', 'pdf'), dpi=200}
 trait.medusa.tm2.summary <- traitMedusaSummary(tm2.ml, cutoff=2, AICc=T)
 trait.medusa.tm2.summary
 colour_motmot <- plotPhylo.motmot(phy=phy.clade, traitMedusaObject=trait.medusa.tm2.summary, reconType = "rates", type = "fan", cex=0.5, edge.width=2)
@@ -385,8 +369,6 @@ Our lambda median value is 0.77 but there is a large 95% HPD (0.54-0.96). The ES
 ```{r plot14, fig.cap = "Figure 14. MCMC trace for Pagel's lambda", echo = T, fig.height = 5, fig.width = 5, fig.path='figures/', dev=c('png', 'pdf'), dpi=200}
 plot(lambda.mcmc$mcmc.chain, type="l", ylim=c(0, 1), xlab="generations", ylab="lambda", las=1)
 ```
-
-
 
 # Character displacement models
 

@@ -174,8 +174,3 @@ summary_stats <- function(phy, y, est.blomberg.k=FALSE) {
     }
     return(output)
   }
-  
-  
-
-
-

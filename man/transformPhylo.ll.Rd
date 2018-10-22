@@ -8,7 +8,9 @@ transformPhylo.ll(y = NULL, phy, model = NULL, meserr = NULL,
   kappa = NULL, lambda = NULL, delta = NULL, alpha = NULL, psi = NULL,
   lambda.sp = NULL, nodeIDs = NULL, rateType = NULL, branchRates = NULL,
   cladeRates = NULL, timeRates = NULL, splitTime = NULL,
-  branchLabels = NULL, acdcRate = NULL, covPIC = TRUE)
+  branchLabels = NULL, acdcRate = NULL, covPIC = TRUE,
+  cophenetic.dist = NULL, vcv.matrix = NULL, ancestral.state = NA,
+  brVar = NA, return.reml = FALSE)
 }
 \arguments{
 \item{y}{A matrix of trait values.}
@@ -48,6 +50,16 @@ transformPhylo.ll(y = NULL, phy, model = NULL, meserr = NULL,
 \item{acdcRate}{Value of ACDC transform.}
 
 \item{covPIC}{Logical. For multivariate analyses, allow for co-variance between traits rates (TRUE) or no covariance in trait rates (FALSE). If FALSE, only the trait variances not co-variances are used.}
+
+\item{cophenetic.dist}{a cophenetic distance matrix showing the absolute distance between taxa - only applicable for OU models run on non-ultrmetric trees. If null will be calculated internally, but supplying the data can speed up run time}
+
+\item{vcv.matrix}{a variance-covariance matrix - only applicable for OU models run on non-ultrmetric trees. If null will be calculated internally, but supplying the data can speed up run time}
+
+\item{ancestral.state}{estimate for the ancestral state - only applicable for the OU model with non-ultrametric trees}
+
+\item{brVar}{estimate for the Brownian variance- only applicable for the OU model with non-ultrametric trees}
+
+\item{return.reml}{Logical (only appliacable to OU model on non-ultrametric trees). If TRUE, returns REML value (compatible with the rest of motmot) for the log-likelihood and Brownian variance. If, FALSE (default), ML estimates are returned}
 }
 \value{
 brownianVariance Brownian variance (or covariance for multiple traits) given the data and phylogeny
@@ -59,14 +71,22 @@ Fits likelihood models for various models of continuous character evolution.
 }
 \details{
 This function fits likelihood models (see below) for continuous character evolution where the parameter values are set a priori. The function returns the log-likihood and the Brownian variance (or variance covariance matrix).
-model="bm"- Brownian motion (constant rates random walk)
-model="kappa" - fits Pagel's kappa by raising all branch lengths to the power kappa. As kappa approaches zero, trait change becomes focused at branching events. For complete phylogenies, if kappa approaches zero this infers speciational trait change. 
-model="lambda" - fits Pagel's lambda to estimate phylogenetic signal by multiplying all internal branches of the tree by lambda, leaving tip branches as their original length (root to tip distances are unchanged);
-model="delta" - fits Pagel's delta by raising all node depths to the power delta. If delta <1, trait evolution is concentrated early in the tree whereas if delta >1 trait evolution is concentrated towards the tips. Values of delta above one can be difficult to fit reliably.
-model="free" - fits Mooer's et al's free model where each branch has its own rate of trait evolution. This can be a useful exploratory analysis but it is slow due to the number of parameters, particularly for large trees.
-model="clade" - fits a model where particular clades are a priori hypothesised to have different rates of trait evolution (see O'Meara et al. 2006; Thomas et al. 2006, 2009). Clades are specified using nodeIDs and are defined as the mrca node. Unique rates for each clade are specified using cladeRates. rateType specifies whether the rate shift occurs in the stem clade or on the single branch leading to the clade.
-model="OU" - fits an Ornstein-Uhlenbeck model - a random walk with a central tendency proportional to alpha. High values of alpha can be interpreted as evidence of evolutionary constraints, stabilising selection or weak phylogenetic signal.
-model="psi" - fits a model to assess to the relative contributions of speciation and gradual evolution to a trait's evolutionary rate (Ingram 2010).
+\itemize{
+\item {model="bm"} {Brownian motion (constant rates random walk).}
+\item {model="kappa"} {fits Pagel's kappa by raising all branch lengths to the power kappa. As kappa approaches zero, trait change becomes focused at branching events. For complete phylogenies, if kappa approaches zero this infers speciational trait change. Default bounds from ~0 - 1.}
+\item {model="lambda"} {fits Pagel's lambda to estimate phylogenetic signal by multiplying all internal branches of the tree by lambda, leaving tip branches as their original length (root to tip distances are unchanged). Default bounds from ~0 - 1.}
+\item {model="delta"} {fits Pagel's delta by raising all node depths to the power delta. If delta <1, trait evolution is concentrated early in the tree whereas if delta >1 trait evolution is concentrated towards the tips. Values of delta above one can be difficult to fit reliably. If a nodeIDs is supplied, the model will fit a delta model nested within a clade, with a BM fit to the rest of the tree. Default bounds from ~0 - 5.}
+\item {model="OU"} {fits an Ornstein-Uhlenbeck model - a random walk with a central tendency proportional to alpha. High values of alpha can be interpreted as evidence of evolutionary constraints, stabilising selection or weak phylogenetic signal. It is often difficult to distinguish among these possibilities. If a nodeIDs is supplied, the model will fit a OU model nested within a clade, with a BM fit to the rest of the tree. For OU models, alternative optimisation are performed with different starting values (1e-8, 0.01, 0.1, 1, 5). Default bounds from ~0 - 10.}
+\item {model="ACDC"} {fits a model to in which rates can exponentially increased or decrease through time (Blomberg et al. 2003). If the upper bound is < 0, the model is equivalent to the 'Early Burst' model of Harmon et al. 2010. If a nodeIDs is supplied, the model will fit a ACDC model nested within a clade, with a BM fit to the rest of the tree. Default rate parameter bounds from ln(1e-10) ~ ln(20) divided by the root age. Note this process starts on the stem branch leading to the MRCA of the common node, unlike the other methods that start at the common node.}
+\item {model="trend"} {fits a model in which the expectated mean change through time is non-zero, signifying a directional evolution to a larger or smaller trait value. This model is only appliacble to non-ultrametric trees.}
+\item {model="psi"} {fits a model to assess to the relative contributions of speciation and gradual evolution to a trait's evolutionary rate (Ingram 2010). Note that the algorithm will automatically estimate speciation and extinction estimates, and will incorporate estimates of 'hidden' speciation if death estimates are greater than 0. }
+\item {model="multipsi"} {fits a model to assess to the relative contributions of speciation and gradual evolution to a trait's evolutionary rate but allows seperate values of psi fitted to seperate branches (Ingram 2010; Ingram et al. 2016). Note that the algorithm will automatically estimate speciation and extinction estimates, and will incorporate estimates of 'hidden' speciation if death estimates are greater than 0.}
+\item {model="free"} {fits Mooers et al's free model where each branch has its own rate of trait evolution. This can be a useful exploratory analysis but it is slow due to the number of parameters, particularly for large trees. Default rate parameter bounds from ~0 - 200.}
+\item {model="clade"} {fits a model where particular clades are a priori hypothesised to have different rates of trait evolution (see O'Meara et al. 2006; Thomas et al. 2006, 2009). Clades are specified using nodeIDs and are defined as the mrca node. Default rate parameter bounds from ~0 - 200.}
+\item {model="tm1"} {fits "clade" models without any a priori assertion of the location of phenotypic diversification rate shifts. It uses the same AIC approach as the runMedusa function in the geiger package (runMedusa tests for shifts in the rate of lineage diversification). The algorithm first fits a constant-rate Brownian model to the data, it then works iteratively through the phylogeny fitting a two-rate model at each node in turn. Each two-rate model is compared to the constant rate model and the best two-rate model is retained. Keeping the location of this rate shift intact, it then repeats the procedure for a three-rate model and so on. The maximum number of rate shifts can be specified a priori using nSplits. Limits can be applied to the size (species richness) of clades on which to infer new rate shifts using minCladeSize. This can be useful to enable large trees to be handled but should be used cautiously since specifiying a large minimum clade size may result in biologically interesting nested rate shifts being missed. Equally, very small clade sizes may provide poor estimates of rate that may not be informative. Limits on the search can also be placed using restrictNode. This requires a list where each element of the list is a vector of tip names that define monophyletic groups. Rate shifts will not be searched for within any of the defined groups. Default rate parameter bounds from ~0 - 1000.}
+\item {model="tm2"} {this model is similar to "tm1", however, at each node it assesses the fit of two models. The first model is exactly as per "tm1". The second model infers a rate shift on the single branch descending directly from a node but not on any of the descending branches thereafter. Only the best fitting single-branch or whole clade model is retained for the next iteration. If a single-branch shift is favoured, this infers either that there was a rapid shift in trait value along the stem leading to the crown group, or that the members of the clade have undergone parallel shifts. In either case, this can be considered as a change in mean, though separating a single early shift from a clade-parallel shift is not possible with this method. }
+\item {model="timeSlice"} {A model in which all branch rates change at a time or times set a priori by the user. If  Default rate parameter bounds from ~0 - 1000. If splitTime=NULL, all 1 Ma (as defined by test Age) intervals from the root of the tree - 10 and the youngest tip + 10 will be included in the search. The +/- 10 Ma age can be modified using the argument boundaryAge. At each stage the best fitting model will be stored, and the search will continue until n shifts, with n shifts defined by nSplits. If a single value or vector is used for splitTime, only these ages are included in the search.}
+}
 }
 \examples{
 # Data and phylogeny
@@ -76,36 +96,28 @@ data(anolis.data)
 # anolis.data is not matrix and contains missing data so put together matrix of
 # relevant traits (here female and male snout vent lengths) and remove species 
 # with missing data from the matrix and phylogeny
-anolisSVL <- data.matrix(anolis.data)[,c(5,6)]
-anolisSVL[,1] <- log(anolisSVL[,1])
-anolisSVL[,2] <- log(anolisSVL[,2])
+sorted.traits <- sortTraitData(anolis.tree, anolis.data,
+c("Female_SVL", "Male_SVL"), log.trait=TRUE, pass.ultrametric=TRUE)
 
-tree <- drop.tip(anolis.tree, names(attr(na.omit(anolisSVL), "na.action")))
-anolisSVL <- na.omit(anolisSVL)
+tree <- sorted.traits$phy
+traits <- sorted.traits$trait
 
 # log likelihood of kappa = 0.1 or 1
-transformPhylo.ll(anolisSVL, phy=tree, model="kappa", kappa=0.1)
-transformPhylo.ll(anolisSVL, phy=tree, model="kappa", kappa=1)
+transformPhylo.ll(traits, phy=tree, model="kappa", kappa=0.1)
+transformPhylo.ll(traits, phy=tree, model="kappa", kappa=1)
 
 # log likelihood of lambda = 0.01 or 1
-transformPhylo.ll(anolisSVL, phy=tree, model="lambda", lambda=0.01)
-transformPhylo.ll(anolisSVL, phy=tree, model="lambda", lambda=1)
+transformPhylo.ll(traits, phy=tree, model="lambda", lambda=0.01)
+transformPhylo.ll(traits, phy=tree, model="lambda", lambda=1)
 
 # log likelihood of delta = 1.5 or 1
-transformPhylo.ll(anolisSVL, phy=tree, model="delta", delta=1.5)
-transformPhylo.ll(anolisSVL, phy=tree, model="delta", delta=1)
+transformPhylo.ll(traits, phy=tree, model="delta", delta=1.5)
+transformPhylo.ll(traits, phy=tree, model="delta", delta=1)
 
 # log likelihood of alpha = 0.001 or 2
-transformPhylo.ll(anolisSVL, phy=tree, model="OU", alpha=0.001)
-transformPhylo.ll(anolisSVL, phy=tree, model="OU", alpha=2)
+transformPhylo.ll(traits, phy=tree, model="OU", alpha=0.001)
+transformPhylo.ll(traits, phy=tree, model="OU", alpha=2)
 
-# log likelihood of psi = 0 (gradual) or 1 (speciational)
-phy.bd <- birthdeath(tree)
-mu_over_lambda <- phy.bd[[4]][1]
-lambda_minus_mu <- phy.bd[[4]][2]
-lambda.sp <- as.numeric(lambda_minus_mu / (1 - mu_over_lambda))
-transformPhylo.ll(anolisSVL, phy=tree, model="psi", psi=0, lambda.sp=lambda.sp)
-transformPhylo.ll(anolisSVL, phy=tree, model="psi", psi=1, lambda.sp=lambda.sp)
 }
 \references{
 Felsenstein J. 1973. Maximum-likelihood estimation of evolutionary trees from continuous characters. Am. J. Hum. Genet. 25, 471-492.
