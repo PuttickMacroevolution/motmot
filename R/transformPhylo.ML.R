@@ -64,8 +64,6 @@
 #' @references Pagel M. 1999 Inferring the historical patterns of biological evolution. Nature 401, 877-884.
 #' @references Thomas GH, Meiri S, & Phillimore AB. 2009. Body size diversification in Anolis: novel environments and island effects. Evolution 63, 2017-2030.
 #' @author Gavin Thomas, Mark Puttick
-#' @useDynLib motmot.2.0
-#' @importFrom Rcpp sourceCpp
 #' @import MASS
 #' @import stats
 #' @import coda
@@ -77,6 +75,8 @@
 #' @import mvtnorm
 #' @import parallel
 #' @import ks
+#' @useDynLib motmot.2.0, .registration = TRUE
+#' @importFrom Rcpp sourceCpp
 #' @examples
 #' # Data and phylogeny
 #' data(anolis.tree)

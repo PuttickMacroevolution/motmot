@@ -5,12 +5,12 @@
 \title{Log-likelhood for models of trait evolution.}
 \usage{
 transformPhylo.ll(y = NULL, phy, model = NULL, meserr = NULL,
-  kappa = NULL, lambda = NULL, delta = NULL, alpha = NULL, psi = NULL,
-  lambda.sp = NULL, nodeIDs = NULL, rateType = NULL, branchRates = NULL,
-  cladeRates = NULL, timeRates = NULL, splitTime = NULL,
-  branchLabels = NULL, acdcRate = NULL, covPIC = TRUE,
-  cophenetic.dist = NULL, vcv.matrix = NULL, ancestral.state = NA,
-  brVar = NA, return.reml = FALSE)
+  kappa = NULL, lambda = NULL, delta = NULL, alpha = NULL,
+  psi = NULL, lambda.sp = NULL, nodeIDs = NULL, rateType = NULL,
+  branchRates = NULL, cladeRates = NULL, timeRates = NULL,
+  splitTime = NULL, branchLabels = NULL, acdcRate = NULL,
+  covPIC = TRUE, cophenetic.dist = NULL, vcv.matrix = NULL,
+  ancestral.state = NA, brVar = NA, return.reml = FALSE)
 }
 \arguments{
 \item{y}{A matrix of trait values.}

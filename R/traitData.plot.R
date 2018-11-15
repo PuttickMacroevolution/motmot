@@ -40,7 +40,8 @@ traitData.plot <- function(y, phy, col.label="red", col.tree="black", cex.plot=0
     	tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)
 	tip.y <-y_cord[1:Ntip(phy)]
 	t.data.scale <- (max(x_cord) * t.data.scale) * 0.05
-	sapply(1:Ntip(phy), function(x) segments(tip.x[x], tip.y[x], tip.x[x] + t.data.scale[x], tip.y[x], col=col.label, xpd=T))
+	recycle.color <- rep(col.label, Ntip(phy))
+	sapply(1:Ntip(phy), function(x) segments(tip.x[x], tip.y[x], tip.x[x] + t.data.scale[x], tip.y[x], col=col.label[x], xpd=T))
 	
 	if(include.hist) {
 		par(mar=c(0.2,1,0.2,1))

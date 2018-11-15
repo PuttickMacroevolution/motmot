@@ -1,0 +1,633 @@
+library(ape)#
+balanced.tree <- stree(32, type="balanced")#
+balanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
+imbalanced.tree <- stree(32, type="left")#
+imbalanced.tree$edge.length #
+#plot(imbalanced.tree)#
+int.len <- rep(1 / 31,  2 * 32 - 2)#
+imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
+ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
+int.edge <- which(imbalanced.tree$edge[,2] > 32)#
+#
+cum.int.edges <- cumsum(int.len[int.edge])#
+internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))
+internal.edges
+c(0, cum.int.edges)
+library(ape)#
+balanced.tree <- stree(32, type="balanced")#
+balanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
+imbalanced.tree <- stree(32, type="left")#
+imbalanced.tree$edge.length #
+#plot(imbalanced.tree)#
+int.len <- rep(1 / 31,  2 * 32 - 2)#
+imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
+ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
+int.edge <- which(imbalanced.tree$edge[,2] > 32)#
+#
+cum.int.edges <- cumsum(int.len[int.edge])#
+internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
+external.edges <- 1 - c(0, internal.edges)#
+#
+imbalanced.tree$edge.length[ext.edge] <- external.edges#
+imbalanced.tree$edge.length[int.edge] <- internal.edges[-31]#
+#
+imbalanced.tree$edge.length[2] <- int.len #
+plot(imbalanced.tree)
+library(ape)#
+balanced.tree <- stree(32, type="balanced")#
+balanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
+imbalanced.tree <- stree(32, type="left")#
+imbalanced.tree$edge.length #
+#plot(imbalanced.tree)#
+int.len <- rep(1 / 31,  2 * 32 - 2)#
+imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
+ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
+int.edge <- which(imbalanced.tree$edge[,2] > 32)#
+#
+cum.int.edges <- cumsum(int.len[int.edge])#
+internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
+external.edges <- 1 - c(0, internal.edges)#
+#
+imbalanced.tree$edge.length[ext.edge] <- external.edges#
+imbalanced.tree$edge.length[int.edge] <- internal.edges[-31]
+imbalanced.tree$edge.length
+library(ape)#
+balanced.tree <- stree(32, type="balanced")#
+balanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
+imbalanced.tree <- stree(32, type="left")#
+imbalanced.tree$edge.length #
+#plot(imbalanced.tree)#
+int.len <- rep(1 / 31,  2 * 32 - 2)#
+imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
+ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
+int.edge <- which(imbalanced.tree$edge[,2] > 32)#
+#
+cum.int.edges <- cumsum(int.len[int.edge])#
+internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
+external.edges <- 1 - c(0, internal.edges)
+external.edges
+internal.edges
+imbalanced.tree$edge.length[ext.edge]
+imbalanced.tree$edge.length[ext.edge] <- external.edges
+imbalanced.tree$edge.length
+imbalanced.tree$edge.length[int.edge] <- internal.edges[-31]
+imbalanced.tree$edge.length
+plot(imbalanced.tree)
+internal.edges[-31]
+library(ape)#
+balanced.tree <- stree(32, type="balanced")#
+balanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
+imbalanced.tree <- stree(32, type="left")#
+imbalanced.tree$edge.length #
+#plot(imbalanced.tree)#
+int.len <- rep(1 / 31,  2 * 32 - 2)#
+imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
+ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
+int.edge <- which(imbalanced.tree$edge[,2] > 32)#
+#
+cum.int.edges <- cumsum(int.len[int.edge])#
+internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
+external.edges <- 1 - c(0, internal.edges)
+imbalanced.tree$edge.length[ext.edge] <- external.edges
+imbalanced.tree$edge.length
+imbalanced.tree$edge[ext.edge,]
+imbalanced.tree$edge[-ext.edge,]
+imbalanced.tree$edge.length[-ext.edge] <- internal.edges[-31]
+int.len <- rep(1 / 31,  2 * 32 - 2)#
+imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
+ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
+int.edge <- which(imbalanced.tree$edge[,2] > 32)#
+#
+cum.int.edges <- cumsum(int.len[int.edge])#
+internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
+external.edges <- 1 - c(0, internal.edges)#
+#
+imbalanced.tree$edge.length[ext.edge] <- external.edges#
+imbalanced.tree$edge.length[-ext.edge] <- internal.edges[-31]
+imbalanced.tree
+imbalanced.tree$edge.length
+imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)
+imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
+ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
+int.edge <- which(imbalanced.tree$edge[,2] > 32)#
+#
+cum.int.edges <- cumsum(int.len[int.edge])#
+internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
+external.edges <- 1 - c(0, internal.edges)#
+#
+imbalanced.tree$edge.length[ext.edge] <- external.edges#
+imbalanced.tree$edge.length[-ext.edge] <- internal.edges[-31]
+imbalanced.tree$edge.length
+external.edges
+imbalanced.tree$edge.length[-ext.edge]
+library(ape)#
+balanced.tree <- stree(32, type="balanced")#
+balanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
+imbalanced.tree <- stree(32, type="left")#
+imbalanced.tree$edge.length #
+#plot(imbalanced.tree)#
+int.len <- rep(1 / 31,  2 * 32 - 2)#
+imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
+ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
+int.edge <- which(imbalanced.tree$edge[,2] > 32)#
+#
+cum.int.edges <- cumsum(int.len[int.edge])#
+internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
+external.edges <- 1 - c(0, internal.edges)#
+#
+imbalanced.tree$edge.length[ext.edge] <- external.edges
+imbalanced.tree$edge.length[-ext.edge]
+internal.edges[-31]
+length(internal.edges[-31])
+length(imbalanced.tree$edge.length[-ext.edge])
+imbalanced.tree$edge.length[-ext.edge] <- internal.edges[-31]
+imbalanced.tree$edge.length
+plot(imbalanced.tree)
+int.len <- rep(1 / 31,  2 * 32 - 2)#
+imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
+ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
+int.edge <- which(imbalanced.tree$edge[,2] > 32)#
+#
+cum.int.edges <- cumsum(int.len[int.edge])
+internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
+external.edges <- 1 - c(0, internal.edges)#
+#
+imbalanced.tree$edge.length[ext.edge] <- external.edges#
+imbalanced.tree$edge.length[-ext.edge] <- internal.edges[-31]#
+#
+plot(imbalanced.tree)
+int.len
+int.len <- rep(1 / 31,  31)#
+imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
+ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
+int.edge <- which(imbalanced.tree$edge[,2] > 32)#
+#
+cum.int.edges <- cumsum(int.len[int.edge])#
+internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
+external.edges <- 1 - c(0, internal.edges)#
+#
+imbalanced.tree$edge.length[ext.edge] <- external.edges#
+imbalanced.tree$edge.length[-ext.edge] <- internal.edges[-31]#
+#
+plot(imbalanced.tree)
+imbalanced.tree$edge.length
+imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
+int.len <- rep(1 / 31,  30)#
+#
+ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
+int.edge <- which(imbalanced.tree$edge[,2] > 32)#
+#
+cum.int.edges <- cumsum(int.len[int.edge])#
+internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
+external.edges <- 1 - c(0, internal.edges)#
+#
+imbalanced.tree$edge.length[ext.edge] <- external.edges#
+imbalanced.tree$edge.length[-ext.edge] <- internal.edges[-31]#
+#
+plot(imbalanced.tree)
+imbalanced.tree$edge.length
+imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
+int.len <- rep(1 / 31,  30)#
+#
+ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
+int.edge <- which(imbalanced.tree$edge[,2] > 32)#
+#
+cum.int.edges <- cumsum(int.len[int.edge])#
+internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
+external.edges <- 1 - c(0, internal.edges)
+imbalanced.tree$edge.length[ext.edge] <- external.edges#
+imbalanced.tree$edge.length[-ext.edge] <- internal.edges[-31]#
+#
+plot(imbalanced.tree)
+imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
+int.len <- rep(1 / 31,  31)#
+#
+ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
+int.edge <- which(imbalanced.tree$edge[,2] > 32)#
+#
+cum.int.edges <- cumsum(int.len[int.edge])#
+internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
+external.edges <- 1 - c(0, internal.edges)#
+#
+imbalanced.tree$edge.length[ext.edge] <- external.edges#
+imbalanced.tree$edge.length[-ext.edge] <- internal.edges[-31]#
+#
+plot(imbalanced.tree)
+int.edge
+int.len[int.edge]
+int.edge
+imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)
+imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
+int.len <- rep(1 / 31,  2 * 32 - 2)#
+#
+ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
+int.edge <- which(imbalanced.tree$edge[,2] > 32)#
+#
+cum.int.edges <- cumsum(int.len[int.edge])#
+internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
+external.edges <- 1 - c(0, internal.edges)
+imbalanced.tree$edge.length[ext.edge] <- external.edges#
+imbalanced.tree$edge.length[-ext.edge] <- internal.edges[-31]
+plot(imbalanced.tree)
+int.len[ext.edge]
+imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
+int.len <- rep(1 / 31,  2 * 32 - 2)#
+#
+ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
+int.edge <- which(imbalanced.tree$edge[,2] > 32)#
+int.len[ext.edge] <- 0#
+#
+cum.int.edges <- cumsum(int.len[int.edge])#
+internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
+external.edges <- 1 - c(0, internal.edges)#
+#
+imbalanced.tree$edge.length[ext.edge] <- external.edges#
+imbalanced.tree$edge.length[-ext.edge] <- internal.edges[-31]#
+#
+plot(imbalanced.tree)
+int.len <- rep(1 / 31,  31)#
+imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
+int.len <- rep(1 / 31,  2 * 32 - 2)#
+#
+ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
+int.edge <- which(imbalanced.tree$edge[,2] > 32)#
+int.len[ext.edge] <- 0
+int.len
+int.len[int.edge]
+cum.int.edges <- cumsum(int.len[int.edge])
+cum.int.edges
+tail(cum.int.edges, 1)
+c(cum.int.edges, tail(cum.int.edges, 1))
+internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))
+1 - c(0, internal.edges)
+int.len <- rep(1 / 31,  31)#
+imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
+int.len <- rep(1 / 31,  2 * 32 - 2)#
+#
+ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
+int.edge <- which(imbalanced.tree$edge[,2] > 32)#
+int.len[ext.edge] <- 0#
+#
+cum.int.edges <- cumsum(int.len[int.edge])#
+internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
+external.edges <- 1 - c(0, internal.edges)
+internal.edges
+length(internal.edges)
+length(external.edges)
+external.edges
+imbalanced.tree$edge.length
+imbalanced.tree$edge.length[ext.edge] <- external.edges
+imbalanced.tree$edge.length[-int.edge] <- internal.edges[-31]
+imbalanced.tree$edge.length[-int.edge] <- internal.edges
+imbalanced.tree$edge.length[int.edge] <- internal.edges
+imbalanced.tree$edge.length[int.edge] <- internal.edges[-31]
+int.len <- rep(1 / 31,  31)#
+imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
+int.len <- rep(1 / 31,  2 * 32 - 2)#
+#
+ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
+int.edge <- which(imbalanced.tree$edge[,2] > 32)#
+int.len[ext.edge] <- 0#
+#
+cum.int.edges <- cumsum(int.len[int.edge])#
+internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
+external.edges <- 1 - c(0, internal.edges)#
+#
+imbalanced.tree$edge.length[ext.edge] <- external.edges#
+imbalanced.tree$edge.length[int.edge] <- internal.edges[-31]
+plot(imbalanced.tree)
+imbalanced.tree$edge.length
+rm(list=ls(all=T))
+library(ape)#
+balanced.tree <- stree(32, type="balanced")#
+balanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
+imbalanced.tree <- stree(32, type="left")#
+imbalanced.tree$edge.length #
+#plot(imbalanced.tree)
+imbalanced.tree$edge
+2 * 32 - 2
+imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)
+2 * 32 - 2
+int.len <- rep(1 / 31,  2 * 32 - 2)
+which(imbalanced.tree$edge[,2] <= 32)
+ext.edge <- which(imbalanced.tree$edge[,2] <= 32)
+int.edge <- which(imbalanced.tree$edge[,2] > 32)
+int.len[ext.edge]
+int.len[ext.edge] <- 0
+int.len[int.edge]
+cumsum(int.len)
+cum.int.edges <- cumsum(int.len)
+cum.int.edges[ext.edge]
+1-cum.int.edges[ext.edge]
+cum.int.edges[ext.edge] <- 1-cum.int.edges[ext.edge]
+imbalanced.tree$edge.length <- cum.int.edges
+plot(imbalanced.tree)
+library(ape)#
+balanced.tree <- stree(32, type="balanced")#
+balanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
+imbalanced.tree <- stree(32, type="left")#
+imbalanced.tree$edge.length #
+#plot(imbalanced.tree)
+plot(imbalanced.tree)
+ext.edge <- which(imbalanced.tree$edge[,2] <= 32)
+int.edge <- which(imbalanced.tree$edge[,2] > 32)
+int.edge
+length(int.edge)
+int.len <- rep(1 / 31,  31)#
+imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
+int.len <- rep(1 / 31,  2 * 32 - 2)#
+#
+ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
+int.edge <- which(imbalanced.tree$edge[,2] > 32)#
+int.len[ext.edge] <- 0
+imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
+int.len <- rep(1 / 31,  2 * 32 - 2)#
+#
+ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
+int.edge <- which(imbalanced.tree$edge[,2] > 32)#
+int.len[ext.edge] <- 0
+cum.int.edges <- cumsum(int.len)
+cum.int.edges
+cum.int.edges[ext.edge] <- 1-cum.int.edges[ext.edge]
+cbind(imbalanced.tree$edge, cum.int.edges)
+cum.int.edges[int.edge] <- int.len[1]
+cbind(imbalanced.tree$edge, cum.int.edges)
+int.len[1]
+library(ape)#
+balanced.tree <- stree(32, type="balanced")#
+balanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
+imbalanced.tree <- stree(32, type="left")#
+imbalanced.tree$edge.length #
+#plot(imbalanced.tree)#
+imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
+int.len <- rep(1 / 31,  2 * 32 - 2)#
+#
+ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
+int.edge <- which(imbalanced.tree$edge[,2] > 32)#
+int.len[ext.edge] <- 0#
+#
+cum.int.edges <- cumsum(int.len)#
+#
+cum.int.edges[ext.edge] <- 1-cum.int.edges[ext.edge]#
+cum.int.edges[int.edge] <- int.len[2]#
+cbind(imbalanced.tree$edge, cum.int.edges)
+imbalanced.tree$edge.length <- cum.int.edges#
+plot(imbalanced.tree)
+is.ultrametric(imbalanced.tree)
+#plot(imbalanced.tree)#
+	imbalanced.tree <- stree(32, type="left")#
+	int.len <- rep(1 / 31,  2 * 32 - 2)#
+	ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
+	int.edge <- which(imbalanced.tree$edge[,2] > 32)#
+	int.len[ext.edge] <- 0#
+	length.of.edges <- cumsum(int.len)#
+	length.of.edges[ext.edge] <- 1 - length.of.edges[ext.edge]#
+	length.of.edges[int.edge] <- int.len[2]#
+	imbalanced.tree$edge.length <- cum.int.edges#
+	plot(imbalanced.tree)
+length.of.edges
+imbalanced.tree$edge.length <- length.of.edges
+plot(imbalanced.tree)
+installed.packages("devtools")
+installed.packages(devtools)
+installed.packages()
+all.packages <- installed.packages()[,1]
+all.packages
+any(all.packages == "devtools")
+!any(all.packages == "devtools")
+library(motmot.2.0)
+transformPhylo.sim(balanced.tree, n=1)
+transformPhylo.sim(balanced.tree, n=1, model="bm")
+trait.values <- transformPhylo.sim(balanced.tree, n=1, model="bm")
+hist(trait.values)
+trait.values < 0
+tree.values <- rep(0, Ntip(balanced.tree))
+tree.values[which(trait.values > 0)]
+tree.values[which(trait.values > 0)] <- 1
+tree.values
+trait.values <- transformPhylo.sim(balanced.tree, n=1, model="bm")#
+tree.values <- rep(0, Ntip(balanced.tree))#
+tree.values[which(trait.values > 0)] <- 1
+trait.values <- transformPhylo.sim(balanced.tree, n=1, model="bm")#
+tree.values <- rep(0, Ntip(balanced.tree))#
+tree.values[which(trait.values > 0)] <- 1#
+tree.values
+rTraitDisc
+rTraitDisc(balanced.tree)
+rTraitDisc(balanced.tree, states=c(0,1))
+vcv.phylo <- vcv(balanced.tree)
+transformPhylo.sim
+rmvnorm(Ntip(balanced.tree), mean=rep(0, Ntip(phy)), sigma=vcv(phy))
+rmvnorm(Ntip(balanced.tree), mean=rep(0, Ntip(phy)), sigma=vcv.phylo)
+rmvnorm(Ntip(balanced.tree), mean=rep(0, Ntip(balanced.tree)), sigma=vcv.phylo)
+rmvnorm(1, mean=rep(0, Ntip(balanced.tree)), sigma=vcv.phylo)
+t(rmvnorm(1, mean=rep(0, Ntip(balanced.tree)), sigma=vcv.phylo))
+trait.values.at.tips <- t(rmvnorm(1, mean=rep(0, Ntip(balanced.tree)), sigma=vcv.phylo))
+rownames(trait.values.at.tips) <- balanced.tree$tip.label
+trait.values.at.tips
+mk.model.traits <- rTraitDisc(balanced.tree, states=c(0,1))
+mk.model.traits <- rTraitDisc(balanced.tree, states=c(0,1), root.value=sample(c(0,1), 1))
+sample(c(0,1), 1)
+mk.model.traits <- rTraitDisc(balanced.tree, states=c(0,1), root.value=sample(c(0,1), 1))
+mk.model.traits <- rTraitDisc(balanced.tree, states=c(0,1), root.value=c(0.5, 0.5))
+mk.model.traits <- rTraitDisc(balanced.tree, states=c(0,1), root.value=c(0.5))
+mk.model.traits <- rTraitDisc(balanced.tree, states=c(0,1), root.value=c(0))
+mk.model.traits <- rTraitDisc(balanced.tree, states=c(1,2), root.value=sample(1:2, 1))
+mk.model.traits
+mk.model.traits <- rTraitDisc(balanced.tree, states=c(1,2), root.value=sample(1:2, 1))	- 1
+mk.model.traits <- rTraitDisc(balanced.tree, states=c(1,2), root.value=sample(1:2, 1))
+mk.model.traits <- rTraitDisc(balanced.tree, states=c(1,2), root.value=1)
+set.seed(302)
+trait.values <- transformPhylo.sim(balanced.tree, n=1, model="bm")
+trait.values
+hist(	trait.values)
+hist(trait.values, breaks=32)
+hist(trait.values, breaks=32, col=c("red", "blue"))
+hist(trait.values, breaks=32, col=c("grey", "grey20"))
+hist(trait.values, breaks=32, col=rep(c("grey", "grey20"), each=16))
+out <- hist(trait.values, breaks=32, col=rep(c("grey", "grey20"), each=16))
+out
+out <- hist(trait.values, breaks=seq(-10, 10, 0.5), col=rep(c("grey", "grey20"), each=16))
+out <- hist(trait.values, breaks=seq(-5, 5, 0.5), col=rep(c("grey", "grey20"), each=16))
+seq(-5, 5, 0.5)
+out <- hist(trait.values, breaks=seq(-5, 5, 0.5), col=rep(c("grey", "grey20"), each=11))
+out <- hist(trait.values, breaks=seq(-5, 5, 0.5), col=rep(c("grey", "grey20"), each=11), border=F)
+out <- hist(trait.values, breaks=seq(-5, 5, 0.5), col=rep(c("grey", "grey20"), each=11), border="white")
+plot(balanced.tree)
+?motmot.2.0
+?transformPhylo.ML
+traitData.plot(trait.values, balanced.tree)
+tree.values
+traitData.plot(trait.values, balanced.tree, col.label=c("grey", "grey20")[tree.values+1])
+c("grey", "grey20")[tree.values+1]
+traitData.plot(trait.values, balanced.tree, col.label=c("grey", "nevy")[tree.values+1])
+traitData.plot(trait.values, balanced.tree, col.label=c("grey", "navy")[tree.values+1])
+traitData.plot(trait.values, balanced.tree, col.label=c("pink", "navy")[tree.values+1])
+traitData.plot
+y=trait.values#
+phy=balanced.tree#
+col.label = "red"#
+col.tree = c("pink", "navy")[tree.values+1]#
+cex.plot = 0.7, #
+include.hist = F
+cex.plot = 0.7
+if (include.hist) {#
+        par(mfrow = c(1, 2), mar = c(3, 3, 3, 3), oma = c(1, #
+            1, 1, 1))#
+    } else {#
+        par(mfrow = c(1, 1), mar = c(4, 4, 4, 4), oma = c(0, #
+            0, 0, 0))#
+    }
+max.range <- abs(diff(range(y)))#
+    trait.data.range <- y + max.range#
+    if (max(trait.data.range) < 0) #
+        trait.data.range <- -trait.data.range#
+    t.data.scale <- trait.data.range/max(trait.data.range)#
+    plot(ladderize(phy), show.tip.label = F, edge.col = col.tree)#
+    lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)] + (range(x_cord)[2] * 0.005)#
+    tip.y <- y_cord[1:Ntip(phy)]#
+    t.data.scale <- (max(x_cord) * t.data.scale) * 0.05#
+    sapply(1:Ntip(phy), function(x) segments(tip.x[x], tip.y[x], #
+        tip.x[x] + t.data.scale[x], tip.y[x], col = col.label, #
+        xpd = T))
+y=trait.values#
+phy=balanced.tree#
+col.label = c("pink", "navy")[tree.values+1]#
+col.tree = "black"#
+cex.plot = 0.7#
+include.hist = F#
+#
+{#
+    if (include.hist) {#
+        par(mfrow = c(1, 2), mar = c(3, 3, 3, 3), oma = c(1, #
+            1, 1, 1))#
+    } else {#
+        par(mfrow = c(1, 1), mar = c(4, 4, 4, 4), oma = c(0, #
+            0, 0, 0))#
+    }#
+    max.range <- abs(diff(range(y)))#
+    trait.data.range <- y + max.range#
+    if (max(trait.data.range) < 0) #
+        trait.data.range <- -trait.data.range#
+    t.data.scale <- trait.data.range/max(trait.data.range)#
+    plot(ladderize(phy), show.tip.label = F, edge.col = col.tree)#
+    lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)] + (range(x_cord)[2] * 0.005)#
+    tip.y <- y_cord[1:Ntip(phy)]#
+    t.data.scale <- (max(x_cord) * t.data.scale) * 0.05
+if (include.hist) {#
+        par(mfrow = c(1, 2), mar = c(3, 3, 3, 3), oma = c(1, #
+            1, 1, 1))#
+    } else {#
+        par(mfrow = c(1, 1), mar = c(4, 4, 4, 4), oma = c(0, #
+            0, 0, 0))#
+    }#
+    max.range <- abs(diff(range(y)))#
+    trait.data.range <- y + max.range#
+    if (max(trait.data.range) < 0) #
+        trait.data.range <- -trait.data.range#
+    t.data.scale <- trait.data.range/max(trait.data.range)#
+    plot(ladderize(phy), show.tip.label = F, edge.col = col.tree)#
+    lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)] + (range(x_cord)[2] * 0.005)#
+    tip.y <- y_cord[1:Ntip(phy)]#
+    t.data.scale <- (max(x_cord) * t.data.scale) * 0.05
+sapply(1:Ntip(phy), function(x) segments(tip.x[x], tip.y[x], #
+        tip.x[x] + t.data.scale[x], tip.y[x], col = col.label, #
+        xpd = T))
+col.label
+rep(col.label, 32)
+recycle.color <- rep(col.label, 32)
+sapply(1:Ntip(phy), function(x) segments(tip.x[x], tip.y[x], #
+        tip.x[x] + t.data.scale[x], tip.y[x], col = recycle.color, #
+        xpd = T))
+t.data.scale <- trait.data.range/max(trait.data.range)#
+    plot(ladderize(phy), show.tip.label = F, edge.col = col.tree)#
+    lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)] + (range(x_cord)[2] * 0.005)#
+    tip.y <- y_cord[1:Ntip(phy)]#
+    t.data.scale <- (max(x_cord) * t.data.scale) * 0.05#
+    recycle.color <- rep(col.label, 32)#
+    sapply(1:Ntip(phy), function(x) segments(tip.x[x], tip.y[x], #
+        tip.x[x] + t.data.scale[x], tip.y[x], col = recycle.color[x], #
+        xpd = T))
+all.packages <- installed.packages()[,1]#
+	if(!any(all.packages == "devtools")) install.packages("devtools")#
+	install_github("PuttickMacroevolution/motmot.2.0")#
+	library(motmot.2.0)#
+#
+	# simulate Brownian motion for threshold model#
+	set.seed(302)#
+	trait.values <- transformPhylo.sim(balanced.tree, n=1, model="bm")#
+	out <- hist(trait.values, breaks=seq(-5, 5, 0.5), col=rep(c("grey", "grey20"), each=11), border="white")
+install_packages("PuttickMacroevolution/motmot.2.0")
+library(devtools)
+install_github("PuttickMacroevolution/motmot.2.0")
+# simulate Brownian motion for threshold model#
+	set.seed(302)#
+	trait.values <- transformPhylo.sim(balanced.tree, n=1, model="bm")#
+	out <- hist(trait.values, breaks=seq(-5, 5, 0.5), col=rep(c("grey", "grey20"), each=11), border="white")
+# this is essentially a multivariate normal distribution based on the Variance-CoVariance (VCV) matrix represented the tree#
+	vcv.phylo <- vcv(balanced.tree)#
+	trait.values.at.tips <- t(rmvnorm(1, mean=rep(0, Ntip(balanced.tree)), sigma=vcv.phylo))#
+	rownames(trait.values.at.tips) <- balanced.tree$tip.label#
+	tree.values <- rep(0, Ntip(balanced.tree))#
+	tree.values[which(trait.values > 0)] <- 1
+y=trait.values#
+phy=balanced.tree#
+col.label = c("pink", "navy")[tree.values+1]#
+col.tree = "black"#
+cex.plot = 0.7#
+include.hist = F#
+    if (include.hist) {#
+        par(mfrow = c(1, 2), mar = c(3, 3, 3, 3), oma = c(1, #
+            1, 1, 1))#
+    } else {#
+        par(mfrow = c(1, 1), mar = c(4, 4, 4, 4), oma = c(0, #
+            0, 0, 0))#
+    }#
+    max.range <- abs(diff(range(y)))#
+    trait.data.range <- y + max.range#
+    if (max(trait.data.range) < 0) #
+        trait.data.range <- -trait.data.range#
+    t.data.scale <- trait.data.range/max(trait.data.range)#
+    plot(ladderize(phy), show.tip.label = F, edge.col = col.tree)#
+    lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)] + (range(x_cord)[2] * 0.005)#
+    tip.y <- y_cord[1:Ntip(phy)]#
+    t.data.scale <- (max(x_cord) * t.data.scale) * 0.05#
+    recycle.color <- rep(col.label, 32)#
+    sapply(1:Ntip(phy), function(x) segments(tip.x[x], tip.y[x], #
+        tip.x[x] + t.data.scale[x], tip.y[x], col = recycle.color[x], #
+        xpd = T))
+install.packages("roxygen")
+install.packages("roxygen2")
+rm(list=ls(all=T))#
+library("devtools")#
+library(roxygen2)#
+setwd("~/Documents/GitHub/motmot.2.0")#
+devtools::use_rcpp()#
+document()#
+setwd("..")#
+install("motmot.2.0", force=T)
+devtools::document()
+usethis::use_rcpp()
+devtools::document()
+setwd("~/Documents/GitHub/motmot.2.0")#
+usethis::use_rcpp()#
+devtools::document()
+setwd("~/Documents/GitHub/motmot.2.0")#
+usethis::use_rcpp()#
+devtools::document()
+warnings()

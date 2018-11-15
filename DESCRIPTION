@@ -12,9 +12,10 @@ Description: Functions for fitting models of trait evolution
 License: GPL (>= 2)
 Repository: github
 URL: https://puttickbiology.wordpress.com/motmot/
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 LazyData: true
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
 LinkingTo: Rcpp
 Imports: Rcpp
+Encoding: UTF-8

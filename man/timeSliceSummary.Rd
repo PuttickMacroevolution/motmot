@@ -5,9 +5,9 @@
 \title{Identify shifts in the rate of trait diversification through time}
 \usage{
 timeSliceSummary(timeSliceObject, cutoff = 4, AICc = TRUE,
-  lowerBound = 1e-08, upperBound = 1000, plot.phylo = TRUE, cex.tip = 1,
-  tip.offset = 1, phylo.width = 1, tip.colour = "grey50",
-  colour.ramp = c("blue", "red"))
+  lowerBound = 1e-08, upperBound = 1000, plot.phylo = TRUE,
+  cex.tip = 1, tip.offset = 1, phylo.width = 1,
+  tip.colour = "grey50", colour.ramp = c("blue", "red"))
 }
 \arguments{
 \item{timeSliceObject}{Output of a timeSlice analysis in \code{\link{transformPhylo.ML}}}

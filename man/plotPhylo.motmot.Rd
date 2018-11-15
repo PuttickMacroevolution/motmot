@@ -6,11 +6,12 @@
 \usage{
 plotPhylo.motmot(phy, x = NULL, traitMedusaObject = NULL,
   reconType = "rates", type = "phylogram", use.edge.length = TRUE,
-  show.tip.label = TRUE, show.node.label = FALSE, edge.color = "black",
-  edge.width = 1, edge.lty = 1, font = 3, cex = par("cex"),
-  adj = NULL, srt = 0, no.margin = FALSE, root.edge = FALSE,
-  label.offset = 0.5, underscore = FALSE, x.lim = NULL, y.lim = NULL,
-  direction = "rightwards", lab4ut = "horizontal", tip.color = "black",
+  show.tip.label = TRUE, show.node.label = FALSE,
+  edge.color = "black", edge.width = 1, edge.lty = 1, font = 3,
+  cex = par("cex"), adj = NULL, srt = 0, no.margin = FALSE,
+  root.edge = FALSE, label.offset = 0.5, underscore = FALSE,
+  x.lim = NULL, y.lim = NULL, direction = "rightwards",
+  lab4ut = "horizontal", tip.color = "black",
   palette = "hotspot.colors")
 }
 \arguments{

@@ -4,14 +4,15 @@
 \alias{transformPhylo.ML}
 \title{Maximum likelihood for models of trait evoluion}
 \usage{
-transformPhylo.ML(y, phy, model = NULL, modelCIs = TRUE, nodeIDs = NULL,
-  rateType = NULL, minCladeSize = 1, nSplits = 2, splitTime = NULL,
-  boundaryAge = 10, testAge = 1, restrictNode = NULL, lambdaEst = FALSE,
-  acdcScalar = FALSE, branchLabels = NULL, hiddenSpeciation = FALSE,
-  full.phy = NULL, useMean = FALSE, profilePlot = FALSE,
-  lowerBound = NULL, upperBound = NULL, covPIC = TRUE, n.cores = 1,
-  tol = NULL, meserr = NULL, controlList = c(fnscale = -1, maxit = 100,
-  factr = 1e-07, pgtol = 0, type = 2, lmm = 5), returnPhy = FALSE,
+transformPhylo.ML(y, phy, model = NULL, modelCIs = TRUE,
+  nodeIDs = NULL, rateType = NULL, minCladeSize = 1, nSplits = 2,
+  splitTime = NULL, boundaryAge = 10, testAge = 1,
+  restrictNode = NULL, lambdaEst = FALSE, acdcScalar = FALSE,
+  branchLabels = NULL, hiddenSpeciation = FALSE, full.phy = NULL,
+  useMean = FALSE, profilePlot = FALSE, lowerBound = NULL,
+  upperBound = NULL, covPIC = TRUE, n.cores = 1, tol = NULL,
+  meserr = NULL, controlList = c(fnscale = -1, maxit = 100, factr =
+  1e-07, pgtol = 0, type = 2, lmm = 5), returnPhy = FALSE,
   print.warnings = FALSE)
 }
 \arguments{

@@ -4,11 +4,12 @@
 \alias{transformPhylo.MCMC}
 \title{Bayesian MCMC for models of trait evolution}
 \usage{
-transformPhylo.MCMC(y, phy, model, mcmc.iteration = 1000, burn.in = 0.1,
-  hiddenSpeciation = FALSE, full.phy = NULL, lowerBound = NULL,
-  upperBound = NULL, opt.accept.rate = TRUE, acceptance.sd = NULL,
-  opt.prop = 0.25, fine.tune.bound = 0.05, fine.tune.n = 30,
-  useMean = FALSE, random.start = TRUE, covPIC = TRUE)
+transformPhylo.MCMC(y, phy, model, mcmc.iteration = 1000,
+  burn.in = 0.1, hiddenSpeciation = FALSE, full.phy = NULL,
+  lowerBound = NULL, upperBound = NULL, opt.accept.rate = TRUE,
+  acceptance.sd = NULL, opt.prop = 0.25, fine.tune.bound = 0.05,
+  fine.tune.n = 30, useMean = FALSE, random.start = TRUE,
+  covPIC = TRUE)
 }
 \arguments{
 \item{y}{A matrix of trait values.}
