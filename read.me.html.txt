@@ -747,4 +747,8 @@ picModel</code></pre>
 <li>Thomas GH, and Freckleton RP. 2012. MOTMOT: Models of trait macroevolution on trees. <em>Methods in Ecology and Evolution</em> 3, 145–51. (<a href="doi:10.1111/j.2041-210X.2011.00132.x" class="uri">doi:10.1111/j.2041-210X.2011.00132.x</a>.)</li>
 <li>Thomas GH, Freckleton RP, and Székely T. 2006. Comparative analyses of the influence of developmental mode on phenotypic diversification rates in shorebirds. <em>Proceedings of the Royal Society B: Biological Sciences</em> 273, 1619–24. (<a href="doi:10.1098/rspb.2006.3488" class="uri">doi:10.1098/rspb.2006.3488</a>.)</li>
 </ul>
+<<<<<<< HEAD:read.me.html.txt
 </div>
+=======
+</div>
+>>>>>>> 22fe9e9aad98e531fc964c28965b8ec385143254:README.md
