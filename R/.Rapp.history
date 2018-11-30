@@ -1,15 +1,3 @@
-ou.fun(lowerBound[1]) < 0
-uniroot(ou.fun, interval = c(lowerBound[1], vo$par[1]))$root
-transformPhylo.ll(y, lambdaPhy, model = "OU", alpha = param, nodeIDs = nodeIDs, meserr = meserr, covPIC = covPIC, vcv.matrix = vcv.matrix,  ancestral.state=ancestral.state, brVar=brVar)$logLikelihood
-ou.fun <- function(param, chiSq = TRUE) {#
-          ll <- transformPhylo.ll(y, lambdaPhy, model = "OU", alpha = param, nodeIDs = nodeIDs, meserr = meserr, covPIC = covPIC, vcv.matrix = vcv.matrix,  ancestral.state=ancestral.state, brVar=brVar)$logLikelihood#
-          if (chiSq) {#
-            return(-ll - vo$value + 1.92)#
-          } else {#
-            return(ll)#
-          }#
-        }#
-        lower.attempt <- try(uniroot(ou.fun, interval = c(lowerBound[1], vo$par[1]))$root, silent=TRUE)
 lower.attempt
 uniroot(ou.fun, interval = c(lowerBound[1], vo$par[1]))
 ou.fun(lowerBound[1])
@@ -1875,3 +1863,18 @@ likTraitPhylo<-function (y, phy, covPIC = TRUE, brCov=NULL)#
 }
 transformPhylo.ML(y, tre, model="bm")
 logLikelihood
+library(motmot.2.0)
+?ML.RatePhylo
+## Read in phylogeny and data from Thomas et al. (2009)#
+data(anolis.tree)#
+data(anolis.data)#
+## Convert data to class rateData with a rateMatrix object as input#
+anolis.rateMatrix <- as.rateMatrix(phy=anolis.tree, x="geo_ecomorph",#
+data=anolis.data)#
+anolis.rateData <- as.rateData(y="Female_SVL", x="geo_ecomorph", #
+rateMatrix = anolis.rateMatrix, phy=NULL, data=anolis.data, log.y=TRUE)#
+# A model with a different rate in each of the four groups. The 'fixed' command is used to determine
+# The default is to allow each group to take a different mean. #
+ML.RatePhylo(anolis.rateData, fixed=c(1,FALSE,FALSE, FALSE), pretty=TRUE)#
+# Run the same model, but this time assuming a common mean across all four groups#
+ML.RatePhylo(anolis.rateData, fixed=c(1,FALSE,FALSE, FALSE), pretty=TRUE, common.mean=TRUE)

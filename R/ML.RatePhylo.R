@@ -50,8 +50,6 @@
 #' @examples # fixed vector, group 1 (large island trunk crown and trunk ground) takes position 2 and so on. 
 #' @examples # The default is to allow each group to take a different mean. 
 #' @examples ML.RatePhylo(anolis.rateData, fixed=c(1,FALSE,FALSE, FALSE), pretty=TRUE)
-#' @examples # Run the same model, but this time assuming a common mean across all four groups
-#' @examples ML.RatePhylo(anolis.rateData, fixed=c(1,FALSE,FALSE, FALSE), pretty=TRUE, common.mean=TRUE)
 #' @export
 
 ML.RatePhylo <-

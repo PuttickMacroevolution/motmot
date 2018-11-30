@@ -1,633 +1,539 @@
-library(ape)#
-balanced.tree <- stree(32, type="balanced")#
-balanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
-imbalanced.tree <- stree(32, type="left")#
-imbalanced.tree$edge.length #
-#plot(imbalanced.tree)#
-int.len <- rep(1 / 31,  2 * 32 - 2)#
-imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
-ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
-int.edge <- which(imbalanced.tree$edge[,2] > 32)#
-#
-cum.int.edges <- cumsum(int.len[int.edge])#
-internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))
-internal.edges
-c(0, cum.int.edges)
-library(ape)#
-balanced.tree <- stree(32, type="balanced")#
-balanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
-imbalanced.tree <- stree(32, type="left")#
-imbalanced.tree$edge.length #
-#plot(imbalanced.tree)#
-int.len <- rep(1 / 31,  2 * 32 - 2)#
-imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
-ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
-int.edge <- which(imbalanced.tree$edge[,2] > 32)#
-#
-cum.int.edges <- cumsum(int.len[int.edge])#
-internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
-external.edges <- 1 - c(0, internal.edges)#
-#
-imbalanced.tree$edge.length[ext.edge] <- external.edges#
-imbalanced.tree$edge.length[int.edge] <- internal.edges[-31]#
-#
-imbalanced.tree$edge.length[2] <- int.len #
-plot(imbalanced.tree)
-library(ape)#
-balanced.tree <- stree(32, type="balanced")#
-balanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
-imbalanced.tree <- stree(32, type="left")#
-imbalanced.tree$edge.length #
-#plot(imbalanced.tree)#
-int.len <- rep(1 / 31,  2 * 32 - 2)#
-imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
-ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
-int.edge <- which(imbalanced.tree$edge[,2] > 32)#
-#
-cum.int.edges <- cumsum(int.len[int.edge])#
-internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
-external.edges <- 1 - c(0, internal.edges)#
-#
-imbalanced.tree$edge.length[ext.edge] <- external.edges#
-imbalanced.tree$edge.length[int.edge] <- internal.edges[-31]
-imbalanced.tree$edge.length
-library(ape)#
-balanced.tree <- stree(32, type="balanced")#
-balanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
-imbalanced.tree <- stree(32, type="left")#
-imbalanced.tree$edge.length #
-#plot(imbalanced.tree)#
-int.len <- rep(1 / 31,  2 * 32 - 2)#
-imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
-ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
-int.edge <- which(imbalanced.tree$edge[,2] > 32)#
-#
-cum.int.edges <- cumsum(int.len[int.edge])#
-internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
-external.edges <- 1 - c(0, internal.edges)
-external.edges
-internal.edges
-imbalanced.tree$edge.length[ext.edge]
-imbalanced.tree$edge.length[ext.edge] <- external.edges
-imbalanced.tree$edge.length
-imbalanced.tree$edge.length[int.edge] <- internal.edges[-31]
-imbalanced.tree$edge.length
-plot(imbalanced.tree)
-internal.edges[-31]
-library(ape)#
-balanced.tree <- stree(32, type="balanced")#
-balanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
-imbalanced.tree <- stree(32, type="left")#
-imbalanced.tree$edge.length #
-#plot(imbalanced.tree)#
-int.len <- rep(1 / 31,  2 * 32 - 2)#
-imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
-ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
-int.edge <- which(imbalanced.tree$edge[,2] > 32)#
-#
-cum.int.edges <- cumsum(int.len[int.edge])#
-internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
-external.edges <- 1 - c(0, internal.edges)
-imbalanced.tree$edge.length[ext.edge] <- external.edges
-imbalanced.tree$edge.length
-imbalanced.tree$edge[ext.edge,]
-imbalanced.tree$edge[-ext.edge,]
-imbalanced.tree$edge.length[-ext.edge] <- internal.edges[-31]
-int.len <- rep(1 / 31,  2 * 32 - 2)#
-imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
-ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
-int.edge <- which(imbalanced.tree$edge[,2] > 32)#
-#
-cum.int.edges <- cumsum(int.len[int.edge])#
-internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
-external.edges <- 1 - c(0, internal.edges)#
-#
-imbalanced.tree$edge.length[ext.edge] <- external.edges#
-imbalanced.tree$edge.length[-ext.edge] <- internal.edges[-31]
-imbalanced.tree
-imbalanced.tree$edge.length
-imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)
-imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
-ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
-int.edge <- which(imbalanced.tree$edge[,2] > 32)#
-#
-cum.int.edges <- cumsum(int.len[int.edge])#
-internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
-external.edges <- 1 - c(0, internal.edges)#
-#
-imbalanced.tree$edge.length[ext.edge] <- external.edges#
-imbalanced.tree$edge.length[-ext.edge] <- internal.edges[-31]
-imbalanced.tree$edge.length
-external.edges
-imbalanced.tree$edge.length[-ext.edge]
-library(ape)#
-balanced.tree <- stree(32, type="balanced")#
-balanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
-imbalanced.tree <- stree(32, type="left")#
-imbalanced.tree$edge.length #
-#plot(imbalanced.tree)#
-int.len <- rep(1 / 31,  2 * 32 - 2)#
-imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
-ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
-int.edge <- which(imbalanced.tree$edge[,2] > 32)#
-#
-cum.int.edges <- cumsum(int.len[int.edge])#
-internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
-external.edges <- 1 - c(0, internal.edges)#
-#
-imbalanced.tree$edge.length[ext.edge] <- external.edges
-imbalanced.tree$edge.length[-ext.edge]
-internal.edges[-31]
-length(internal.edges[-31])
-length(imbalanced.tree$edge.length[-ext.edge])
-imbalanced.tree$edge.length[-ext.edge] <- internal.edges[-31]
-imbalanced.tree$edge.length
-plot(imbalanced.tree)
-int.len <- rep(1 / 31,  2 * 32 - 2)#
-imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
-ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
-int.edge <- which(imbalanced.tree$edge[,2] > 32)#
-#
-cum.int.edges <- cumsum(int.len[int.edge])
-internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
-external.edges <- 1 - c(0, internal.edges)#
-#
-imbalanced.tree$edge.length[ext.edge] <- external.edges#
-imbalanced.tree$edge.length[-ext.edge] <- internal.edges[-31]#
-#
-plot(imbalanced.tree)
-int.len
-int.len <- rep(1 / 31,  31)#
-imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
-ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
-int.edge <- which(imbalanced.tree$edge[,2] > 32)#
-#
-cum.int.edges <- cumsum(int.len[int.edge])#
-internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
-external.edges <- 1 - c(0, internal.edges)#
-#
-imbalanced.tree$edge.length[ext.edge] <- external.edges#
-imbalanced.tree$edge.length[-ext.edge] <- internal.edges[-31]#
-#
-plot(imbalanced.tree)
-imbalanced.tree$edge.length
-imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
-int.len <- rep(1 / 31,  30)#
-#
-ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
-int.edge <- which(imbalanced.tree$edge[,2] > 32)#
-#
-cum.int.edges <- cumsum(int.len[int.edge])#
-internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
-external.edges <- 1 - c(0, internal.edges)#
-#
-imbalanced.tree$edge.length[ext.edge] <- external.edges#
-imbalanced.tree$edge.length[-ext.edge] <- internal.edges[-31]#
-#
-plot(imbalanced.tree)
-imbalanced.tree$edge.length
-imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
-int.len <- rep(1 / 31,  30)#
-#
-ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
-int.edge <- which(imbalanced.tree$edge[,2] > 32)#
-#
-cum.int.edges <- cumsum(int.len[int.edge])#
-internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
-external.edges <- 1 - c(0, internal.edges)
-imbalanced.tree$edge.length[ext.edge] <- external.edges#
-imbalanced.tree$edge.length[-ext.edge] <- internal.edges[-31]#
-#
-plot(imbalanced.tree)
-imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
-int.len <- rep(1 / 31,  31)#
-#
-ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
-int.edge <- which(imbalanced.tree$edge[,2] > 32)#
-#
-cum.int.edges <- cumsum(int.len[int.edge])#
-internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
-external.edges <- 1 - c(0, internal.edges)#
-#
-imbalanced.tree$edge.length[ext.edge] <- external.edges#
-imbalanced.tree$edge.length[-ext.edge] <- internal.edges[-31]#
-#
-plot(imbalanced.tree)
-int.edge
-int.len[int.edge]
-int.edge
-imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)
-imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
-int.len <- rep(1 / 31,  2 * 32 - 2)#
-#
-ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
-int.edge <- which(imbalanced.tree$edge[,2] > 32)#
-#
-cum.int.edges <- cumsum(int.len[int.edge])#
-internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
-external.edges <- 1 - c(0, internal.edges)
-imbalanced.tree$edge.length[ext.edge] <- external.edges#
-imbalanced.tree$edge.length[-ext.edge] <- internal.edges[-31]
-plot(imbalanced.tree)
-int.len[ext.edge]
-imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
-int.len <- rep(1 / 31,  2 * 32 - 2)#
-#
-ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
-int.edge <- which(imbalanced.tree$edge[,2] > 32)#
-int.len[ext.edge] <- 0#
-#
-cum.int.edges <- cumsum(int.len[int.edge])#
-internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
-external.edges <- 1 - c(0, internal.edges)#
-#
-imbalanced.tree$edge.length[ext.edge] <- external.edges#
-imbalanced.tree$edge.length[-ext.edge] <- internal.edges[-31]#
-#
-plot(imbalanced.tree)
-int.len <- rep(1 / 31,  31)#
-imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
-int.len <- rep(1 / 31,  2 * 32 - 2)#
-#
-ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
-int.edge <- which(imbalanced.tree$edge[,2] > 32)#
-int.len[ext.edge] <- 0
-int.len
-int.len[int.edge]
-cum.int.edges <- cumsum(int.len[int.edge])
-cum.int.edges
-tail(cum.int.edges, 1)
-c(cum.int.edges, tail(cum.int.edges, 1))
-internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))
-1 - c(0, internal.edges)
-int.len <- rep(1 / 31,  31)#
-imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
-int.len <- rep(1 / 31,  2 * 32 - 2)#
-#
-ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
-int.edge <- which(imbalanced.tree$edge[,2] > 32)#
-int.len[ext.edge] <- 0#
-#
-cum.int.edges <- cumsum(int.len[int.edge])#
-internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
-external.edges <- 1 - c(0, internal.edges)
-internal.edges
-length(internal.edges)
-length(external.edges)
-external.edges
-imbalanced.tree$edge.length
-imbalanced.tree$edge.length[ext.edge] <- external.edges
-imbalanced.tree$edge.length[-int.edge] <- internal.edges[-31]
-imbalanced.tree$edge.length[-int.edge] <- internal.edges
-imbalanced.tree$edge.length[int.edge] <- internal.edges
-imbalanced.tree$edge.length[int.edge] <- internal.edges[-31]
-int.len <- rep(1 / 31,  31)#
-imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
-int.len <- rep(1 / 31,  2 * 32 - 2)#
-#
-ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
-int.edge <- which(imbalanced.tree$edge[,2] > 32)#
-int.len[ext.edge] <- 0#
-#
-cum.int.edges <- cumsum(int.len[int.edge])#
-internal.edges <- c(cum.int.edges, tail(cum.int.edges, 1))#
-external.edges <- 1 - c(0, internal.edges)#
-#
-imbalanced.tree$edge.length[ext.edge] <- external.edges#
-imbalanced.tree$edge.length[int.edge] <- internal.edges[-31]
-plot(imbalanced.tree)
-imbalanced.tree$edge.length
-rm(list=ls(all=T))
-library(ape)#
-balanced.tree <- stree(32, type="balanced")#
-balanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
-imbalanced.tree <- stree(32, type="left")#
-imbalanced.tree$edge.length #
-#plot(imbalanced.tree)
-imbalanced.tree$edge
-2 * 32 - 2
-imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)
-2 * 32 - 2
-int.len <- rep(1 / 31,  2 * 32 - 2)
-which(imbalanced.tree$edge[,2] <= 32)
-ext.edge <- which(imbalanced.tree$edge[,2] <= 32)
-int.edge <- which(imbalanced.tree$edge[,2] > 32)
-int.len[ext.edge]
-int.len[ext.edge] <- 0
-int.len[int.edge]
-cumsum(int.len)
-cum.int.edges <- cumsum(int.len)
-cum.int.edges[ext.edge]
-1-cum.int.edges[ext.edge]
-cum.int.edges[ext.edge] <- 1-cum.int.edges[ext.edge]
-imbalanced.tree$edge.length <- cum.int.edges
-plot(imbalanced.tree)
-library(ape)#
-balanced.tree <- stree(32, type="balanced")#
-balanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
-imbalanced.tree <- stree(32, type="left")#
-imbalanced.tree$edge.length #
-#plot(imbalanced.tree)
-plot(imbalanced.tree)
-ext.edge <- which(imbalanced.tree$edge[,2] <= 32)
-int.edge <- which(imbalanced.tree$edge[,2] > 32)
-int.edge
-length(int.edge)
-int.len <- rep(1 / 31,  31)#
-imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
-int.len <- rep(1 / 31,  2 * 32 - 2)#
-#
-ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
-int.edge <- which(imbalanced.tree$edge[,2] > 32)#
-int.len[ext.edge] <- 0
-imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
-int.len <- rep(1 / 31,  2 * 32 - 2)#
-#
-ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
-int.edge <- which(imbalanced.tree$edge[,2] > 32)#
-int.len[ext.edge] <- 0
-cum.int.edges <- cumsum(int.len)
-cum.int.edges
-cum.int.edges[ext.edge] <- 1-cum.int.edges[ext.edge]
-cbind(imbalanced.tree$edge, cum.int.edges)
-cum.int.edges[int.edge] <- int.len[1]
-cbind(imbalanced.tree$edge, cum.int.edges)
-int.len[1]
-library(ape)#
-balanced.tree <- stree(32, type="balanced")#
-balanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
-imbalanced.tree <- stree(32, type="left")#
-imbalanced.tree$edge.length #
-#plot(imbalanced.tree)#
-imbalanced.tree$edge.length <- rep(1, 2 * 32 - 2)#
-int.len <- rep(1 / 31,  2 * 32 - 2)#
-#
-ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
-int.edge <- which(imbalanced.tree$edge[,2] > 32)#
-int.len[ext.edge] <- 0#
-#
-cum.int.edges <- cumsum(int.len)#
-#
-cum.int.edges[ext.edge] <- 1-cum.int.edges[ext.edge]#
-cum.int.edges[int.edge] <- int.len[2]#
-cbind(imbalanced.tree$edge, cum.int.edges)
-imbalanced.tree$edge.length <- cum.int.edges#
-plot(imbalanced.tree)
-is.ultrametric(imbalanced.tree)
-#plot(imbalanced.tree)#
-	imbalanced.tree <- stree(32, type="left")#
-	int.len <- rep(1 / 31,  2 * 32 - 2)#
-	ext.edge <- which(imbalanced.tree$edge[,2] <= 32)#
-	int.edge <- which(imbalanced.tree$edge[,2] > 32)#
-	int.len[ext.edge] <- 0#
-	length.of.edges <- cumsum(int.len)#
-	length.of.edges[ext.edge] <- 1 - length.of.edges[ext.edge]#
-	length.of.edges[int.edge] <- int.len[2]#
-	imbalanced.tree$edge.length <- cum.int.edges#
-	plot(imbalanced.tree)
-length.of.edges
-imbalanced.tree$edge.length <- length.of.edges
-plot(imbalanced.tree)
-installed.packages("devtools")
-installed.packages(devtools)
+plot(rtree , type="f", show.tip.labels=F, edge.col=rainbow(10), edge.width=6)
+set.seed(2012)#
+rtree <- rtree(40)#
+plot(rtree , type="f", show.tip.labels=F, edge.col=rainbow(10), edge.width=6)
+plot(rtree , type="f",use.tip.labels=F, edge.col=rainbow(10), edge.width=6)
+plot(rtree , type="f", show.tip.label=F, edge.col=rainbow(10), edge.width=6)
+plot(rtree , type="f", show.tip.label=F, edge.col=heat.colors(10), edge.width=6)
+?heat.colors
+plot(rtree , type="f", show.tip.label=F, edge.col=cm.colors(10), edge.width=6)
+plot(rtree , type="f", show.tip.label=F, edge.col=topo.colors(10), edge.width=6)
+plot(rtree , type="f", show.tip.label=F, edge.col=terrain.colors(10), edge.width=6)
+plot(rtree , type="f", show.tip.label=F, edge.col=rainbow(10), edge.width=6)
 installed.packages()
-all.packages <- installed.packages()[,1]
-all.packages
-any(all.packages == "devtools")
-!any(all.packages == "devtools")
-library(motmot.2.0)
-transformPhylo.sim(balanced.tree, n=1)
-transformPhylo.sim(balanced.tree, n=1, model="bm")
-trait.values <- transformPhylo.sim(balanced.tree, n=1, model="bm")
-hist(trait.values)
-trait.values < 0
-tree.values <- rep(0, Ntip(balanced.tree))
-tree.values[which(trait.values > 0)]
-tree.values[which(trait.values > 0)] <- 1
-tree.values
-trait.values <- transformPhylo.sim(balanced.tree, n=1, model="bm")#
-tree.values <- rep(0, Ntip(balanced.tree))#
-tree.values[which(trait.values > 0)] <- 1
-trait.values <- transformPhylo.sim(balanced.tree, n=1, model="bm")#
-tree.values <- rep(0, Ntip(balanced.tree))#
-tree.values[which(trait.values > 0)] <- 1#
-tree.values
-rTraitDisc
-rTraitDisc(balanced.tree)
-rTraitDisc(balanced.tree, states=c(0,1))
-vcv.phylo <- vcv(balanced.tree)
-transformPhylo.sim
-rmvnorm(Ntip(balanced.tree), mean=rep(0, Ntip(phy)), sigma=vcv(phy))
-rmvnorm(Ntip(balanced.tree), mean=rep(0, Ntip(phy)), sigma=vcv.phylo)
-rmvnorm(Ntip(balanced.tree), mean=rep(0, Ntip(balanced.tree)), sigma=vcv.phylo)
-rmvnorm(1, mean=rep(0, Ntip(balanced.tree)), sigma=vcv.phylo)
-t(rmvnorm(1, mean=rep(0, Ntip(balanced.tree)), sigma=vcv.phylo))
-trait.values.at.tips <- t(rmvnorm(1, mean=rep(0, Ntip(balanced.tree)), sigma=vcv.phylo))
-rownames(trait.values.at.tips) <- balanced.tree$tip.label
-trait.values.at.tips
-mk.model.traits <- rTraitDisc(balanced.tree, states=c(0,1))
-mk.model.traits <- rTraitDisc(balanced.tree, states=c(0,1), root.value=sample(c(0,1), 1))
-sample(c(0,1), 1)
-mk.model.traits <- rTraitDisc(balanced.tree, states=c(0,1), root.value=sample(c(0,1), 1))
-mk.model.traits <- rTraitDisc(balanced.tree, states=c(0,1), root.value=c(0.5, 0.5))
-mk.model.traits <- rTraitDisc(balanced.tree, states=c(0,1), root.value=c(0.5))
-mk.model.traits <- rTraitDisc(balanced.tree, states=c(0,1), root.value=c(0))
-mk.model.traits <- rTraitDisc(balanced.tree, states=c(1,2), root.value=sample(1:2, 1))
-mk.model.traits
-mk.model.traits <- rTraitDisc(balanced.tree, states=c(1,2), root.value=sample(1:2, 1))	- 1
-mk.model.traits <- rTraitDisc(balanced.tree, states=c(1,2), root.value=sample(1:2, 1))
-mk.model.traits <- rTraitDisc(balanced.tree, states=c(1,2), root.value=1)
-set.seed(302)
-trait.values <- transformPhylo.sim(balanced.tree, n=1, model="bm")
-trait.values
-hist(	trait.values)
-hist(trait.values, breaks=32)
-hist(trait.values, breaks=32, col=c("red", "blue"))
-hist(trait.values, breaks=32, col=c("grey", "grey20"))
-hist(trait.values, breaks=32, col=rep(c("grey", "grey20"), each=16))
-out <- hist(trait.values, breaks=32, col=rep(c("grey", "grey20"), each=16))
-out
-out <- hist(trait.values, breaks=seq(-10, 10, 0.5), col=rep(c("grey", "grey20"), each=16))
-out <- hist(trait.values, breaks=seq(-5, 5, 0.5), col=rep(c("grey", "grey20"), each=16))
-seq(-5, 5, 0.5)
-out <- hist(trait.values, breaks=seq(-5, 5, 0.5), col=rep(c("grey", "grey20"), each=11))
-out <- hist(trait.values, breaks=seq(-5, 5, 0.5), col=rep(c("grey", "grey20"), each=11), border=F)
-out <- hist(trait.values, breaks=seq(-5, 5, 0.5), col=rep(c("grey", "grey20"), each=11), border="white")
-plot(balanced.tree)
-?motmot.2.0
-?transformPhylo.ML
-traitData.plot(trait.values, balanced.tree)
-tree.values
-traitData.plot(trait.values, balanced.tree, col.label=c("grey", "grey20")[tree.values+1])
-c("grey", "grey20")[tree.values+1]
-traitData.plot(trait.values, balanced.tree, col.label=c("grey", "nevy")[tree.values+1])
-traitData.plot(trait.values, balanced.tree, col.label=c("grey", "navy")[tree.values+1])
-traitData.plot(trait.values, balanced.tree, col.label=c("pink", "navy")[tree.values+1])
-traitData.plot
-y=trait.values#
-phy=balanced.tree#
-col.label = "red"#
-col.tree = c("pink", "navy")[tree.values+1]#
-cex.plot = 0.7, #
-include.hist = F
-cex.plot = 0.7
-if (include.hist) {#
-        par(mfrow = c(1, 2), mar = c(3, 3, 3, 3), oma = c(1, #
-            1, 1, 1))#
-    } else {#
-        par(mfrow = c(1, 1), mar = c(4, 4, 4, 4), oma = c(0, #
-            0, 0, 0))#
-    }
-max.range <- abs(diff(range(y)))#
-    trait.data.range <- y + max.range#
-    if (max(trait.data.range) < 0) #
-        trait.data.range <- -trait.data.range#
-    t.data.scale <- trait.data.range/max(trait.data.range)#
-    plot(ladderize(phy), show.tip.label = F, edge.col = col.tree)#
-    lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)] + (range(x_cord)[2] * 0.005)#
-    tip.y <- y_cord[1:Ntip(phy)]#
-    t.data.scale <- (max(x_cord) * t.data.scale) * 0.05#
-    sapply(1:Ntip(phy), function(x) segments(tip.x[x], tip.y[x], #
-        tip.x[x] + t.data.scale[x], tip.y[x], col = col.label, #
-        xpd = T))
-y=trait.values#
-phy=balanced.tree#
-col.label = c("pink", "navy")[tree.values+1]#
-col.tree = "black"#
-cex.plot = 0.7#
-include.hist = F#
-#
-{#
-    if (include.hist) {#
-        par(mfrow = c(1, 2), mar = c(3, 3, 3, 3), oma = c(1, #
-            1, 1, 1))#
-    } else {#
-        par(mfrow = c(1, 1), mar = c(4, 4, 4, 4), oma = c(0, #
-            0, 0, 0))#
-    }#
-    max.range <- abs(diff(range(y)))#
-    trait.data.range <- y + max.range#
-    if (max(trait.data.range) < 0) #
-        trait.data.range <- -trait.data.range#
-    t.data.scale <- trait.data.range/max(trait.data.range)#
-    plot(ladderize(phy), show.tip.label = F, edge.col = col.tree)#
-    lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)] + (range(x_cord)[2] * 0.005)#
-    tip.y <- y_cord[1:Ntip(phy)]#
-    t.data.scale <- (max(x_cord) * t.data.scale) * 0.05
-if (include.hist) {#
-        par(mfrow = c(1, 2), mar = c(3, 3, 3, 3), oma = c(1, #
-            1, 1, 1))#
-    } else {#
-        par(mfrow = c(1, 1), mar = c(4, 4, 4, 4), oma = c(0, #
-            0, 0, 0))#
-    }#
-    max.range <- abs(diff(range(y)))#
-    trait.data.range <- y + max.range#
-    if (max(trait.data.range) < 0) #
-        trait.data.range <- -trait.data.range#
-    t.data.scale <- trait.data.range/max(trait.data.range)#
-    plot(ladderize(phy), show.tip.label = F, edge.col = col.tree)#
-    lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)] + (range(x_cord)[2] * 0.005)#
-    tip.y <- y_cord[1:Ntip(phy)]#
-    t.data.scale <- (max(x_cord) * t.data.scale) * 0.05
-sapply(1:Ntip(phy), function(x) segments(tip.x[x], tip.y[x], #
-        tip.x[x] + t.data.scale[x], tip.y[x], col = col.label, #
-        xpd = T))
-col.label
-rep(col.label, 32)
-recycle.color <- rep(col.label, 32)
-sapply(1:Ntip(phy), function(x) segments(tip.x[x], tip.y[x], #
-        tip.x[x] + t.data.scale[x], tip.y[x], col = recycle.color, #
-        xpd = T))
-t.data.scale <- trait.data.range/max(trait.data.range)#
-    plot(ladderize(phy), show.tip.label = F, edge.col = col.tree)#
-    lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)] + (range(x_cord)[2] * 0.005)#
-    tip.y <- y_cord[1:Ntip(phy)]#
-    t.data.scale <- (max(x_cord) * t.data.scale) * 0.05#
-    recycle.color <- rep(col.label, 32)#
-    sapply(1:Ntip(phy), function(x) segments(tip.x[x], tip.y[x], #
-        tip.x[x] + t.data.scale[x], tip.y[x], col = recycle.color[x], #
-        xpd = T))
-all.packages <- installed.packages()[,1]#
-	if(!any(all.packages == "devtools")) install.packages("devtools")#
-	install_github("PuttickMacroevolution/motmot.2.0")#
-	library(motmot.2.0)#
-#
-	# simulate Brownian motion for threshold model#
-	set.seed(302)#
-	trait.values <- transformPhylo.sim(balanced.tree, n=1, model="bm")#
-	out <- hist(trait.values, breaks=seq(-5, 5, 0.5), col=rep(c("grey", "grey20"), each=11), border="white")
-install_packages("PuttickMacroevolution/motmot.2.0")
+installed.packages()[,1]
+inst.packages <- installed.packages()[,1]
+any(inst.packages == "devtools")
+install_github
+install_devtools
 library(devtools)
-install_github("PuttickMacroevolution/motmot.2.0")
-# simulate Brownian motion for threshold model#
-	set.seed(302)#
-	trait.values <- transformPhylo.sim(balanced.tree, n=1, model="bm")#
-	out <- hist(trait.values, breaks=seq(-5, 5, 0.5), col=rep(c("grey", "grey20"), each=11), border="white")
-# this is essentially a multivariate normal distribution based on the Variance-CoVariance (VCV) matrix represented the tree#
-	vcv.phylo <- vcv(balanced.tree)#
-	trait.values.at.tips <- t(rmvnorm(1, mean=rep(0, Ntip(balanced.tree)), sigma=vcv.phylo))#
-	rownames(trait.values.at.tips) <- balanced.tree$tip.label#
-	tree.values <- rep(0, Ntip(balanced.tree))#
-	tree.values[which(trait.values > 0)] <- 1
-y=trait.values#
-phy=balanced.tree#
-col.label = c("pink", "navy")[tree.values+1]#
-col.tree = "black"#
-cex.plot = 0.7#
-include.hist = F#
-    if (include.hist) {#
-        par(mfrow = c(1, 2), mar = c(3, 3, 3, 3), oma = c(1, #
-            1, 1, 1))#
-    } else {#
-        par(mfrow = c(1, 1), mar = c(4, 4, 4, 4), oma = c(0, #
-            0, 0, 0))#
-    }#
-    max.range <- abs(diff(range(y)))#
-    trait.data.range <- y + max.range#
-    if (max(trait.data.range) < 0) #
-        trait.data.range <- -trait.data.range#
-    t.data.scale <- trait.data.range/max(trait.data.range)#
-    plot(ladderize(phy), show.tip.label = F, edge.col = col.tree)#
-    lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)] + (range(x_cord)[2] * 0.005)#
-    tip.y <- y_cord[1:Ntip(phy)]#
-    t.data.scale <- (max(x_cord) * t.data.scale) * 0.05#
-    recycle.color <- rep(col.label, 32)#
-    sapply(1:Ntip(phy), function(x) segments(tip.x[x], tip.y[x], #
-        tip.x[x] + t.data.scale[x], tip.y[x], col = recycle.color[x], #
-        xpd = T))
-install.packages("roxygen")
-install.packages("roxygen2")
+install_github
+inst.packages <- installed.packages()[,1]#
+is.devtools <- any(inst.packages == "devtools")#
+if(!is.devtools) install.packages("devtools")#
+library(devtools)#
+install_github("PuttickMacroevolution/motmot.2.0", quietly=TRUE)#
+library(motmot.2.0)#
+#
+data(anolis.tree)#
+data(anolis.data)#
+attach(anolis.data)#
+anolis.tree#
+#
+sortedData <- sortTraitData(phy=anolis.tree, y=anolis.data, data.name="Male_SVL", pass.ultrametric = TRUE)#
+phy <- sortedData$phy#
+male.length <- sortedData$trait
+plot.phylo(phy, show.tip.label=TRUE, no.margin=TRUE, edge.col="grey20", cex=0.25, label.offset=1)
+plot(phy, show.tip.label=FALSE, no.margin=TRUE, edge.col="grey20")#
+nodelabels(182, 182, bg="black", col="white")#
+phy.clade <- extract.clade(phy, 182)#
+male.length.clade <- as.matrix(male.length[match(phy.clade$tip.label, rownames(male.length)),])
+bm.ml <- transformPhylo.ML(phy=phy.clade, y=male.length.clade, model="bm")#
+bm.ml
+lambda.ml <- transformPhylo.ML(phy=phy.clade, y=male.length.clade, model="lambda")#
+lambda.ml
+lambda.ml <- transformPhylo.ML(phy=phy.clade, y=male.length.clade, model="lambda", profilePlot=T)
+p.value <- 1 - pchisq(lambda.ml$MaximumLikelihood - bm.ml$logLikelihood, 1)#
+p.value
+lambda.ml
+transformPhylo(phy=phy.clade, model="lambda", lambda=lambda.ml$Lambda[[1,1]])
+transformPhylo(phy=phy.clade, model="lambda", lambda=lambda.ml$Lambda[1,1])
+orig.tree <- transformPhylo(phy=phy.clade, model="lambda", lambda=lambda.ml$Lambda[1,1])
+lambda.tree <- transformPhylo(phy=phy.clade, model="lambda", lambda=lambda.ml$Lambda[1,1])
+lambda.tree
+orig.tree
+orig.tree <- transformPhylo(phy=phy.clade, model="bm")
+lambda.tree <- transformPhylo(phy=phy.clade, model="lambda", lambda=lambda.ml$Lambda[1,1])
+plot(orig.tree)
+plot(orig.tree, xlim=c(0,10))
+plot(orig.tree, x.lim=c(0,10))
+plot(orig.tree, x.lim=c(0,100))
+plot(orig.tree, x.lim=c(0,200))
+cophyloplot(orig.tree, orig.tree)
+plot(orig.tree, x.lim=c(0,200))
+plot(orig.tree, x.lim=c(0,200), label.offset=1)
+plot(orig.tree, x.lim=c(0,200), label.offset=3)
+plot(lambda.tree, x.lim=c(0,200), label.offset=3, direction="l")
+plot(orig.tree, x.lim=c(0,200), label.offset=3)#
+par(new=TRUE)#
+plot(lambda.tree, x.lim=c(0,200), label.offset=3, direction="l", show.tip.label=FALSE)
+plot(orig.tree, x.lim=c(0,200), label.offset=6)
+plot(orig.tree, x.lim=c(0,200), label.offset=10)#
+par(new=TRUE)#
+plot(lambda.tree, x.lim=c(0,200), label.offset=3, direction="l", show.tip.label=FALSE)
+plot(orig.tree, x.lim=c(0,200), label.offset=20)#
+par(new=TRUE)#
+plot(lambda.tree, x.lim=c(0,200), label.offset=3, direction="l", show.tip.label=FALSE)
+plot(orig.tree, x.lim=c(0,200), label.offset=17)#
+par(new=TRUE)#
+plot(lambda.tree, x.lim=c(0,200), label.offset=3, direction="l", show.tip.label=FALSE)
+?mvnorm
+?rmvnorm
+rmvnorm
+library(motmot.2.0)
+plot(orig.tree, x.lim=c(0,200), label.offset=17)#
+par(new=TRUE)#
+plot(lambda.tree, x.lim=c(0,200), label.offset=3, direction="l", show.tip.label=FALSE)
+plot(orig.tree, x.lim=c(0,200), label.offset=16)#
+par(new=TRUE)#
+plot(lambda.tree, x.lim=c(0,200), label.offset=3, direction="l", show.tip.label=FALSE)
+plot(orig.tree, x.lim=c(0,180), label.offset=16)
+plot(orig.tree, x.lim=c(0,180), label.offset=16)#
+par(new=TRUE)#
+plot(lambda.tree, x.lim=c(0,180), label.offset=3, direction="l", show.tip.label=FALSE)
+plot(orig.tree, x.lim=c(0,180), label.offset=8)#
+par(new=TRUE)#
+plot(lambda.tree, x.lim=c(0,180), label.offset=3, direction="l", show.tip.label=FALSE)
+plot(orig.tree, x.lim=c(0,180), label.offset=7)#
+par(new=TRUE)#
+plot(lambda.tree, x.lim=c(0,180), label.offset=3, direction="l", show.tip.label=FALSE)
+text("original tree", 20, Ntip(orig.tree,))
+text("original tree", 10, Ntip(orig.tree,))
+text("original tree", 1, Ntip(orig.tree,))
+text(1, Ntip(orig.tree), "original tree")
+text(20, Ntip(orig.tree), "original tree")
+text(25, Ntip(orig.tree), "original tree")
+text(30, Ntip(orig.tree), "original tree")
+text(30, Ntip(orig.tree), "original tree", cex=0.8)
+text(80, Ntip(orig.tree), "Lambda tree", cex=0.8)
+text(160, Ntip(orig.tree), "Lambda tree", cex=0.8)
+plot(orig.tree, x.lim=c(0,180), label.offset=7)#
+par(new=TRUE)#
+plot(lambda.tree, x.lim=c(0,180), label.offset=3, direction="l", show.tip.label=FALSE)#
+text(30, Ntip(orig.tree), "original tree", cex=0.8)#
+text(160, Ntip(orig.tree), "Lambda tree", cex=0.8)
+lambda.ml
+phy.clade
+set.seed(102)
+sample(c(0,1), Ntip(phy.clade))
+sample(c(0,1), Ntip(phy.clade), replace=TRUE)
+trait.value <- sample(c(0,1), Ntip(phy.clade), replace=TRUE)
+set.seed(102)#
+trait.value <- sample(c(0,1), Ntip(phy.clade), replace=TRUE)
+plot.phylo(phy.clade)
+plot.phylo(phy.clade, show.tip.label=F)
+tiplabels(rep("", Ntip(phy.clade)), frame="c", col=c("navy", "red")[trait.value + 1])
+tiplabels(rep("", Ntip(phy.clade)), frame="c", pie/col=c("navy", "red")[trait.value + 1])
+tiplabels(rep("", Ntip(phy.clade)), frame="c", pie.col=c("navy", "red")[trait.value + 1])
+plot.phylo(phy.clade, show.tip.label=F)#
+tiplabels(rep("", Ntip(phy.clade)), frame="c", piecol=c("navy", "red")[trait.value + 1])
+tiplabels(rep("", Ntip(phy.clade)), frame="c", pie.col=c("navy", "red")[trait.value + 1])
+tiplabels(rep("", Ntip(phy.clade)), frame="c", bg=c("navy", "red")[trait.value + 1])
+plot.phylo(phy.clade, show.tip.label=F)#
+tiplabels(rep("", Ntip(phy.clade)), frame="c", bg=c("navy", "red")[trait.value + 1])
+plot.phylo(phy.clade, show.tip.label=F)#
+tiplabels(rep("", Ntip(phy.clade)), frame="c", bg=c("navy", "red")[trait.value + 1], cex=0.7)
+tiplabels(rep("", Ntip(phy.clade)), frame="c", bg=c("navy", "red")[trait.value + 1], cex=0.7, adj=c(1))
+plot.phylo(phy.clade, show.tip.label=F)#
+tiplabels(rep("", Ntip(phy.clade)), frame="c", bg=c("navy", "red")[trait.value + 1], cex=0.7, adj=c(1))
+tiplabels(rep("", Ntip(phy.clade)), frame="c", bg=c("navy", "red")[trait.value + 1], cex=0.7, adj=c(6))
+tiplabels(rep("", Ntip(phy.clade)), frame="c", bg=c("navy", "red")[trait.value + 1], cex=0.7, adj=c(0.2))
+set.seed(102)#
+trait.value <- sample(c(0,1), Ntip(phy.clade), replace=TRUE)#
+plot.phylo(phy.clade, show.tip.label=F)#
+tiplabels(rep("", Ntip(phy.clade)), frame="c", bg=c("navy", "red")[trait.value + 1], cex=0.7, adj=c(0.2))
+set.seed(102)#
+trait.value <- sample(c(0,1), Ntip(phy.clade), replace=TRUE)#
+plot.phylo(phy.clade, show.tip.label=F)#
+tiplabels(rep("", Ntip(phy.clade)), frame="c", bg=c("navy", "red")[trait.value + 1], cex=0.7, adj=c(2))
+set.seed(102)#
+trait.value <- sample(c(0,1), Ntip(phy.clade), replace=TRUE)#
+plot.phylo(phy.clade, show.tip.label=F)#
+tiplabels(rep("", Ntip(phy.clade)), frame="c", bg=c("navy", "red")[trait.value + 1], cex=0.7, adj=c(12))
+plot.phylo(phy.clade, show.tip.label=F)#
+tiplabels(rep("", Ntip(phy.clade)), frame="c", bg=c("navy", "red")[trait.value + 1], cex=0.7, offset=1)
+set.seed(102)#
+trait.value <- sample(c(0,1), Ntip(phy.clade), replace=TRUE)#
+plot.phylo(phy.clade, show.tip.label=F)#
+tiplabels(rep("", Ntip(phy.clade)), frame="c", bg=c("navy", "red")[trait.value + 1], cex=0.7, offset=4)
+tiplabels(rep("", Ntip(phy.clade)), frame="c", bg=c("navy", "red")[trait.value + 1], cex=0.7, offset=2)
+tiplabels(rep("", Ntip(phy.clade)), frame="c", bg=c("navy", "red")[trait.value + 1], cex=0.7, offset=1.2)
+set.seed(102)#
+trait.value <- sample(c(0,1), Ntip(phy.clade), replace=TRUE)#
+plot.phylo(phy.clade, show.tip.label=F)#
+tiplabels(rep("", Ntip(phy.clade)), frame="c", bg=c("navy", "red")[trait.value + 1], cex=0.7, offset=1.3)
+library(caper)
+phylo.d
+?phylo.d
+BritishBirds.data
+?phylo.d
+data(BritishBirds)
+BritishBirds.data
+bin.data <- matrix(cbind(trait.value, phy.clade$tip.label))
+bin.data
+cbind(trait.value, phy.clade$tip.label)
+bin.data <- cbind(trait.value, phy.clade$tip.label)
+bin.data <- matrix(trait.value, phy.clade$tip.label)
+bin.data <- data.frame(cbind(trait.value, phy.clade$tip.label))
+bin.data
+library(caper)#
+bin.data <- data.frame(cbind(trait.value, phy.clade$tip.label))#
+colnames(bin.data) <- c("traits", "species")#
+rownames(bin.data) <- phy.clade$tip.label
+comp.bin <- comparative.data(phy.clade, bin.data, traits)
+bin.data
+comp.bin <- comparative.data(phy.clade, bin.data, species)
+phy.clade$node.label
+bin.data <- data.frame(cbind(trait.value, phy.clade$tip.label))#
+phy.clade$node.label <- NULL#
+colnames(bin.data) <- c("traits", "species")#
+rownames(bin.data) <- phy.clade$tip.label#
+comp.bin <- comparative.data(phy.clade, bin.data, species)
+redPhyloD <- phylo.d(BritishBirds, binvar=Red_list)
+redPhyloD <- phylo.d(comp.bin, binvar=traits)
+redPhyloD
+print(redPhyloD)
+plot(redPhyloD)
+library(caper)#
+set.seed(2943)#
+bin.data <- data.frame(cbind(trait.value, phy.clade$tip.label))#
+phy.clade$node.label <- NULL#
+colnames(bin.data) <- c("traits", "species")#
+rownames(bin.data) <- phy.clade$tip.label#
+comp.bin <- comparative.data(phy.clade, bin.data, species)#
+redPhyloD <- phylo.d(comp.bin, binvar=traits)#
+plot(redPhyloD)
+redPhyloD
+data(anolis.tree)#
+anolis.tree$node.label <- NULL#
+lm.data <- transformPhylo.sim(phy=anolis.tree, n=2, model="bm")#
+dat <- data.frame(x = lm.data[,1], y = lm.data[,2], names = anolis.tree$tip, row.names = anolis.tree$tip)#
+comp.dat <- comparative.data(anolis.tree, dat, names)#
+# pgls from CAPER with matrix inversion#
+time.now <- Sys.time()#
+matrix.inv.caper <- pgls( y ~ x, data = comp.dat, lambda="ML")#
+pgls.time <- Sys.time() - time.now#
+pgls.time#
+time.now <- Sys.time()#
+picModel <- pic.pgls(formula=y ~  x, phy=anolis.tree, y = dat, lambda="ML", return.intercept.stat=FALSE)#
+pic.time <- Sys.time() - time.now#
+pic.time
+comp.dat
+matrix.inv.caper <- pgls( y ~ x, data = comp.dat, lambda="ML")
+matrix.inv.caper
+plot(y ~ x, data = comp.dat,)
+plot(y ~ x, data = comp.dat)
+plot(y ~ x, data = dat)
+linear.model <- lm(y ~ x, data = dat)
+abline(linear.model)
+# Data and phylogeny#
+data(anolis.tree)#
+anolis.tree$node.label <- NULL#
+lm.data <- transformPhylo.sim(phy=anolis.tree, n=2, model="bm")#
+dat <- data.frame(x = lm.data[,1], y = lm.data[,2], names = anolis.tree$tip, row.names = anolis.tree$tip)#
+linear.model <- lm(y ~ x, data = dat)#
+plot(y ~ x, data = dat)#
+abline(linear.model)#
+#
+comp.dat <- comparative.data(anolis.tree, dat, names)#
+pgls.model <- pgls( y ~ x, data = comp.dat, lambda="ML")
+# Data and phylogeny#
+data(anolis.tree)#
+set.seed(20)#
+anolis.tree$node.label <- NULL#
+lm.data <- transformPhylo.sim(phy=anolis.tree, n=2, model="bm")#
+dat <- data.frame(x = lm.data[,1], y = lm.data[,2], names = anolis.tree$tip, row.names = anolis.tree$tip)#
+linear.model <- lm(y ~ x, data = dat)#
+plot(y ~ x, data = dat)#
+abline(linear.model)
+# Data and phylogeny#
+data(anolis.tree)#
+set.seed(230)#
+anolis.tree$node.label <- NULL#
+lm.data <- transformPhylo.sim(phy=anolis.tree, n=2, model="bm")#
+dat <- data.frame(x = lm.data[,1], y = lm.data[,2], names = anolis.tree$tip, row.names = anolis.tree$tip)#
+linear.model <- lm(y ~ x, data = dat)#
+plot(y ~ x, data = dat)#
+abline(linear.model)
+# Data and phylogeny#
+data(anolis.tree)#
+set.seed(890)#
+anolis.tree$node.label <- NULL#
+lm.data <- transformPhylo.sim(phy=anolis.tree, n=2, model="bm")#
+dat <- data.frame(x = lm.data[,1], y = lm.data[,2], names = anolis.tree$tip, row.names = anolis.tree$tip)#
+linear.model <- lm(y ~ x, data = dat)#
+plot(y ~ x, data = dat)#
+abline(linear.model)
+comp.dat <- comparative.data(anolis.tree, dat, names)#
+pgls.model <- pgls( y ~ x, data = comp.dat, lambda="ML")
+pgls.model
+abline(pgls.model)
+rmvnorm
+rmvnorm(2, mean=rep(0, Ntip(anolis.tree), Simga=vcv(anolis.tree)))
+vcv(anolis.tree)
+lm.data <- transformPhylo.sim(phy=anolis.tree, n=2, model="bm")#
+dat <- data.frame(x = lm.data[,1], y = lm.data[,2], names = anolis.tree$tip, row.names = anolis.tree$tip)
+dat
+set.seed(890)#
+anolis.tree$node.label <- NULL#
+lm.data <- transformPhylo.sim(phy=anolis.tree, n=2, model="bm")#
+dat <- data.frame(x = lm.data[,1], y = lm.data[,2], names = anolis.tree$tip, row.names = anolis.tree$tip)#
+linear.model <- lm(y ~ x, data = dat)#
+plot(y ~ x, data = dat)#
+abline(linear.model)
+comp.dat <- comparative.data(anolis.tree, dat, names)#
+pgls.model <- pgls( y ~ x, data = comp.dat, lambda="ML")#
+#
+abline(pgls.model)
+plot(y ~ x, data = dat, pch=19)
+plot(y ~ x, data = dat, pch=19, col="grey")
+plot(y ~ x, data = dat, pch=19, col="grey", xaxs="i", yaxs="i")
+plot(y ~ x, data = dat, pch=19, col="grey", xaxs="i", yaxs="i", xlim=c(-20, 20))
+plot(y ~ x, data = dat, pch=19, col="grey", xaxs="i", yaxs="i", xlim=c(-30, 30))
+plot(y ~ x, data = dat, pch=19, col="grey", xaxs="i", yaxs="i", xlim=c(-25, 25), ylim=c(-25, 25))
+plot(y ~ x, data = dat, pch=19, col="grey", xaxs="i", yaxs="i", xlim=c(-25, 25), ylim=c(-25, 25))#
+abline(linear.model)
+abline(linear.model, lwd=2)
+abline(linear.model, lwd=2, col="grey20")
+plot(y ~ x, data = dat, pch=19, col="grey", xaxs="i", yaxs="i", xlim=c(-25, 25), ylim=c(-25, 25))#
+abline(linear.model, lwd=2, col="grey20")
+plot(y ~ x, data = dat, pch=19, col="grey", xaxs="i", yaxs="i", xlim=c(-25, 25), ylim=c(-25, 25))#
+abline(linear.model, lwd=2, col="grey40")
+comp.dat <- comparative.data(anolis.tree, dat, names)#
+pgls.model <- pgls( y ~ x, data = comp.dat, lambda="ML")#
+#
+abline(pgls.model, lwd=2, lty=2, col="grey40")
+summary(linear.model)
+pgls.model
+summary(pgls.model)
+# Data and phylogeny#
+data(anolis.tree)#
+set.seed(8943)#
+anolis.tree$node.label <- NULL#
+lm.data <- transformPhylo.sim(phy=anolis.tree, n=2, model="bm")#
+dat <- data.frame(x = lm.data[,1], y = lm.data[,2], names = anolis.tree$tip, row.names = anolis.tree$tip)#
+linear.model <- lm(y ~ x, data = dat)
+linear.model
+summary(linear.model)
+# Data and phylogeny#
+data(anolis.tree)#
+set.seed(89433)#
+anolis.tree$node.label <- NULL#
+lm.data <- transformPhylo.sim(phy=anolis.tree, n=2, model="bm")#
+dat <- data.frame(x = lm.data[,1], y = lm.data[,2], names = anolis.tree$tip, row.names = anolis.tree$tip)#
+linear.model <- lm(y ~ x, data = dat)#
+summary(linear.model)
+# Data and phylogeny#
+data(anolis.tree)#
+set.seed(82)#
+anolis.tree$node.label <- NULL#
+lm.data <- transformPhylo.sim(phy=anolis.tree, n=2, model="bm")#
+dat <- data.frame(x = lm.data[,1], y = lm.data[,2], names = anolis.tree$tip, row.names = anolis.tree$tip)#
+linear.model <- lm(y ~ x, data = dat)#
+summary(linear.model)
+plot(y ~ x, data = dat, pch=19, col="grey", xaxs="i", yaxs="i", xlim=c(-25, 25), ylim=c(-25, 25))#
+abline(linear.model, lwd=2, col="grey40")#
+#
+comp.dat <- comparative.data(anolis.tree, dat, names)#
+pgls.model <- pgls( y ~ x, data = comp.dat, lambda="ML")
+summary(pgls.model)
+abline(pgls.model, lwd=2, lty=2, col="grey40")
+data(anolis.tree)#
+set.seed(82)#
+anolis.tree$node.label <- NULL#
+lm.data <- transformPhylo.sim(phy=anolis.tree, n=2, model="bm")#
+dat <- data.frame(x = lm.data[,1], y = lm.data[,2], names = anolis.tree$tip, row.names = anolis.tree$tip)#
+linear.model <- lm(y ~ x, data = dat)#
+summary(linear.model)#
+plot(y ~ x, data = dat, pch=19, col="grey", xaxs="i", yaxs="i", xlim=c(-25, 25), ylim=c(-25, 25))#
+abline(linear.model, lwd=2, col="grey40")#
+#
+comp.dat <- comparative.data(anolis.tree, dat, names)#
+pgls.model <- pgls( y ~ x, data = comp.dat, lambda="ML")#
+summary(pgls.model)#
+abline(pgls.model, lwd=2, lty=2, col="grey40")
+plot(y ~ x, data = dat, pch=19, col="grey", xaxs="i", yaxs="i", xlim=c(-25, 25), ylim=c(-25, 25), las=1)
+summary(linear.model)
+plot(y ~ x, data = dat, pch=19, col="grey", xaxs="i", yaxs="i", xlim=c(-25, 25), ylim=c(-25, 25), las=1)#
+abline(linear.model, lwd=2, col="grey40")#
+abline(pgls.model, lwd=2, lty=2, col="grey80")#
+legend("topright", legend=c("OLS model", "PGLS model"), lwd=2, lty=c(1,2), col=c("grey40", "grey80"))
+plot(y ~ x, data = dat, pch=19, col="grey", xaxs="i", yaxs="i", xlim=c(-25, 25), ylim=c(-25, 25), las=1)#
+abline(linear.model, lwd=2, col="grey20")#
+abline(pgls.model, lwd=2, lty=2, col="grey60")#
+legend("topleft", legend=c("OLS model", "PGLS model"), lwd=2, lty=c(1,2), col=c("grey40", "grey80"))
+plot(redPhyloD)
+library(motmot.2.0)
+sanderson_donoghue <- c(0.79, 0.72, 0.44, 0.63, 0.43, 0.39, 0.31, 0.56, 0.37, 0.32, #
+0.6, 0.35, 0.26, 0.55, 0.82, 0.62, 0.5, 1, 0.84, 0.81, 0.64, #
+0.7, 0.68, 0.6, 0.4, 0.43, 0.72, 0.76, 0.8, 0.5, 0.54, 0.49, #
+0.45, 0.66, 0.63, 0.89, 0.93, 0.53, 0.53, 0.63, 0.34)#
+brks <- c(seq(0.259, 1, by=0.05), 1)#
+inBins <- .bincode(sanderson_donoghue, brks, T)#
+whIn <- unlist(lapply(1:max(inBins, na.rm=T),  function(x) length(which(inBins == x))))#
+targetDist <- round(whIn * (1000/ sum(whIn) ))#
+targetDist[1] <- 25#
+lngth <- cumsum(c(0, targetDist))
+inBins
+hist(sanderson_donoghue , breaks=seq(0, 1, 0.1))
+hist(sanderson_donoghue , breaks=seq(0, 1, 0.1), border=F)
+hist(sanderson_donoghue , breaks=seq(0, 1, 0.1), border=F, col="grey")
+hist(sanderson_donoghue , breaks=seq(0, 1, 0.1), border="white", col="grey")
+sanderson_donoghue <- c(0.79, 0.72, 0.44, 0.63, 0.43, 0.39, 0.31, 0.56, 0.37, 0.32, #
+0.6, 0.35, 0.26, 0.55, 0.82, 0.62, 0.5, 1, 0.84, 0.81, 0.64, #
+0.7, 0.68, 0.6, 0.4, 0.43, 0.72, 0.76, 0.8, 0.5, 0.54, 0.49, #
+0.45, 0.66, 0.63, 0.89, 0.93, 0.53, 0.53, 0.63, 0.34)#
+brks <- c(seq(0.259, 1, by=0.05), 1)#
+hist(sanderson_donoghue , breaks=seq(0, 1, 0.1), border="white", col="grey")
+brks
+count_mat <- matrix(0, nrow=1, ncol=15)#
+colnames(count_mat) <- c("binTarget_25" ,"binTarget_98", "binTarget_73" ,"binTarget_98" ,"binTarget_73", "binTarget_98", "binTarget_73", "binTarget_122", "binTarget_73", "binTarget_49", "binTarget_73", "binTarget_73", "binTarget_24" ,"binTarget_24" ,"binTarget_24")
+count_mat
+brks
+inBins <- .bincode(sanderson_donoghue, brks, T)
+inBins
+whIn <- unlist(lapply(1:max(inBins, na.rm=T),  function(x) length(which(inBins == x))))
+targetDist <- round(whIn * (1000/ sum(whIn) ))#
+targetDist[1] <- 25
+targetDist
+lngth <- cumsum(c(0, targetDist))
+lngth
+length(targetDist)
+seq(0.25, 1, 0.05)
+length(seq(0.25, 1, 0.05))
+sanderson_donoghue
+hist(sanderson_donoghue )
+hist(sanderson_donoghue , breaks=seq(0, 1, 0.1), border="white", col="grey")
+hist(sanderson_donoghue , breaks=seq(0, 1, 0.1), border="white", col="grey", xlim=c(0,1))
+hist(sanderson_donoghue , breaks=seq(0, 1, 0.05), border="white", col="grey", xlim=c(0,1))
+install_github(motmot.2.0)
+library(devtools)#
+install_github("PuttickMacroevolution/motmot.2.0")#
+library(motmot.2.0)
+?rtree
+stree(32, type+'b')
+stree(32, type="b")
+phy <- stree(32, type="b")
+phy$edge.length
+phy$edge.length <- runif(Ntip(phy) * 2 - 2, 0.1, 2)
+phy
+transformPhylo(phy, model="lambda", lambda=1)
+transformPhylo(phy, model="lambda", lambda=0.5)
+par(mfrow=c(1,3))
+par(mfrow=c(1,3))#
+plot(transformPhylo(phy, model="lambda", lambda=1))#
+mtext("original", 3)
+plot(transformPhylo(phy, model="lambda", lambda=0.5))#
+mtext("lambda = 0.5", 3)
+phy$edge.length <- runif(Ntip(phy) * 2 - 2, 0.1, 2)#
+#
+par(mfrow=c(1,3))#
+plot(transformPhylo(phy, model="lambda", lambda=1))#
+mtext("original", 3)#
+#
+plot(transformPhylo(phy, model="lambda", lambda=0.5))#
+mtext("lambda = 0.5", 3)#
+#
+plot(transformPhylo(phy, model="lambda", lambda=1e-8))#
+mtext("lambda = 0", 3)
+par(mfrow=c(1,4))#
+plot(transformPhylo(phy, model="lambda", lambda=2))#
+mtext("lambda = 2", 3)#
+#
+plot(transformPhylo(phy, model="lambda", lambda=1))#
+mtext("original", 3)#
+#
+plot(transformPhylo(phy, model="lambda", lambda=0.5))#
+mtext("lambda = 0.5", 3)#
+#
+plot(transformPhylo(phy, model="lambda", lambda=1e-8))#
+mtext("lambda = 0", 3)
+par(mfrow=c(1,4))#
+plot(transformPhylo(phy, model="lambda", lambda=1.2))#
+mtext("lambda = 2", 3)#
+#
+plot(transformPhylo(phy, model="lambda", lambda=1))#
+mtext("original", 3)#
+#
+plot(transformPhylo(phy, model="lambda", lambda=0.5))#
+mtext("lambda = 0.5", 3)#
+#
+plot(transformPhylo(phy, model="lambda", lambda=1e-8))#
+mtext("lambda = 0", 3)
+par(mfrow=c(1,4))#
+plot(transformPhylo(phy, model="lambda", lambda=1.1))#
+mtext("lambda = 2", 3)
+plot(transformPhylo(phy, model="lambda", lambda=1.04))
+par(mfrow=c(1,3))#
+#
+plot(transformPhylo(phy, model="lambda", lambda=1))#
+mtext("original", 3)#
+#
+plot(transformPhylo(phy, model="lambda", lambda=0.5))#
+mtext("lambda = 0.5", 3)#
+#
+plot(transformPhylo(phy, model="lambda", lambda=1e-8))#
+mtext("lambda = 0", 3)
+library(devtools)#
+install_github("PuttickMacroevolution/motmot.2.0")#
+library(motmot.2.0)#
+phy <- stree(32, type="b")#
+phy$edge.length <- runif(Ntip(phy) * 2 - 2, 0.1, 2)#
+par(mfrow=c(1,3))#
+plot(transformPhylo(phy, model="lambda", lambda=1))#
+mtext("original", 3)#
+plot(transformPhylo(phy, model="lambda", lambda=0.5))#
+mtext("lambda = 0.5", 3)#
+plot(transformPhylo(phy, model="lambda", lambda=1e-8))#
+mtext("lambda = 0", 3)#
+x <- transformPhylo(phy, model="lambda", lambda=1)#
+y <- transformPhylo(phy, model="lambda", lambda=0.5)#
+z <- transformPhylo(phy, model="lambda", lambda=1e-8)
+par(mfrow=c(1,3), pty="s")#
+#
+plot(x$edge.length,y$edge.length)#
+plot(x$edge.length,z$edge.length)#
+plot(y$edge.length,z$edge.length)
+library(devtools)
+?install_github
+install_github("PuttickMacroevolution/motmot.2.0", build=F)
+install_github("PuttickMacroevolution/motmot.2.0", force=T)
+install.packages("motmot.2.0")
+install.packages("motmot.2.0", repos="https://www.stats.bris.ac.uk/R/")#
+library(motmot.2.0)#
+data(anolis.tree)#
+data(anolis.data)#
+attach(anolis.data)#
+anolis.tree
+sortedData <- sortTraitData(phy=anolis.tree, y=anolis.data, data.name="Male_SVL", pass.ultrametric = TRUE)#
+phy <- sortedData$phy#
+male.length <- sortedData$trait
+anolis.data
+data.name="Male_SVL"
+anolis.data[,"Male_SVL"]
+y.data <- anolis.data[,"Male_SVL"]
+install.packages("motmot.2.0", repos="https://www.stats.bris.ac.uk/R/")#
+library(motmot.2.0)#
+data(anolis.tree)#
+data(anolis.data)#
+attach(anolis.data)#
+anolis.tree#
+y.data <- matrix(anolis.data[,"Male_SVL"])#
+rownames(y.data)
+rownames(y.data) <- rownames(anolis.data)
+sortedData <- sortTraitData(phy=anolis.tree, y=y.data, pass.ultrametric = TRUE)
+sortedData <- sortTraitData(phy=anolis.tree, y=y.data)
+sortedData
+phy <- sortedData$phy#
+male.length <- sortedData$trait#
+plot.phylo(phy, show.tip.label=TRUE, no.margin=TRUE, edge.col="grey20", cex=0.25, label.offset=1)
+plot.phylo(phy, show.tip.label=TRUE, no.margin=TRUE, edge.col="grey20", cex=0.25, label.offset=1, type="fan")#
+#
+plot.phylo(phy, show.tip.label=TRUE, no.margin=TRUE, edge.col=heat.colors(length(phy$edge[,1])), cex=0.25, label.offset=1, type="fan", tip.col=rainbow(Ntip(phy)))
 rm(list=ls(all=T))#
 library("devtools")#
-library(roxygen2)#
-setwd("~/Documents/GitHub/motmot.2.0")#
-devtools::use_rcpp()#
-document()#
-setwd("..")#
-install("motmot.2.0", force=T)
-devtools::document()
+library(roxygen2)
+setwd("~/Documents/GitHub/motmot.2.0")
 usethis::use_rcpp()
 devtools::document()
-setwd("~/Documents/GitHub/motmot.2.0")#
-usethis::use_rcpp()#
 devtools::document()
-setwd("~/Documents/GitHub/motmot.2.0")#
-usethis::use_rcpp()#
-devtools::document()
-warnings()
