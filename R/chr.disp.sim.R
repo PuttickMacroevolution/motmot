@@ -1,7 +1,7 @@
 #' @title Simulate character displacement data
 #' @description Simulates data under a Brownian motion or character displacement model
 #' @param phy An object of class \code{phylo} (see \pkg{ape}).
-#' @param dt The parameter dt is the size of the simulation time-steps: if dt=0.001 and the tree has branch length from root to tips of 10, then the trait simulation will go through 10000 time steps.
+#' @param n.steps Number of time steps the for the simulation (default = 1000 time steps).
 #' @param sigma The value of Brownian variance in the simulation
 #' @param a The strength of competition between inter-specific lineages
 #' @param ntraits Number of traits to be simulated
@@ -21,21 +21,23 @@
 #' emp.data <- finch.data
 #' ## simulate small amount of data 
 #' ## (example only - many more datasets are required for accuracy)
-#' sim.data <- chr.disp.sim(emp.tree, dt=0.001,
+#' sim.data <- chr.disp.sim(emp.tree, n.steps=100,
 #' sigma=1, a=2, ntraits=1, sympatry=NA, allopatry=NA, trait.lim=NA)
 #' @export
 
-chr.disp.sim <- function(phy, dt=0.001, sigma=1, a=0, ntraits=1, sympatry=NA, allopatry=NA, trait.lim=NA) {
+chr.disp.sim <- function(phy, n.steps=1000, sigma=1, a=0, ntraits=1, sympatry=NA, allopatry=NA, trait.lim=NA) {
     
     phy.names <- phy$tip.label
     phy.chr.disp <- checktree(phy)
     num_tips <- length(phy.chr.disp$data_order)
     splitting_nodes <- phy.chr.disp$splitting_nodes - 1
     times <- phy.chr.disp$times
-    tval <- rep(0, num_tips * ntraits) 
+    tval <- rep(0, num_tips * ntraits)
+    dt <- nodeTimes(phy)[1,1] / n.steps
 
     symp <- vectortime(sympatry, 0, num_tips)
     allo <- vectortime(allopatry, 99e9, num_tips )
+    
 
     if(is.na(trait.lim)) trait.lim <- 9e99
 

@@ -4,13 +4,13 @@
 \alias{chr.disp.sim}
 \title{Simulate character displacement data}
 \usage{
-chr.disp.sim(phy, dt = 0.001, sigma = 1, a = 0, ntraits = 1,
+chr.disp.sim(phy, n.steps = 1000, sigma = 1, a = 0, ntraits = 1,
   sympatry = NA, allopatry = NA, trait.lim = NA)
 }
 \arguments{
 \item{phy}{An object of class \code{phylo} (see \pkg{ape}).}
 
-\item{dt}{The parameter dt is the size of the simulation time-steps: if dt=0.001 and the tree has branch length from root to tips of 10, then the trait simulation will go through 10000 time steps.}
+\item{n.steps}{Number of time steps the for the simulation (default = 1000 time steps).}
 
 \item{sigma}{The value of Brownian variance in the simulation}
 
@@ -37,7 +37,7 @@ emp.tree <- finch.tree
 emp.data <- finch.data
 ## simulate small amount of data 
 ## (example only - many more datasets are required for accuracy)
-sim.data <- chr.disp.sim(emp.tree, dt=0.001,
+sim.data <- chr.disp.sim(emp.tree, n.steps=100,
 sigma=1, a=2, ntraits=1, sympatry=NA, allopatry=NA, trait.lim=NA)
 }
 \references{

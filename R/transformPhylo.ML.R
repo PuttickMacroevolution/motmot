@@ -124,7 +124,7 @@ transformPhylo.ML <- function(y, phy, model = NULL, modelCIs = TRUE, nodeIDs = N
   upper.function.warning <- function() if (print.warnings) warning("Confidence limits fall outside parameter bounds - consider changing upperBound")
   aic.fun <- function(likelihood, k) return(-2 * likelihood + 2 * k)
   aicc.fun <- function(likelihood, k, n) return(-2 * likelihood + 2 * k + ((2 * k * (k + 1)) / (n - k - 1)))
-  if (acdcScalar && !is.null(nodeIDs)) upperBound <- -1e6
+  if (acdcScalar && !is.null(nodeIDs)) upperBound <- -1e-6
 	x <- NULL
 
 
@@ -510,22 +510,22 @@ transformPhylo.ML <- function(y, phy, model = NULL, modelCIs = TRUE, nodeIDs = N
       rootBranchingTime <- nodeTimes(phy)[1, 1]
       if (is.null(lowerBound)) {
         lowerBound <- log(bounds["acdcrate", 1]) / rootBranchingTime
-        if (acdcScalar) {
-          lowerBound[2] <- 1
-        }
-        if (lambdaEst) {
-          lowerBound <- c(lowerBound, bounds["lambda", 1])
-        }
-      }
+       }
       if (is.null(upperBound)) {
         upperBound <- log(bounds["acdcrate", 2]) / rootBranchingTime
-        if (acdcScalar) {
-          upperBound[2] <- 20
         }
+      if (acdcScalar) {
+      	if(is.na(lowerBound[2])) {
+      		lowerBound[2] <- 1
+      		}
+      	if(is.na(upperBound[2])) {
+      		upperBound[2] <- 5
+      		}
+       }
         if (lambdaEst) {
-          upperBound <- c(upperBound, bounds["lambda", 2])
+       		lowerBound <- c(lowerBound, bounds["lambda", 1])
+       		upperBound <- c(upperBound, bounds["lambda", 2])
         }
-      }
 
       if (acdcScalar) {
         var.funACDC <- function(param) {
@@ -543,7 +543,7 @@ transformPhylo.ML <- function(y, phy, model = NULL, modelCIs = TRUE, nodeIDs = N
           return(transformPhylo.ll(lambdaPhy, acdcRate = acdc.est, nodeIDs = nodeIDs, model = "ACDC", y = y, cladeRates = 1, meserr = meserr, covPIC = covPIC)[[2]])
         }
       }
-      vo <- optim(acdcRate, var.funACDC, method = "L-BFGS-B", lower = lowerBound, upper = upperBound, control = controlList)
+      vo <- optim(acdcRate, var.funACDC, method = "L-BFGS-B", lower = lowerBound,  upper=upperBound, control = controlList)
       if (lambdaEst) lambda <- tail(vo$par, 1) else lambda <- 1
       lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)
 

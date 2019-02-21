@@ -13,11 +13,12 @@
 #' @param opt.accept.rate Logical. Perform a pre-run optimisation to achieve an acceptance rate close to 0.44?
 #' @param acceptance.sd Numeric. The starting standard deviation for the proposal distribution
 #' @param opt.prop The proportion of the mcmc.iteration with which to optimise the acceptance rate.
-#' @param fine.tune.bound The distance (+/-) from the optimal acceptance rate of 0.44 at which the fine-tune algorithm will stop. Default = 0.05.
+#' @param accept.rate The target acceptance rate to achieve during the fine tune step (default 0.3)
+#' @param fine.tune.bound The distance (+/-) from the optimal acceptance rate at which the fine-tune algorithm will stop. Default = 0.05.
 #' @param fine.tune.n The number of iterations with which to optimise the acceptance rate. 
 #' @param random.start Use a random starting value for the MCMC run (TRUE), or use the environment set.seed() value
 #' @param covPIC Logical. For multivariate analyses, allow for co-variance between traits rates (TRUE) or no covariance in trait rates (FALSE). If FALSE, only the trait variances not co-variances are used.
-#' @details fine.tune.n The method estimates posterior probabilities using a Metropolis-Hastings MCMC approach. To aide convergence, the model will attempt to reach an acceptable proposal ratio (~0.44) when opt.accept.rate=TRUE. These initial fine-tune repititions only save the standard deviation for the truncated normal distribution that is used for the proposal mechanism. The chain is discarded. Posterior probabilites and MCMC diagnostics come from the seperate output chain that commences after this fine-tune procedure. The MCMC model will estimate the posterior probability for the following models. 
+#' @details The method estimates posterior probabilities using a Metropolis-Hastings MCMC approach. To aide convergence, the model will attempt to reach an acceptable proposal ratio (~0.44) when opt.accept.rate=TRUE. These initial fine-tune repititions only save the standard deviation for the truncated normal distribution that is used for the proposal mechanism. The chain is discarded. Posterior probabilites and MCMC diagnostics come from the seperate output chain that commences after this fine-tune procedure. The MCMC model will estimate the posterior probability for the following models. 
 #' \itemize{
 #' \item {model="kappa"} {fits Pagel's kappa by raising all branch lengths to the power kappa. As kappa approaches zero, trait change becomes focused at branching events. For complete phylogenies, if kappa approaches zero this infers speciational trait change. Default bounds from ~0 - 1.}
 #' \item {model="lambda"} {fits Pagel's lambda to estimate phylogenetic signal by multiplying all internal branches of the tree by lambda, leaving tip branches as their original length (root to tip distances are unchanged). Default bounds from ~0 - 1.}
@@ -49,18 +50,14 @@
 #' model="lambda", mcmc.iteration=100, burn.in=0.1)
 #' @export 
 
-transformPhylo.MCMC <- function(y, phy, model, mcmc.iteration=1000, burn.in=0.1, hiddenSpeciation = FALSE, full.phy=NULL, lowerBound = NULL, upperBound = NULL, opt.accept.rate=TRUE, acceptance.sd=NULL, opt.prop=0.25, fine.tune.bound=0.05, fine.tune.n=30, useMean = FALSE, random.start=TRUE, covPIC=TRUE) {
+transformPhylo.MCMC <- function(y, phy, model, mcmc.iteration=1000, burn.in=0.1, hiddenSpeciation = FALSE, full.phy=NULL, lowerBound = NULL, upperBound = NULL, opt.accept.rate=TRUE, accept.rate=0.3, acceptance.sd=NULL, opt.prop=0.25, fine.tune.bound=0.05, fine.tune.n=30, useMean = FALSE, random.start=TRUE, covPIC=TRUE) {
 	
-if(length(model) > 1) stop("please provide one model only")
-	model <- tolower(model)
-	
-	all.models <- c("lambda", "delta", "kappa", "ou", "acdc", "psi")
-	
-	if(is.na((match(model, all.models)))) stop(paste(model, "not recognised - please provide one of", paste0(all.models, collapse=", ")))
-   
-    bounds <- matrix(c(1e-08, 1, 1e-08, 1, 1e-08, 5, 1e-08, 20, 0, 1, 1e-08, 1000, 1e-10, 20), 7, 2, byrow = TRUE)
-    rownames(bounds) <-
-      c("kappa", "lambda", "delta", "alpha", "psi", "rate", "acdcrate")
+	if(length(model) > 1) stop("please provide one model only")
+		model <- tolower(model)
+		all.models <- c("lambda", "delta", "kappa", "ou", "acdc", "psi")
+		if(is.na((match(model, all.models)))) stop(paste(model, "not recognised - please provide one of", paste0(all.models, collapse=", ")))
+       bounds <- matrix(c(1e-08, 1, 1e-08, 1, 1e-08, 5, 1e-08, 20, 0, 1, 1e-08, 1000, 1e-10, 20), 7, 2, byrow = TRUE)
+   	 rownames(bounds) <- c("kappa", "lambda", "delta", "alpha", "psi", "rate", "acdcrate")
 
 if(random.start) set.seed(as.numeric(Sys.time()))
 
@@ -321,10 +318,11 @@ if(opt.accept.rate) {
 cat("optimising acceptance ratio fine-tune")
 cat("\n", " ")
 cat("running")
+cat("\n", " ")
 count <- 1
 stn.dev.2 <- stn.dev
-old.ratio <- 10	
-best.current <- 0
+old.ratio <- 1	
+best.current <- 1
 opt.mcmc <- mcmc.iteration * opt.prop
 opt.mcmc.burn <- ceiling(opt.mcmc * burn.in)
 
@@ -332,15 +330,20 @@ opt.done <- FALSE
 while(opt.done == FALSE) {
 chain <- motmot.mcmc(input.value, opt.mcmc, stn.dev.2, silent=TRUE)
 acceptance <- 1 - mean(duplicated(chain[-(1:opt.mcmc.burn),]))	
-diff.to.accept <- acceptance - 0.44
-new.ratio <- abs(acceptance - 0.44)
-cat("\r", "acceptance attempt", signif(acceptance, 3), "best acceptance", signif(best.current, 3), "best SD", signif(stn.dev, 3))
+diff.to.accept <- acceptance - accept.rate
+new.ratio <- abs(acceptance - accept.rate)
 if(new.ratio < old.ratio) {
 stn.dev <- stn.dev.2
-old.ratio <- new.ratio
+best.ratio <- new.ratio
 best.current <- acceptance
-}	
-if(abs(acceptance - 0.44) < fine.tune.bound ) {
+}
+if(signif(acceptance, 3) != 1) {
+	cat("\r", "acceptance attempt", count, ", current acceptance ratio", signif(best.current, 3))
+	} else{
+	cat("\r", "acceptance attempt", count, ", current acceptance ratio", sprintf("%s.000", 1))
+	}	
+	if(acceptance > 1) stop("")
+if(abs(acceptance - accept.rate) < fine.tune.bound ) {
 opt.done <- TRUE
 cat("\n", "finished fine.tune")
 }
@@ -353,10 +356,13 @@ stn.dev.2 <- rtnorm(1, stn.dev, sd.fine.tune, lowerBound, upperBound)
 }	
 }	
 cat("\n", " ")	
+cat("\n", " ")	
 chain <- motmot.mcmc(input.value, mcmc.iteration, stn.dev=stn.dev)
 burnIn <- ceiling(mcmc.iteration * burn.in)
 acceptance.1 <- 1 - mean(duplicated(chain[-(1:burnIn), 1]))
 post.burn.in <- chain[-c(1:burnIn), ]
+names(post.burn.in) <- NULL
+post.burn.in <- matrix(post.burn.in)
 
 if(dim(chain)[2] == 1) {
 ess.mcmc <- coda::effectiveSize(post.burn.in)
@@ -377,10 +383,9 @@ colnames(hpd.mcmc) <- name.param
 }
 
 cat("\n")
-rownames(chain) <- NULL
-output.mcmc <- list(median.mcmc, hpd.mcmc, ess.mcmc, acceptance.1, chain)
-rownames(chain) <- NULL
+output.mcmc <- list(median.mcmc, hpd.mcmc, ess.mcmc, acceptance.1, post.burn.in)
 names(output.mcmc) <- c("median", "95.HPD", "ESS", "acceptance.rate", "mcmc.chain")
+class(output.mcmc) <- "motmot.mcmc"
 print(output.mcmc[1:4])
 invisible(return(output.mcmc))
 }

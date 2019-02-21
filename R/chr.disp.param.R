@@ -1,6 +1,7 @@
 #' @title Simulate character displacement data wrapper
 #' @description Simulates phylogenetic trait data under a character displacement model (Clarke et al. 2017) in which traits interact inter-specifically, with competition between sympatric lineages driving trait values apart
 #' @param phy An object of class \code{phylo} (see \pkg{ape}).
+#' @param n.steps Number of time steps the for the simulation (default = 1000 time steps).
 #' @param n.sim Number of replications to simulate data
 #' @param max.sigma The maximum value of Brownian variance in the simulation sampled from a U(0, max.sigma) distribution for each iteration
 #' @param max.a The maximum value of the strength of competition between inter-specific lineages sampled from a U(0, max.a) distribution for each iteration
@@ -21,19 +22,19 @@
 #' data(finches)
 #' ## simulate small amount of data 
 #' ## (example only - many more datasets are required for accuracy)
-#' param.simulation <- chr.disp.param(finch.tree, n.sim = 3, 
+#' param.simulation <- chr.disp.param(finch.tree, n.sim = 3, n.steps=100,  
 #' max.sigma = 8, max.a = 8, ntraits=1, 
 #' allopatry=as.matrix(allopatric.data), mc.cores = 1)
 #' @export
 
-chr.disp.param <- function (phy, n.sim = 100, max.sigma = 8, max.a = 8, est.blomberg.k = FALSE, ntraits=1, sympatry=NA, allopatry=NA, trait.lim=NA, mc.cores = 1) {
+chr.disp.param <- function (phy, n.sim = 100, n.steps=1000, max.sigma = 8, max.a = 8, est.blomberg.k = FALSE, ntraits=1, sympatry=NA, allopatry=NA, trait.lim=NA, mc.cores = 1) {
 	
     sig <- runif(n.sim, 0, max.sigma)
     atry <- runif(n.sim, 0, max.a)
     if(!all(is.na(allopatry))) allopatry <- as.matrix(allopatry)
 	if(!all(is.na(sympatry))) sympatry <- as.matrix(sympatry)    
     param.spl <- mclapply(1:n.sim, mc.cores = mc.cores, function(i) {
-        d.out <- chr.disp.sim(phy = phy, a = atry[i], sigma = sig[i], ntraits=ntraits, sympatry=sympatry, allopatry=allopatry, trait.lim=trait.lim)$tval
+        d.out <- chr.disp.sim(phy = phy, n.steps=n.steps, a = atry[i], sigma = sig[i], ntraits=ntraits, sympatry=sympatry, allopatry=allopatry, trait.lim=trait.lim)$tval
         stats.sim <- summary_stats(phy = phy, y = as.matrix(d.out), 
             est.blomberg.k = est.blomberg.k)
         c(sig[i], atry[i], unlist(stats.sim))

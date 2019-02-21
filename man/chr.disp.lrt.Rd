@@ -26,10 +26,10 @@ Conducts a likelihood ratio test between empirical data (phylogeny and trait dat
 data(finches)
 ## simulate small amount of data 
 ## (example only - many more datasets are required for accuracy)
-param.simulation <- chr.disp.param(finch.tree, n.sim = 5, 
+param.simulation <- chr.disp.param(finch.tree, n.sim = 100, n.steps=100,
 max.sigma = 8, max.a = 8, ntraits=1, 
 allopatry=as.matrix(allopatric.data), mc.cores = 1)
-chr.disp.lrt(finch.tree, finch.data, param.simulation, 3)
+chr.disp.lrt(finch.tree, finch.data, param.simulation, 50)
 }
 \references{
 Clarke M, Thomas GH, Freckleton RP. 2017. Trait evolution in adaptive radiations: modelling and measuring interspecific competition on phylogenies. The American Naturalist. 189, 121-137.

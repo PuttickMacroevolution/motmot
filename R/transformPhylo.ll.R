@@ -87,9 +87,13 @@
 #' @export
 
 transformPhylo.ll <- function(y=NULL, phy, model=NULL, meserr=NULL, kappa=NULL, lambda=NULL, delta=NULL, alpha=NULL, psi=NULL, lambda.sp = NULL, nodeIDs=NULL, rateType=NULL, branchRates=NULL, cladeRates=NULL, timeRates=NULL, splitTime=NULL, branchLabels = NULL, acdcRate=NULL,  covPIC = TRUE, cophenetic.dist=NULL, vcv.matrix=NULL, ancestral.state=NA, brVar=NA, return.reml=FALSE) {
+	
+		model <- tolower(model)
+  all.models <- c("bm", "kappa", "lambda", "delta", "ou", "acdc", "psi", "multipsi", "free", "clade", "timeslice")
+  if (any(is.na((match(model, all.models))))) stop(paste(model, "not recognised - please provide one of", paste0(all.models, collapse = ", ")))
 		
 		contemp.ou <- TRUE
-		if(model=="OU") contemp.ou <- is.ultrametric(phy)
+		if(model=="ou") contemp.ou <- is.ultrametric(phy)
 		
 	switch(model,		  
 		   
@@ -117,7 +121,7 @@ transformPhylo.ll <- function(y=NULL, phy, model=NULL, meserr=NULL, kappa=NULL, 
 		   transformPhy <- transformPhylo(phy=phy, model="clade", nodeIDs=nodeIDs, cladeRates=cladeRates, rateType=rateType, meserr = meserr, y=y)
 		   },
 		   
-		   "OU" = {
+		   "ou" = {
 		   	if(contemp.ou) {
 		   		transformPhy <- transformPhylo(phy=phy, model="OU", alpha=alpha, nodeIDs=nodeIDs, meserr = meserr, y=y)
 		   	} else {
@@ -135,12 +139,12 @@ transformPhylo.ll <- function(y=NULL, phy, model=NULL, meserr=NULL, kappa=NULL, 
         	transformPhy <- transformPhylo(phy = phy, branchLabels = branchLabels, model = "multipsi", psi = psi, meserr = meserr, y = y, lambda.sp = lambda.sp)
 		   },
 		   
-		   "timeSlice" = {
+		   "timeslice" = {
 		   transformPhy <- transformPhylo(phy=phy, model="timeSlice", timeRates=timeRates,  splitTime=splitTime, meserr = meserr, y=y)
 		   },
 		   
-		   	"ACDC" = {
-		   transformPhy <- transformPhylo(phy=phy, model="ACDC", acdcRate=acdcRate, nodeIDs=nodeIDs, cladeRates=cladeRates, y=y, meserr = meserr)
+		   	"acdc" = {
+		   transformPhy <- transformPhylo(phy=phy, model="acdc", acdcRate=acdcRate, nodeIDs=nodeIDs, cladeRates=cladeRates, y=y, meserr = meserr)
 		   }
 		   
 		  )

@@ -395,7 +395,7 @@ transformPhylo <- function (phy, model = NULL, y = NULL, meserr=NULL, sigmaScale
 			originTime <- times[which(names(times) == node)][1]
 			branches <- match(relations_num, phy$edge[,2])
 			if(any(is.na(branches))) branches <- branches[complete.cases(branches)]
-			#branches <- sort(branches)
+			branches <- sort(branches)
 			times <- nodeTimes(phy)[,1]
 			
 			if(is.null(cladeRates) == FALSE) phy$edge.length[branches] <- phy$edge.length[branches] * cladeRates

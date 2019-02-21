@@ -1,0 +1,45 @@
+#' @title plot the output from transformPhylo.MCMC
+#' @description Plots a histogram of the estimated parameter and a trace of the results
+#' @param mcmc.input an object of class "mcmc.motmot" output from \code{\link{transformPhylo.MCMC}}
+#' @param y.limit the limits for the y axes for the plots
+#' @param x.limit the limits for the x axes for the plots
+#' @param label.text the labels for the two plots defaults to '(a)' for the histogram and '(b)' for the trace plot
+#' @param cex.axis character expansion for the plot axis labels
+#' @param cex.labels character expansion for the plot axis names
+#' @param col.tree colour for the edge labels on the tree
+#' @param col.hist colour for the histogram bars
+#' @param col.trace colour for the trace plot
+#' @return Two plots showing the histogram of the estimated parameter value and a trace of the MCMC estimation
+#' @author Mark Puttick
+#' @examples
+#' data(anolis.tree)
+#' data(anolis.data)
+#' attach(anolis.data)
+#' male.length <- matrix(Male_SVL, dimnames=list(rownames(anolis.data)))
+#' sortedData <- sortTraitData(anolis.tree, male.length)
+#' phy <- sortedData$phy
+#' male.length <- sortedData$trait
+#' phy.clade <- extract.clade(phy, 182)
+#' male.length.clade <- as.matrix(male.length[match(phy.clade$tip.label, rownames(male.length)),])
+#' ## please note, this model will be need to run for longer to achieve convergence
+#' lambda.mcmc <- transformPhylo.MCMC(y=male.length.clade, phy=phy.clade, 
+#' model="lambda", mcmc.iteration=100, burn.in=0.1)
+#' ## not run
+#' ## mcmc.plot(lambda.mcmc)
+#' @export
+
+
+mcmc.plot <- function(mcmc.input, y.limit=NULL, x.limit=NULL, label.text=NULL, cex.axis=1, cex.labels=0.7, col.hist="green4", col.trace="navy") {
+	if(!class(mcmc.input) == "motmot.mcmc") error("please supply object of class motmot.mcmc")
+	hist.l <- suppressWarnings(hist(mcmc.input$mcmc, xlim=x.limit, ylim=y.limit, xaxs="i", yaxs="i", las=1, ylab="density", xlab=parameter, plot=FALSE))
+	if(is.null(y.limit)) y.limit <- c(0, max(hist.l$counts) * 1.05)
+	if(is.null(x.limit)) x.limit <- c(0, max(hist.l$breaks) * 1.05)
+	parameter <- names(mcmc.input[[3]])
+	if(is.null(label.text))  label.text <- c("(a)", "(b)")
+	par(mfrow=c(2,2))
+	plot(hist.l, xaxs="i", yaxs="i", las=1, main="", xlab=parameter, col=col.hist, border="white", xlim=x.limit, ylim=y.limit, cex.axis=cex.axis)
+	mtext(label.text[1], 3, at=0, cex=cex.labels, font=2)
+	box()
+	plot(mcmc.input$mcmc, ylim=x.limit, xaxs="i", yaxs="i", las=1, ylab="density", xlab=parameter, type="l", cex.axis=cex.axis, col=col.trace)
+	mtext(label.text[2], 3, at=0, cex=cex.labels, font=2)
+}

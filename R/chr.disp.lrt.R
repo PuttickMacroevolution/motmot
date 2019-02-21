@@ -15,10 +15,10 @@
 #' data(finches)
 #' ## simulate small amount of data 
 #' ## (example only - many more datasets are required for accuracy)
-#' param.simulation <- chr.disp.param(finch.tree, n.sim = 5, 
+#' param.simulation <- chr.disp.param(finch.tree, n.sim = 100, n.steps=100,
 #' max.sigma = 8, max.a = 8, ntraits=1, 
 #' allopatry=as.matrix(allopatric.data), mc.cores = 1)
-#' chr.disp.lrt(finch.tree, finch.data, param.simulation, 3)
+#' chr.disp.lrt(finch.tree, finch.data, param.simulation, 50)
 #' @export
 
 chr.disp.lrt <- function(emp.tree, emp.data, param.out, posteriorSize=500) {
@@ -63,11 +63,12 @@ chr.disp.lrt <- function(emp.tree, emp.data, param.out, posteriorSize=500) {
     h.0.est <- c(unlist(k.0.out$eval.points)[k.0.max.index[1]], unlist(k.0.out$eval.points)[length(k.0.out$estimate[,1]) + k.0.max.index[2]])
     
     likelihood.ratio.test <- -2 * log( h.0.lik / h.1.lik )
+    p.value <- pchisq(likelihood.ratio.test, 1)
    
     output <- list()
     output$estimates <- data.frame(h.0.est, h.1.est)
     rownames(output$estimates) <- c("sigma", "a")
-    output$likelihood <- data.frame(h.0.lik, h.1.lik, likelihood.ratio.test)
+    output$likelihood <- data.frame(h.0.lik, h.1.lik, likelihood.ratio.test, p.value)
 	if(est.blomberg.k) output$blomberg.k <- c("empirical.blomberg.k"=unlist(tstat[3]), "simulated.mean.blomberg.k"=mean(param.out[[1]][,4]))
 	return(output)
 	
