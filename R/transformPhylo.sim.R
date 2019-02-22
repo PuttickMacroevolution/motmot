@@ -147,7 +147,7 @@ transformPhylo.sim <- function(phy, n=1, x=NULL, model=NULL, kappa=NULL, lambda=
 					
 			"timeslice" = {
 				phy2 <- phy	   
-		   		transformPhy <- transformPhylo.sim(phy=phy, model="timeSlice", splitTime=splitTime, timeRates=timeRates)
+		   		transformPhy <- transformPhylo(phy=phy, model="timeSlice", splitTime=splitTime, timeRates=timeRates)
 		   		phyMat <- VCV.array(transformPhy)
 				attr(phyMat, "class") <- "matrix"
 				ydum <- as.matrix(t(rmvnorm(n, sigma = phyMat)))
