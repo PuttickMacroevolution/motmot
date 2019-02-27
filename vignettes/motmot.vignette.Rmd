@@ -28,10 +28,19 @@ Models Of Trait Macroevolution On Trees (MOTMOT) is an R package that allows for
 # Introduction
 
 
-First we load motmot
+First we install
 
-```{r}
-library(motmot, quietly=T)
+```{r, warning=FALSE, message=FALSE, eval=FALSE}
+## check for devtools and install if necessary
+if(!any(rownames(installed.packages()) == "devtools")) install.packages("devtools")
+library(devtools)
+install_github("PuttickMacroevolution/motmot", quiet=TRUE)
+```
+
+and load motmot
+ 
+```{r, warning=FALSE, message=FALSE}
+library(motmot)
 ```
 
 For these examples we will use anolis data available from motmot. A time-calibrated phylogeny of anolis species ("anolis.tree"), and various trait and biogeographical trait data ("anolis.data")
@@ -39,7 +48,6 @@ For these examples we will use anolis data available from motmot. A time-calibra
 ```{r}
 data(anolis.tree)
 data(anolis.data)
-
 attach(anolis.data)
 anolis.tree
 ```
