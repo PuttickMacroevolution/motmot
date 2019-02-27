@@ -1,13 +1,10 @@
-
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<h1 class="title toc-ignore">motmot.2.0</h1>
+<h1 class="title toc-ignore">motmot</h1>
 <h4 class="author"><em>Mark Puttick</em></h4>
-<h4 class="date"><em>2018-10-22</em></h4>
-    
- </div>   
-
+<h4 class="date"><em>2019-02-27</em></h4>
+</div>
 
 <p>Models Of Trait Macroevolution On Trees (MOTMOT) is an R package that allows for testing of models of trait evolution (Thomas <em>et al.</em> 2012).</p>
 <ul>
@@ -21,12 +18,16 @@
 </ul>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>First we load motmot.2.0</p>
-<pre class="r"><code>library(motmot.2.0, quietly=T)</code></pre>
+<p>First we install</p>
+<pre class="r"><code>## check for devtools and install if necessary
+if(!any(rownames(installed.packages()) == &quot;devtools&quot;)) install.packages(&quot;devtools&quot;)
+library(devtools)
+install_github(&quot;PuttickMacroevolution/motmot&quot;, quiet=TRUE)</code></pre>
+<p>and load motmot</p>
+<pre class="r"><code>library(motmot)</code></pre>
 <p>For these examples we will use anolis data available from motmot. A time-calibrated phylogeny of anolis species (“anolis.tree”), and various trait and biogeographical trait data (“anolis.data”)</p>
 <pre class="r"><code>data(anolis.tree)
 data(anolis.data)
-
 attach(anolis.data)
 anolis.tree</code></pre>
 <pre><code>## 
@@ -45,16 +46,16 @@ male.length &lt;- sortedData$trait</code></pre>
 <p>Finally, we will ‘prune’ the species from the tree using ‘drop.tip’ from APE. We can now plot our tree and data using the “traitData.plot” function</p>
 <pre class="r"><code>traitData.plot(y=male.length, phy)</code></pre>
 <div class="figure">
-<img src="vignettes/figures/plot1-1.png", align="middle",  alt="Figure 1. TraitData showing the relative male snout ventral length at the tips" width="1000" />
+<img src="vignettes/figures/plot1-1.png", alt="Figure 1. TraitData showing the realtive male snout ventral length at the tips" width="1000" />
 <p class="caption">
-Figure 1. TraitData showing the relative male snout ventral length at the tips
+Figure 1. TraitData showing the realtive male snout ventral length at the tips
 </p>
 </div>
 <p>We will fit the “tm2” model that allows for clade- and branch-specific changes in rate. This uses the familiar function ‘transformPhylo.ML’. We will fit the models to a subset of these data: including the clade from node 182 only using the APE (Paradis <em>et al</em> 2018) function ‘extract.clade’</p>
 <pre class="r"><code>plot(phy, show.tip.label=FALSE, no.margin=TRUE, edge.col=&quot;grey20&quot;)
 nodelabels(182, 182, bg=&quot;black&quot;, col=&quot;white&quot;)</code></pre>
 <div class="figure">
-<img src="vignettes/figures/plot2-1.png", align="middle",   alt="Figure 2. Subset of the anolis tree" width="1400" />
+<img src="vignettes/figures/plot2-1.png", alt="Figure 2. Subset of the anolis tree" width="1400" />
 <p class="caption">
 Figure 2. Subset of the anolis tree
 </p>
@@ -89,7 +90,7 @@ bm.ml</code></pre>
 <div id="pagels-lambda" class="section level2">
 <h2>Pagel’s lambda</h2>
 <p>We can also fit models to test Pagel’s lambda (Pagel 1997; 1999). Pagel’s lambda is a measure of phylogenetic ‘signal’ in which the degree to which shared history of taxa has driven trait distributions at tips. In this model, internal branche lengths are changed by the lambda value. If lambda is 1, then branches are equal to a Brownian motion model (high phylogenetic signal), and lower values of lambda indicate less influence of shared history on trait values at the tips. Finally, a value of 0 indicates no phylogenetic influence on trait distributions, and is equivalent to a ‘star phylogeny’ with no shared branch lengths.</p>
-<p>The maximum likelihood of lambda can be estimate in motmot.2.0</p>
+<p>The maximum likelihood of lambda can be estimate in motmot</p>
 <pre class="r"><code>lambda.ml &lt;- transformPhylo.ML(phy=phy.clade, y=male.length.clade, model=&quot;lambda&quot;)
 lambda.ml</code></pre>
 <pre><code>## $MaximumLikelihood
@@ -115,7 +116,7 @@ lambda.ml</code></pre>
 <p>A new feature in motmot allows for plotting of the likelihood profile for the branch-transformation parameter, in this case Pagel’s lambda</p>
 <pre class="r"><code>lambda.ml &lt;- transformPhylo.ML(phy=phy.clade, y=male.length.clade, model=&quot;lambda&quot;, profilePlot=T)</code></pre>
 <div class="figure">
-<img src="vignettes/figures/plot3-1.png", align="middle", alt="Figure 3. Profile plot of ML estimation for Pagel's lambda" width="1000" />
+<img src="vignettes/figures/plot3-1.png", alt="Figure 3. Profile plot of ML estimation for Pagel's lambda" width="1000" />
 <p class="caption">
 Figure 3. Profile plot of ML estimation for Pagel’s lambda
 </p>
@@ -134,7 +135,7 @@ p.value</code></pre>
 <p>Delta indicates a slow or increase in the rate of trait evolution through time (Pagel 1997; 1999); a value of 1 is equivalent to Brownian motion, &lt; 1 indicates a slow-down, and &gt; 1 is difficult to interpret (greater change near the present). Here we find a MLE of 2.23 but the CI spans &lt; 1 to &gt; 4</p>
 <pre class="r"><code>delta.ml &lt;- transformPhylo.ML(phy=phy.clade, y=male.length.clade, model=&quot;delta&quot;, profilePlot=T)</code></pre>
 <div class="figure">
-<img src="vignettes/figures/plot4-1.png", align="middle", alt="Figure 4. Profile plot to estimate delta" width="1000" />
+<img src="vignettes/figures/plot4-1.png", alt="Figure 4. Figure 4. Profile plot to estimate delta" width="1000" />
 <p class="caption">
 Figure 4. Profile plot to estimate delta
 </p>
@@ -165,7 +166,7 @@ Figure 4. Profile plot to estimate delta
 <p>Kappa is used as a measure of punctuated evolution and spans values of 0-1 (Pagel 1997:1999). 1 is equivalent to BM, and 0 indicates trait change occurs at events of speciation. Here there is evidence of punctuated evolution (the warning message simply tells out the CI falls outside the parameter bounds - in this case below zero).</p>
 <pre class="r"><code>kappa.ml &lt;- transformPhylo.ML(phy=phy.clade, y=male.length.clade, model=&quot;kappa&quot;, profilePlot=T)</code></pre>
 <div class="figure">
-<img src="vignettes/figures/plot5-1.png", align="middle", alt="Figure 5. Profile plot to estimate kappa" width="1000" />
+<img src="vignettes/figures/plot5-1.png", alt="Figure 4. Figure 4. Profile plot to estimate kappa" width="1000" />
 <p class="caption">
 Figure 5. Profile plot to estimate kappa
 </p>
@@ -174,10 +175,10 @@ Figure 5. Profile plot to estimate kappa
 <div id="ornstein-uhlenbeck" class="section level2">
 <h2>Ornstein-Uhlenbeck</h2>
 <p>The OU model allows for modelling of attraction to a optimum value, alpha (Hansen 1997; Butler and King 2004). This model again is similar to the Brownian motion model, but models the strength of attraction to alpha. THe OU model can be difficult to interpret and care is advised in its use (Cooper <em>et al.</em> 2016).</p>
-<p>In motmot.2.0, as with most implements of the phylogenetic OU model, the value of attraction parameter is equal to the ancestral trait estimate.</p>
+<p>In motmot, as with most implements of the phylogenetic OU model, the value of attraction parameter is equal to the ancestral trait estimate.</p>
 <pre class="r"><code>ou.ml &lt;- transformPhylo.ML(phy=phy.clade, y=male.length.clade, model=&quot;OU&quot;, profilePlot=T)</code></pre>
 <div class="figure">
-<img src="vignettes/figures/plot6-1.png", align="middle", alt="Figure 6. Profile plot to estimate alpha" width="1000" />
+<img src="vignettes/figures/plot6-1.png", width="1000" />
 <p class="caption">
 Figure 6. Profile plot to estimate alpha
 </p>
@@ -214,56 +215,56 @@ p.value</code></pre>
 <p>A new addition to MOTMOT is the ACDC model (Blomberg <em>et al.</em> 2003). This model allows for exponential changes in the rate of evolution in the history of a clade.</p>
 <pre class="r"><code>acdc.ml &lt;- transformPhylo.ML(phy=phy.clade, y=male.length.clade, model=&quot;ACDC&quot;, profilePlot=T)</code></pre>
 <div class="figure">
-<img src="vignettes/figures/plot7-1.png", align="middle", alt="Figure 7. Profile plot to estimate the ACDC parameter" width="1000" />
+<img src="vignettes/figures/plot7-1.png", width="1000" />
 <p class="caption">
 Figure 7. Profile plot to estimate the ACDC parameter
 </p>
 </div>
 <pre class="r"><code>acdc.ml</code></pre>
 <pre><code>## $MaximumLikelihood
-## [1] 1.743459
+## [1] -0.2838382
 ## 
 ## $ACDC
-##          MLacdc     LowerCI    UpperCI
-## [1,] 0.03385981 0.000879245 0.04246516
+##      MLacdc    LowerCI    UpperCI
+## [1,]  -0.01 -0.3263965 0.04246516
 ## 
 ## $brownianVariance
-##              [,1]
-## [1,] 0.0002590746
+##            [,1]
+## [1,] 0.00344322
 ## 
 ## $root.state
-## [1] 3.876696
+## [1] 3.84173
 ## 
 ## $AIC
-## [1] 2.513082
+## [1] 6.567676
 ## 
 ## $AICc
-## [1] 3.513082</code></pre>
+## [1] 7.567676</code></pre>
 <p>There is little evidence here of exponential decreases or increases in the rate of trait evolution - the acdc exponential parameter is close to 0 (0.034). We can see this is not a significant improvement on BM</p>
 <pre class="r"><code>p.value.2 &lt;- 1 - pchisq(acdc.ml$MaximumLikelihood - bm.ml$logLikelihood , 1)
 p.value.2</code></pre>
-<pre><code>## [1] 0.1544951</code></pre>
+<pre><code>## [1] 1</code></pre>
 <p>As an example, here we constrain the ‘upperBound’ to &lt; 0, this is equivalent to the Early Burst model (Harmon <em>et al.</em> 2010) fit in geiger</p>
 <pre class="r"><code>transformPhylo.ML(phy=phy.clade, y=male.length.clade, model=&quot;ACDC&quot;, profilePlot=FALSE, upperBound=-1e-6, print.warning=FALSE)</code></pre>
 <pre><code>## $MaximumLikelihood
-## [1] -0.2839606
+## [1] -0.2838382
 ## 
 ## $ACDC
-##      MLacdc     LowerCI UpperCI
-## [1,] -1e-06 -0.01322547  -1e-06
+##      MLacdc    LowerCI UpperCI
+## [1,]  -0.01 -0.3263965  -1e-06
 ## 
 ## $brownianVariance
-##             [,1]
-## [1,] 0.001858181
+##            [,1]
+## [1,] 0.00344322
 ## 
 ## $root.state
-## [1] 3.849481
+## [1] 3.84173
 ## 
 ## $AIC
-## [1] 6.567921
+## [1] 6.567676
 ## 
 ## $AICc
-## [1] 7.567921</code></pre>
+## [1] 7.567676</code></pre>
 <p>The estimate of -1e-6 for the exponential decrease parameter, means the model is effectively equivalent to Brownian motion</p>
 </div>
 <div id="psi-and-multispi" class="section level2">
@@ -272,7 +273,7 @@ p.value.2</code></pre>
 <p>In motmot we can fit a simple psi model using the input tree.</p>
 <pre class="r"><code>psi.ml &lt;- transformPhylo.ML(phy=phy.clade, y=male.length.clade, model=&quot;psi&quot;, profilePlot=T)</code></pre>
 <div class="figure">
-<img src="vignettes/figures/plot8-1.png", alt="Figure 8. Profile plot to estimate the psi parameter" width="1000" />
+<img src="vignettes/figures/plot8-1.png", width="1000" />
 <p class="caption">
 Figure 8. Profile plot to estimate the psi parameter
 </p>
@@ -300,7 +301,7 @@ Figure 8. Profile plot to estimate the psi parameter
 <p>This indicates support for the psi model but it is not a significant improvement on Brownian motion</p>
 <pre class="r"><code>p.value.psi &lt;- 1 - pchisq(acdc.ml$MaximumLikelihood - bm.ml$logLikelihood , 1)
 p.value.psi</code></pre>
-<pre><code>## [1] 0.1544951</code></pre>
+<pre><code>## [1] 1</code></pre>
 <p>We could also get a potentially more accurate of speciation rates by using the full tree, rather than the pruned tree. If death rates are over 0, then the estimates will differ from the simple model above.</p>
 <pre class="r"><code>transformPhylo.ML(phy=phy.clade, y=male.length.clade, model=&quot;psi&quot;, profilePlot=FALSE, hiddenSpeciation=TRUE, full.phy=phy)</code></pre>
 <pre><code>## $MaximumLikelihood
@@ -328,7 +329,7 @@ p.value.psi</code></pre>
 two.clade.labels &lt;- c(rep(&quot;a&quot;, 17), rep(&quot;b&quot;,37))
 edgelabels(two.clade.labels, col=c(rep(&quot;blue&quot;, 17), rep(&quot;red&quot;, 37)), bg=&quot;white&quot;)</code></pre>
 <div class="figure">
-<img src="vignettes/figures/plot9-1.png", align="middle", alt="Figure 9. Two clades used in the multipsi model" width="1000" />
+<img src="vignettes/figures/plot9-1.png", width="1000" />
 <p class="caption">
 Figure 9. Two clades used in the multipsi model
 </p>
@@ -364,55 +365,55 @@ Figure 9. Two clades used in the multipsi model
 # original ACDC model
 acdc.ml</code></pre>
 <pre><code>## $MaximumLikelihood
-## [1] 1.743459
+## [1] -0.2838382
 ## 
 ## $ACDC
-##          MLacdc     LowerCI    UpperCI
-## [1,] 0.03385981 0.000879245 0.04246516
-## 
-## $brownianVariance
-##              [,1]
-## [1,] 0.0002590746
-## 
-## $root.state
-## [1] 3.876696
-## 
-## $AIC
-## [1] 2.513082
-## 
-## $AICc
-## [1] 3.513082</code></pre>
-<pre class="r"><code># ACDC model plus lambda
-acdc.ml.lambda</code></pre>
-<pre><code>## $MaximumLikelihood
-## [1] 7.376867
-## 
-## $ACDC
-##          MLacdc    LowerCI     UpperCI
-## [1,] -0.1829327 -0.3243722 -0.08289057
+##      MLacdc    LowerCI    UpperCI
+## [1,]  -0.01 -0.3263965 0.04246516
 ## 
 ## $brownianVariance
 ##            [,1]
-## [1,] 0.01272375
+## [1,] 0.00344322
 ## 
 ## $root.state
-## [1] 3.836039
-## 
-## $lambda
-## [1] 0.1389117
+## [1] 3.84173
 ## 
 ## $AIC
-## [1] -4.753735
+## [1] 6.567676
 ## 
 ## $AICc
-## [1] -2.026462</code></pre>
+## [1] 7.567676</code></pre>
+<pre class="r"><code># ACDC model plus lambda
+acdc.ml.lambda</code></pre>
+<pre><code>## $MaximumLikelihood
+## [1] 6.522191
+## 
+## $ACDC
+##      MLacdc    LowerCI    UpperCI
+## [1,]  -0.01 -0.3263965 0.04246516
+## 
+## $brownianVariance
+##            [,1]
+## [1,] 0.00131157
+## 
+## $root.state
+## [1] 3.846056
+## 
+## $lambda
+## [1] 0.836999
+## 
+## $AIC
+## [1] -3.044383
+## 
+## $AICc
+## [1] -0.3171099</code></pre>
 <p>We can see lambda is &lt; 1, and this has affected the parameter estimation. The improvement in the model fit is significant compared to the ACDC model without lambda, and the null BM model</p>
 <pre class="r"><code># p value of the ACDC and ACDC+lambda models. No significant improvement
 1 - pchisq(acdc.ml.lambda$MaximumLikelihood - acdc.ml$MaximumLikelihood , df=1)</code></pre>
-<pre><code>## [1] 0.01762134</code></pre>
+<pre><code>## [1] 0.009085056</code></pre>
 <pre class="r"><code># p value of the BM and ACDC+lambda model comparison. No significant improvement
 1 - pchisq(acdc.ml.lambda$MaximumLikelihood - bm.ml$logLikelihood, df=2)</code></pre>
-<pre><code>## [1] 0.02170196</code></pre>
+<pre><code>## [1] 0.03327281</code></pre>
 </div>
 </div>
 <div id="rate-heterogeneous-models-of-evolution" class="section level1">
@@ -423,7 +424,7 @@ acdc.ml.lambda</code></pre>
 <pre class="r"><code>plot(phy.clade, show.tip.label=F, no.margin=T, edge.col=&quot;grey20&quot;)
 nodelabels(c(32, 49), c(32, 49), bg=&quot;black&quot;, col=&quot;white&quot;)</code></pre>
 <div class="figure">
-<img src="vignettes/figures/plot10-1.png", align="middle", alt="Figure 10. Lineages with different rates of evolution" width="1000" />
+<img src="vignettes/figures/plot10-1.png", width="1000" />
 <p class="caption">
 Figure 10. Lineages with different rates of evolution
 </p>
@@ -498,7 +499,7 @@ trait.medusa.tm2.summary</code></pre>
 ## Rooted; includes branch lengths.</code></pre>
 <pre class="r"><code>colour_motmot &lt;- plotPhylo.motmot(phy=phy.clade, traitMedusaObject=trait.medusa.tm2.summary, reconType = &quot;rates&quot;, type = &quot;fan&quot;, cex=0.5, edge.width=2)</code></pre>
 <div class="figure">
-<img src="vignettes/figures/plot11-1.png", align="middle", alt="Figure 11. The subset of the tree showing the rate heterogeneity estimated from the traitMedusa model" width="1000" />
+<img src="vignettes/figures/plot11-1.png", width="1000" />
 <p class="caption">
 Figure 11. The subset of the tree showing the rate heterogeneity estimated from the traitMedusa model
 </p>
@@ -531,7 +532,7 @@ Figure 11. The subset of the tree showing the rate heterogeneity estimated from 
 <p>We can use the function ‘timeSliceSummary’ to plot and summarise the results. The output summarises the best model according to AICc values. This function automatically plots the original tree showing the location of shift(s), and the colours show the relative rates in each time slice. The second plot below shows the same tree and colours, but with the branch lengths scaled to the ML optimised rates</p>
 <pre class="r"><code>outputSummary &lt;- timeSliceSummary(timeSlice.10.ml, cutoff=0.001, cex.tip=0.2, phylo.width=2, colour.ramp=c(&quot;blue&quot;, &quot;red&quot;))</code></pre>
 <div class="figure">
-<img src="vignettes/figures/plot12-1.png", align="middle", alt="Figure 12. TimeSlice plot with a split at 10 Ma" width="1000" />
+<img src="vignettes/figures/plot12-1.png", width="1000" />
 <p class="caption">
 Figure 12. TimeSlice plot with a split at 10 Ma
 </p>
@@ -560,7 +561,7 @@ Figure 12. TimeSlice plot with a split at 10 Ma
 <p>And summarise the results. We can selected the cutoff AICc improvement needed to justify selecting the next model. Here we use the arbitary cut-off value of 1. We could test this formally by estimating the correct AICc value needed to reduced type-error &gt; 5% by using BM simulated data (an example using the tm2 is shown above)</p>
 <pre class="r"><code>outputSummary &lt;- timeSliceSummary(timeSlice.ml, cutoff=1, cex.tip=0.2, phylo.width=2, colour.ramp=c(&quot;blue&quot;, &quot;red&quot;))</code></pre>
 <div class="figure">
-<img  src="vignettes/figures/plot13-1.png", align="middle", alt="Figure 13. TimeSlice plot with Maximum likelihood estimation of split time" width="1000" />
+<img src="vignettes/figures/plot13-1.png", width="1000" />
 <p class="caption">
 Figure 13. TimeSlice plot with Maximum likelihood estimation of split time
 </p>
@@ -575,7 +576,7 @@ nested.acdc &lt;- transformPhylo.ML(male.length.clade, phy=phy.clade, model=&quo
 nested.ou &lt;- transformPhylo.ML(male.length.clade, phy=phy.clade, model=&quot;OU&quot;, nodeIDs=c(44))
 
 1 - pchisq(nested.acdc$MaximumLikelihood - bm.model$logLikelihood, 1)</code></pre>
-<pre><code>## [1] 0.05740889</code></pre>
+<pre><code>## [1] 1</code></pre>
 <pre class="r"><code>1 - pchisq(nested.ou$MaximumLikelihood - bm.model$logLikelihood, 1)</code></pre>
 <pre><code>## [1] 0.3614244</code></pre>
 </div>
@@ -590,22 +591,22 @@ lambda.mcmc &lt;- transformPhylo.MCMC(y=male.length.clade, phy=phy.clade, model=
 <pre class="r"><code>lambda.mcmc[1:4]</code></pre>
 <pre><code>## $median
 ##    Lambda 
-## 0.7719967 
+## 0.7842805 
 ## 
 ## $`95.HPD`
 ## lower 95% HPD upper 95% HPD 
-##     0.5418168     0.9636153 
+##     0.5254085     0.9448166 
 ## 
 ## $ESS
 ##  Lambda 
-## 218.071 
+## 289.022 
 ## 
 ## $acceptance.rate
-## [1] 0.4306326</code></pre>
+## [1] 0.4206437</code></pre>
 <p>Our lambda median value is 0.77 but there is a large 95% HPD (0.54-0.96). The ESS and acceptance rate look ok. We can also plot the trace from the MCMC chain - this could look better - running for more generations would help</p>
 <pre class="r"><code>plot(lambda.mcmc$mcmc.chain, type=&quot;l&quot;, ylim=c(0, 1), xlab=&quot;generations&quot;, ylab=&quot;lambda&quot;, las=1)</code></pre>
 <div class="figure">
-<img src="vignettes/figures/plot14-1.png", align="middle", alt="Figure 14. MCMC trace for Pagel's lambda" width="1000" />
+<img src="vignettes/figures/plot14-1.png", width="1000" />
 <p class="caption">
 Figure 14. MCMC trace for Pagel’s lambda
 </p>
@@ -623,19 +624,19 @@ param.simulation &lt;- chr.disp.param(emp.tree, n.sim = 10, max.sigma = 8, max.a
 <p>We can then compare these simulated data with the empirical data using the function ‘chr.disp.lrt’. We will use only 5 simulations from the posterior, this value can be guided by simulations (see Clarke et al. 2017)</p>
 <pre class="r"><code>chr.disp.lrt(emp.tree=emp.tree, emp.data=emp.data, param.out=param.simulation, posteriorSize=5)</code></pre>
 <pre><code>## $estimates
-##        h.0.est  h.1.est
-## sigma 2.186667 1.973333
-## a     0.000000 2.880000
+##       h.0.est   h.1.est
+## sigma    0.64 0.8533333
+## a        0.00 1.1200000
 ## 
 ## $likelihood
-##     h.0.lik    h.1.lik likelihood.ratio.test
-## 1 0.0436706 0.06160842             0.6882469</code></pre>
+##      h.0.lik    h.1.lik likelihood.ratio.test   p.value
+## 1 0.05737843 0.06470222             0.2402543 0.3759775</code></pre>
 <p>The output shows the ‘estimates’ for hypothesis 0 (Brownian motion) and hypothesis 1 (character displacement) with the variance and a values summarised (a is 0 in the Brownian motion model, by definition). The second list element ‘likelihood.ratio.test’ shows the likelihood of each model, and the value of the likelihood-ratio test statistic.</p>
 </div>
 <div id="fast-estimation-of-phylogenetic-generalised-least-squares" class="section level1">
 <h1>Fast estimation of Phylogenetic Generalised Least Squares</h1>
-<p>The package <em>caper</em> (Orme <em>et al</em> 2018) offers an excellent model to run Phylogenetic Generalised Least Squares (PGLS) models, but these are based-upon Generalised Least Squares (using variance-covariance matrices) which are substantially slower than using independent contrasts (Freckleton 2012).</p>
-<p>In motmot.2.0, code allows for continuous PGLS models can be estimated using contrasts - this gives identical results to <em>caper</em> but is substantially faster, as is shown below. At current only continuous data is allowed in the models for motmot.2.0, so if any of the input data are not continuous CAPER or similar should be used. Additionally motmot.2.0 onyl estimates Pagel’s lambda rather than other models, such as Kappa as offered by CAPER</p>
+<p>The package <em>caper</em> (Orme <em>et al</em> 2018) offers an excellent model to run Phylogenetic Generalised Least Squares (PGLS) models, but these are based-upon Generalised Least Squares (using variance-covariance matrices) which are substantially slower than using indpendent contrasts (Freckleton 2012).</p>
+<p>In motmot, code allows for continuous PGLS models can be estimated using contrasts - this gives identical results to <em>caper</em> but is substantially faster, as is shown below. At current only continuous data is allowed in the models for motmot, so if any of the input data are not continuous CAPER or similar should be used. Additionally motmot onyl estimates Pagel’s lambda rather than other models, such as Kappa as offered by CAPER</p>
 <pre class="r"><code># Data and phylogeny
 data(anolis.tree)
 anolis.tree$node.label &lt;- NULL
@@ -647,12 +648,12 @@ time.now &lt;- Sys.time()
 matrix.inv.caper &lt;- pgls( y ~ x, data = comp.dat, lambda=&quot;ML&quot;)
 pgls.time &lt;- Sys.time() - time.now
 pgls.time</code></pre>
-<pre><code>## Time difference of 0.7579901 secs</code></pre>
+<pre><code>## Time difference of 0.7156479 secs</code></pre>
 <pre class="r"><code>time.now &lt;- Sys.time()
 picModel &lt;- pic.pgls(formula=y ~  x, phy=anolis.tree, y = dat, lambda=&quot;ML&quot;, return.intercept.stat=FALSE)
 pic.time &lt;- Sys.time() - time.now
 pic.time</code></pre>
-<pre><code>## Time difference of 0.1115751 secs</code></pre>
+<pre><code>## Time difference of 0.1213279 secs</code></pre>
 <p>The results are identical between the two methods</p>
 <pre class="r"><code># from caper
 summary(matrix.inv.caper)</code></pre>
@@ -661,8 +662,8 @@ summary(matrix.inv.caper)</code></pre>
 ## pgls(formula = y ~ x, data = comp.dat, lambda = &quot;ML&quot;)
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.57170 -0.72042 -0.04419  0.63206  2.49258 
+##     Min      1Q  Median      3Q     Max 
+## -2.3493 -0.6379 -0.0049  0.7142  3.6306 
 ## 
 ## Branch length transformations:
 ## 
@@ -670,18 +671,18 @@ summary(matrix.inv.caper)</code></pre>
 ## lambda [ ML]  : 1.000
 ##    lower bound : 0.000, p = &lt; 2.22e-16
 ##    upper bound : 1.000, p = 1    
-##    95.0% CI   : (0.974, NA)
+##    95.0% CI   : (0.977, NA)
 ## delta  [Fix]  : 1.000
 ## 
 ## Coefficients:
-##              Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept) -1.188911   2.859866 -0.4157   0.6782
-## x            0.091117   0.078780  1.1566   0.2491
+##               Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)  2.2725033  2.8161058  0.8070   0.4209
+## x           -0.0050076  0.0744507 -0.0673   0.9465
 ## 
-## Residual standard error: 1.01 on 163 degrees of freedom
-## Multiple R-squared: 0.00814, Adjusted R-squared: 0.002055 
-## F-statistic: 1.338 on 1 and 163 DF,  p-value: 0.2491</code></pre>
-<pre class="r"><code># from motmot.2.0
+## Residual standard error: 0.9921 on 163 degrees of freedom
+## Multiple R-squared: 2.775e-05,   Adjusted R-squared: -0.006107 
+## F-statistic: 0.004524 on 1 and 163 DF,  p-value: 0.9465</code></pre>
+<pre class="r"><code># from motmot
 picModel</code></pre>
 <pre><code>## $model
 ## 
@@ -689,8 +690,8 @@ picModel</code></pre>
 ## lm(formula = formula, data = pic.data, x = TRUE, y = TRUE)
 ## 
 ## Coefficients:
-##       x  
-## 0.09112  
+##         x  
+## -0.005008  
 ## 
 ## 
 ## $model.summary
@@ -700,30 +701,30 @@ picModel</code></pre>
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -2.3464 -0.6466  0.0643  0.8135  3.2631 
+## -3.0156 -0.6231  0.0271  0.5300  3.5080 
 ## 
 ## Coefficients:
-##   Estimate Std. Error t value Pr(&gt;|t|)
-## x  0.09112    0.07878   1.157    0.249
+##    Estimate Std. Error t value Pr(&gt;|t|)
+## x -0.005008   0.074451  -0.067    0.946
 ## 
-## Residual standard error: 1.01 on 163 degrees of freedom
-## Multiple R-squared:  0.00814,    Adjusted R-squared:  0.002055 
-## F-statistic: 1.338 on 1 and 163 DF,  p-value: 0.2491
+## Residual standard error: 0.9921 on 163 degrees of freedom
+## Multiple R-squared:  2.775e-05,  Adjusted R-squared:  -0.006107 
+## F-statistic: 0.004524 on 1 and 163 DF,  p-value: 0.9465
 ## 
 ## 
 ## $intercept
-## [1] -1.188911
+## [1] 2.272503
 ## 
 ## $lambda
 ## [1] 1
 ## 
 ## $logLikelihood
-##          [,1]
-## [1,] -534.215
+##           [,1]
+## [1,] -531.3121
 ## 
 ## $AIC
-##         [,1]
-## [1,] 1069.43</code></pre>
+##          [,1]
+## [1,] 1063.624</code></pre>
 <p><strong>References</strong></p>
 <ul>
 <li>Blomberg SP, Garland T, and Ives AR. 2003. Testing for phylogenetic signal in comparative data: behavorial traits more labile. <em>Evolution</em> 57, 717–45. (<a href="doi:10.1111/j.0014-3820.2003.tb00285.x" class="uri">doi:10.1111/j.0014-3820.2003.tb00285.x</a>.)</li>
