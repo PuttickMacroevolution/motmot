@@ -18,7 +18,6 @@
 #' @param cladeRates Numeric vector specifying telative rates for clades.
 #' @param branchLabels A vector of length equal to the number of internal branches, signifying the which "multiPsi" class it belongs to
 #' @param meserr A vector (or matrix) of measurement error for each tip. This is only applicable to univariate analyses. Largely untested - please use cautiously
-#' @param sigmaScale If meserr is included, a scaling factor for the amount of error that is added
 #' @param cophenetic.dist a cophenetic distance matrix showing the absolute distance between taxa - only applicable for OU models run on non-ultrmetric trees. If null will be calculated internally, but supplying the data can speed up run time
 #' @param vcv.matrix a variance-covariance matrix - only applicable for OU models run on non-ultrmetric trees. If null will be calculated internally, but supplying the data can speed up run time
 #' @details Transforms the branch lengths of a phylo object according to one of the following models:
@@ -67,7 +66,7 @@ transformPhylo <- function (phy, model = NULL, y = NULL, meserr=NULL, sigmaScale
 		   height <- nodeTimes(phy)[1,1]
 		   interns <- which(phy$edge[, 2] > n)
 		   externs <- which(phy$edge[, 2] <= n)
-		   phy$edge.length[externs] <- phy$edge.length[externs] + (meserr^2)*sigmaScale
+		   phy$edge.length[externs] <- phy$edge.length[externs] + (meserr ^ 2) / (var(y) / height)[1]
 		   } else {
 		   phy <- phy
 		   }
@@ -365,11 +364,11 @@ transformPhylo <- function (phy, model = NULL, y = NULL, meserr=NULL, sigmaScale
 		   externs <- which(phy$edge[, 2] <= n)
 		   }
 
-		   splitTime <- nodeTimes(phy)[1,1] - sort(splitTime, T)
+		   splitTime <- nodeTimes(phy)[1,1] - sort(splitTime, TRUE)
 		   sliceLengths <- sliceTree(phy, splitTime)
 		   phy$edge.length <- as.vector(timeRates %*% t(sliceLengths))
 		   if (is.null(meserr) == FALSE) {
-		   	phy$edge.length[externs] <- phy$edge.length[externs] + (meserr^2)/(var(y)/height)[1]
+		   	phy$edge.length[externs] <- phy$edge.length[externs] + (meserr ^2 )/(var(y) / height)[1]
 		   	}
 		   } ,
 		   

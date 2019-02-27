@@ -20,8 +20,6 @@ transformPhylo(phy, model = NULL, y = NULL, meserr = NULL,
 
 \item{meserr}{A vector (or matrix) of measurement error for each tip. This is only applicable to univariate analyses. Largely untested - please use cautiously}
 
-\item{sigmaScale}{If meserr is included, a scaling factor for the amount of error that is added}
-
 \item{kappa}{Value of kappa transform.}
 
 \item{lambda}{Value of lambda transform.}

@@ -24,7 +24,7 @@
 #' @param returnPhy Logical. In TRUE the phylogeny with branch lengths transformed by the ML model parameters is returned
 #' @param tol Tolerance (minimum branch length) to exclude branches from trait MEDUSA search. Primarily intended to prevent inference of rate shifts at randomly resolved polytomies.
 #' @param covPIC Logical. For multivariate analyses, allow for co-variance between traits rates (TRUE) or no covariance in trait rates (FALSE). If FALSE, only the trait variances not co-variances are used.
-#' @param meserr A vector (or matrix) of measurement error for each tip. This is only applicable to univariate analyses. Largely untested - please use cautiously
+#' @param meserr A vector (or matrix) of measurement error for each tip. This is only applicable to univariate analyses.
 #' @param n.cores Integer. Set number of computing cores when running model="traitMedusa" (tm1 and tm2 models)
 #' @param controlList List. Specify fine-tune parameters for the optim likelihood search
 #' @param print.warnings Logical. If TRUE, warnings are issued if confidence intervals fall outside upper or lower bounds
@@ -1164,11 +1164,12 @@ transformPhylo.ML <- function(y, phy, model = NULL, modelCIs = TRUE, nodeIDs = N
         splitTime <- seq(maxTime - boundaryAge, boundaryAge, -testAge)
         output.mat <- matrix(NA, nrow = (nSplits + 1), ncol = (3 + nSplits + (nSplits + 1)) + (2 * ncol(y)))
        
-        bm.model <- likTraitPhylo(y, phy, covPIC = covPIC)
+      	bm.phy <- transformPhylo(phy = phy, model = "bm", meserr = meserr, y = y)
+        bm.model <- likTraitPhylo(y, bm.phy, covPIC = covPIC)
         log.lik <- as.numeric(bm.model[[2]])
         aic <- aic.fun(log.lik, 2)
         aicc <- aicc.fun(log.lik, 2, Ntip(phy))
-        anc.state <- apply(y, 2, function(col.y) as.numeric(as.numeric(ace(col.y, phy, method = "pic")[[1]][1])))
+        anc.state <- apply(y, 2, function(col.y) as.numeric(as.numeric(ace(col.y, bm.phy, method = "pic")[[1]][1])))
         colnames(output.mat) <- 1:ncol(output.mat)
         colnames(output.mat)[1:3] <- c("lnL", "AIC", "AICc")
         c.y <- ncol(y)
@@ -1202,7 +1203,7 @@ transformPhylo.ML <- function(y, phy, model = NULL, modelCIs = TRUE, nodeIDs = N
           splitTime <- splitTime[-which(splitTime == shift.time)]
           log.lik <- tail(all.models[, best.model.n], 1)
           rates <- all.models[, best.model.n][-dim(all.models)[1]]
-          phy.temp <- transformPhylo(y = y, phy = phy, timeRates = rates, splitTime = fixed.time, model = "timeSlice")
+          phy.temp <- transformPhylo(y = y, phy = phy, timeRates = rates, splitTime = fixed.time, model = "timeSlice", meserr = meserr)
           anc.state <- apply(y, 2, function(col.y) as.numeric(as.numeric(ace(col.y, phy = phy.temp, method = "pic")[[1]][1])))
           bVar <- as.numeric(likTraitPhylo(y, phy.temp, covPIC = covPIC)[[1]])
           param <- length(rates) + 2
@@ -1231,11 +1232,12 @@ transformPhylo.ML <- function(y, phy, model = NULL, modelCIs = TRUE, nodeIDs = N
         rateVec <- rep(1, (nSplits + 1))
         output.mat <- matrix(NA, nrow = 2, ncol = (3 + nSplits + length(rateVec)) + (2 * ncol(y)))
         
-        bm.model <- likTraitPhylo(y, phy, covPIC = covPIC)
+        bm.phy <- transformPhylo(phy = phy, model = "bm", meserr = meserr, y = y)
+        bm.model <- likTraitPhylo(y, bm.phy, covPIC = covPIC)
         log.lik <- as.numeric(bm.model[[2]])
         aic <- aic.fun(log.lik, 2)
         aicc <- aicc.fun(log.lik, 2, Ntip(phy))
-        anc.state <- apply(y, 2, function(col.y) as.numeric(as.numeric(ace(col.y, phy, method = "pic")[[1]][1])))
+        anc.state <- apply(y, 2, function(col.y) as.numeric(as.numeric(ace(col.y, bm.phy, method = "pic")[[1]][1])))
 
         colnames(output.mat) <- 1:ncol(output.mat)
         colnames(output.mat)[1:3] <- c("lnL", "AIC", "AICc")
@@ -1252,14 +1254,14 @@ transformPhylo.ML <- function(y, phy, model = NULL, modelCIs = TRUE, nodeIDs = N
         print("BM model")
         print(output.mat[1, 1:to.here])
        
-        var.timeslice <- function(rate.vec) transformPhylo.ll(y, phy, timeRates = rate.vec, splitTime = splitTime, model = "timeSlice")[[2]]
+        var.timeslice <- function(rate.vec) transformPhylo.ll(y, phy, timeRates = rate.vec, splitTime = splitTime, model = "timeSlice", meserr = meserr, covPIC = covPIC)[[2]]
         vo.out <- optim(rateVec, var.timeslice, method = "L-BFGS-B", lower = lowerBound, upper = upperBound, control = controlList)
         log.lik <- vo.out$value
         rates <- vo.out$par
         param <- length(rates) + 2
         aic <- aic.fun(log.lik, param)
         aicc <- aicc.fun(log.lik, param, Ntip(phy))
-        phyTemp <- transformPhylo(y = y, phy = phy, timeRates = rates, splitTime = splitTime, model = "timeSlice")
+        phyTemp <- transformPhylo(y = y, phy = phy, timeRates = rates, splitTime = splitTime, model = "timeSlice", meserr = meserr)
         bVar <- as.numeric(likTraitPhylo(y, phyTemp, covPIC = covPIC)[[1]])
         anc.state <- apply(y, 2, function(col.y) as.numeric(ace(col.y, phyTemp, method = "pic")[[1]][1]))
         output.mat[2, 1:to.here] <- c(log.lik, aic, aicc, as.numeric(diag(bm.model[[1]])), anc.state)
@@ -1275,6 +1277,8 @@ transformPhylo.ML <- function(y, phy, model = NULL, modelCIs = TRUE, nodeIDs = N
       out$optim.output <- vo.out
       out$phy <- phy
       out$y <- y
+      out$meserr <- meserr
+      out$covPIC <- covPIC
     }
   )
   return(out)

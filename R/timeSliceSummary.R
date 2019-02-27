@@ -46,6 +46,8 @@ timeSliceSummary <- function(timeSliceObject, cutoff=4, AICc=TRUE, lowerBound=1e
 	best.model <- which(diff.AICc < -cutoff)
 	phy <- timeSliceObject$phy
 	y <- timeSliceObject$y
+	meserr <- timeSliceObject$meserr
+	covPIC <- timeSliceObject$covPIC
 
 	if(length(best.model) == 0) {
 		best.mod <- 1
@@ -80,7 +82,7 @@ timeSliceSummary <- function(timeSliceObject, cutoff=4, AICc=TRUE, lowerBound=1e
 			foo <- function(param) {
 					pp <- rates
 					pp[i] <- param
-					ll <- transformPhylo.ll(y=y, phy=phy, model="timeSlice", timeRates=pp, splitTime=shift.time)$logLikelihood
+					ll <- transformPhylo.ll(y=y, phy=phy, model="timeSlice", timeRates=pp, splitTime=shift.time, meserr = meserr, covPIC = covPIC)$logLikelihood
 					return(as.numeric(ll - lnL + 1.92))
 				}
 							

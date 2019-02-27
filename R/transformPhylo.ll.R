@@ -153,7 +153,7 @@ transformPhylo.ll <- function(y=NULL, phy, model=NULL, meserr=NULL, kappa=NULL, 
 		return(likTraitPhylo(y=y, phy=transformPhy, covPIC = covPIC))
 		} else {
 		vcv.ou <- transformPhy * brVar
-		logLikelihood <- dmvnorm(y[,1], mean=rep(ancestral.state, ncol(vcv.ou)), sigma=vcv.ou, log=T)
+		logLikelihood <- dmvnorm(y[,1], mean=rep(ancestral.state, ncol(vcv.ou)), sigma=vcv.ou, log=TRUE)
 		if(!return.reml) {
 			return(list(brownianVariance=brVar, logLikelihood=dmvnorm(y[,1], mean=rep(ancestral.state, ncol(vcv.ou)), sigma=vcv.ou, log=T)))
 		} else {

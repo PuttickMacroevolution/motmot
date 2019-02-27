@@ -64,7 +64,7 @@ transformPhylo.ML(y, phy, model = NULL, modelCIs = TRUE,
 
 \item{tol}{Tolerance (minimum branch length) to exclude branches from trait MEDUSA search. Primarily intended to prevent inference of rate shifts at randomly resolved polytomies.}
 
-\item{meserr}{A vector (or matrix) of measurement error for each tip. This is only applicable to univariate analyses. Largely untested - please use cautiously}
+\item{meserr}{A vector (or matrix) of measurement error for each tip. This is only applicable to univariate analyses.}
 
 \item{controlList}{List. Specify fine-tune parameters for the optim likelihood search}
 
