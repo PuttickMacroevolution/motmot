@@ -5,7 +5,7 @@
 #' @param param.out simulated data from the function \code{chr.disp.sim}
 #' @param posteriorSize The number of samples to use in the likelihood-ratio test
 #' @return List containing element of 'estimates' with the estimates of sigma and a, with the Brownian motion (a = 0) summarised in column one and the character displacement (a > 0) in column two. 'likelihood' contains the likelihood of the Brownian motion model and the character displacement model, and the likelihood ratio test estimate. If used, there is an estimate of Blomberg's K for the empirical and simulated data.
-#' @useDynLib motmot.2.0
+#' @useDynLib motmot
 #' @importFrom Rcpp sourceCpp
 #' @seealso \code{\link{chr.disp.sim}}, \code{\link{chr.disp.param}}
 #' @references Clarke M, Thomas GH, Freckleton RP. 2017. Trait evolution in adaptive radiations: modelling and measuring interspecific competition on phylogenies. The American Naturalist. 189, 121-137.

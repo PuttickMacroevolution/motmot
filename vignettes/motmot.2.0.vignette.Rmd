@@ -1,5 +1,5 @@
 ---
-title: "motmot.2.0"
+title: "motmot"
 author: "Mark Puttick"
 date: "`r Sys.Date()`"
 output: html_document
@@ -28,10 +28,10 @@ Models Of Trait Macroevolution On Trees (MOTMOT) is an R package that allows for
 # Introduction
 
 
-First we load motmot.2.0
+First we load motmot
 
 ```{r}
-library(motmot.2.0, quietly=T)
+library(motmot, quietly=T)
 ```
 
 For these examples we will use anolis data available from motmot. A time-calibrated phylogeny of anolis species ("anolis.tree"), and various trait and biogeographical trait data ("anolis.data")
@@ -84,7 +84,7 @@ bm.ml
 
 We can also fit models to test Pagel's lambda (Pagel 1997; 1999). Pagel's lambda is a measure of phylogenetic 'signal' in which the degree to which shared history of taxa has driven trait distributions at tips. In this model, internal branche lengths are changed by the lambda value. If lambda is 1, then branches are equal to a Brownian motion model (high phylogenetic signal), and lower values of lambda indicate less influence of shared history on trait values at the tips. Finally, a value of 0 indicates no phylogenetic influence on trait distributions, and is equivalent to a 'star phylogeny' with no shared branch lengths.
 
-The maximum likelihood of lambda can be estimate in motmot.2.0
+The maximum likelihood of lambda can be estimate in motmot
 
 ```{r}
 lambda.ml <- transformPhylo.ML(phy=phy.clade, y=male.length.clade, model="lambda")
@@ -135,7 +135,7 @@ kappa.ml <- transformPhylo.ML(phy=phy.clade, y=male.length.clade, model="kappa",
 
 The OU model allows for modelling of attraction to a optimum value, alpha (Hansen 1997; Butler and King 2004). This model again is similar to the Brownian motion model, but models the strength of attraction to alpha. THe OU model can be difficult to interpret and care is advised in its use (Cooper *et al.* 2016).
 
-In motmot.2.0, as with most implements of the phylogenetic OU model, the value of attraction parameter is equal to the ancestral trait estimate.
+In motmot, as with most implements of the phylogenetic OU model, the value of attraction parameter is equal to the ancestral trait estimate.
 
 ```{r plot6, fig.cap = "Figure 6. Profile plot to estimate alpha", echo = T, fig.height = 5, fig.width = 5, , fig.path='figures/', dev=c('png', 'pdf'), dpi=200}
 ou.ml <- transformPhylo.ML(phy=phy.clade, y=male.length.clade, model="OU", profilePlot=T)
@@ -397,7 +397,7 @@ The output shows the 'estimates' for hypothesis 0 (Brownian motion) and hypothes
 
 The package *caper* (Orme *et al* 2018) offers an excellent model to run Phylogenetic Generalised Least Squares (PGLS) models, but these are based-upon Generalised Least Squares (using variance-covariance matrices) which are substantially slower than using indpendent contrasts (Freckleton 2012).
 
-In motmot.2.0, code allows for continuous PGLS models can be estimated using contrasts - this gives identical results to *caper* but is substantially faster, as is shown below. At current only continuous data is allowed in the models for motmot.2.0, so if any of the input data are not continuous CAPER or similar should be used. Additionally motmot.2.0 onyl estimates Pagel's lambda rather than other models, such as Kappa as offered by CAPER
+In motmot, code allows for continuous PGLS models can be estimated using contrasts - this gives identical results to *caper* but is substantially faster, as is shown below. At current only continuous data is allowed in the models for motmot, so if any of the input data are not continuous CAPER or similar should be used. Additionally motmot onyl estimates Pagel's lambda rather than other models, such as Kappa as offered by CAPER
 
 ```{r}
 # Data and phylogeny
@@ -422,7 +422,7 @@ The results are identical between the two methods
 ```{r}
 # from caper
 summary(matrix.inv.caper)
-# from motmot.2.0
+# from motmot
 picModel
 ```
 

@@ -6,7 +6,7 @@
 #' @param lambda Default is "ML" meaning the phylogenetic signal of the response variable will be estimated using restricted Maximum likelihood. If a numeric value between 0-1 is provided this will be used in the calculation of regression coefficients
 #' @param return.intercept.stat Logical. If \code{TRUE} the standard errors, t value, and p value of the estimated Intercept is provided for comparison with output from \code{\link[caper]{pgls}} from \pkg{caper} etc.,. Default is \code{FALSE} as this slows the function as it involves constructing and calculating the inverse of the phy variance-covariance matrix, and based on contrasts the design matrix column of ones would have zero contrasts.  
 #' @return A list containing the model, model summary, intercept, estimate of Lambda, model log-Likelihood, model AIC
-#' @useDynLib motmot.2.0
+#' @useDynLib motmot
 #' @importFrom Rcpp sourceCpp
 #' @seealso \code{\link[caper]{pgls}}
 #' @author Mark N Puttick and Rob Freckleton

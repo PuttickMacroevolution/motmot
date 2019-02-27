@@ -3,7 +3,7 @@
 #' @param phy An object of class \code{phylo} (see \pkg{ape}).
 #' @param y A matrix of trait values.
 #' @return The estimate of the K statistic
-#' @useDynLib motmot.2.0
+#' @useDynLib motmot
 #' @importFrom Rcpp sourceCpp
 #' @seealso \code{\link{transformPhylo.ML}}, the Picante package
 #' @references Blomberg SP, Garland T, & Ives AR. 2003. Testing for phylogenetic signal in comparative data: behavioral traits are more labile. Evolution 57, 717-745.

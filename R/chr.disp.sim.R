@@ -9,7 +9,7 @@
 #' @param allopatry an optional matrix giving the times when species stop interacting
 #' @param trait.lim an optional parameter that puts limits on the available trait-space, preventing trait values with magnitude greater than the value of lim
 #' @return A list containing the the simulated data (tval) showing the sigma, a, mean gap and gap standard deviation. Additionally, if used, the user input sympatry (symp) and/or allopatry (allo) matrices
-#' @useDynLib motmot.2.0
+#' @useDynLib motmot
 #' @importFrom Rcpp sourceCpp
 #' @seealso \code{\link{chr.disp.param}}, \code{\link{chr.disp.lrt}}
 #' @references Clarke M, Thomas GH, Freckleton RP. 2017. Trait evolution in adaptive radiations: modelling and measuring interspecific competition on phylogenies. The American Naturalist. 189, 121-137.

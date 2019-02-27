@@ -75,7 +75,7 @@
 #' @import mvtnorm
 #' @import parallel
 #' @import ks
-#' @useDynLib motmot.2.0, .registration = TRUE
+#' @useDynLib motmot, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
 #' @examples
 #' # Data and phylogeny
@@ -1189,7 +1189,7 @@ transformPhylo.ML <- function(y, phy, model = NULL, modelCIs = TRUE, nodeIDs = N
         vo.out <- list()
 
         for (q in 1:nSplits) {
-          all.models <- sapply(splitTime, function(x_times) {
+          all.models <- mclapply(splitTime, mc.cores=n.cores, function(x_times) {
             splitTimeInt <- sort(c(x_times, fixed.time))
             nSplitInt.n <- length(splitTimeInt) + 1
             rateVec <- rep(1, nSplitInt.n)
@@ -1197,6 +1197,7 @@ transformPhylo.ML <- function(y, phy, model = NULL, modelCIs = TRUE, nodeIDs = N
             vo <- optim(rateVec, var.timeslice, method = "L-BFGS-B", lower = lowerBound, upper = upperBound, control = controlList)
             c(vo$par, vo$value)
           })
+          all.models <- sapply(all.models, cbind)
           best.model.n <- which.max(all.models[3, ])
           shift.time <- splitTime[best.model.n]
           fixed.time <- c(fixed.time, shift.time)

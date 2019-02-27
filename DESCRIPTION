@@ -1,4 +1,4 @@
-Package: motmot.2.0
+Package: motmot
 Type: Package
 Title: Models of Trait Macroevolution on Trees
 Version: 2.1
@@ -8,7 +8,7 @@ Author: Mark Puttick [aut, cre, cph], Gavin Thomas [aut, cph], Rob Freckleton [a
 Maintainer: Mark Puttick <marknputtick@gmail.com>
 Description: Functions for fitting models of trait evolution
         on phylogenies for continuous traits. The majority of functions
-        described in Thomas and Freckleton (2011) <doi:10.1111/j.2041-210X.2011.00132.x> 	and include functions that allow for tests of variation in the rates of trait 		evolution.
+        described in Thomas and Freckleton (2011) <doi:10.1111/j.2041-210X.2011.00132.x> 	and include functions that allow for tests of variation in the rates of trait evolution.
 License: GPL (>= 2)
 Repository: github
 URL: https://puttickbiology.wordpress.com/motmot/
