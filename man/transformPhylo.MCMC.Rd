@@ -9,7 +9,9 @@ transformPhylo.MCMC(y, phy, model, mcmc.iteration = 1000,
   lowerBound = NULL, upperBound = NULL, opt.accept.rate = TRUE,
   accept.rate = 0.3, acceptance.sd = NULL, opt.prop = 0.25,
   fine.tune.bound = 0.05, fine.tune.n = 30, useMean = FALSE,
-  random.start = TRUE, covPIC = TRUE)
+  random.start = TRUE, meserr = NULL, covPIC = TRUE,
+  uniform.prior = TRUE, mean.normal.trunc = 0.5,
+  sd.normal.trunc = 0.2)
 }
 \arguments{
 \item{y}{A matrix of trait values.}
@@ -36,9 +38,9 @@ transformPhylo.MCMC(y, phy, model, mcmc.iteration = 1000,
 
 \item{acceptance.sd}{Numeric. The starting standard deviation for the proposal distribution}
 
-\item{opt.prop}{The proportion of the mcmc.iteration with which to optimise the acceptance rate.}
+\item{opt.prop}{The proportion of the mcmc.iteration with which to optimise the acceptance rate}
 
-\item{fine.tune.bound}{The distance (+/-) from the optimal acceptance rate at which the fine-tune algorithm will stop. Default = 0.05.}
+\item{fine.tune.bound}{The distance (+/-) from the optimal acceptance rate at which the fine-tune algorithm will stop. Default = 0.05}
 
 \item{fine.tune.n}{The number of iterations with which to optimise the acceptance rate.}
 
@@ -46,7 +48,15 @@ transformPhylo.MCMC(y, phy, model, mcmc.iteration = 1000,
 
 \item{random.start}{Use a random starting value for the MCMC run (TRUE), or use the environment set.seed() value}
 
+\item{meserr}{A vector (or matrix) of measurement error for each tip. This is only applicable to univariate analyses}
+
 \item{covPIC}{Logical. For multivariate analyses, allow for co-variance between traits rates (TRUE) or no covariance in trait rates (FALSE). If FALSE, only the trait variances not co-variances are used.}
+
+\item{uniform.prior}{Logical. If TRUE (default), the prior is a uniform distribution bounded by the lowerBound and upperBound. If FALSE, the prior distribution is a truncated normal distribution.}
+
+\item{mean.normal.trunc}{Mean of the truncated normal distribution prior (only applicable if uniform.prior = TRUE)}
+
+\item{sd.normal.trunc}{Standard Deviation of the truncated normal distribution prior (only applicable if uniform.prior = TRUE)}
 }
 \value{
 median The median estimate of the posterior for the parameter

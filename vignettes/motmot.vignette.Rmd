@@ -63,7 +63,7 @@ male.length <- sortedData$trait
 Finally, we will 'prune' the species from the tree using 'drop.tip' from APE. We can now plot our tree and data using the "traitData.plot" function 
 
 ```{r plot1, fig.cap = "Figure 1. TraitData showing the realtive male snout ventral length at the tips", echo = T, fig.height = 5, fig.width = 5, fig.path='figures/', dev=c('png', 'pdf'), dpi=200}
-traitData.plot(y=male.length, phy)
+traitData.plot(y=male.length, phy, lwd.traits=2, col.label="#00008050", tck=-0.01, mgp=c(0,0.2,0), cex.axis=0.5, show.tips=FALSE)
 ```
 
 We will fit the "tm2" model that allows for clade- and branch-specific changes in rate. This uses the familiar function 'transformPhylo.ML'. We will fit the models to a subset of these data: including the clade from node 182 only using the APE (Paradis *et al* 2018) function 'extract.clade'

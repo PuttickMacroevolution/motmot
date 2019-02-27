@@ -1,0 +1,1486 @@
+library(motmot)
+library(motmot)#
+phy <- rcoal(20)#
+y <- transformPhylo.sim(phy, model="bm")#
+col.label="red"#
+col.tree="black"#
+col.hist="navy"#
+cex.plot=0.7
+par(mfrow=c(1,1), mar=c(4,4,4,4), oma=c(0,0,0,0))
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree)#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale <- (max(x_cord) * t.data.scale) * 0.05#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y <- order(all.y)#
+	all.y <- all.y[ord.y]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)
+axis(3, at=c(all.x, max(all.x)))
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree)#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale <- (max(x_cord) * t.data.scale) * 0.05#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y <- order(all.y)#
+	all.y <- all.y[ord.y]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
+	axis(3, at=c(all.x, max(all.x)), cex=0.7)
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree)#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale <- (max(x_cord) * t.data.scale) * 0.05#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y <- order(all.y)#
+	all.y <- all.y[ord.y]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
+	axis(3, at=c(all.x, max(all.x)), cex.axis=0.7)
+all.x
+all.y
+all.x
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree)#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale <- (max(x_cord) * t.data.scale) * 0.05#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y <- order(all.y)#
+	all.y <- all.y[ord.y]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
+	axis(3, at=c(all.x[1], max(all.x, na.rm=TRUE)), cex.axis=0.7)
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree)#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale <- (max(x_cord) * t.data.scale) * 0.05#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y <- order(all.y)#
+	all.y <- all.y[ord.y]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
+	axis(3, at=c(all.x[1], max(all.x, na.rm=TRUE)), cex.axis=0.7, xpd=TRUE)
+c(all.x[1], max(all.x, na.rm=TRUE))
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree)#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale <- (max(x_cord) * t.data.scale) * 0.05#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y <- order(all.y)#
+	all.y <- all.y[ord.y]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
+	axis(3, at=c(all.x[1], max(all.x, na.rm=TRUE)), labels=c(all.x[1], max(all.x, na.rm=TRUE)), cex.axis=0.7, xpd=TRUE)
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree)#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale <- (max(x_cord) * t.data.scale) * 0.05#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y <- order(all.y)#
+	all.y <- all.y[ord.y]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
+	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE)), 2), labels=c(all.x[1], max(all.x, na.rm=TRUE)), cex.axis=0.7, xpd=TRUE)
+c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE)), 2)
+max(all.x, na.rm=TRUE))
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree)#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale <- (max(x_cord) * t.data.scale) * 0.05#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y <- order(all.y)#
+	all.y <- all.y[ord.y]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
+	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2), labels=c(all.x[1], max(all.x, na.rm=TRUE)), cex.axis=0.7, xpd=TRUE)
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree)#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale <- (max(x_cord) * t.data.scale) * 0.05#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y <- order(all.y)#
+	all.y <- all.y[ord.y]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
+	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(all.x[1], max(all.x, na.rm=TRUE)), cex.axis=0.7, xpd=TRUE)
+c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2))
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree)#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale <- (max(x_cord) * t.data.scale) * 0.05#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y <- order(all.y)#
+	all.y <- all.y[ord.y]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
+	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)
+tree.height <- nodeTimes(phy)[1,1]
+tree.height
+plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height / 2))
+plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 2)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale <- (max(x_cord) * t.data.scale) * 2#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y <- order(all.y)#
+	all.y <- all.y[ord.y]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
+	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)
+polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale <- (max(x_cord) * t.data.scale) * 0.05#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y <- order(all.y)#
+	all.y <- all.y[ord.y]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
+	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y <- order(all.y)#
+	all.y <- all.y[ord.y]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
+	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)
+seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=5)
+splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=5)
+splits
+rep(splits, each=2)
+splits
+polygon(splits, c(0,160))
+ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y <- order(all.y)#
+	all.y <- all.y[ord.y]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
+	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)#
+	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=5)#
+	polygon(splits, c(0,160))
+polygon(splits[1:2], c(0,160))
+splits[1:2]
+polygon(rep(splits[1:2], 2), c(0,160, 160, 0))
+polygon(rep(splits[1:2], 2), c(0,160, 0, 160), col="red")
+polygon(rep(splits[1:2], 2), c(0,160, 160, 0), col="red")
+splits[1:2]
+polygon(rep(splits[1:2], each=2), c(0,160, 160, 0), col="red")
+ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y <- order(all.y)#
+	all.y <- all.y[ord.y]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
+	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)#
+	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=5)#
+	polygon(rep(splits[1:2], each=2), c(160, 0, 160, 0), col="red")
+lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y <- order(all.y)#
+	all.y <- all.y[ord.y]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
+	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y <- order(all.y)#
+	all.y <- all.y[ord.y]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
+	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)
+polygon(rep(splits[1:2], each=2), c(160, 0, 160, 0), col="red")
+polygon(rep(splits[1:2], each=2), c(160, 0, 0, 160), col="red")
+polygon(rep(splits[1:2], each=2), c(160, 0, 0, 160), col="#00000020", border=FALSE)
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y <- order(all.y)#
+	all.y <- all.y[ord.y]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
+	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)#
+	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=5)#
+	polygon(rep(splits[1:2], each=2), c(160, 0, 0, 160), col="#00000020", border=FALSE)
+splits
+rep(splits, each=2)
+polygon(rep(splits, each=2), rep(c(Ntip(phy), 0, 0, Ntip(phy)), each=4), col="#00000020", border=FALSE)
+rep(c(Ntip(phy), 0, 0, Ntip(phy)), each=4)
+polygon(rep(splits, each=2), rep(c(Ntip(phy), 0, 0, Ntip(phy)), 4), col="#00000020", border=FALSE)
+polygon(rep(splits, each=2), rep(c(Ntip(phy), 0, 0, Ntip(phy)), 2), col="#00000020", border=FALSE)
+polygon(rep(splits, each=2), rep(c(Ntip(phy), 0, 0, Ntip(phy)), 3), col="#00000020", border=FALSE)
+polygon(rep(splits, each=2), rep(c(Ntip(phy), 0, 0, Ntip(phy)), 4), col="#00000020", border=FALSE)
+polygon(rep(splits, each=2), rep(c(Ntip(phy), 0, 0, Ntip(phy)), 5), col="#00000020", border=FALSE)
+rep(splits, each=2)
+c(Ntip(phy), 0, 0, Ntip(phy))
+polygon(rep(splits[1:2], each=2), c(Ntip(phy), 0, 0, Ntip(phy)), col="#00000020", border=FALSE)
+polygon(rep(splits[3:4], each=2), c(Ntip(phy), 0, 0, Ntip(phy)), col="#00000020", border=FALSE)
+polygon(rep(splits[3:4], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE)
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y <- order(all.y)#
+	all.y <- all.y[ord.y]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
+	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)#
+	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=5)#
+	star#
+	polygon(rep(splits[3:4], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE)
+for(x in seq(1, Ntip(phy), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE)
+seq(1, Ntip(phy), 2)
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y <- order(all.y)#
+	all.y <- all.y[ord.y]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
+	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)#
+	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=5)#
+	for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE)
+tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y <- order(all.y)#
+	all.y <- all.y[ord.y]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
+	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)#
+	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
+	for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE)
+t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y <- order(all.y)#
+	all.y <- all.y[ord.y]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
+	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)#
+	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
+	for(x in seq(1, length(splits) + 1, 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE)
+tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y <- order(all.y)#
+	all.y <- all.y[ord.y]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
+	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)#
+	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
+	for(x in seq(2, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE)
+for(x in seq(2, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE, xpd=TRUE)
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y <- order(all.y)#
+	all.y <- all.y[ord.y]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
+	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)#
+	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
+	for(x in seq(2, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE, xpd=TRUE
+)
+for(x in seq(§, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE, xpd=TRUE)
+for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE, xpd=TRUE)
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y <- order(all.y)#
+	all.y <- all.y[ord.y]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
+	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)#
+	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
+	for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 0.5, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE, xpd=TRUE)
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y <- order(all.y)#
+	all.y <- all.y[ord.y]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
+	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)#
+	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
+	for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 0, 0, 0, Ntip(phy) + 0), col="#00000020", border=FALSE, xpd=TRUE)
+splits
+axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE)
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y <- order(all.y)#
+	all.y <- all.y[ord.y]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
+	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
+	axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE)#
+	for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 0, 0, 0, Ntip(phy) + 0), col="#00000020", border=FALSE, xpd=TRUE)
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y <- order(all.y)#
+	all.y <- all.y[ord.y]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
+	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
+	axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE)#
+	for(x in seq(1, length(splits), 2)) polygon(r
+ep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE, xpd=TRUE)
+for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE, xpd=TRUE)
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y <- order(all.y)#
+	all.y <- all.y[ord.y]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
+	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
+	axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE, ...)
+for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE, xpd=TRUE)
+axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE
+)
+for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE, xpd=TRUE, lwd=2)
+polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)
+all.y
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y2 <- order(all.y)#
+	all.y <- all.y[ord.y2]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)
+splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)
+axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE, ...)
+axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE
+)
+y_cord
+t.data.scale
+x_cord
+t.data.scale
+text( y_cord, t.data.scale+x_cord, 'a')
+text(t.data.scale+x_cord, y_cord, 'a')
+t.data.scale+x_cord
+t.data.scale
+x_cord
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y2 <- order(all.y)#
+	all.y <- all.y[ord.y2]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)#
+	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
+	axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE, ...)
+text(.data.scale.orig+x_cord, y_cord, 'a')
+text(data.scale.orig+x_cord, y_cord, 'a')
+text(t.data.scale.orig+x_cord, y_cord, 'a')
+t.data.scale.orig+x_cord
+t.data.scale.orig
+text(t.data.scale.orig[,1]+x_cord, y_cord, 'a')
+t.data.scale.orig[,1]+x_cord
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))
+t.data.scale.orig
+tip.x
+x_cord
+text(t.data.scale.orig[,1]+ tip.x , y_cord, 'a')
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y2 <- order(all.y)#
+	all.y <- all.y[ord.y2]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)#
+	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
+	axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE, ...)#
+	text(t.data.scale.orig[,1]+ tip.x , y_cord, 'a')
+length(t.data.scale.orig[,1])
+Ntip(phy)
+tip.x
+y_cord
+text(t.data.scale.orig[,1]+ tip.x , tip.y, 'a')
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y2 <- order(all.y)#
+	all.y <- all.y[ord.y2]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)#
+	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
+	axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE, ...)#
+	text(t.data.scale.orig[,1]+ tip.x , tip.y, 'a')
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x.orig <- tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y.orig <- tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y2 <- order(all.y)#
+	all.y <- all.y[ord.y2]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)#
+	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
+	axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE, ...)#
+	text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, 'a')
+text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, 'a', pos=1)
+text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, 'a', pos=2)
+text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, 'a', pos=3)
+text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, 'a', pos=4)
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x.orig <- tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y.orig <- tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y2 <- order(all.y)#
+	all.y <- all.y[ord.y2]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)#
+	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
+	axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE, ...)#
+	text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, 'a', pos=4)
+text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, phy$tip.label, pos=4)
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x.orig <- tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y.orig <- tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y2 <- order(all.y)#
+	all.y <- all.y[ord.y2]#
+	recycle.color <- rep(recycle.color, 6)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)#
+	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
+	axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE, ...)#
+	text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, phy$tip.label, pos=4)
+axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE
+)
+for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE, xpd=TRUE)
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x.orig <- tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y.orig <- tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y2 <- order(all.y)#
+	all.y <- all.y[ord.y2]#
+	recycle.color <- rep(recycle.color, 6)#
+	for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE, xpd=TRUE)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)#
+	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
+	axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE, ...)#
+	text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, phy$tip.label, pos=4)
+axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE
+)
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x.orig <- tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y.orig <- tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y2 <- order(all.y)#
+	all.y <- all.y[ord.y2]#
+	recycle.color <- rep(recycle.color, 6)#
+	for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy), 0, 0, Ntip(phy)), col="#00000020", border=FALSE, xpd=TRUE)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)#
+	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
+	axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE, ...)#
+	if(show.tips) text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, phy$tip.label, pos=4, cex=cex.tips)
+text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, phy$tip.label, pos=4, cex=cex.tips)
+cex.tips=0.7
+text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, phy$tip.label, pos=4, cex=cex.tips)
+text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, phy$tip.label, pos=4, cex=cex.tips, xpd=TRUE)
+col.label="red"; col.tree="black"; col.hist="navy"; cex.plot=0.7; cex.tips=0.7; show.tips=FALSE; include.hist=FALSE; split.shade=5
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x.orig <- tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y.orig <- tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y2 <- order(all.y)#
+	all.y <- all.y[ord.y2]#
+	recycle.color <- rep(recycle.color, 6)#
+	for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy), 0, 0, Ntip(phy)), col="#00000020", border=FALSE, xpd=TRUE)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)#
+	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=split.shade)#
+	axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE, ...)#
+	if(show.tips) text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, phy$tip.label, pos=4, cex=cex.tips, xpd=TRUE)
+abline(v=1)
+abline(h=1)
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x.orig <- tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y.orig <- tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y2 <- order(all.y)#
+	all.y <- all.y[ord.y2]#
+	recycle.color <- rep(recycle.color, 6)#
+	for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy), 1, 1, Ntip(phy)), col="#00000020", border=FALSE, xpd=TRUE)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)#
+	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=split.shade)#
+	axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE, ...)#
+	if(show.tips) text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, phy$tip.label, pos=4, cex=cex.tips, xpd=TRUE)
+axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE
+)
+splits
+mtext("trait values", 3, at=mean(splits), line=2)
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x.orig <- tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y.orig <- tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y2 <- order(all.y)#
+	all.y <- all.y[ord.y2]#
+	recycle.color <- rep(recycle.color, 6)#
+	for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy), 1, 1, Ntip(phy)), col="#00000020", border=FALSE, xpd=TRUE)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)#
+	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=split.shade)#
+	axis(3, at=splits, labels=signif(splits, 2), xpd=TRUE, ...)#
+	if(show.tips) text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, phy$tip.label, pos=4, cex=cex.tips, xpd=TRUE)#
+	mtext("trait values", 3, at=mean(splits), line=2, cex=cex.plot)
+par(mfrow=c(1,2), mar=c(3,3,3,3), oma=c(1,1,1,1))
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x.orig <- tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y.orig <- tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y2 <- order(all.y)#
+	all.y <- all.y[ord.y2]#
+	recycle.color <- rep(recycle.color, 6)#
+	for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy), 1, 1, Ntip(phy)), col="#00000020", border=FALSE, xpd=TRUE)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)#
+	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=split.shade)#
+	axis(3, at=splits, labels=signif(splits, 2), xpd=TRUE, ...)#
+	if(show.tips) text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, phy$tip.label, pos=4, cex=cex.tips, xpd=TRUE)#
+	mtext("trait values", 3, at=mean(splits), line=2, cex=cex.plot)
+axis(3, at=splits, labels=signif(splits, 2), xpd=TRUE
+)
+par(mar=c(2,2,2,2))#
+			if(is.null(colnames(y))) {#
+			name.trait <- "trait"#
+			} else {#
+			name.trait <- colnames(y)#
+			}#
+		hist(y, col=col.hist, xaxs="i", yaxt="n", border="white", main="", xlab="", ylab="", cex.axis=cex.plot, las=2, axes=F)
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x.orig <- tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y.orig <- tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y2 <- order(all.y)#
+	all.y <- all.y[ord.y2]#
+	recycle.color <- rep(recycle.color, 6)#
+	for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy), 1, 1, Ntip(phy)), col="#00000020", border=FALSE, xpd=TRUE)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)#
+	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=split.shade)#
+	axis(3, at=splits, labels=signif(splits, 2), xpd=TRUE, ...)#
+	if(show.tips) text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, phy$tip.label, pos=4, cex=cex.tips, xpd=TRUE)#
+	mtext("trait values", 3, at=mean(splits), line=2, cex=cex.plot)
+par(mar=c(3,3,3,3))#
+			if(is.null(colnames(y))) {#
+			name.trait <- "trait"#
+			} else {#
+			name.trait <- colnames(y)#
+			}#
+		hist(y, col=col.hist, xaxs="i", yaxt="n", border="white", main="", xlab="", ylab="", cex.axis=cex.plot, las=2, axes=F)
+hist(y, col=col.hist, xaxs="i", yaxt="n", border="white", main="", xlab="", ylab="", cex.axis=cex.plot, las=2, axes=FALSE)
+box()
+axis(1, tick=FALSE, line=-1.5, cex.axis=cex.plot, las=2, ...)#
+		axis(2, cex=cex.plot, ...)#
+		mtext("frequency", 2, line=1.2, cex=cex.plot)#
+		mtext(name.trait, 1, line=0.2, cex=cex.plot)
+include.hist=T
+if(include.hist) {#
+		par(mfrow=c(1,2), mar=c(3,3,3,3), oma=c(1,1,1,1))#
+		} else {#
+		par(mfrow=c(1,1), mar=c(4,4,4,4), oma=c(0,0,0,0))	#
+		}#
+	max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x.orig <- tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y.orig <- tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y2 <- order(all.y)#
+	all.y <- all.y[ord.y2]#
+	recycle.color <- rep(recycle.color, 6)#
+	for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy), 1, 1, Ntip(phy)), col="#00000020", border=FALSE, xpd=TRUE)#
+	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)#
+	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=split.shade)#
+	axis(3, at=splits, labels=signif(splits, 2), xpd=TRUE, ...)#
+	if(show.tips) text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, phy$tip.label, pos=4, cex=cex.tips, xpd=TRUE)#
+	mtext("trait values", 3, at=mean(splits), line=2, cex=cex.plot)#
+	if(include.hist) {#
+		par(mar=c(3,3,3,3))#
+			if(is.null(colnames(y))) {#
+			name.trait <- "trait"#
+			} else {#
+			name.trait <- colnames(y)#
+			}#
+		hist(y, col=col.hist, xaxs="i", yaxt="n", border="white", main="", xlab="", ylab="", cex.axis=cex.plot, las=2, axes=FALSE)	#
+		box()#
+		axis(1, tick=FALSE, line=-1.5, cex.axis=cex.plot, las=2, ...)#
+		axis(2, cex=cex.plot, ...)#
+		mtext("frequency", 2, line=1.2, cex=cex.plot)#
+		mtext(name.trait, 1, line=0.2, cex=cex.plot)#
+		}
+rm(list=ls(all=TRUE))#
+#
+library(motmot)#
+data(anolis.tree)#
+data(anolis.data)#
+attach(anolis.data)#
+anolis.tree#
+sortedData <- sortTraitData(phy=anolis.tree, y=anolis.data, data.name="Male_SVL", pass.ultrametric = TRUE)#
+phy <- sortedData$phy#
+male.length <- sortedData$trait#
+#
+traitData.plot(y=male.length, phy, lwd.traits=2, col.label="#00008050")
+y=male.length#
+lwd.traits=2#
+col.label="#00008050"
+col.label="red"
+col.tree="black"
+col.hist="navy"
+cex.plot=0.7
+cex.tips=0.7
+show.tips=FALSE
+n.split=5
+lwd.traits=1
+max.range <- abs(diff(range(y)))#
+	trait.data.range <- y + max.range#
+	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
+	t.data.scale <- trait.data.range / max(trait.data.range)#
+	tree.height <- nodeTimes(phy)[1,1]#
+	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
+	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
+    x_cord <- lastPP$xx#
+    y_cord  <- lastPP$yy#
+    tip.x.orig <- tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
+	tip.y.orig <- tip.y <- y_cord[1:Ntip(phy)]#
+	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
+	recycle.color <- rep(col.label, Ntip(phy))#
+	ord.y <- order(tip.y)#
+	tip.y <- tip.y[ord.y]#
+	tip.x <- tip.x[ord.y]#
+	recycle.color <- recycle.color[ord.y]#
+	t.data.scale <- t.data.scale[ord.y]#
+	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
+	all.y <- rep(c(tip.y, zero.height), each=3)#
+	all.x <- rep(tip.x[1], length(all.y))#
+	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
+	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
+	ord.y2 <- order(all.y)#
+	all.y <- all.y[ord.y2]#
+	recycle.color <- rep(recycle.color, 6)#
+	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=n.split)
+for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy), 1, 1, Ntip(phy)), col="#00000020", border=FALSE, xpd=TRUE)
+splits
+all.x
+label.splits <- seq(min(y), max(y), length.out=n.split)
+label.splits
+axis(3, at=splits, labels=signif(label.splits, 3), xpd=TRUE, ...)

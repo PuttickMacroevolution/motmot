@@ -5,7 +5,9 @@
 \title{plot a univariate continuous trait data on a phylogeny}
 \usage{
 traitData.plot(y, phy, col.label = "red", col.tree = "black",
-  cex.plot = 0.7, include.hist = F)
+  col.hist = "navy", cex.plot = 0.7, cex.tips = 0.7,
+  show.tips = FALSE, include.hist = FALSE, n.split = 5,
+  lwd.traits = 1, ...)
 }
 \arguments{
 \item{y}{A matrix of trait values with taxon names as rownames.}
@@ -16,9 +18,23 @@ traitData.plot(y, phy, col.label = "red", col.tree = "black",
 
 \item{col.tree}{colour for the edge labels on the tree}
 
+\item{col.hist}{colour of the histogram}
+
 \item{cex.plot}{Numeric. The size of labels for the histogram axis labels}
 
+\item{cex.tips}{Numeric. The size of the phylogeny tip labels}
+
+\item{show.tips}{Logical. If FALSE (default), no tip labels are shown. If TRUE, tip labels are shown}
+
 \item{include.hist}{Logical. Include a histrogram alongside the plot of the tree?}
+
+\item{n.split}{Numeric. The number of splits for the axis labels and shading for the trait values}
+
+\item{lwd.traits}{Line widths of traits shown on the plot}
+
+\item{...}{arguments for the axis function used in the histogram}
+
+\item{...}{further arguments passed to the axis function}
 }
 \value{
 A plot with the trait values shown at the tips, and a histrogram of the trait values
