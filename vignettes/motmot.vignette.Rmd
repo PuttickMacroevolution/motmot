@@ -104,7 +104,7 @@ The maximum likelhood estimate of Pagel's Lambda is equal to 0.83
 A new feature in motmot allows for plotting of the likelihood profile for the branch-transformation parameter, in this case Pagel's lambda
 
 ```{r plot3, fig.cap = "Figure 3. Profile plot of ML estimation for Pagel's lambda", echo = T, fig.height = 5, fig.width = 5, , fig.path='figures/', dev=c('png', 'pdf'), dpi=200}
-lambda.ml <- transformPhylo.ML(phy=phy.clade, y=male.length.clade, model="lambda", profilePlot=T)
+lambda.ml <- transformPhylo.ML(phy=phy.clade, y=male.length.clade, model="lambda", profilePlot=TRUE)
 ```
 
 We can now compare the fit of the BM and Lambda models. Lambda has higher likelihood, but it also has more parameters (the root state and sigma squared are shared in both models, lambda also estimates the lambda parameter). We can test whether this is a significant improvement. First we will use the chi-squared distribution. The models differ in one degree of freedom: BM has 2 parameters (brownian variance, root state) and lambda has those two parameters plus the value of lambda, so 3 parameters. We can use the stats function pchisq to obtain a p value, and see that lambda is indeed a superior fit to these data

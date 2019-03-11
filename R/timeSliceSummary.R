@@ -6,15 +6,13 @@
 #' @param lowerBound Minimum value for parameter estimates.
 #' @param upperBound Maximum value for parameter estimates.
 #' @param plot.phylo Logical. If \code{TRUE}, the phylogeny is plotted
-#' @param cex.tip The character size of tip labels
-#' @param tip.offset the distance tip labels should be printed from pendant edges
-#' @param phylo.width The width of edges on the phylogeny
-#' @param tip.colour Colour of species' tip labels
+#' @param cex.plot Character expansion for the plot of rates through time
 #' @param colour.ramp The colours signifying different rates from low (first colour) to high (second colour)
+#' @param Further functions passed to APE \code{plot.phylo}
 #' @details This functions summarises the output of a "timeSlice" model in \code{\link{transformPhylo.ML}} (see below). The best overall model is chosen based on AIC (or AICc if AICc=TRUE). The cut-off point for improvement in AIC score between successively more complex models can be defined using cutoff. The default cutoff is 4 but this is somewhat arbitrary and a "good" cut-off may well vary between data sets so it may well be worth exploring different cutoffs.
 #' @return ModelFit Summary of the best optimal rate shift model.
 #' @return Rates Summary of the rate parameters from the best rate shift model.
-#' @return optimalTree A phylo object with branch lengths scaled relative to rate.
+#' @return optimalTree A phylo object with branch lengths scaled relative to rate and a plot of estimated rates through time with their associated CIs.
 #' @references To Add
 #' @author Mark Puttick
 #' @seealso \code{\link{transformPhylo.ML}}
@@ -36,7 +34,7 @@
 #' phylo.width=2, colour.ramp=c("blue", "red"))
 #' @export
 
-timeSliceSummary <- function(timeSliceObject, cutoff=4, AICc=TRUE, lowerBound=1e-8, upperBound=1000, plot.phylo=TRUE, cex.tip=1, tip.offset=1, phylo.width=1, tip.colour="grey50", colour.ramp=c("blue", "red")) {
+timeSliceSummary <- function(timeSliceObject, cutoff=4, AICc=TRUE, lowerBound=1e-8, upperBound=1000, plot.phylo=TRUE, colour.ramp=c("blue", "red"), cex.plot=1, ...) {
 
 	if(AICc) {
 		diff.AICc <- diff(timeSliceObject$timeSlice[,"AICc"])
@@ -108,39 +106,52 @@ timeSliceSummary <- function(timeSliceObject, cutoff=4, AICc=TRUE, lowerBound=1e
 		phy.time.slice <- phy
 		rates <- 1
 		}	
-					
-	start.time <- nodeTimes(phy)[1,1]
-	all.times <- start.time - c(start.time, sort(shift.time, T), 0)
-	all.times[1] <- -1
-	time.poly <- seq(1, length(all.times))
-	
-	gradientFun <- grDevices::colorRampPalette(c(colour.ramp[1], colour.ramp[2]))
-	
-	col.in <- gradientFun(length(rates))[rank(rates, ties.method="first")]
-
-	col.in <- paste0(col.in, "75")
-
-	if(plot.phylo) { 
-		par(mfrow=c(2,1), mar=c(2,2,2,2))
-		plot(phy, edge.col="#00000000", edge.width=phylo.width, tip.col="white", cex=cex.tip, label.offset=tip.offset)
+			
+	if(plot.phylo) {		
+		start.time <- nodeTimes(phy)[1,1]
+		all.times <- start.time - c(start.time, sort(shift.time, T), 0)
+		all.times[1] <- -1
+		time.poly <- seq(1, length(all.times))
+		gradientFun <- grDevices::colorRampPalette(c(colour.ramp[1], colour.ramp[2]))
+		col.in <- gradientFun(length(rates))[rank(rates, ties.method="first")]
+		col.in <- paste0(col.in, "75")
+	 
+		par(mfrow=c(3,1), mar=c(1,1,1,1))
+		plot(phy, ...)
 		for(time.x in time.poly) {
-			polygon(c(all.times[time.x], all.times[time.x+1], all.times[time.x+1], all.times[time.x]), c(-1, -1, Ntip(phy)+1, Ntip(phy)+1), col=col.in[time.x], border=F)
+			polygon(c(all.times[time.x], all.times[time.x+1], all.times[time.x+1], all.times[time.x]), c(-1, -1, Ntip(phy)+1, Ntip(phy)+1), col=col.in[time.x], border=FALSE)
 		}
 		par(new=T)
-		plot(phy, edge.col="white", edge.width=phylo.width, tip.col=tip.colour, cex=cex.tip, label.offset=tip.offset)
+		plot(phy , ...)
 		##
 		all.times.temp <- start.time - c(start.time, sort(shift.time, T), 0)
 		all.times2 <- c(0, cumsum(diff(all.times.temp) * rates))
-		all.times2[1] <- -1
+		all.times2[1] <- -1 / (nodeTimes(phy)[1,1] / nodeTimes(phy.time.slice)[1,1])
 		if(tail(all.times2, 1) != nodeTimes(phy.time.slice)[1,1]) all.times2[length(all.times2)] <- nodeTimes(phy.time.slice)[1,1]
-		plot(phy.time.slice, edge.col="#00000000", edge.width=phylo.width, tip.col="white", cex= cex.tip, label.offset=tip.offset)
+		plot(phy.time.slice, ...)
 		for(time.x in time.poly) {
-		polygon(c(all.times2[time.x], all.times2[time.x+1], all.times2[time.x+1], all.times2[time.x]), c(-1, -1, Ntip(phy) + 1, Ntip(phy) + 1), col=col.in[time.x], border=F)
+		polygon(c(all.times2[time.x], all.times2[time.x+1], all.times2[time.x+1], all.times2[time.x]), c(-1, -1, Ntip(phy) + 1, Ntip(phy) + 1), col=col.in[time.x], border=FALSE)
 		}
-		par(new=T)
-		plot(phy.time.slice, edge.col="white", edge.width=phylo.width, tip.col=tip.colour, cex=cex.tip, label.offset=tip.offset)
+		par(new=TRUE)
+		plot(phy.time.slice, ...)
 		if(any(rates == lowerBound)) abline(v=all.times2[which(rates == lowerBound)  + 1], col=col.in[1], lwd=2)
-	}	
+
+		relative.rates <- rates / rates[1]
+		relative.LCI <- LCI / rates[1]
+		relative.UCI <- UCI / rates[1]
+		na.lci <- which(is.na(relative.LCI))
+		na.uci <- which(is.na(relative.UCI))
+		if(length(na.lci) > 0) relative.LCI[na.lci] <- relative.rates[na.lci]
+		if(length(na.uci) > 0) relative.UCI[na.uci] <- relative.rates[na.uci]
+		max.y <- max(max(relative.UCI, na.rm=TRUE), max(relative.rates, na.rm=TRUE)) * 1.05
+		times.x <- c(start.time, sort(shift.time, TRUE), 0)
+		par(new=TRUE)
+		par(oma=c(5,5,5,5))
+		plot(times.x, c(relative.rates, tail(relative.rates, 1)), type="s", ylim=c(0, max.y), xlim=c(start.time, 0), las=1, xaxs="i", yaxs="i", mgp=c(0, 0.7, 0), cex.axis=cex.plot, ylab="", xlab="")
+		for(x in 1:3) polygon(c(times.x[x], times.x[x + 1], times.x[x + 1], times.x[x]), c(relative.LCI[x], relative.LCI[x], relative.UCI[x], relative.UCI[x]), border=FALSE, col=col.in[x])
+		mtext("relative rates", 2, line=2, cex=cex.plot)
+		mtext("time (Ma)", 1, line=2, cex=cex.plot)
+	}
 	output <- list()
 	output$ModelFit <- model.best
 	output$Rates <- model.param

@@ -44,8 +44,11 @@ sortTraitData <- function (phy, y, data.name=NULL, log.trait = TRUE, pass.ultram
     phy.names <- phy$tip.label
     missing <- apply(trait.data, 2, function(x) which(is.na(x)))
     missing <- c(unique(unlist(missing)))
-    
-    dat.trait <- matrix(trait.data[-missing,], ncol=ncol(trait.data), dimnames = list(trait.names[-missing]))
+    if(length(missing) > 0) {
+    	dat.trait <- matrix(trait.data[-missing, ], ncol = ncol(trait.data), dimnames = list(trait.names[-missing]))
+    } else {
+    	dat.trait <- matrix(trait.data, ncol = ncol(trait.data), dimnames = list(trait.names))
+    	}
     rm.tip <- match(phy.names, rownames(dat.trait))
     if (multi.phy) {
         red.phy <- lapply(tree, function(x) drop.tip(x, phy.names[which(is.na(rm.tip))]))

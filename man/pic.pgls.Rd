@@ -4,7 +4,8 @@
 \alias{pic.pgls}
 \title{Fast PLGS estimation based on contrasts}
 \usage{
-pic.pgls(formula, phy, y, lambda = "ML", return.intercept.stat = FALSE)
+pic.pgls(formula, phy, y, lambda = "ML", return.intercept.stat = FALSE,
+  meserr = NULL)
 }
 \arguments{
 \item{formula}{A model formula with continuous variables only}
@@ -16,6 +17,8 @@ pic.pgls(formula, phy, y, lambda = "ML", return.intercept.stat = FALSE)
 \item{lambda}{Default is "ML" meaning the phylogenetic signal of the response variable will be estimated using restricted Maximum likelihood. If a numeric value between 0-1 is provided this will be used in the calculation of regression coefficients}
 
 \item{return.intercept.stat}{Logical. If \code{TRUE} the standard errors, t value, and p value of the estimated Intercept is provided for comparison with output from \code{\link[caper]{pgls}} from \pkg{caper} etc.,. Default is \code{FALSE} as this slows the function as it involves constructing and calculating the inverse of the phy variance-covariance matrix, and based on contrasts the design matrix column of ones would have zero contrasts.}
+
+\item{meserr}{A vector (or matrix) of measurement error for each tip. This is only applicable to univariate analyses.}
 }
 \value{
 A list containing the model, model summary, intercept, estimate of Lambda, model log-Likelihood, model AIC

@@ -7,7 +7,7 @@
 traitData.plot(y, phy, col.label = "red", col.tree = "black",
   col.hist = "navy", cex.plot = 0.7, cex.tips = 0.7,
   show.tips = FALSE, include.hist = FALSE, n.split = 5,
-  lwd.traits = 1, ...)
+  lwd.traits = 1, axis.text = NULL, transform.axis.label = NULL, ...)
 }
 \arguments{
 \item{y}{A matrix of trait values with taxon names as rownames.}
@@ -31,6 +31,10 @@ traitData.plot(y, phy, col.label = "red", col.tree = "black",
 \item{n.split}{Numeric. The number of splits for the axis labels and shading for the trait values}
 
 \item{lwd.traits}{Line widths of traits shown on the plot}
+
+\item{axis.text}{text shown above the trait label axis. If NULL (default), nothing is displayed}
+
+\item{transform.axis.label}{If the data are provided as logarithms the labels for trait axis can be transformed to their original values by calculating the exponential function of the natural (transform.axis.label="exp") or base 10 logarithm. The default (NULL) leaves the labels un-transformed.}
 
 \item{...}{arguments for the axis function used in the histogram}
 

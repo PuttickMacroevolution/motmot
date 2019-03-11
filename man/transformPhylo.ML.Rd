@@ -13,7 +13,7 @@ transformPhylo.ML(y, phy, model = NULL, modelCIs = TRUE,
   upperBound = NULL, covPIC = TRUE, n.cores = 1, tol = NULL,
   meserr = NULL, controlList = c(fnscale = -1, maxit = 100, factr =
   1e-07, pgtol = 0, type = 2, lmm = 5), returnPhy = FALSE,
-  print.warnings = FALSE)
+  print.warnings = FALSE, mode.order = NULL, rate.var = FALSE)
 }
 \arguments{
 \item{y}{A matrix of trait values.}
@@ -32,17 +32,17 @@ transformPhylo.ML(y, phy, model = NULL, modelCIs = TRUE,
 
 \item{nSplits}{Integer - number of rate shifts to apply for model="medusa" and "timeSlice".}
 
-\item{splitTime}{A split time (measured from the present, or most recent species) at which a shift in the rate occurs for the "timeSlice" model. If splitTime = NULL, then all ages between 1 million year intervals from the root age - 10 Ma to the present + 10 Ma will be included in the search. The best model will be retained in each search, and will be used as a fixed age in the next search. The model will calculate the likelihood for the number of shifts defined by 'nSplits'.}
+\item{splitTime}{A split time (measured from the present, or most recent species) at which a shift in the rate occurs for the "timeSlice" model. If splitTime=NULL, then all ages between 1 million year intervals from the root age - 10 Ma to the present + 10 Ma will be included in the search. The best model will be retained in each search, and will be used as a fixed age in the next search. The model will calculate the likelihood for the number of shifts defined by 'nSplits'.}
 
-\item{boundaryAge}{Only applicable if splitTime = NULL, the age distance from the tips and and youngest tip for which to search for rate shifts. For example, if boundaryAge = 10, only ages between the root age - 10 and the latest tip + 10 will be included in the search. Set to zero to allow testing of all ages.}
+\item{boundaryAge}{Only applicable if splitTime=NULL, the age distance from the tips and and youngest tip for which to search for rate shifts. For example, if boundaryAge=10, only ages between the root age - 10 and the latest tip + 10 will be included in the search. If one value is given this will be used for upper and lower ages, but if a vector with two ages is provided the first is used for the upper age boundary and the second for the lower age boundary. Set to zero to allow testing of all ages.}
 
-\item{testAge}{If splitTime = NULL, the interval between ages to be tested. For example, if testAge = 1, all 1 Ma ages between the ages defined by 'boundaryAge' will be tested.}
+\item{testAge}{If splitTime=NULL, the interval between ages to be tested. For example, if testAge=1, all 1 Ma ages between the ages defined by 'boundaryAge' will be tested.}
 
 \item{restrictNode}{List defining monophyletic groups within which no further rate shifts are searched.}
 
-\item{lambdaEst}{Logical.  Estimate lambda alongside parameter estimates to reduce data noise. Only applicable for models "kappa", "delta", "OU", "psi", "multispi", and "ACDC". Default=FALSE.}
+\item{lambdaEst}{Logical.Estimate lambda alongside parameter estimates to reduce data noise. Only applicable for models "kappa", "delta", "OU", "psi", "multispi", and "ACDC". Default=FALSE.}
 
-\item{acdcScalar}{Logical.  For nested EB rate model, simultaneously estimated a rate scalar alongside EB model. Default=FALSE.}
+\item{acdcScalar}{Logical.For nested EB rate model, simultaneously estimated a rate scalar alongside EB model. Default=FALSE.}
 
 \item{branchLabels}{Branches on which different psi parameters are estimated in the "multipsi" model}
 
@@ -50,7 +50,7 @@ transformPhylo.ML(y, phy, model = NULL, modelCIs = TRUE,
 
 \item{full.phy}{The full phylogeny containing the species that do not contain trait data so are not included in 'phy'}
 
-\item{useMean}{Logical. Use the branch-based estimates of extinction of mean (TRUE, default) for the "psi" and "multispi" models. Only applicable if "hiddenSpeciation" = TRUE. If FALSE, this will generate a single realisation of the numbers of hidden speciation events on each branch}
+\item{useMean}{Logical. Use the branch-based estimates of extinction of mean (TRUE, default) for the "psi" and "multispi" models. Only applicable if "hiddenSpeciation"=TRUE. If FALSE, this will generate a single realisation of the numbers of hidden speciation events on each branch}
 
 \item{profilePlot}{Logical. For the single parameter models "kappa", "lambda", "delta", "OU", "psi", "multipsi", and "ACDC", plot the profile of the likelihood.}
 
@@ -71,6 +71,10 @@ transformPhylo.ML(y, phy, model = NULL, modelCIs = TRUE,
 \item{returnPhy}{Logical. In TRUE the phylogeny with branch lengths transformed by the ML model parameters is returned}
 
 \item{print.warnings}{Logical. If TRUE, warnings are issued if confidence intervals fall outside upper or lower bounds}
+
+\item{mode.order}{The order of modes for the 'modeslice' model. Any combination of 'BM', 'OU', 'acdc', and 'kappa'}
+
+\item{rate.var}{Allows rate variation in BM modes in the 'modeslice model'}
 }
 \value{
 Returns the maximum log-likelihood and parameter estimates (with 95 percent confidence intervals if specified). If model="bm" instead returns the Brownian (co)variance and log-likelihood. Also returned are the root estimate, the AIC, and AICc.
@@ -96,7 +100,8 @@ This function finds the maximum likelihood parameter values for continuous chara
 \item {model="clade"} {fits a model where particular clades are a priori hypothesised to have different rates of trait evolution (see O'Meara et al. 2006; Thomas et al. 2006, 2009). Clades are specified using nodeIDs and are defined as the mrca node. Default rate parameter bounds from ~0 - 200.}
 \item {model="tm1"} {fits "clade" models without any a priori assertion of the location of phenotypic diversification rate shifts. It uses the same AIC approach as the runMedusa function in the geiger package (runMedusa tests for shifts in the rate of lineage diversification). The algorithm first fits a constant-rate Brownian model to the data, it then works iteratively through the phylogeny fitting a two-rate model at each node in turn. Each two-rate model is compared to the constant rate model and the best two-rate model is retained. Keeping the location of this rate shift intact, it then repeats the procedure for a three-rate model and so on. The maximum number of rate shifts can be specified a priori using nSplits. Limits can be applied to the size (species richness) of clades on which to infer new rate shifts using minCladeSize. This can be useful to enable large trees to be handled but should be used cautiously since specifiying a large minimum clade size may result in biologically interesting nested rate shifts being missed. Equally, very small clade sizes may provide poor estimates of rate that may not be informative. Limits on the search can also be placed using restrictNode. This requires a list where each element of the list is a vector of tip names that define monophyletic groups. Rate shifts will not be searched for within any of the defined groups. Default rate parameter bounds from ~0 - 1000.}
 \item {model="tm2"} {this model is similar to "tm1", however, at each node it assesses the fit of two models. The first model is exactly as per "tm1". The second model infers a rate shift on the single branch descending directly from a node but not on any of the descending branches thereafter. Only the best fitting single-branch or whole clade model is retained for the next iteration. If a single-branch shift is favoured, this infers either that there was a rapid shift in trait value along the stem leading to the crown group, or that the members of the clade have undergone parallel shifts. In either case, this can be considered as a change in mean, though separating a single early shift from a clade-parallel shift is not possible with this method. }
-\item {model="timeSlice"} {A model in which all branch rates change at a time or times set a priori by the user. If  Default rate parameter bounds from ~0 - 1000. If splitTime=NULL, all 1 Ma (as defined by test Age) intervals from the root of the tree - 10 and the youngest tip + 10 will be included in the search. The +/- 10 Ma age can be modified using the argument boundaryAge. At each stage the best fitting model will be stored, and the search will continue until n shifts, with n shifts defined by nSplits. If a single value or vector is used for splitTime, only these ages are included in the search.}
+\item {model="timeSlice"} {A model in which all branch rates change at a time or times set a priori by the user. IfDefault rate parameter bounds from ~0 - 1000. If splitTime=NULL, all 1 Ma (as defined by test Age) intervals from the root of the tree - 10 and the youngest tip + 10 will be included in the search. The +/- 10 Ma age can be modified using the argument boundaryAge. At each stage the best fitting model will be stored, and the search will continue until n shifts, with n shifts defined by nSplits. If a single value or vector is used for splitTime, only these ages are included in the search.}
+\item {model="modeslice"} {A model in which all branch modes change at a time or times set a priori by the user.}
 }
 }
 \note{
@@ -107,7 +112,7 @@ Confidence intervals are based on the assumption of an asymptotic Chi-square dis
 data(anolis.tree)
 data(anolis.data)
 sortedData <- sortTraitData(anolis.tree, anolis.data,
-data.name = "Male_SVL", log.trait = TRUE, pass.ultrametric = TRUE)
+data.name="Male_SVL", log.trait=TRUE, pass.ultrametric=TRUE)
 phy <- sortedData$phy
 male.length <- sortedData$trait
 phy.clade <- extract.clade(phy, 182)
@@ -151,7 +156,7 @@ Harmon LJ et al. 2010. Early bursts of body size and shape evolution are rare in
 
 Ingram T. 2011. Speciation along a depth gradient in a marine adaptive radiation. Proc. Roy. Soc. B. 278, 613-618.
 
-Ingram T,  Harrison AD, Mahler L, Castaneda MdR, Glor RE, Herrel A, Stuart YE, and Losos JB. 2016. Comparative tests of the role of dewlap size in Anolis lizard speciation. Proc. Roy. Soc. B. 283, 20162199.
+Ingram T,Harrison AD, Mahler L, Castaneda MdR, Glor RE, Herrel A, Stuart YE, and Losos JB. 2016. Comparative tests of the role of dewlap size in Anolis lizard speciation. Proc. Roy. Soc. B. 283, 20162199.
 
 Mooers AO, Vamosi S, & Schluter D. 1999. Using phylogenies to test macroevolutionary models of trait evolution: sexual selection and speciation in Cranes (Gruinae). American Naturalist 154, 249-259.
 

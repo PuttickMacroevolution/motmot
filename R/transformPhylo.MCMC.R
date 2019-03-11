@@ -22,6 +22,12 @@
 #' @param uniform.prior Logical. If TRUE (default), the prior is a uniform distribution bounded by the lowerBound and upperBound. If FALSE, the prior distribution is a truncated normal distribution.
 #' @param mean.normal.trunc Mean of the truncated normal distribution prior (only applicable if uniform.prior = TRUE)
 #' @param sd.normal.trunc Standard Deviation of the truncated normal distribution prior (only applicable if uniform.prior = TRUE)
+#' @param lambdaEst Logical.  Estimate lambda alongside parameter estimates to reduce data noise. Only applicable for models "kappa", "delta", "OU", "psi", "multispi", and "ACDC". Default=FALSE.
+#' @param nodeIDs Integer - ancestral nodes of clades applicable to rate heterogenous and nested models of evolution (see details)
+#' @param branchLabels Branches on which different psi parameters are estimated in the "multipsi" model
+#' @param acdcScalar Logical.  For nested EB rate model, simultaneously estimated a rate scalar alongside EB model. Default=FALSE.
+#' @param lambda.std Logical. The starting standard deviation for the proposal distribution for the lambda parameter when lambda.est=TRUE
+
 #' @details The method estimates posterior probabilities using a Metropolis-Hastings MCMC approach. To aide convergence, the model will attempt to reach an acceptable proposal ratio (~0.44) when opt.accept.rate=TRUE. These initial fine-tune repititions only save the standard deviation for the truncated normal distribution that is used for the proposal mechanism. The chain is discarded. Posterior probabilites and MCMC diagnostics come from the seperate output chain that commences after this fine-tune procedure. The MCMC model will estimate the posterior probability for the following models. 
 #' \itemize{
 #' \item {model="kappa"} {fits Pagel's kappa by raising all branch lengths to the power kappa. As kappa approaches zero, trait change becomes focused at branching events. For complete phylogenies, if kappa approaches zero this infers speciational trait change. Default bounds from ~0 - 1.}
@@ -55,7 +61,7 @@
 #' model="lambda", mcmc.iteration=100, burn.in=0.1)
 #' @export 
 
-transformPhylo.MCMC <- function(y, phy, model, mcmc.iteration=1000, burn.in=0.1, hiddenSpeciation = FALSE, full.phy=NULL, lowerBound = NULL, upperBound = NULL, opt.accept.rate=TRUE, accept.rate=0.3, acceptance.sd=NULL, opt.prop=0.25, fine.tune.bound=0.05, fine.tune.n=30, useMean = FALSE, random.start=TRUE, meserr = NULL, covPIC=TRUE, uniform.prior=TRUE, mean.normal.trunc=0.5, sd.normal.trunc=0.2) {
+transformPhylo.MCMC <- function(y, phy, model, mcmc.iteration=1000, burn.in=0.1, hiddenSpeciation = FALSE, full.phy=NULL, lowerBound = NULL, upperBound = NULL, opt.accept.rate=TRUE, accept.rate=0.3, acceptance.sd=NULL, opt.prop=0.25, fine.tune.bound=0.05, fine.tune.n=30, useMean = FALSE, random.start=TRUE, meserr = NULL, covPIC=TRUE, uniform.prior=TRUE, mean.normal.trunc=0.5, sd.normal.trunc=0.2, lambdaEst=FALSE, nodeIDs = NULL, branchLabels = NULL, acdcScalar = FALSE, lambda.std=0.01) {
 
 	if(length(model) > 1) stop("please provide one model only")
 	if(ncol(y) > 1 && !is.null(meserr)) stop("meserr only applicable to univariate analyses")
@@ -66,120 +72,201 @@ transformPhylo.MCMC <- function(y, phy, model, mcmc.iteration=1000, burn.in=0.1,
 	bounds <- matrix(c(1e-08, 1, 1e-08, 1, 1e-08, 5, 1e-08, 20, 0, 1, 1e-08, 1000, 1e-10, 20), 7, 2, byrow = TRUE)
 	rownames(bounds) <- c("kappa", "lambda", "delta", "alpha", "psi", "rate", "acdcrate")
 	if(random.start) set.seed(as.numeric(Sys.time()))
+	
+	rtnorm <- function(n, mean, sd, a = -Inf, b = Inf){
+		qnorm(runif(n, pnorm(a, mean, sd), pnorm(b, mean, sd)), mean, sd)
+		}
 
 	bounds <- matrix(c(1e-08, 1, 1e-08, 1, 1e-08, 5, 1e-08, 20, 0, 1, 1e-08, 10, 1e-10, 100000), 7, 2, byrow = TRUE)
 	rownames(bounds) <- c("kappa", "lambda", "delta", "alpha", "psi", "rate", "acdcRate")
 
 	if(model == "lambda") {
-		input.value <- runif(1, 0, 1)
 		if (is.null(lowerBound)) {
 			lowerBound <- bounds["lambda", 1]
 			}
 		if (is.null(upperBound)) {
 			upperBound <- bounds["lambda", 2]
 		}
-
+		
+		input.value <- runif(1, lowerBound, upperBound)
 		lik.model <- function(pram) {
 			lambda.phy <- transformPhylo(phy, model="lambda", y=y, lambda=pram, meserr=meserr)
 			return(likTraitPhylo(y, lambda.phy, covPIC=covPIC)[[2]])
 		}
-
 		if(is.null(acceptance.sd)) {
 			stn.dev <- suppressWarnings(diff(range(transformPhylo.ML(y, phy, model="lambda", meserr=meserr, covPIC=covPIC)$Lambda, na.rm=TRUE)))
-			if(stn.dev == 0) stn.dev <- 1
-				sd.fine.tune <- stn.dev / 2
+			if(any(stn.dev == 0)) stn.dev[which(stn.dev == 0)] <- 0.1
+				sd.fine.tune <- stn.dev
 			} else {
 				stn.dev <- acceptance.sd
-				sd.fine.tune <- stn.dev / 2
-				}	
+				sd.fine.tune <- stn.dev
+				}
 			name.param <- c("Lambda")
 		}
 
-
-		if(model == "delta") {
-			input.value <- runif(1, 0, 1)
+	if(model == "delta") {
+			if (is.null(nodeIDs)) {
+        		nodeIDs <- Ntip(phy) + 1
+      		} else {
+        		nodeIDs <- nodeIDs
+      			}
 			if (is.null(lowerBound)) {
 				lowerBound <- bounds["delta", 1]
 				}
 			if (is.null(upperBound)) {
 				upperBound <- bounds["delta", 2]
 				}
-			
+			if (lambdaEst) {
+       			lowerBound <- c(lowerBound, bounds["lambda", 1])
+       			upperBound <- c(upperBound, bounds["lambda", 2])
+        	}
+		
+			input.value <- sapply(1:length(lowerBound), function(x) runif(1, lowerBound[x], upperBound[x]))
+			if(length(input.value) == 2) input.value[2] = 1
 			lik.model <- function(pram) {
-				delta.phy <- transformPhylo(phy, model="delta", y=y, delta=pram, meserr=meserr)
+				if (lambdaEst) lambda <- tail(pram, 1) else lambda <- 1
+         		delta.est <- pram[1]
+         		lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)
+				delta.phy <- transformPhylo(lambdaPhy, model="delta", y=y, delta=delta.est, meserr=meserr, nodeIDs = nodeIDs)
 				return(likTraitPhylo(y, delta.phy, covPIC=covPIC)[[2]])
 			}
 			
 			if(is.null(acceptance.sd)) {
-				stn.dev <- suppressWarnings(diff(range(transformPhylo.ML(y, phy, model="delta", meserr=meserr, covPIC=covPIC)$Delta, na.rm=TRUE)))
-				if(stn.dev == 0) stn.dev <- 1
-				sd.fine.tune <- stn.dev / 2
+				stn.dev <- suppressWarnings(diff(range(transformPhylo.ML(y, phy, model="delta", meserr=meserr, covPIC=covPIC, nodeIDs = nodeIDs)$Delta, na.rm=TRUE)))
+				if (lambdaEst) stn.dev[2] <- lambda.std
+				if(any(stn.dev == 0)) stn.dev[which(stn.dev == 0)] <- 0.1
+				sd.fine.tune <- stn.dev
 			} else {
-				stn.dev <- acceptance.sd
-				sd.fine.tune <- stn.dev / 2
+				if (lambdaEst) {
+					stn.dev <- c(acceptance.sd, lambda.std)
+					sd.fine.tune <- stn.dev
+				} else {
+					stn.dev <- acceptance.sd
+					sd.fine.tune <- stn.dev
+					}
 				}	
 
-			name.param <- c("delta")
+			if (lambdaEst) {
+				name.param <- c("delta", "Lambda")
+			} else {
+				name.param <- c("delta")
+			}
 		}
 
 		if(model == "kappa") {
-		input.value <- runif(1, 0, 1)
-		if (is.null(lowerBound)) {
-			lowerBound <- bounds["kappa", 1]
-			}
-		if (is.null(upperBound)) {
-			upperBound <- bounds["kappa", 2]
-			}
+			if (is.null(nodeIDs)) {
+        		nodeIDs <- Ntip(phy) + 1
+      		} else {
+        		nodeIDs <- nodeIDs
+      			}
+			if (is.null(lowerBound)) {
+				lowerBound <- bounds["kappa", 1]
+				}
+			if (is.null(upperBound)) {
+				upperBound <- bounds["kappa", 2]
+				}
 		
-		lik.model <- function(pram) {
-			kappa.phy <- transformPhylo(phy, model="kappa", y=y, kappa=pram, delta=pram, meserr=meserr)
-			return(likTraitPhylo(y, kappa.phy, covPIC=covPIC)[[2]])
-			}
+			if (lambdaEst) {
+       			lowerBound <- c(lowerBound, bounds["lambda", 1])
+       			upperBound <- c(upperBound, bounds["lambda", 2])
+        	}
+		
+			input.value <- sapply(1:length(lowerBound), function(x) runif(1, lowerBound[x], upperBound[x]))
+		
+			lik.model <- function(pram) {
+				if (lambdaEst) lambda <- tail(pram, 1) else lambda <- 1
+         		kappa.est <- pram[1]
+         		lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)
+				kappa.phy <- transformPhylo(phy, model="kappa", y=y, kappa=kappa.est, meserr=meserr, nodeIDs = nodeIDs)
+				return(likTraitPhylo(y, kappa.phy, covPIC=covPIC)[[2]])
+				}
 		
 		if(is.null(acceptance.sd)) {
-			stn.dev <- suppressWarnings(diff(range(transformPhylo.ML(y, phy, model="kappa", meserr=meserr, covPIC=covPIC)$Kappa, na.rm=TRUE)))
-			if(stn.dev == 0) stn.dev <- 1
-				sd.fine.tune <- stn.dev / 2
+			stn.dev <- suppressWarnings(diff(range(transformPhylo.ML(y, phy, model="kappa", meserr=meserr, covPIC=covPIC, nodeIDs = nodeIDs)$Kappa, na.rm=TRUE)))
+			if (lambdaEst) stn.dev[2] <- lambda.std
+			if(any(stn.dev == 0)) stn.dev[which(stn.dev == 0)] <- 0.1
+				sd.fine.tune <- stn.dev
+			} else {
+				if (lambdaEst) {
+				stn.dev <- c(acceptance.sd, lambda.std)
+				sd.fine.tune <- stn.dev
 			} else {
 				stn.dev <- acceptance.sd
-				sd.fine.tune <- stn.dev / 2
+				sd.fine.tune <- stn.dev
+				}
 			}	
 		
-		name.param <- c("kappa")
-	}
+		if (lambdaEst) {
+			name.param <- c("kappa", "ACDC.scalar")
+		} else {
+			name.param <- c("kappa")
+			}
+		}
 
 	if(model == "ou") {
-	input.value <- runif(1, 0, 1)
-	if (is.null(lowerBound)) {
-		lowerBound <- bounds["alpha", 1]
-		}
-	if (is.null(upperBound)) {
-		upperBound <- bounds["alpha", 2]
-		}
-	
-	if(!is.ultrametric(phy)) {
-		stop("non-ultrametric OU model not available in transformPhylo.MCMC at current, sorry")
-		}
-	
-	lik.model <- function(pram) {
-		alpha.phy <- transformPhylo(phy, model="OU", y=y, alpha=pram, meserr=meserr)
-		return(likTraitPhylo(y, alpha.phy, covPIC=covPIC)[[2]])
-		}
+		if (is.null(nodeIDs)) {
+        	nodeIDs <- Ntip(phy) + 1
+      	} else {
+        	nodeIDs <- nodeIDs
+      	}
+		if (is.null(lowerBound)) {
+			lowerBound <- bounds["alpha", 1]
+			}
+		if (is.null(upperBound)) {
+			upperBound <- bounds["alpha", 2]
+			}
+		input.value <- runif(1, lowerBound , upperBound)
+		if(!is.ultrametric(phy)) {
+			stop("non-ultrametric OU model not available in transformPhylo.MCMC at current, sorry")
+			}
+		
+		if (lambdaEst) {
+       		lowerBound <- c(lowerBound, bounds["lambda", 1])
+       		upperBound <- c(upperBound, bounds["lambda", 2])
+        }
+		
+		input.value <- upperBound[1] + 1
+		while(!(input.value <= upperBound[1] && input.value >= lowerBound[1])) input.value <- rexp(1, upperBound[1])
+		if(lambdaEst) input.value[2] <- runif(1, lowerBound[2], upperBound[2])
+		
+		
+		lik.model <- function(pram) {
+			if (lambdaEst) lambda <- tail(pram, 1) else lambda <- 1
+			ou.est <- pram[1]
+        	lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)
+        	alpha.phy <- transformPhylo(phy, model="ou", y=y, alpha=ou.est, meserr=meserr)
+			return(likTraitPhylo(y, alpha.phy, covPIC=covPIC)[[2]])
+			}
 
-	if(is.null(acceptance.sd)) {
-		stn.dev <- suppressWarnings(diff(range(transformPhylo.ML(y, phy, model="OU", meserr=meserr, covPIC=covPIC)$Alpha, na.rm=TRUE)))
-		if(stn.dev == 0) stn.dev <- 1
-		sd.fine.tune <- stn.dev / 2
-	} else {
-		stn.dev <- acceptance.sd
-		sd.fine.tune <- stn.dev / 2
-		}	
-	
-	name.param <- c("alpha")
-	}
+		if(is.null(acceptance.sd)) {
+			stn.dev <- suppressWarnings(diff(range(transformPhylo.ML(y, phy, model="ou", meserr=meserr, covPIC=covPIC, nodeIDs = nodeIDs)$Alpha, na.rm=TRUE)))
+			if (lambdaEst) stn.dev[2] <- lambda.std
+			if(any(stn.dev == 0)) stn.dev[which(stn.dev == 0)] <- 0.1
+			sd.fine.tune <- stn.dev
+		} else {
+			if (lambdaEst) {
+				stn.dev <- c(acceptance.sd, lambda.std)
+				sd.fine.tune <- stn.dev
+			} else {
+				stn.dev <- acceptance.sd
+				sd.fine.tune <- acceptance.sd
+				}
+			}	
+			
+		if (lambdaEst) {
+				name.param <- c("alpha", "ACDC.scalar")
+			} else {
+				name.param <- c("alpha")
+			}
+			
+		}
 
 	if(model == "acdc") {
-		input.value <- runif(1, 0, 1)
+		if (is.null(nodeIDs)) {
+        	nodeIDs <- Ntip(phy) + 1
+      	} else {
+        	nodeIDs <- nodeIDs
+      	}
 		rootBranchingTime <- nodeTimes(phy)[1,1]
 		if (is.null(lowerBound)) {
 			lowerBound <- log(bounds["acdcRate", 1]) / rootBranchingTime
@@ -187,33 +274,87 @@ transformPhylo.MCMC <- function(y, phy, model, mcmc.iteration=1000, burn.in=0.1,
 		if (is.null(upperBound)) {
 			upperBound <- log(bounds["acdcRate", 2]) / rootBranchingTime
 		}
-		
-		lik.model <- function(pram) {
-			acdc.phy <- transformPhylo(phy, model="ACDC", y=y, acdcRate=pram, meserr=meserr)
-			return(likTraitPhylo(y, acdc.phy, covPIC=covPIC)[[2]])
+		if (acdcScalar) {
+			upperBound[1] <- -1e-6
+      		if(is.na(lowerBound[2])) {
+      			lowerBound[2] <- 1
+      			}
+      		if(is.na(upperBound[2])) {
+      			upperBound[2] <- 5
+      		}
+       	}
+		if (lambdaEst) {
+       		lowerBound <- c(lowerBound, bounds["lambda", 1])
+       		upperBound <- c(upperBound, bounds["lambda", 2])
+        } 
+		input.value <- sapply(1:length(lowerBound), function(x) runif(1, lowerBound[x], upperBound[x]))
+		if (acdcScalar) {
+        	lik.model <- function(pram) {
+        	if (lambdaEst) lambda <- tail(pram, 1) else lambda <- 1
+          		acdc.est <- pram[1]
+          		scalarRate <- pram[2]
+          		lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)
+          		acdc.phy <- transformPhylo(lambdaPhy, model="acdc", acdcRate=acdc.est, meserr=meserr, nodeIDs = nodeIDs, cladeRates = scalarRate)
+          		return(likTraitPhylo(y, acdc.phy, covPIC=covPIC)[[2]])
+        		}
+		} else {
+			lik.model <- function(pram) {
+			if (lambdaEst) lambda <- tail(pram, 1) else lambda <- 1
+         		acdc.est <- pram[1]
+         		scalarRate <- 1
+         		lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)
+         		acdc.phy <- transformPhylo(lambdaPhy, model="acdc", y=y, acdcRate=acdc.est, meserr=meserr)
+				return(likTraitPhylo(y, acdc.phy, covPIC=covPIC)[[2]])
 			}
+		}
 		
 		if(is.null(acceptance.sd)) {
-			stn.dev <- suppressWarnings(diff(range(transformPhylo.ML(y, phy, model="ACDC", meserr=meserr, covPIC=covPIC)$ACDC, na.rm=TRUE)))
-			if(stn.dev == 0) stn.dev <- 1
-			sd.fine.tune <- stn.dev / 2
+			if (!acdcScalar) {
+				stn.dev <- suppressWarnings(diff(range(transformPhylo.ML(y, phy, model="acdc", meserr=meserr, covPIC=covPIC)$ACDC, na.rm=TRUE)))
+			} else {
+				stn.dev <- suppressWarnings(diff(range(transformPhylo.ML(y, phy, model="acdc", meserr=meserr, nodeIDs = nodeIDs, covPIC=covPIC,  acdcScalar = TRUE, lowerBound=lowerBound[1], upperBound=upperBound[1])$ACDC, na.rm=TRUE)))
+			}
+			if (acdcScalar) stn.dev[2] <- 0.5
+			if (lambdaEst) stn.dev <- c(stn.dev, lambda.std)
+			if(any(stn.dev == 0)) stn.dev[which(stn.dev == 0)] <- 0.1
+			sd.fine.tune <- stn.dev
 		} else {
-			stn.dev <- acceptance.sd
-			sd.fine.tune <- stn.dev / 2
+			if (lambdaEst) {
+				stn.dev <- c(acceptance.sd, lambda.std)
+				sd.fine.tune <- stn.dev
+			} else {
+				stn.dev <- acceptance.sd
+				sd.fine.tune <- acceptance.sd
+				}
 			}	
 		
-		name.param <- c("ACDC.rate")
+			if (lambdaEst) {
+				name.param <- c("ACDC.rate", "lambda")
+				if (acdcScalar) name.param <- c("ACDC.rate", "ACDC.scalar", "lambda")
+			} else {
+				name.param <- c("ACDC.rate")
+				if (acdcScalar) name.param <- c("ACDC.rate", "ACDC.scalar")
+			}
+			
 		}
 
 	if(model == "psi") {
-		input.value <- runif(1, 0, 1)
+		if (is.null(nodeIDs)) {
+        	nodeIDs <- Ntip(phy) + 1
+      	} else {
+        	nodeIDs <- nodeIDs
+      	}
 		if (is.null(lowerBound)) {
 			lowerBound <- bounds["psi", 1]
 			}
 		if (is.null(upperBound)) {
 			upperBound <- bounds["psi", 2]
 			}
-	
+		if (lambdaEst) {
+       		lowerBound <- c(lowerBound, bounds["lambda", 1])
+       		upperBound <- c(upperBound, bounds["lambda", 2])
+        }	
+			
 		if (hiddenSpeciation) {
 			if (is.null(full.phy)) stop("please provide a full phylogeny")
 			full.data.match <- match(full.phy$tip.label, rownames(y))
@@ -221,38 +362,147 @@ transformPhylo.MCMC <- function(y, phy, model, mcmc.iteration=1000, burn.in=0.1,
 			phy <- dropTipPartial(full.phy, tips.no.data)
 		}
 	 
-		phy.bd <- birthdeath(phy)
-		mu_over_lambda <- phy.bd[[4]][1]
-		lambda_minus_mu <- phy.bd[[4]][2]
-		lambda.sp <- as.numeric(lambda_minus_mu / (1 - mu_over_lambda))
-		mu.ext <- as.numeric(lambda_minus_mu / (1 / mu_over_lambda - 1))
-			
+		if(is.ultrametric(phy)) {
+      		phy.bd <- birthdeath(phy)
+     	 } else {
+     	 	phy.bd <- birthdeath_motmot(phy)
+     	 }
+     	 
+      	mu_over_lambda <- phy.bd[[4]][1]
+      	lambda_minus_mu <- phy.bd[[4]][2]
+      	lambda.sp <- as.numeric(lambda_minus_mu / (1 - mu_over_lambda))
+      	mu.ext <- as.numeric(lambda_minus_mu / (1 / mu_over_lambda - 1))			
 		if (mu.ext > 0) {
 			phy <- sampleHiddenSp(phy, lambda.sp = lambda.sp, mu.ext = mu.ext, useMean=useMean)
 		} else {
 			phy$hidden.speciation <- NULL
 			}
-	
+			
+		input.value <- sapply(1:length(lowerBound), function(x) runif(1, lowerBound[x], upperBound[x]))
+		# input.value[2] <- 1
 		lik.model <- function(pram) {
-			psi.phy <- transformPhylo(phy, model="psi", y=y, psi=pram, meserr=meserr)
+			if (lambdaEst) lambda <- tail(pram, 1) else lambda <- 1
+         	psi.est <- pram[1]
+         	lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)
+         	psi.phy <- transformPhylo(phy, model="psi", y=y, psi=psi.est, meserr=meserr, lambda.sp = lambda.sp, nodeIDs = nodeIDs)
 			return(likTraitPhylo(y, psi.phy, covPIC=covPIC)[[2]])
 			}
 
 		if(is.null(acceptance.sd)) {
-			stn.dev <- suppressWarnings(diff(range(transformPhylo.ML(y, phy, model="psi", meserr=meserr, covPIC=covPIC)$psi, na.rm=TRUE)))
-			if(stn.dev == 0) stn.dev <- 1
-			sd.fine.tune <- 1
+			stn.dev <- suppressWarnings(diff(range(transformPhylo.ML(y, phy, model="psi", meserr=meserr, covPIC=covPIC, nodeIDs = nodeIDs)$psi, na.rm=TRUE)))
+			if (lambdaEst) stn.dev[2] <- lambda.std
+			if(any(stn.dev == 0)) stn.dev[which(stn.dev == 0)] <- 0.1
+			sd.fine.tune <- stn.dev
 		} else {
-			stn.dev <- acceptance.sd
-			sd.fine.tune <- 1
-			}	
+			if (lambdaEst) {
+				stn.dev <- c(acceptance.sd, lambda.std)
+				sd.fine.tune <- stn.dev
+			} else {
+				stn.dev <- acceptance.sd
+				sd.fine.tune <- acceptance.sd
+				}
+			}
+		
+		if (lambdaEst) {
+			name.param <- c("psi", "lambda")
+		} else {
+			name.param <- c("psi")
+			}
+	}
+	
+	
+	if(model == "multispi") {
+      if (is.null(branchLabels)) stop("for 'multipsi' model must provide branchLabels giving state for each branch")
+      states <- levels(factor(branchLabels))
+      
+      if (is.null(lowerBound)) {
+        lowerBound <- bounds[rep("psi", length(states)), 1]
+        if (lambdaEst) lowerBound[length(states) + 1] <- bounds["lambda", 1]
+      }
+      if (is.null(upperBound)) {
+        upperBound <- bounds[rep("psi", length(states)), 2]
+        if (lambdaEst) upperBound[length(states) + 1] <- bounds["lambda", 2]
+      }
+      
+      input.value <- sapply(1:length(lowerBound), function(x) runif(1, lowerBound[x], upperBound[x]))
 
-		name.param <- c("psi")
+      if (hiddenSpeciation) {
+        if (is.null(full.phy)) stop("please provide a full phylogeny")
+        full.data.match <- match(full.phy$tip.label, rownames(y))
+        tips.no.data <- full.phy$tip.label[which(is.na(full.data.match))]
+        phy <- dropTipPartial(full.phy, tips.no.data)
+      }
+
+      if(is.ultrametric(phy)) {
+      	phy.bd <- birthdeath(phy)
+      } else {
+      	phy.bd <- birthdeath_motmot(phy)
+      }
+      mu_over_lambda <- phy.bd[[4]][1]
+      lambda_minus_mu <- phy.bd[[4]][2]
+      lambda.sp <- as.numeric(lambda_minus_mu / (1 - mu_over_lambda))
+      mu.ext <- as.numeric(lambda_minus_mu / (1 / mu_over_lambda - 1))
+
+      if (mu.ext > 0) {
+        phy <- sampleHiddenSp(phy, lambda.sp = lambda.sp, mu.ext = mu.ext, useMean = useMean)
+      } else {
+        phy$hidden.speciation <- NULL
+      }
+
+      var.funmultipsi <- function(param) {
+        all.param <- length(param)
+        if (lambdaEst) {
+          lambda <- param[all.param]
+          psi <- param[-all.param]
+        } else {
+          psi <- param
+          lambda <- 1
+        }
+        lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)
+        return(transformPhylo.ll(y = y, phy = lambdaPhy, branchLabels = branchLabels, psi = psi, model = "multipsi", meserr = meserr, covPIC = covPIC, lambda.sp = lambda.sp)[[2]])
+      }
+      vo <- optim(start, var.funmultipsi, method = "L-BFGS-B", lower = lowerBound, upper = upperBound, control = controlList)
+
+	
+	lik.model <- function(pram) {
+		 all.param <- length(pram)
+		 if (lambdaEst) {
+		 	lambda <- param[all.param]
+		 	psi <- param[-all.param]
+		 } else {
+		 	psi <- param
+		 	lambda <- 1
+		 	}
+       		lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)
+       		psi.phy <- transformPhylo(phy = lambdaPhy, branchLabels = branchLabels, psi = psi, model = "multipsi", meserr = meserr, lambda.sp = lambda.sp)
+			return(likTraitPhylo(y, psi.phy, covPIC=covPIC)[[2]])
+			}
+	
+	if(is.null(acceptance.sd)) {
+			stn.dev <- suppressWarnings(diff(range(transformPhylo.ML(y, phy, model="multipsi", meserr=meserr, covPIC=covPIC, branchLabels = branchLabels)$psi, na.rm=TRUE)))
+			if (lambdaEst) stn.dev <- c(rep(stn.dev, length(states)), lambda.std)
+			if(any(stn.dev == 0)) stn.dev[which(stn.dev == 0)] <- 0.1
+			sd.fine.tune <- stn.dev
+		} else {
+			if (lambdaEst) {
+				stn.dev <- c(rep(acceptance.sd, length(states)), lambda.std)
+				sd.fine.tune <- stn.dev
+			} else {
+				stn.dev <- rep(acceptance.sd, length(states))
+				sd.fine.tune <- stn.dev
+				}
+			}	
+		
+			if (lambdaEst) {
+				name.param <- c(rep("multipsi", length(states)), "Lambda")
+			} else {
+				name.param <- rep("multipsi", length(states))
+				}
 	}
 	
 	if(uniform.prior == TRUE) {
 		prior.calc <- function(pram) {
-			prior.uni <- dunif(pram, lowerBound, upperBound)
+			prior.uni <- sapply(1:length(pram), function(x) dunif(pram[x], lowerBound[x], upperBound[x]))
 			return(sum(prior.uni))
 			}
 	} else {
@@ -261,30 +511,37 @@ transformPhylo.MCMC <- function(y, phy, model, mcmc.iteration=1000, burn.in=0.1,
 			return(sum(prior.normal.trunc))
 			}
 	}
-	
+
 	model.posterior <- function(pram) return (lik.model(pram) + prior.calc(pram))	
-	
 	motmot.mcmc <- function(input.value, iterations, stn.dev, silent=FALSE) {
-		propose.mcmc <- function(pram) {
-		return(truncnorm::rtruncnorm(1, mean=pram, sd=stn.dev, a=lowerBound, b=upperBound))
-		}
-
-	mcmc.chain <- matrix(input.value, nrow=1)
-    		for (i in 1:iterations) {
-     	   	proposed.move <- propose.mcmc(mcmc.chain[i,])
-     	   	chain.prob <- exp(model.posterior(proposed.move) - model.posterior(mcmc.chain[i,]))
-     	   	if (runif(1) < chain.prob) {
-     	   	mcmc.chain <- rbind(mcmc.chain, proposed.move)
-        	} else {
-     	   	mcmc.chain <- rbind(mcmc.chain, mcmc.chain[i,])
-     	   	}
-		if(!silent) {
-			cat("\r", "MCMC progress:", sprintf("%.4f", i/iterations * 100), "%")
+		propose.mcmc <- function(pram, param.x) {
+			return(sapply(param.x,  function(x) rtnorm(1, pram, sd=stn.dev[x], lowerBound[x], upperBound[x])))
 			}
-    		}
-    	return(mcmc.chain)
-	}
-
+		mcmc.chain <- matrix(input.value, nrow=1)
+    			for (i in 1:iterations) {
+    				random.param <- sample(1:length(input.value), 1)
+    				proposed.move <- mcmc.chain[i,]
+    				proposed.move[random.param] <- propose.mcmc(mcmc.chain[i, random.param], param.x=random.param)
+     	   		chain.prob <- exp(model.posterior(proposed.move) - model.posterior(mcmc.chain[i,]))
+     	   		if (runif(1) < chain.prob) {
+     	   			mcmc.chain <- rbind(mcmc.chain, proposed.move)
+        			} else {
+     	   			mcmc.chain <- rbind(mcmc.chain, mcmc.chain[i,])
+     	   		}
+			if(!silent) {
+				cat("\r", paste0("MCMC progress (%): ", sprintf("%.4f", i/iterations * 100)))
+				if(i/iterations == 1) {
+					cat("\n", " ")
+					cat("\r", "finished MCMC")
+					cat("\r", "")
+					}
+				}	
+    			}
+    		if(!silent) cat("\n", " ")
+    		return(mcmc.chain)
+		}
+	
+	
 	if(opt.accept.rate) {
 		cat("optimising acceptance ratio fine-tune")
 		cat("\n", " ")
@@ -297,9 +554,11 @@ transformPhylo.MCMC <- function(y, phy, model, mcmc.iteration=1000, burn.in=0.1,
 		opt.mcmc <- mcmc.iteration * opt.prop
 		opt.mcmc.burn <- ceiling(opt.mcmc * burn.in)
 		opt.done <- FALSE
+		best.current <- NA
 		while(opt.done == FALSE) {
-			chain <- motmot.mcmc(input.value, opt.mcmc, stn.dev.2, silent=TRUE)
-			acceptance <- 1 - mean(duplicated(chain[-(1:opt.mcmc.burn),]))	
+			chain <- motmot.mcmc(input.value, iterations=opt.mcmc, stn.dev=stn.dev.2, silent=TRUE)
+			acceptance <- 1 - mean(duplicated(signif(chain[-(1:opt.mcmc.burn),1], 7)))
+			acceptance <- 1 - mean(apply(as.matrix(chain[-(1:opt.mcmc.burn),]), 2, function(x) duplicated(signif(x, 7))))	
 			diff.to.accept <- acceptance - accept.rate
 			new.ratio <- abs(acceptance - accept.rate)
 			if(new.ratio < old.ratio) {
@@ -309,9 +568,9 @@ transformPhylo.MCMC <- function(y, phy, model, mcmc.iteration=1000, burn.in=0.1,
 				}
 		
 			if(signif(acceptance, 3) != 1) {
-				cat("\r", "acceptance attempt", count, ", current acceptance ratio", signif(best.current, 3))
+				cat("\r", paste0("acceptance attempt: ", count, ", current acceptance ratio: ", signif(best.current, 3)))
 			} else{
-				cat("\r", "acceptance attempt", count, ", current acceptance ratio", sprintf("%s.000", 1))
+				cat("\r", paste0("acceptance attempt: ", count, ", current acceptance ratio: ", sprintf(new.ratio, 3)))
 				}	
 			if(acceptance > 1) stop("")
 			if(abs(acceptance - accept.rate) < fine.tune.bound ) {
@@ -324,18 +583,19 @@ transformPhylo.MCMC <- function(y, phy, model, mcmc.iteration=1000, burn.in=0.1,
 				cat("\n", "finished fine.tune")
 				opt.done <- TRUE
 				}
-			stn.dev.2 <- truncnorm::rtruncnorm(1, mean=stn.dev, sd=sd.fine.tune, a=lowerBound, b=upperBound)
+			stn.dev.2 <- sapply(1:length(stn.dev), function(x) rtnorm(1, stn.dev[x], sd.fine.tune[x], 1e-8, abs(upperBound[x]/2)))
 		}	
 	}	
 	
 	cat("\n", " ")	
 	cat("\n", " ")	
-	chain <- motmot.mcmc(input.value, mcmc.iteration, stn.dev=stn.dev)
+	chain <- motmot.mcmc(input.value, iterations=mcmc.iteration, stn.dev=stn.dev)
 	burnIn <- ceiling(mcmc.iteration * burn.in)
-	acceptance.1 <- 1 - mean(duplicated(chain[-(1:burnIn), 1]))
+	acceptance.1 <- 1 - mean(duplicated(signif(chain[-(1:burnIn), 1], 8)))
+	acceptance.1 <- 1 - mean(apply(as.matrix(chain[-(1:burnIn),]), 2, function(x) duplicated(signif(x, 7))))
 	post.burn.in <- chain[-c(1:burnIn), ]
 	names(post.burn.in) <- NULL
-	post.burn.in <- matrix(post.burn.in)
+	post.burn.in <- as.matrix(post.burn.in)
 
 	if(dim(chain)[2] == 1) {
 		ess.mcmc <- coda::effectiveSize(post.burn.in)
@@ -357,9 +617,10 @@ transformPhylo.MCMC <- function(y, phy, model, mcmc.iteration=1000, burn.in=0.1,
 	}
 
 	cat("\n")
+	#cat("\n")
 	output.mcmc <- list(median.mcmc, hpd.mcmc, ess.mcmc, acceptance.1, post.burn.in)
 	names(output.mcmc) <- c("median", "95.HPD", "ESS", "acceptance.rate", "mcmc.chain")
 	class(output.mcmc) <- "motmot.mcmc"
 	print(output.mcmc[1:4])
-	invisible(return(output.mcmc))
+	invisible(output.mcmc)
 }

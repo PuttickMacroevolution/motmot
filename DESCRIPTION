@@ -2,7 +2,7 @@ Package: motmot
 Type: Package
 Title: Models of Trait Macroevolution on Trees
 Version: 2.1
-Depends: R (>= 2.10.0), ape (>= 3.0-7), caper, mvtnorm, coda, MASS, ks, parallel
+Depends: R (>= 2.10.0), ape (>= 3.0-7), caper, MASS, coda, caper, ks, mvtnorm, truncnorm
 Date: 2018-11-30
 Author: Mark Puttick [aut, cre, cph], Gavin Thomas [aut, cph], Rob Freckleton [aut, cph], Magnus Clarke [ctb], Travis Ingram [ctb], David Orme [ctb], Emmanuel Paradis [ctb]
 Maintainer: Mark Puttick <marknputtick@gmail.com>

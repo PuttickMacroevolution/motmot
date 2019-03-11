@@ -12,6 +12,8 @@
 #' @param cex.tips Numeric. The size of the phylogeny tip labels
 #' @param n.split Numeric. The number of splits for the axis labels and shading for the trait values
 #' @param lwd.traits Line widths of traits shown on the plot
+#' @param axis.text text shown above the trait label axis. If NULL (default), nothing is displayed
+#' @param transform.axis.label If the data are provided as logarithms the labels for trait axis can be transformed to their original values by calculating the exponential function of the natural (transform.axis.label="exp") or base 10 logarithm. The default (NULL) leaves the labels un-transformed. 
 #' @param ... further arguments passed to the axis function
 #' @return A plot with the trait values shown at the tips, and a histrogram of the trait values
 #' @author Mark Puttick
@@ -28,7 +30,7 @@
 
 
 
-traitData.plot <- function(y, phy, col.label="red", col.tree="black", col.hist="navy", cex.plot=0.7, cex.tips=0.7, show.tips=FALSE, include.hist=FALSE, n.split=5, lwd.traits=1,...) {
+traitData.plot <- function(y, phy, col.label="red", col.tree="black", col.hist="navy", cex.plot=0.7, cex.tips=0.7, show.tips=FALSE, include.hist=FALSE, n.split=5, lwd.traits=1, axis.text=NULL, transform.axis.label=NULL, ...) {
 
 	if(include.hist) {
 		par(mfrow=c(1,2), mar=c(3,3,3,3), oma=c(1,1,1,1))
@@ -67,9 +69,13 @@ traitData.plot <- function(y, phy, col.label="red", col.tree="black", col.hist="
 	label.splits <- seq(min(y), max(y), length.out=n.split + 1)
 	for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy), 1, 1, Ntip(phy)), col="#00000020", border=FALSE, xpd=TRUE)
 	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=lwd.traits)
-	axis(3, at=splits, labels=signif(label.splits, 3), xpd=TRUE, ...)
+	if(!is.null(transform.axis.label)) {
+		if(transform.axis.label == "exp") label.splits <- exp(label.splits)
+		if(transform.axis.label == "exp10") label.splits <- 10^(label.splits)
+	}
+	axis(3, at=splits, labels=signif(label.splits, 3), xpd=TRUE, line=-0.5,...)
 	if(show.tips) text(t.data.scale.orig, tip.y.orig, phy$tip.label, pos=4, cex=cex.tips, xpd=TRUE)
-	mtext("trait values", 3, at=mean(splits), line=1, cex=cex.plot)
+	if(!is.null(axis.text)) mtext(axis.text, 3, at=mean(splits), line=1, cex=cex.plot)
 	
 	if(include.hist) {
 		par(mar=c(3,3,3,3))

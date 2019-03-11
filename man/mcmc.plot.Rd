@@ -15,7 +15,7 @@ mcmc.plot(mcmc.input, y.limit = NULL, x.limit = NULL,
 
 \item{x.limit}{the limits for the x axes for the plots}
 
-\item{label.text}{the labels for the two plots defaults to '(a)' for the histogram and '(b)' for the trace plot}
+\item{label.text}{the labels for the two plots defaults to '(a)' etc., for the histogram and '(b)' etc., for the trace plot}
 
 \item{cex.axis}{character expansion for the plot axis labels}
 

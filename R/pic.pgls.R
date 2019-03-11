@@ -4,7 +4,8 @@
 #' @param phy An object of class \code{phylo} (see \pkg{ape}).
 #' @param y A matrix of trait values with rownames corresponding to the phy tip labels, and column names corresponding to the formula variable names
 #' @param lambda Default is "ML" meaning the phylogenetic signal of the response variable will be estimated using restricted Maximum likelihood. If a numeric value between 0-1 is provided this will be used in the calculation of regression coefficients
-#' @param return.intercept.stat Logical. If \code{TRUE} the standard errors, t value, and p value of the estimated Intercept is provided for comparison with output from \code{\link[caper]{pgls}} from \pkg{caper} etc.,. Default is \code{FALSE} as this slows the function as it involves constructing and calculating the inverse of the phy variance-covariance matrix, and based on contrasts the design matrix column of ones would have zero contrasts.  
+#' @param return.intercept.stat Logical. If \code{TRUE} the standard errors, t value, and p value of the estimated Intercept is provided for comparison with output from \code{\link[caper]{pgls}} from \pkg{caper} etc.,. Default is \code{FALSE} as this slows the function as it involves constructing and calculating the inverse of the phy variance-covariance matrix, and based on contrasts the design matrix column of ones would have zero contrasts.
+#' @param meserr A vector (or matrix) of measurement error for each tip. This is only applicable to univariate analyses.
 #' @return A list containing the model, model summary, intercept, estimate of Lambda, model log-Likelihood, model AIC
 #' @useDynLib motmot
 #' @importFrom Rcpp sourceCpp
@@ -22,7 +23,7 @@
 #' return.intercept.stat=FALSE)
 #' @export
 
-pic.pgls <- function(formula, phy, y, lambda="ML", return.intercept.stat=FALSE) {
+pic.pgls <- function(formula, phy, y, lambda="ML", return.intercept.stat=FALSE, meserr=NULL) {
 	
 	formula.break <- strsplit(as.character(formula), "~")
 	
@@ -43,21 +44,21 @@ pic.pgls <- function(formula, phy, y, lambda="ML", return.intercept.stat=FALSE) 
 	model.var <- cbind(response.var, explanatory.var)
 	
 	if(lambda == "ML") {	
-		lambda.model <- transformPhylo.ML(y=response.var, phy=phy, model='lambda', returnPhy=TRUE, modelCIs=FALSE)
+		lambda.model <- transformPhylo.ML(y=response.var, phy=phy, model='lambda', returnPhy=TRUE, modelCIs=FALSE, meserr=meserr)
 		phy.lambda <- lambda.model$lambdaPhy
 		lambda <- lambda.model$Lambda[1]
 	} else {
-		lambda.model <- transformPhylo.ll(y=response.var, phy=phy, model='lambda', lambda=lambda)		
+		lambda.model <- transformPhylo.ll(y=response.var, phy=phy, model='lambda', lambda=lambda, meserr=meserr)		
 		phy.lambda <- transformPhylo(phy=phy, model='lambda', lambda=lambda)		
 		}
 	
 	pic.data <- data.frame(apply(model.var, 2, function(x) pic(x, phy.lambda)))
 	colnames(pic.data) <- colnames(model.data)
 	model <- lm(formula, pic.data, y = TRUE, x=TRUE)
-	model.y <- transformPhylo.ML(y=as.matrix(model.var[,1]), phy.lambda, model="bm")
+	model.y <- transformPhylo.ML(y=as.matrix(model.var[,1]), phy.lambda, model="bm", meserr=meserr)
 	rst.y <- model.y$root.state
 	rst.x <- 0
-	if(dim(model.var)[2] > 1) for(u in 2:dim(model.var)[2]) rst.x[u-1] <- transformPhylo.ML(y=as.matrix(model.var[,u]), phy.lambda, model="bm")$root.state
+	if(dim(model.var)[2] > 1) for(u in 2:dim(model.var)[2]) rst.x[u-1] <- transformPhylo.ML(y=as.matrix(model.var[,u]), phy.lambda, model="bm", meserr=meserr)$root.state
 	intercept <- rst.y - sum(rst.x *  model[[1]])
 	vars <- pic(model.var[,1], phy.lambda, var.contrasts = TRUE)[,2]
 	sigma2 <- model.y$brownianVariance

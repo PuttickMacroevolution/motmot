@@ -11,7 +11,8 @@ transformPhylo.MCMC(y, phy, model, mcmc.iteration = 1000,
   fine.tune.bound = 0.05, fine.tune.n = 30, useMean = FALSE,
   random.start = TRUE, meserr = NULL, covPIC = TRUE,
   uniform.prior = TRUE, mean.normal.trunc = 0.5,
-  sd.normal.trunc = 0.2)
+  sd.normal.trunc = 0.2, lambdaEst = FALSE, nodeIDs = NULL,
+  branchLabels = NULL, acdcScalar = FALSE, lambda.std = 0.01)
 }
 \arguments{
 \item{y}{A matrix of trait values.}
@@ -57,6 +58,16 @@ transformPhylo.MCMC(y, phy, model, mcmc.iteration = 1000,
 \item{mean.normal.trunc}{Mean of the truncated normal distribution prior (only applicable if uniform.prior = TRUE)}
 
 \item{sd.normal.trunc}{Standard Deviation of the truncated normal distribution prior (only applicable if uniform.prior = TRUE)}
+
+\item{lambdaEst}{Logical.  Estimate lambda alongside parameter estimates to reduce data noise. Only applicable for models "kappa", "delta", "OU", "psi", "multispi", and "ACDC". Default=FALSE.}
+
+\item{nodeIDs}{Integer - ancestral nodes of clades applicable to rate heterogenous and nested models of evolution (see details)}
+
+\item{branchLabels}{Branches on which different psi parameters are estimated in the "multipsi" model}
+
+\item{acdcScalar}{Logical.  For nested EB rate model, simultaneously estimated a rate scalar alongside EB model. Default=FALSE.}
+
+\item{lambda.std}{Logical. The starting standard deviation for the proposal distribution for the lambda parameter when lambda.est=TRUE}
 }
 \value{
 median The median estimate of the posterior for the parameter

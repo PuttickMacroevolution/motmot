@@ -10,7 +10,8 @@ transformPhylo.ll(y = NULL, phy, model = NULL, meserr = NULL,
   branchRates = NULL, cladeRates = NULL, timeRates = NULL,
   splitTime = NULL, branchLabels = NULL, acdcRate = NULL,
   covPIC = TRUE, cophenetic.dist = NULL, vcv.matrix = NULL,
-  ancestral.state = NA, brVar = NA, return.reml = FALSE)
+  mode.order = NULL, mode.param = NULL, rate.var = NULL, mu = NULL,
+  sigma.sq = NULL)
 }
 \arguments{
 \item{y}{A matrix of trait values.}
@@ -39,7 +40,7 @@ transformPhylo.ll(y = NULL, phy, model = NULL, meserr = NULL,
 
 \item{branchRates}{Numeric vector specifying relative rates for individual branches}
 
-\item{cladeRates}{Numeric vector specifying telative rates for clades.}
+\item{cladeRates}{Numeric vector specifying telative rates for clades or logical to indicate scalar is included in the 'modeslice' model (the scalar is included in the mode.param argument with the 'modeslice' model).}
 
 \item{timeRates}{The rates (from ancient to recent) for the timeSlice model}
 
@@ -47,7 +48,7 @@ transformPhylo.ll(y = NULL, phy, model = NULL, meserr = NULL,
 
 \item{branchLabels}{Branches on which different psi parameters are estimated in the "multipsi" model.}
 
-\item{acdcRate}{Value of ACDC transform.}
+\item{acdcRate}{Value of ACDC transform}
 
 \item{covPIC}{Logical. For multivariate analyses, allow for co-variance between traits rates (TRUE) or no covariance in trait rates (FALSE). If FALSE, only the trait variances not co-variances are used.}
 
@@ -55,11 +56,11 @@ transformPhylo.ll(y = NULL, phy, model = NULL, meserr = NULL,
 
 \item{vcv.matrix}{a variance-covariance matrix - only applicable for OU models run on non-ultrmetric trees. If null will be calculated internally, but supplying the data can speed up run time}
 
-\item{ancestral.state}{estimate for the ancestral state - only applicable for the OU model with non-ultrametric trees}
+\item{mode.order}{The order of modes for the 'modeslice' model. Any combination of 'BM', 'OU', 'acdc', and 'kappa'}
 
-\item{brVar}{estimate for the Brownian variance- only applicable for the OU model with non-ultrametric trees}
+\item{mode.param}{Parameters for the modes of evoluton in the 'modeslice' model}
 
-\item{return.reml}{Logical (only appliacable to OU model on non-ultrametric trees). If TRUE, returns REML value (compatible with the rest of motmot) for the log-likelihood and Brownian variance. If, FALSE (default), ML estimates are returned}
+\item{rate.var}{Allows rate variation in BM modes in the 'modeslice' model}
 }
 \value{
 brownianVariance Brownian variance (or covariance for multiple traits) given the data and phylogeny
@@ -86,6 +87,7 @@ This function fits likelihood models (see below) for continuous character evolut
 \item {model="tm1"} {fits "clade" models without any a priori assertion of the location of phenotypic diversification rate shifts. It uses the same AIC approach as the runMedusa function in the geiger package (runMedusa tests for shifts in the rate of lineage diversification). The algorithm first fits a constant-rate Brownian model to the data, it then works iteratively through the phylogeny fitting a two-rate model at each node in turn. Each two-rate model is compared to the constant rate model and the best two-rate model is retained. Keeping the location of this rate shift intact, it then repeats the procedure for a three-rate model and so on. The maximum number of rate shifts can be specified a priori using nSplits. Limits can be applied to the size (species richness) of clades on which to infer new rate shifts using minCladeSize. This can be useful to enable large trees to be handled but should be used cautiously since specifiying a large minimum clade size may result in biologically interesting nested rate shifts being missed. Equally, very small clade sizes may provide poor estimates of rate that may not be informative. Limits on the search can also be placed using restrictNode. This requires a list where each element of the list is a vector of tip names that define monophyletic groups. Rate shifts will not be searched for within any of the defined groups. Default rate parameter bounds from ~0 - 1000.}
 \item {model="tm2"} {this model is similar to "tm1", however, at each node it assesses the fit of two models. The first model is exactly as per "tm1". The second model infers a rate shift on the single branch descending directly from a node but not on any of the descending branches thereafter. Only the best fitting single-branch or whole clade model is retained for the next iteration. If a single-branch shift is favoured, this infers either that there was a rapid shift in trait value along the stem leading to the crown group, or that the members of the clade have undergone parallel shifts. In either case, this can be considered as a change in mean, though separating a single early shift from a clade-parallel shift is not possible with this method. }
 \item {model="timeSlice"} {A model in which all branch rates change at a time or times set a priori by the user. If  Default rate parameter bounds from ~0 - 1000. If splitTime=NULL, all 1 Ma (as defined by test Age) intervals from the root of the tree - 10 and the youngest tip + 10 will be included in the search. The +/- 10 Ma age can be modified using the argument boundaryAge. At each stage the best fitting model will be stored, and the search will continue until n shifts, with n shifts defined by nSplits. If a single value or vector is used for splitTime, only these ages are included in the search.}
+\item {model="modeslice"} {A model in which all branch modes change at a time or times set a priori by the user.}
 }
 }
 \examples{

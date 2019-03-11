@@ -3,7 +3,7 @@
 #' @param mcmc.input an object of class "mcmc.motmot" output from \code{\link{transformPhylo.MCMC}}
 #' @param y.limit the limits for the y axes for the plots
 #' @param x.limit the limits for the x axes for the plots
-#' @param label.text the labels for the two plots defaults to '(a)' for the histogram and '(b)' for the trace plot
+#' @param label.text the labels for the two plots defaults to '(a)' etc., for the histogram and '(b)' etc., for the trace plot
 #' @param cex.axis character expansion for the plot axis labels
 #' @param cex.labels character expansion for the plot axis names
 #' @param col.tree colour for the edge labels on the tree
@@ -31,15 +31,40 @@
 
 mcmc.plot <- function(mcmc.input, y.limit=NULL, x.limit=NULL, label.text=NULL, cex.axis=1, cex.labels=0.7, col.hist="green4", col.trace="navy") {
 	if(!class(mcmc.input) == "motmot.mcmc") error("please supply object of class motmot.mcmc")
-	hist.l <- suppressWarnings(hist(mcmc.input$mcmc, xlim=x.limit, ylim=y.limit, xaxs="i", yaxs="i", las=1, ylab="density", xlab=parameter, plot=FALSE))
-	if(is.null(y.limit)) y.limit <- c(0, max(hist.l$counts) * 1.05)
-	if(is.null(x.limit)) x.limit <- c(0, max(hist.l$breaks) * 1.05)
-	parameter <- names(mcmc.input[[3]])
-	if(is.null(label.text))  label.text <- c("(a)", "(b)")
-	par(mfrow=c(2,2))
-	plot(hist.l, xaxs="i", yaxs="i", las=1, main="", xlab=parameter, col=col.hist, border="white", xlim=x.limit, ylim=y.limit, cex.axis=cex.axis)
-	mtext(label.text[1], 3, at=0, cex=cex.labels, font=2)
-	box()
-	plot(mcmc.input$mcmc, ylim=x.limit, xaxs="i", yaxs="i", las=1, ylab="density", xlab=parameter, type="l", cex.axis=cex.axis, col=col.trace)
-	mtext(label.text[2], 3, at=0, cex=cex.labels, font=2)
+	n.param <- ncol(mcmc.input$mcmc)
+	names.param <- names(mcmc.input[[1]])
+	
+	hist.l <- lapply(1:n.param, function(x) suppressWarnings(hist(mcmc.input$mcmc[,x], xlim=x.limit, ylim=y.limit, xaxs="i", yaxs="i", las=1, ylab="density", xlab=parameter, plot=FALSE)))
+	
+	if(is.null(y.limit)) y.limit <- sapply(hist.l, function(x) c(0, max(x$counts) * 1.05))
+	if(is.null(x.limit)) x.limit <- sapply(hist.l, function(x) {
+		if(x$breaks[1] > 0) {
+			diffs <- diff(range(x$breaks)) / 20
+			out <- c(0, max(x$breaks) + diffs)
+			} else {
+			diffs <- diff(range(x$breaks)) / 20
+			out <- c(min(x$breaks) - diffs, max(x$breaks) + diffs)
+			}
+			out
+		}
+	)
+	
+	if(is.null(label.text))  label.text <- c("(a)", "(b)", "(c)", "(d)", "(e)", "(f)", "(g)", "(h)", "(i)")
+	par(mfrow=c(n.param,2))
+	count <- 1
+	for(u in 1:n.param) {
+		plot(hist.l[[u]], xaxs="i", yaxs="i", las=1, main="", xlab=names.param[u], col=col.hist, border="white", xlim=x.limit[,u], ylim=y.limit[,u], cex.axis=cex.axis)
+		mtext(label.text[count], 3, at=0, cex=cex.labels, font=2)
+		count <- count + 1
+		box()
+		plot(mcmc.input$mcmc[,u], ylim=x.limit[,u], xaxs="i", yaxs="i", las=1, ylab="estimate", xlab=names.param[u], type="l", cex.axis=cex.axis, col=col.trace)
+		mtext(label.text[count], 3, at=0, cex=cex.labels, font=2)
+		count <- count + 1
+		}
 }
+
+
+
+
+
+

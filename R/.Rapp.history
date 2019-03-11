@@ -1,1486 +1,1681 @@
-library(motmot)
-library(motmot)#
-phy <- rcoal(20)#
-y <- transformPhylo.sim(phy, model="bm")#
-col.label="red"#
-col.tree="black"#
-col.hist="navy"#
-cex.plot=0.7
-par(mfrow=c(1,1), mar=c(4,4,4,4), oma=c(0,0,0,0))
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree)#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale <- (max(x_cord) * t.data.scale) * 0.05#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y <- order(all.y)#
-	all.y <- all.y[ord.y]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)
-axis(3, at=c(all.x, max(all.x)))
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree)#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale <- (max(x_cord) * t.data.scale) * 0.05#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y <- order(all.y)#
-	all.y <- all.y[ord.y]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
-	axis(3, at=c(all.x, max(all.x)), cex=0.7)
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree)#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale <- (max(x_cord) * t.data.scale) * 0.05#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y <- order(all.y)#
-	all.y <- all.y[ord.y]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
-	axis(3, at=c(all.x, max(all.x)), cex.axis=0.7)
-all.x
-all.y
-all.x
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree)#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale <- (max(x_cord) * t.data.scale) * 0.05#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y <- order(all.y)#
-	all.y <- all.y[ord.y]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
-	axis(3, at=c(all.x[1], max(all.x, na.rm=TRUE)), cex.axis=0.7)
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree)#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale <- (max(x_cord) * t.data.scale) * 0.05#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y <- order(all.y)#
-	all.y <- all.y[ord.y]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
-	axis(3, at=c(all.x[1], max(all.x, na.rm=TRUE)), cex.axis=0.7, xpd=TRUE)
-c(all.x[1], max(all.x, na.rm=TRUE))
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree)#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale <- (max(x_cord) * t.data.scale) * 0.05#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y <- order(all.y)#
-	all.y <- all.y[ord.y]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
-	axis(3, at=c(all.x[1], max(all.x, na.rm=TRUE)), labels=c(all.x[1], max(all.x, na.rm=TRUE)), cex.axis=0.7, xpd=TRUE)
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree)#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale <- (max(x_cord) * t.data.scale) * 0.05#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y <- order(all.y)#
-	all.y <- all.y[ord.y]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
-	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE)), 2), labels=c(all.x[1], max(all.x, na.rm=TRUE)), cex.axis=0.7, xpd=TRUE)
-c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE)), 2)
-max(all.x, na.rm=TRUE))
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree)#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale <- (max(x_cord) * t.data.scale) * 0.05#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y <- order(all.y)#
-	all.y <- all.y[ord.y]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
-	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2), labels=c(all.x[1], max(all.x, na.rm=TRUE)), cex.axis=0.7, xpd=TRUE)
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree)#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale <- (max(x_cord) * t.data.scale) * 0.05#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y <- order(all.y)#
-	all.y <- all.y[ord.y]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
-	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(all.x[1], max(all.x, na.rm=TRUE)), cex.axis=0.7, xpd=TRUE)
-c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2))
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree)#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale <- (max(x_cord) * t.data.scale) * 0.05#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y <- order(all.y)#
-	all.y <- all.y[ord.y]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
-	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)
-tree.height <- nodeTimes(phy)[1,1]
-tree.height
-plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height / 2))
-plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 2)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale <- (max(x_cord) * t.data.scale) * 2#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y <- order(all.y)#
-	all.y <- all.y[ord.y]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
-	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)
-polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale <- (max(x_cord) * t.data.scale) * 0.05#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y <- order(all.y)#
-	all.y <- all.y[ord.y]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
-	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y <- order(all.y)#
-	all.y <- all.y[ord.y]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
-	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)
-seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=5)
-splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=5)
-splits
-rep(splits, each=2)
-splits
-polygon(splits, c(0,160))
-ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y <- order(all.y)#
-	all.y <- all.y[ord.y]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
-	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)#
-	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=5)#
-	polygon(splits, c(0,160))
-polygon(splits[1:2], c(0,160))
-splits[1:2]
-polygon(rep(splits[1:2], 2), c(0,160, 160, 0))
-polygon(rep(splits[1:2], 2), c(0,160, 0, 160), col="red")
-polygon(rep(splits[1:2], 2), c(0,160, 160, 0), col="red")
-splits[1:2]
-polygon(rep(splits[1:2], each=2), c(0,160, 160, 0), col="red")
-ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y <- order(all.y)#
-	all.y <- all.y[ord.y]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
-	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)#
-	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=5)#
-	polygon(rep(splits[1:2], each=2), c(160, 0, 160, 0), col="red")
-lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y <- order(all.y)#
-	all.y <- all.y[ord.y]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
-	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y <- order(all.y)#
-	all.y <- all.y[ord.y]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
-	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)
-polygon(rep(splits[1:2], each=2), c(160, 0, 160, 0), col="red")
-polygon(rep(splits[1:2], each=2), c(160, 0, 0, 160), col="red")
-polygon(rep(splits[1:2], each=2), c(160, 0, 0, 160), col="#00000020", border=FALSE)
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y <- order(all.y)#
-	all.y <- all.y[ord.y]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
-	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)#
-	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=5)#
-	polygon(rep(splits[1:2], each=2), c(160, 0, 0, 160), col="#00000020", border=FALSE)
-splits
-rep(splits, each=2)
-polygon(rep(splits, each=2), rep(c(Ntip(phy), 0, 0, Ntip(phy)), each=4), col="#00000020", border=FALSE)
-rep(c(Ntip(phy), 0, 0, Ntip(phy)), each=4)
-polygon(rep(splits, each=2), rep(c(Ntip(phy), 0, 0, Ntip(phy)), 4), col="#00000020", border=FALSE)
-polygon(rep(splits, each=2), rep(c(Ntip(phy), 0, 0, Ntip(phy)), 2), col="#00000020", border=FALSE)
-polygon(rep(splits, each=2), rep(c(Ntip(phy), 0, 0, Ntip(phy)), 3), col="#00000020", border=FALSE)
-polygon(rep(splits, each=2), rep(c(Ntip(phy), 0, 0, Ntip(phy)), 4), col="#00000020", border=FALSE)
-polygon(rep(splits, each=2), rep(c(Ntip(phy), 0, 0, Ntip(phy)), 5), col="#00000020", border=FALSE)
-rep(splits, each=2)
-c(Ntip(phy), 0, 0, Ntip(phy))
-polygon(rep(splits[1:2], each=2), c(Ntip(phy), 0, 0, Ntip(phy)), col="#00000020", border=FALSE)
-polygon(rep(splits[3:4], each=2), c(Ntip(phy), 0, 0, Ntip(phy)), col="#00000020", border=FALSE)
-polygon(rep(splits[3:4], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE)
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y <- order(all.y)#
-	all.y <- all.y[ord.y]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
-	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)#
-	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=5)#
-	star#
-	polygon(rep(splits[3:4], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE)
-for(x in seq(1, Ntip(phy), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE)
-seq(1, Ntip(phy), 2)
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y <- order(all.y)#
-	all.y <- all.y[ord.y]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
-	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)#
-	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=5)#
-	for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE)
-tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y <- order(all.y)#
-	all.y <- all.y[ord.y]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
-	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)#
-	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
-	for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE)
-t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y <- order(all.y)#
-	all.y <- all.y[ord.y]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
-	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)#
-	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
-	for(x in seq(1, length(splits) + 1, 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE)
-tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y <- order(all.y)#
-	all.y <- all.y[ord.y]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
-	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)#
-	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
-	for(x in seq(2, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE)
-for(x in seq(2, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE, xpd=TRUE)
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y <- order(all.y)#
-	all.y <- all.y[ord.y]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
-	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)#
-	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
-	for(x in seq(2, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE, xpd=TRUE
-)
-for(x in seq(§, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE, xpd=TRUE)
-for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE, xpd=TRUE)
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y <- order(all.y)#
-	all.y <- all.y[ord.y]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
-	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)#
-	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
-	for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 0.5, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE, xpd=TRUE)
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y <- order(all.y)#
-	all.y <- all.y[ord.y]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
-	axis(3, at=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), labels=c(signif(all.x[1], 2), signif(max(all.x, na.rm=TRUE), 2)), cex.axis=0.7, xpd=TRUE)#
-	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
-	for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 0, 0, 0, Ntip(phy) + 0), col="#00000020", border=FALSE, xpd=TRUE)
-splits
-axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE)
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y <- order(all.y)#
-	all.y <- all.y[ord.y]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
-	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
-	axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE)#
-	for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 0, 0, 0, Ntip(phy) + 0), col="#00000020", border=FALSE, xpd=TRUE)
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=F, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y <- order(all.y)#
-	all.y <- all.y[ord.y]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
-	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
-	axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE)#
-	for(x in seq(1, length(splits), 2)) polygon(r
-ep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE, xpd=TRUE)
-for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE, xpd=TRUE)
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y <- order(all.y)#
-	all.y <- all.y[ord.y]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color)#
-	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
-	axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE, ...)
-for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE, xpd=TRUE)
-axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE
-)
-for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE, xpd=TRUE, lwd=2)
-polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)
-all.y
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y2 <- order(all.y)#
-	all.y <- all.y[ord.y2]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)
-splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)
-axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE, ...)
-axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE
-)
-y_cord
-t.data.scale
-x_cord
-t.data.scale
-text( y_cord, t.data.scale+x_cord, 'a')
-text(t.data.scale+x_cord, y_cord, 'a')
-t.data.scale+x_cord
-t.data.scale
-x_cord
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale <- (max(x_cord) * t.data.scale) * 0.95
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y2 <- order(all.y)#
-	all.y <- all.y[ord.y2]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)#
-	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
-	axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE, ...)
-text(.data.scale.orig+x_cord, y_cord, 'a')
-text(data.scale.orig+x_cord, y_cord, 'a')
-text(t.data.scale.orig+x_cord, y_cord, 'a')
-t.data.scale.orig+x_cord
-t.data.scale.orig
-text(t.data.scale.orig[,1]+x_cord, y_cord, 'a')
-t.data.scale.orig[,1]+x_cord
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))
-t.data.scale.orig
-tip.x
-x_cord
-text(t.data.scale.orig[,1]+ tip.x , y_cord, 'a')
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y2 <- order(all.y)#
-	all.y <- all.y[ord.y2]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)#
-	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
-	axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE, ...)#
-	text(t.data.scale.orig[,1]+ tip.x , y_cord, 'a')
-length(t.data.scale.orig[,1])
-Ntip(phy)
-tip.x
-y_cord
-text(t.data.scale.orig[,1]+ tip.x , tip.y, 'a')
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y2 <- order(all.y)#
-	all.y <- all.y[ord.y2]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)#
-	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
-	axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE, ...)#
-	text(t.data.scale.orig[,1]+ tip.x , tip.y, 'a')
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x.orig <- tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y.orig <- tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y2 <- order(all.y)#
-	all.y <- all.y[ord.y2]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)#
-	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
-	axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE, ...)#
-	text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, 'a')
-text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, 'a', pos=1)
-text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, 'a', pos=2)
-text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, 'a', pos=3)
-text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, 'a', pos=4)
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x.orig <- tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y.orig <- tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y2 <- order(all.y)#
-	all.y <- all.y[ord.y2]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)#
-	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
-	axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE, ...)#
-	text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, 'a', pos=4)
-text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, phy$tip.label, pos=4)
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x.orig <- tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y.orig <- tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y2 <- order(all.y)#
-	all.y <- all.y[ord.y2]#
-	recycle.color <- rep(recycle.color, 6)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)#
-	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
-	axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE, ...)#
-	text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, phy$tip.label, pos=4)
-axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE
-)
-for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE, xpd=TRUE)
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x.orig <- tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y.orig <- tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y2 <- order(all.y)#
-	all.y <- all.y[ord.y2]#
-	recycle.color <- rep(recycle.color, 6)#
-	for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy) + 1, 0, 0, Ntip(phy) + 1), col="#00000020", border=FALSE, xpd=TRUE)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)#
-	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
-	axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE, ...)#
-	text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, phy$tip.label, pos=4)
-axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE
-)
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x.orig <- tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y.orig <- tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y2 <- order(all.y)#
-	all.y <- all.y[ord.y2]#
-	recycle.color <- rep(recycle.color, 6)#
-	for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy), 0, 0, Ntip(phy)), col="#00000020", border=FALSE, xpd=TRUE)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)#
-	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=10)#
-	axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE, ...)#
-	if(show.tips) text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, phy$tip.label, pos=4, cex=cex.tips)
-text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, phy$tip.label, pos=4, cex=cex.tips)
-cex.tips=0.7
-text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, phy$tip.label, pos=4, cex=cex.tips)
-text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, phy$tip.label, pos=4, cex=cex.tips, xpd=TRUE)
-col.label="red"; col.tree="black"; col.hist="navy"; cex.plot=0.7; cex.tips=0.7; show.tips=FALSE; include.hist=FALSE; split.shade=5
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x.orig <- tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y.orig <- tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y2 <- order(all.y)#
-	all.y <- all.y[ord.y2]#
-	recycle.color <- rep(recycle.color, 6)#
-	for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy), 0, 0, Ntip(phy)), col="#00000020", border=FALSE, xpd=TRUE)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)#
-	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=split.shade)#
-	axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE, ...)#
-	if(show.tips) text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, phy$tip.label, pos=4, cex=cex.tips, xpd=TRUE)
-abline(v=1)
-abline(h=1)
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x.orig <- tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y.orig <- tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y2 <- order(all.y)#
-	all.y <- all.y[ord.y2]#
-	recycle.color <- rep(recycle.color, 6)#
-	for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy), 1, 1, Ntip(phy)), col="#00000020", border=FALSE, xpd=TRUE)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)#
-	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=split.shade)#
-	axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE, ...)#
-	if(show.tips) text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, phy$tip.label, pos=4, cex=cex.tips, xpd=TRUE)
-axis(3, at=splits, labels=signif(splits, 2), cex.axis=0.7, xpd=TRUE
-)
-splits
-mtext("trait values", 3, at=mean(splits), line=2)
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x.orig <- tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y.orig <- tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y2 <- order(all.y)#
-	all.y <- all.y[ord.y2]#
-	recycle.color <- rep(recycle.color, 6)#
-	for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy), 1, 1, Ntip(phy)), col="#00000020", border=FALSE, xpd=TRUE)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)#
-	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=split.shade)#
-	axis(3, at=splits, labels=signif(splits, 2), xpd=TRUE, ...)#
-	if(show.tips) text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, phy$tip.label, pos=4, cex=cex.tips, xpd=TRUE)#
-	mtext("trait values", 3, at=mean(splits), line=2, cex=cex.plot)
-par(mfrow=c(1,2), mar=c(3,3,3,3), oma=c(1,1,1,1))
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x.orig <- tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y.orig <- tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y2 <- order(all.y)#
-	all.y <- all.y[ord.y2]#
-	recycle.color <- rep(recycle.color, 6)#
-	for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy), 1, 1, Ntip(phy)), col="#00000020", border=FALSE, xpd=TRUE)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)#
-	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=split.shade)#
-	axis(3, at=splits, labels=signif(splits, 2), xpd=TRUE, ...)#
-	if(show.tips) text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, phy$tip.label, pos=4, cex=cex.tips, xpd=TRUE)#
-	mtext("trait values", 3, at=mean(splits), line=2, cex=cex.plot)
-axis(3, at=splits, labels=signif(splits, 2), xpd=TRUE
-)
-par(mar=c(2,2,2,2))#
-			if(is.null(colnames(y))) {#
-			name.trait <- "trait"#
-			} else {#
-			name.trait <- colnames(y)#
-			}#
-		hist(y, col=col.hist, xaxs="i", yaxt="n", border="white", main="", xlab="", ylab="", cex.axis=cex.plot, las=2, axes=F)
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x.orig <- tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y.orig <- tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y2 <- order(all.y)#
-	all.y <- all.y[ord.y2]#
-	recycle.color <- rep(recycle.color, 6)#
-	for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy), 1, 1, Ntip(phy)), col="#00000020", border=FALSE, xpd=TRUE)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)#
-	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=split.shade)#
-	axis(3, at=splits, labels=signif(splits, 2), xpd=TRUE, ...)#
-	if(show.tips) text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, phy$tip.label, pos=4, cex=cex.tips, xpd=TRUE)#
-	mtext("trait values", 3, at=mean(splits), line=2, cex=cex.plot)
-par(mar=c(3,3,3,3))#
-			if(is.null(colnames(y))) {#
-			name.trait <- "trait"#
-			} else {#
-			name.trait <- colnames(y)#
-			}#
-		hist(y, col=col.hist, xaxs="i", yaxt="n", border="white", main="", xlab="", ylab="", cex.axis=cex.plot, las=2, axes=F)
-hist(y, col=col.hist, xaxs="i", yaxt="n", border="white", main="", xlab="", ylab="", cex.axis=cex.plot, las=2, axes=FALSE)
-box()
-axis(1, tick=FALSE, line=-1.5, cex.axis=cex.plot, las=2, ...)#
-		axis(2, cex=cex.plot, ...)#
-		mtext("frequency", 2, line=1.2, cex=cex.plot)#
-		mtext(name.trait, 1, line=0.2, cex=cex.plot)
-include.hist=T
-if(include.hist) {#
-		par(mfrow=c(1,2), mar=c(3,3,3,3), oma=c(1,1,1,1))#
-		} else {#
-		par(mfrow=c(1,1), mar=c(4,4,4,4), oma=c(0,0,0,0))	#
-		}#
-	max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x.orig <- tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y.orig <- tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y2 <- order(all.y)#
-	all.y <- all.y[ord.y2]#
-	recycle.color <- rep(recycle.color, 6)#
-	for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy), 1, 1, Ntip(phy)), col="#00000020", border=FALSE, xpd=TRUE)#
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=2)#
-	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=split.shade)#
-	axis(3, at=splits, labels=signif(splits, 2), xpd=TRUE, ...)#
-	if(show.tips) text(t.data.scale.orig[,1]+ tip.x.orig , tip.y.orig, phy$tip.label, pos=4, cex=cex.tips, xpd=TRUE)#
-	mtext("trait values", 3, at=mean(splits), line=2, cex=cex.plot)#
-	if(include.hist) {#
-		par(mar=c(3,3,3,3))#
-			if(is.null(colnames(y))) {#
-			name.trait <- "trait"#
-			} else {#
-			name.trait <- colnames(y)#
-			}#
-		hist(y, col=col.hist, xaxs="i", yaxt="n", border="white", main="", xlab="", ylab="", cex.axis=cex.plot, las=2, axes=FALSE)	#
-		box()#
-		axis(1, tick=FALSE, line=-1.5, cex.axis=cex.plot, las=2, ...)#
-		axis(2, cex=cex.plot, ...)#
-		mtext("frequency", 2, line=1.2, cex=cex.plot)#
-		mtext(name.trait, 1, line=0.2, cex=cex.plot)#
-		}
-rm(list=ls(all=TRUE))#
+vo
+exp(vo$par)
+library(geiger)
+fitContinuous(phy, y, model="OU")
+if(is.ultrametric(phy)) {#
+			var.funOU <- function(param) {#
+       		if (length(param) != 2) {#
+         	 lambda <- 1#
+       		 } else {#
+          	lambda <- param[2]#
+        		}#
+	        alpha.int <- param[1]#
+	        lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)#
+	        if(!is.ultrametric(phy)) vcv.matrix <- vcv(lambdaPhy)#
+	        return(transformPhylo.ll(y = y, phy = lambdaPhy, alpha = alpha.int, nodeIDs = nodeIDs, model = "OU", meserr = meserr, covPIC = covPIC, cophenetic.dist = cophenetic.dist, vcv.matrix = vcv.matrix)[[2]])#
+	      }#
+	     } else {#
+	     	var.funOU <- function(param) {#
+       		if (!lambdaEst) {#
+         	 lambda <- exp(log(1))#
+       		 } else {#
+          	lambda <- exp(param[2])#
+        		}#
+	        alpha.int <- exp(param[1])#
+	        lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)#
+	        return(transformPhylo(y = y, phy = phy, model="OU", alpha=alpha.int, meserr = meserr, mu = exp(param[anc.loc], sigma.sq = exp(param[bm.loc]), covPIC = covPIC))#
+	 		#vcv <- vcv * exp(param[bm.loc])#
+    			#return(dmvnorm(y[,1], mean=rep(exp(param[anc.loc]), ncol(vcv)), sigma=vcv, log=TRUE))#
+	      }#
+	     }
+if(is.ultrametric(phy)) {#
+			var.funOU <- function(param) {#
+       		if (length(param) != 2) {#
+         	 lambda <- 1#
+       		 } else {#
+          	lambda <- param[2]#
+        		}#
+	        alpha.int <- param[1]#
+	        lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)#
+	        if(!is.ultrametric(phy)) vcv.matrix <- vcv(lambdaPhy)#
+	        return(transformPhylo.ll(y = y, phy = lambdaPhy, alpha = alpha.int, nodeIDs = nodeIDs, model = "OU", meserr = meserr, covPIC = covPIC, cophenetic.dist = cophenetic.dist, vcv.matrix = vcv.matrix)[[2]])#
+	      }#
+	     } else {#
+	     	var.funOU <- function(param) {#
+       		if (!lambdaEst) {#
+         	 lambda <- exp(log(1))#
+       		 } else {#
+          	lambda <- exp(param[2])#
+        		}#
+	        alpha.int <- exp(param[1])#
+	        lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)#
+	        return(transformPhylo(y = y, phy = phy, model="OU", alpha=alpha.int, meserr = meserr, mu = exp(param[anc.loc]), sigma.sq = exp(param[bm.loc]), covPIC = covPIC))#
+	 		#vcv <- vcv * exp(param[bm.loc])#
+    			#return(dmvnorm(y[,1], mean=rep(exp(param[anc.loc]), ncol(vcv)), sigma=vcv, log=TRUE))#
+	      }#
+	     }
+vo <- optim(alpha, var.funOU, method = "L-BFGS-B", lower = lowerBound, upper = upperBound, control = controlList)
+#' @title Log-likelhood for models of trait evolution. #
+#' @description Fits likelihood models for various models of continuous character evolution.#
+#' @param y A matrix of trait values.#
+#' @param phy An object of class \code{phylo} (see \pkg{ape}).#
+#' @param model The model of trait evolution (see details).#
+#' @param meserr A vector (or matrix) of measurement error for each tip. This is only applicable to univariate analyses.#
+#' @param kappa Value of kappa transform.#
+#' @param lambda Value of lambda transform.#
+#' @param delta Value of delta transform.#
+#' @param alpha Value of alpha (OU) transform.#
+#' @param psi Value of psi transform.#
+#' @param lambda.sp Speciation rate estimate for the tree.#
+#' @param branchLabels Branches on which different psi parameters are estimated in the "multipsi" model.#
+#' @param nodeIDs Integer - ancestral nodes of clades.#
+#' @param rateType If model="clade", a vector specifying if rate shift occurs in a clade ("clade") or on the single branch leading to a clade ("branch").#
+#' @param branchRates Numeric vector specifying relative rates for individual branches#
+#' @param timeRates The rates (from ancient to recent) for the timeSlice model#
+#' @param splitTime A split time (measured from the present, or most recent species) at which a shift in the rate occurs for the "timeSlice" model#
+#' @param acdcRate Value of ACDC transform#
+#' @param cladeRates Numeric vector specifying telative rates for clades or logical to indicate scalar is included in the 'modeslice' model (the scalar is included in the mode.param argument with the 'modeslice' model).#
+#' @param covPIC Logical. For multivariate analyses, allow for co-variance between traits rates (TRUE) or no covariance in trait rates (FALSE). If FALSE, only the trait variances not co-variances are used.#
+#' @param cophenetic.dist a cophenetic distance matrix showing the absolute distance between taxa - only applicable for OU models run on non-ultrmetric trees. If null will be calculated internally, but supplying the data can speed up run time#
+#' @param vcv.matrix a variance-covariance matrix - only applicable for OU models run on non-ultrmetric trees. If null will be calculated internally, but supplying the data can speed up run time#
+#' @param mode.order The order of modes for the 'modeslice' model. Any combination of 'BM', 'OU', 'acdc', and 'kappa'#
+#' @param rate.var Allows rate variation in BM modes in the 'modeslice' model#
+#' @param mode.param Parameters for the modes of evoluton in the 'modeslice' model#
+#' @details This function fits likelihood models (see below) for continuous character evolution where the parameter values are set a priori. The function returns the log-likihood and the Brownian variance (or variance covariance matrix).#
+#' \itemize{#
+#' \item {model="bm"} {Brownian motion (constant rates random walk).}#
+#' \item {model="kappa"} {fits Pagel's kappa by raising all branch lengths to the power kappa. As kappa approaches zero, trait change becomes focused at branching events. For complete phylogenies, if kappa approaches zero this infers speciational trait change. Default bounds from ~0 - 1.}#
+#' \item {model="lambda"} {fits Pagel's lambda to estimate phylogenetic signal by multiplying all internal branches of the tree by lambda, leaving tip branches as their original length (root to tip distances are unchanged). Default bounds from ~0 - 1.}#
+#' \item {model="delta"} {fits Pagel's delta by raising all node depths to the power delta. If delta <1, trait evolution is concentrated early in the tree whereas if delta >1 trait evolution is concentrated towards the tips. Values of delta above one can be difficult to fit reliably. If a nodeIDs is supplied, the model will fit a delta model nested within a clade, with a BM fit to the rest of the tree. Default bounds from ~0 - 5.}#
+#' \item {model="OU"} {fits an Ornstein-Uhlenbeck model - a random walk with a central tendency proportional to alpha. High values of alpha can be interpreted as evidence of evolutionary constraints, stabilising selection or weak phylogenetic signal. It is often difficult to distinguish among these possibilities. If a nodeIDs is supplied, the model will fit a OU model nested within a clade, with a BM fit to the rest of the tree. For OU models, alternative optimisation are performed with different starting values (1e-8, 0.01, 0.1, 1, 5). Default bounds from ~0 - 10.}#
+#' \item {model="ACDC"} {fits a model to in which rates can exponentially increased or decrease through time (Blomberg et al. 2003). If the upper bound is < 0, the model is equivalent to the 'Early Burst' model of Harmon et al. 2010. If a nodeIDs is supplied, the model will fit a ACDC model nested within a clade, with a BM fit to the rest of the tree. Default rate parameter bounds from ln(1e-10) ~ ln(20) divided by the root age. Note this process starts on the stem branch leading to the MRCA of the common node, unlike the other methods that start at the common node.}#
+#' \item {model="trend"} {fits a model in which the expectated mean change through time is non-zero, signifying a directional evolution to a larger or smaller trait value. This model is only appliacble to non-ultrametric trees.}#
+#' \item {model="psi"} {fits a model to assess to the relative contributions of speciation and gradual evolution to a trait's evolutionary rate (Ingram 2010). Note that the algorithm will automatically estimate speciation and extinction estimates, and will incorporate estimates of 'hidden' speciation if death estimates are greater than 0. }#
+#' \item {model="multipsi"} {fits a model to assess to the relative contributions of speciation and gradual evolution to a trait's evolutionary rate but allows seperate values of psi fitted to seperate branches (Ingram 2010; Ingram et al. 2016). Note that the algorithm will automatically estimate speciation and extinction estimates, and will incorporate estimates of 'hidden' speciation if death estimates are greater than 0.}#
+#' \item {model="free"} {fits Mooers et al's free model where each branch has its own rate of trait evolution. This can be a useful exploratory analysis but it is slow due to the number of parameters, particularly for large trees. Default rate parameter bounds from ~0 - 200.}#
+#' \item {model="clade"} {fits a model where particular clades are a priori hypothesised to have different rates of trait evolution (see O'Meara et al. 2006; Thomas et al. 2006, 2009). Clades are specified using nodeIDs and are defined as the mrca node. Default rate parameter bounds from ~0 - 200.}#
+#' \item {model="tm1"} {fits "clade" models without any a priori assertion of the location of phenotypic diversification rate shifts. It uses the same AIC approach as the runMedusa function in the geiger package (runMedusa tests for shifts in the rate of lineage diversification). The algorithm first fits a constant-rate Brownian model to the data, it then works iteratively through the phylogeny fitting a two-rate model at each node in turn. Each two-rate model is compared to the constant rate model and the best two-rate model is retained. Keeping the location of this rate shift intact, it then repeats the procedure for a three-rate model and so on. The maximum number of rate shifts can be specified a priori using nSplits. Limits can be applied to the size (species richness) of clades on which to infer new rate shifts using minCladeSize. This can be useful to enable large trees to be handled but should be used cautiously since specifiying a large minimum clade size may result in biologically interesting nest
+ed rate shifts being missed. Equally, very small clade sizes may provide poor estimates of rate that may not be informative. Limits on the search can also be placed using restrictNode. This requires a list where each element of the list is a vector of tip names that define monophyletic groups. Rate shifts will not be searched for within any of the defined groups. Default rate parameter bounds from ~0 - 1000.}#
+#' \item {model="tm2"} {this model is similar to "tm1", however, at each node it assesses the fit of two models. The first model is exactly as per "tm1". The second model infers a rate shift on the single branch descending directly from a node but not on any of the descending branches thereafter. Only the best fitting single-branch or whole clade model is retained for the next iteration. If a single-branch shift is favoured, this infers either that there was a rapid shift in trait value along the stem leading to the crown group, or that the members of the clade have undergone parallel shifts. In either case, this can be considered as a change in mean, though separating a single early shift from a clade-parallel shift is not possible with this method. }#
+#' \item {model="timeSlice"} {A model in which all branch rates change at a time or times set a priori by the user. If  Default rate parameter bounds from ~0 - 1000. If splitTime=NULL, all 1 Ma (as defined by test Age) intervals from the root of the tree - 10 and the youngest tip + 10 will be included in the search. The +/- 10 Ma age can be modified using the argument boundaryAge. At each stage the best fitting model will be stored, and the search will continue until n shifts, with n shifts defined by nSplits. If a single value or vector is used for splitTime, only these ages are included in the search.}#
+#' \item {model="modeslice"} {A model in which all branch modes change at a time or times set a priori by the user.}#
+#' } #
+#' @return brownianVariance Brownian variance (or covariance for multiple traits) given the data and phylogeny#
+#' @return logLikelihood The log-likelihood of the model and data#
+#' @seealso \code{\link{transformPhylo.ML}},\code{\link{transformPhylo.MCMC}}, \code{\link{transformPhylo.sim}}#
+#' @references Felsenstein J. 1973. Maximum-likelihood estimation of evolutionary trees from continuous characters. Am. J. Hum. Genet. 25, 471-492.#
+#' Felsenstein J. 1985. Phylogenies and the comparative method. American Naturalist 125, 1-15.#
+#' Freckleton RP & Jetz W. 2009. Space versus phylogeny: disentangling phylogenetic and spatial signals in comparative data. Proc. Roy. Soc. B 276, 21-30. #
+#' @references Ingram T. 2011. Speciation along a depth gradient in a marine adaptive radiation. Proc. Roy. Soc. B. 278, 613-618.#
+#' @references Ingram T,  Harrison AD, Mahler L, Castaneda MdR, Glor RE, Herrel A, Stuart YE, and Losos JB. 2016. Comparative tests of the role of dewlap size in Anolis lizard speciation. Proc. Roy. Soc. B. 283, 20162199. #' Mooers AO, Vamosi S, & Schluter D. 1999. Using phylogenies to test macroevolutionary models of trait evolution: sexual selection and speciation in Cranes (Gruinae). American Naturalist 154, 249-259.#
+#' O'Meara BC, Ane C, Sanderson MJ & Wainwright PC. 2006. Testing for different rates of continuous trait evolution using likelihood. Evolution 60, 922-933#
+#' Pagel M. 1997. Inferring evolutionary processes from phylogenies. Zoologica Scripta 26, 331-348.#
+#' Pagel M. 1999 Inferring the historical patterns of biological evolution. Nature 401, 877-884.#
+#' Thomas GH, Meiri S, & Phillimore AB. 2009. Body size diversification in Anolis: novel environments and island effects. Evolution 63, 2017-2030.#
+#' @author Gavin Thomas, Mark Puttick#
+#' @examples#
+#' # Data and phylogeny#
+#' data(anolis.tree)#
+#' data(anolis.data)#
+#' #
+#' # anolis.data is not matrix and contains missing data so put together matrix of#
+#' # relevant traits (here female and male snout vent lengths) and remove species #
+#' # with missing data from the matrix and phylogeny#
+#' sorted.traits <- sortTraitData(anolis.tree, anolis.data,#
+#' c("Female_SVL", "Male_SVL"), log.trait=TRUE, pass.ultrametric=TRUE)#
+#'#
+#' tree <- sorted.traits$phy#
+#' traits <- sorted.traits$trait#
+#' #
+#' # log likelihood of kappa = 0.1 or 1#
+#' transformPhylo.ll(traits, phy=tree, model="kappa", kappa=0.1)#
+#' transformPhylo.ll(traits, phy=tree, model="kappa", kappa=1)#
+#' #
+#' # log likelihood of lambda = 0.01 or 1#
+#' transformPhylo.ll(traits, phy=tree, model="lambda", lambda=0.01)#
+#' transformPhylo.ll(traits, phy=tree, model="lambda", lambda=1)#
+#' #
+#' # log likelihood of delta = 1.5 or 1#
+#' transformPhylo.ll(traits, phy=tree, model="delta", delta=1.5)#
+#' transformPhylo.ll(traits, phy=tree, model="delta", delta=1)#
+#' #
+#' # log likelihood of alpha = 0.001 or 2#
+#' transformPhylo.ll(traits, phy=tree, model="OU", alpha=0.001)#
+#' transformPhylo.ll(traits, phy=tree, model="OU", alpha=2)#
+#'#
+#' @export#
 #
-library(motmot)#
-data(anolis.tree)#
-data(anolis.data)#
-attach(anolis.data)#
-anolis.tree#
-sortedData <- sortTraitData(phy=anolis.tree, y=anolis.data, data.name="Male_SVL", pass.ultrametric = TRUE)#
+transformPhylo.ll <- function(y=NULL, phy, model=NULL, meserr=NULL, kappa=NULL, lambda=NULL, delta=NULL, alpha=NULL, psi=NULL, lambda.sp = NULL, nodeIDs=NULL, rateType=NULL, branchRates=NULL, cladeRates=NULL, timeRates=NULL, splitTime=NULL, branchLabels = NULL, acdcRate=NULL,  covPIC = TRUE, cophenetic.dist=NULL, vcv.matrix=NULL, mode.order=NULL, mode.param=NULL, rate.var=NULL, mu=NULL, sigma.sq=NULL) {#
+		model <- tolower(model)#
+  all.models <- c("bm", "kappa", "lambda", "delta", "ou", "acdc", "psi", "multipsi", "free", "clade", "timeslice", "modeslice")#
+  if (any(is.na((match(model, all.models))))) stop(paste(model, "not recognised - please provide one of", paste0(all.models, collapse = ", ")))#
+		contemp.ou <- TRUE#
+		if(model=="ou") contemp.ou <- is.ultrametric(phy)#
+	switch(model,		  #
+		   "bm" = {#
+		   transformPhy <- transformPhylo(phy=phy, model="bm", meserr = meserr, y=y)#
+		   },#
+		   "kappa" = {#
+		   transformPhy <- transformPhylo(phy=phy, model="kappa", kappa=kappa, nodeIDs=nodeIDs, meserr = meserr, y=y)#
+		   },#
+		   "lambda" = {#
+		   transformPhy <- transformPhylo(phy=phy, model="lambda", lambda=lambda, meserr = meserr, y=y)#
+		   },#
+		   "delta" = {#
+		   transformPhy <- transformPhylo(phy=phy, model="delta", delta=delta, nodeIDs=nodeIDs, meserr = meserr, y=y)#
+		   },#
+		   "free" = {#
+		   transformPhy <- transformPhylo(phy=phy, model="free", branchRates=branchRates, meserr = meserr, y=y)#
+		   },#
+		   "clade" = {#
+		   transformPhy <- transformPhylo(phy=phy, model="clade", nodeIDs=nodeIDs, cladeRates=cladeRates, rateType=rateType, meserr = meserr, y=y)#
+		   },#
+		   "ou" = {#
+		   	if(contemp.ou) {#
+		   		transformPhy <- transformPhylo(phy=phy, model="OU", alpha=alpha, nodeIDs=nodeIDs, meserr = meserr, y=y)#
+		   	} else {#
+		   		transformPhy <- transformPhylo(phy=phy, model="OU", alpha=alpha, nodeIDs=nodeIDs, meserr = meserr, y=y, cophenetic.dist=cophenetic.dist, vcv.matrix=vcv.matrix)#
+		   		}#
+		   },#
+		   "psi" = {#
+		   transformPhy <- transformPhylo(phy=phy, model="psi", psi=psi, meserr = meserr, y=y, lambda.sp=lambda.sp)#
+		   },#
+		   "multipsi" = {#
+        	transformPhy <- transformPhylo(phy = phy, branchLabels = branchLabels, model = "multipsi", psi = psi, meserr = meserr, y = y, lambda.sp = lambda.sp)#
+		   },#
+		   "timeslice" = {#
+		   transformPhy <- transformPhylo(phy=phy, model="timeSlice", timeRates=timeRates,  splitTime=splitTime, meserr = meserr, y=y)#
+		   },#
+		   	"acdc" = {#
+		   transformPhy <- transformPhylo(phy=phy, model="acdc", acdcRate=acdcRate, nodeIDs=nodeIDs, cladeRates=cladeRates, y=y, meserr = meserr)#
+		   },#
+		   	"modeslice"= {#
+	   		transformPhy <- transformPhylo(phy=phy, model="modeslice", mode.order=mode.order, mode.param=mode.param, meserr = meserr, splitTime=splitTime, rate.var=rate.var, cladeRates=cladeRates, y=y)#
+		  }#
+		 )#
+		if(is (transformPhy)[1] == "phylo") {#
+			return(likTraitPhylo(y=y, phy=transformPhy, covPIC = covPIC))#
+		} else {#
+			if(is(mu)[1] == "NULL") mu <- motmot:::mu.mean(transformPhy, y = y)#
+      		if(is(sigma.sq)[1] == "NULL") sigma.sq <- motmot:::sig.sq(mu, transformPhy, y = y)#
+			transformPhy <- transformPhy * sigma.sq#
+	   		return(dmvnorm(y[,1], mean=rep(mu, ncol(transformPhy)), sigma=transformPhy, log=TRUE))	#
+			}#
+		}
+vo <- optim(alpha, var.funOU, method = "L-BFGS-B", lower = lowerBound, upper = upperBound, control = controlList)
+if(is.ultrametric(phy)) {#
+			var.funOU <- function(param) {#
+       		if (length(param) != 2) {#
+         	 lambda <- 1#
+       		 } else {#
+          	lambda <- param[2]#
+        		}#
+	        alpha.int <- param[1]#
+	        lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)#
+	        if(!is.ultrametric(phy)) vcv.matrix <- vcv(lambdaPhy)#
+	        return(transformPhylo.ll(y = y, phy = lambdaPhy, alpha = alpha.int, nodeIDs = nodeIDs, model = "OU", meserr = meserr, covPIC = covPIC, cophenetic.dist = cophenetic.dist, vcv.matrix = vcv.matrix)[[2]])#
+	      }#
+	     } else {#
+	     	var.funOU <- function(param) {#
+       		if (!lambdaEst) {#
+         	 lambda <- exp(log(1))#
+       		 } else {#
+          	lambda <- exp(param[2])#
+        		}#
+	        alpha.int <- exp(param[1])#
+	        lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)#
+	        return(transformPhylo.ll(y = y, phy = phy, model="OU", alpha=alpha.int, meserr = meserr, mu = exp(param[anc.loc]), sigma.sq = exp(param[bm.loc]), covPIC = covPIC))#
+	 		#vcv <- vcv * exp(param[bm.loc])#
+    			#return(dmvnorm(y[,1], mean=rep(exp(param[anc.loc]), ncol(vcv)), sigma=vcv, log=TRUE))#
+	      }#
+	     }#
+	     #####HERE!!!!######
+#
+      vo <- optim(alpha, var.funOU, method = "L-BFGS-B", lower = lowerBound, upper = upperBound, control = controlList)
+vo
+exp(vo$par)
+vcv.matrix <- transformPhylo(y = y, phy = lambdaPhy, alpha = exp(vo$par[1]), nodeIDs = nodeIDs, model = "OU", meserr = meserr)
+if (lambdaEst) {#
+        lambda <- vo$par[2]#
+        if(!is.ultrametric(phy)) lambda <- exp(lambda)#
+      } else {#
+        lambda <- 1#
+      }#
+      lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)
+!is.ultrametric(phy)
+lambdaEst
+ancestral.state <- brVar <- NA#
+      vcv.matrix <- NULL
+vcv.matrix <- transformPhylo(y = y, phy = lambdaPhy, alpha = exp(vo$par[1]), nodeIDs = nodeIDs, model = "OU", meserr = meserr)
+ancestral.state <- motmot:::mu.mean(vcv.matrix, y)
+ancestral.state
+ancestral.state <- motmot:::mu.mean(vcv.matrix, y)[1,1]
+brVar <- motmot:::sig.sq(ancestral.state, vcv.matrix, y)
+brVar
+brVar <- motmot:::sig.sq(ancestral.state, vcv.matrix, y)[1,1]
+brVar
+exp(vo$par)
+transformPhylo.ll(y = y, phy = lambdaPhy, model="OU", alpha=alpha.int, meserr = meserr, mu = exp(param[anc.loc]), sigma.sq = exp(param[bm.loc]), covPIC = covPIC, vcv.matrix=vcv.matrix)
+dmvnorm(y[,1], mean=rep(ancestral.state, ncol(vcv.matrix)), sigma=vcv.matrix * brVar, log=TRUE)
+vo
+vo$value <- dmvnorm(y[,1], mean=rep(ancestral.state, ncol(vcv.matrix)), sigma=vcv.matrix * brVar, log=TRUE)
+vo
+ou.tr(phy, alpha=exp(vo$par))
+ou.tr <- function(phylo, alpha) {#
+	      	vcv.matrix <- transformPhylo(y = y, phy = lambdaPhy, alpha = alpha, nodeIDs = nodeIDs, model = "OU", meserr = meserr)#
+    	  		mu <- motmot:::mu.mean(vcv.matrix, y)[1,1]#
+    		  	sigma.sq <- motmot:::sig.sq(ancestral.state, vcv.matrix, y)[1,1]#
+      		reml.lik <- dmvnorm(y[,1], mean=rep(ancestral.state, ncol(mu)), sigma=vcv.matrix * sigma.sq, log=TRUE)#
+      		}#
+      	ou.tr(phy, alpha=exp(vo$par))
+ou.tr(phy, alpha=exp(vo$par[1]))
+ou.tr <- function(phylo, alpha) {#
+	      	vcv.matrix <- transformPhylo(y = y, phy = lambdaPhy, alpha = alpha, nodeIDs = nodeIDs, model = "OU", meserr = meserr)#
+    	  		mu <- motmot:::mu.mean(vcv.matrix, y)[1,1]#
+    		  	sigma.sq <- motmot:::sig.sq(ancestral.state, vcv.matrix, y)[1,1]#
+      		reml.lik <- dmvnorm(y[,1], mean=rep(mu, ncol(vcv.matrix)), sigma=vcv.matrix * sigma.sq, log=TRUE)#
+      		}#
+      	ou.tr(phy, alpha=exp(vo$par[1]))
+ou.tr <- function(phylo, alpha) {#
+	      	vcv.matrix <- transformPhylo(y = y, phy = lambdaPhy, alpha = alpha, nodeIDs = nodeIDs, model = "OU", meserr = meserr)#
+    	  		mu <- motmot:::mu.mean(vcv.matrix, y)[1,1]#
+    		  	sigma.sq <- motmot:::sig.sq(ancestral.state, vcv.matrix, y)[1,1]#
+      		reml.lik <- dmvnorm(y[,1], mean=rep(mu, ncol(vcv.matrix)), sigma=vcv.matrix * sigma.sq, log=TRUE)#
+      		return(list(reml.lik=reml.lik, reml.sigma.sq=sigma.sq, reml.mu=mu))#
+      		}#
+      	ou.tr(phy, alpha=exp(vo$par[1]))
+reml.out <- ou.tr(phy, alpha=exp(vo$par[1]))
+if (is.ultrametric(phy)) {#
+      		ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- transformPhylo.ll(y, lambdaPhy, model = "OU", alpha = param, nodeIDs = nodeIDs, meserr = meserr, covPIC = covPIC)$logLikelihood#
+      			if (chiSq) {#
+      				return(ll - vo$value + 1.92)#
+      			} else {#
+      				return(ll)#
+      				}#
+      			}#
+        } else {#
+        		ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- ou.tr(phy, alpha=exp(param))#
+      			if (chiSq) {#
+      				return(ll - reml.out[[1]] + 1.92)#
+      			} else {#
+      				return(ll)#
+      				}#
+      			}
+}
+lower.attempt <- try(uniroot(ou.fun, interval = c(lowerBound[1], vo$par[1]))$root, silent=TRUE)
+lower.attempt
+uniroot(ou.fun, interval = c(vo$par[1], upperBound[1]))$root
+if (is.ultrametric(phy)) {#
+      		ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- transformPhylo.ll(y, lambdaPhy, model = "OU", alpha = param, nodeIDs = nodeIDs, meserr = meserr, covPIC = covPIC)$logLikelihood#
+      			if (chiSq) {#
+      				return(ll - vo$value + 1.92)#
+      			} else {#
+      				return(ll)#
+      				}#
+      			}#
+        } else {#
+        		ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- ou.tr(phy, alpha=exp(param))[[1]]#
+      			if (chiSq) {#
+      				return(ll - reml.out[[1]] + 1.92)#
+      			} else {#
+      				return(ll)#
+      				}#
+      			}#
+        }
+lower.attempt <- try(uniroot(ou.fun, interval = c(lowerBound[1], vo$par[1]))$root, silent=TRUE)#
+        if (is.numeric(lower.attempt)) {#
+          LCI <- uniroot(ou.fun, interval = c(lowerBound[1], vo$par[1]))$root#
+        } else {#
+          LCI <- lowerBound[1]#
+          lower.function.warning()#
+        }#
+        upper.attempt <- try(uniroot(ou.fun, interval = c(vo$par[1], upperBound[1]))$root, silent=TRUE)#
+        if (is.numeric(upper.attempt)) {#
+          UCI <- uniroot(ou.fun, interval = c(vo$par[1], upperBound[1]))$root#
+        } else {#
+          UCI <- upperBound[1]#
+          upper.function.warning()#
+        }#
+      }
+UCI
+LCI
+exp( LCI )
+exp( UCI )
+par(mar = c(5, 5, 5, 5), oma = c(0, 0, 0, 0))
+ouCurve <- Vectorize(ou.fun)
+curve(ouCurve(x, FALSE), from = lowerBound[1], to = upperBound[1], xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)
+curve(ouCurve(x, FALSE), from = exp(lowerBound[1]), to = exp(upperBound[1]), xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)
+par(mar = c(5, 5, 5, 5), oma = c(0, 0, 0, 0))#
+        ouCurve <- Vectorize(ou.fun)#
+        if (is.ultrametric(phy)) {#
+        	curve(ouCurve(x, FALSE), from = lowerBound[1], to = upperBound[1], xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)#
+        		} else {#
+        		curve(ouCurve(x, FALSE), from = lowerBound[1], to = upperBound[1], xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)#
+        		}#
+        if (modelCIs) {#
+          abline(v = c(LCI, vo$par[1], UCI), lty = c(3, 2, 3), lwd = 2, col = "#00000090")#
+        }#
+      }
+ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- ou.tr(phy, alpha=param)[[1]]#
+      			if (chiSq) {#
+      				return(ll - reml.out[[1]] + 1.92)#
+      			} else {#
+      				return(ll)#
+      				}#
+      			}#
+        }
+curve(ouCurve(x, FALSE), from = exp(lowerBound[1]), to = exp(upperBound[1]), xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)
+abline(v = c(LCI, vo$par[1], UCI), lty = c(3, 2, 3), lwd = 2, col = "#00000090")
+curve(ouCurve(x, FALSE), from = lowerBound[1], to = upperBound[1], xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)
+exp(lowerBound[1])
+exp(upperBound[1])
+curve(ouCurve(x, FALSE), from = exp(lowerBound[1]), to = exp(upperBound[1]), xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)
+par(oma=c(8,8,8,8))
+curve(ouCurve(x, FALSE), from = exp(lowerBound[1]), to = exp(upperBound[1]), xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)
+reml.lik
+reml.out
+? 	curve
+curve(ouCurve(x, FALSE), from = lowerBound[1], to = upperBound[1], xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)
+ouCurve(x, FALSE)
+Vectorize(ou.fun)
+in.1 <- exp(lowerBound[1])
+in.2 <- exp(lowerBound[2])
+curve(ouCurve(x, FALSE), from = in.1, to = in.2, xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)
+ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- ou.tr(phy, alpha=param)[[1]]#
+      			if (chiSq) {#
+      				return(ll - reml.out[[1]] + 1.92)#
+      			} else {#
+      				return(ll)#
+      				}#
+      			}
+curve(ouCurve(x, FALSE), from = in.1, to = in.2, xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)
+ouCurve <- Vectorize(ou.fun)
+par(oma=c(8,8,8,8))#
+        			in.1 <- exp(lowerBound[1])#
+        			in.2 <- exp(lowerBound[2])#
+        		curve(ouCurve(x, FALSE), from = in.1, to = in.2, xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)
+exp(lowerBound[1])
+exp(lowerBound[2])
+in.2 <- exp(upperBound[2])
+curve(ouCurve(x, FALSE), from = in.1, to = in.2, xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)
+in.2
+in.2 <- exp(upperBound[1])
+in.2
+curve(ouCurve(x, FALSE), from = in.1, to = in.2, xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)
+abline(v = c(LCI, vo$par[1], UCI), lty = c(3, 2, 3), lwd = 2, col = "#00000090")
+par(mar = c(5, 5, 5, 5), oma = c(0, 0, 0, 0))#
+        if (is.ultrametric(phy)) {#
+        	ouCurve <- Vectorize(ou.fun)#
+        	curve(ouCurve(x, FALSE), from = lowerBound[1], to = upperBound[1], xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)#
+        	if (modelCIs) abline(v = c(LCI, vo$par[1], UCI), lty = c(3, 2, 3), lwd = 2, col = "#00000090")#
+			}#
+		} else {#
+			ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- ou.tr(phy, alpha=param)[[1]]#
+      			return(ll - reml.out[[1]] + 1.92#
+        			}#
+        		ouCurve <- Vectorize(ou.fun)#
+        		in.1 <- exp(lowerBound[1])#
+        	in.2 <- exp(upperBound[1])#
+        		curve(ouCurve(x, FALSE), from = in.1, to = in.2, xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)#
+        	if (modelCIs) abline(v = c(exp(LCI[1]) exp(vo$par[1]), exp(UCI[1])), lty = c(3, 2, 3), lwd = 2, col = "#00000090")#
+        		}
+c(exp(LCI[1])
+)
+ouCurve <- Vectorize(ou.fun)#
+        		in.1 <- exp(lowerBound[1])#
+        	in.2 <- 2#
+        		curve(ouCurve(x, FALSE), from = in.1, to = in.2, xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)
+modelCIs
+if (modelCIs) a
+abline(v = c(exp(LCI[1]) exp(vo$par[1]), exp(UCI[1])), lty = c(3, 2, 3), lwd = 2, col = "#00000090")
+abline(v = c(exp(LCI[1]), exp(vo$par[1]), exp(UCI[1])), lty = c(3, 2, 3), lwd = 2, col = "#00000090")
+vo$value[1]
+vo$par
+vo$par <- exp(vo$par)
+out <- list()#
+      out$MaximumLikelihood <- vo$value[1]#
+      if (modelCIs) {#
+        out$Alpha <- matrix(c(vo$par[1], LCI, UCI), 1, 3, byrow = TRUE)#
+        colnames(out$Alpha) <- c("MLAlpha", "LowerCI", "UpperCI")#
+      } else {#
+        out$Alpha <- matrix(vo$par[1], 1, 1, byrow = TRUE)#
+        colnames(out$Alpha) <- c("MLAlpha")#
+      }
+out
+if (profilePlot) {#
+        par(mar = c(5, 5, 5, 5), oma = c(0, 0, 0, 0))#
+        if (is.ultrametric(phy)) {#
+        	ouCurve <- Vectorize(ou.fun)#
+        	curve(ouCurve(x, FALSE), from = lowerBound[1], to = upperBound[1], xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)#
+        	if (modelCIs) abline(v = c(LCI, vo$par[1], UCI), lty = c(3, 2, 3), lwd = 2, col = "#00000090")#
+			}#
+		} else {#
+			ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- ou.tr(phy, alpha=param)[[1]]#
+      			return(ll - reml.out[[1]] + 1.92#
+        			}#
+        		ouCurve <- Vectorize(ou.fun)#
+        		curve(ouCurve(x, FALSE), from = lowerBound[1], to = lowerBound[2], xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)#
+        	if (modelCIs) abline(v = c(LCI[1], vo$par[1], UCI[1]), lty = c(3, 2, 3), lwd = 2, col = "#00000090")#
+        		}#
+      }
+par(mar = c(5, 5, 5, 5), oma = c(0, 0, 0, 0))#
+        if (is.ultrametric(phy)) {#
+        	ouCurve <- Vectorize(ou.fun)#
+        	curve(ouCurve(x, FALSE), from = lowerBound[1], to = upperBound[1], xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)#
+        	if (modelCIs) abline(v = c(LCI, vo$par[1], UCI), lty = c(3, 2, 3), lwd = 2, col = "#00000090")#
+		} else {#
+			ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- ou.tr(phy, alpha=param)[[1]]#
+      			return(ll - reml.out[[1]] + 1.92#
+        			}#
+        		ouCurve <- Vectorize(ou.fun)#
+        		curve(ouCurve(x, FALSE), from = lowerBound[1], to = lowerBound[2], xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)#
+        	if (modelCIs) abline(v = c(LCI[1], vo$par[1], UCI[1]), lty = c(3, 2, 3), lwd = 2, col = "#00000090")#
+        		}
+ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- ou.tr(phy, alpha=param)[[1]]#
+      			return(ll - reml.out[[1]] + 1.92)#
+        			}#
+        		ouCurve <- Vectorize(ou.fun)#
+        		curve(ouCurve(x, FALSE), from = lowerBound[1], to = lowerBound[2], xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)#
+        	if (modelCIs) abline(v = c(LCI[1], vo$par[1], UCI[1]), lty = c(3, 2, 3), lwd = 2, col = "#00000090")#
+        		}
+lowerBound[1]
+vo$par <- exp(vo$par)#
+      	UCI <- exp(UCI)#
+      	LCI <- exp(LCI)#
+      	lowerBound[1] <- exp(lowerBound[1])#
+        upperBound[1] <- exp(upperBound[1])
+ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- ou.tr(phy, alpha=param)[[1]]#
+      			return(ll - reml.out[[1]] + 1.92)#
+        			}#
+        		ouCurve <- Vectorize(ou.fun)#
+        		curve(ouCurve(x, FALSE), from = lowerBound[1], to = lowerBound[2], xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)#
+        	if (modelCIs) abline(v = c(LCI[1], vo$par[1], UCI[1]), lty = c(3, 2, 3), lwd = 2, col = "#00000090")
+vo <- optim(alpha, var.funOU, method = "L-BFGS-B", lower = lowerBound, upper = upperBound, control = controlList)#
+      if (lambdaEst) {#
+        lambda <- vo$par[2]#
+        if(!is.ultrametric(phy)) lambda <- exp(lambda)#
+      } else {#
+        lambda <- 1#
+      }#
+      lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)#
+      ancestral.state <- brVar <- NA#
+      vcv.matrix <- NULL#
+      if (!is.ultrametric(phy)) {#
+      	ou.tr <- function(phylo, alpha) {#
+	      	vcv.matrix <- transformPhylo(y = y, phy = lambdaPhy, alpha = alpha, nodeIDs = nodeIDs, model = "OU", meserr = meserr)#
+    	  		mu <- motmot:::mu.mean(vcv.matrix, y)[1,1]#
+    		  	sigma.sq <- motmot:::sig.sq(ancestral.state, vcv.matrix, y)[1,1]#
+      		reml.lik <- dmvnorm(y[,1], mean=rep(mu, ncol(vcv.matrix)), sigma=vcv.matrix * sigma.sq, log=TRUE)#
+      		return(list(reml.lik=reml.lik, reml.sigma.sq=sigma.sq, reml.mu=mu))#
+      		}#
+      	reml.out <- ou.tr(phy, alpha=exp(vo$par[1]))#
+#
+      if (modelCIs == TRUE) {#
+      	if (is.ultrametric(phy)) {#
+      		ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- transformPhylo.ll(y, lambdaPhy, model = "OU", alpha = param, nodeIDs = nodeIDs, meserr = meserr, covPIC = covPIC)$logLikelihood#
+      			if (chiSq) {#
+      				return(ll - vo$value + 1.92)#
+      			} else {#
+      				return(ll)#
+      				}#
+      			}#
+        } else {#
+        		ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- ou.tr(phy, alpha=param)[[1]]#
+      			if (chiSq) {#
+      				return(ll - reml.out[[1]] + 1.92)#
+      			} else {#
+      				return(ll)#
+      				}#
+      			}#
+        }#
+        lower.attempt <- try(uniroot(ou.fun, interval = c(lowerBound[1], vo$par[1]))$root, silent=TRUE)#
+        if (is.numeric(lower.attempt)) {#
+          LCI <- uniroot(ou.fun, interval = c(lowerBound[1], vo$par[1]))$root#
+        } else {#
+          LCI <- lowerBound[1]#
+          lower.function.warning()#
+        }#
+        upper.attempt <- try(uniroot(ou.fun, interval = c(vo$par[1], upperBound[1]))$root, silent=TRUE)#
+        if (is.numeric(upper.attempt)) {#
+          UCI <- uniroot(ou.fun, interval = c(vo$par[1], upperBound[1]))$root#
+        } else {#
+          UCI <- upperBound[1]#
+          upper.function.warning()#
+        }#
+      }#
+      !is.ultrametric(phy) {#
+      	vo$par <- exp(vo$par)#
+      	UCI <- exp(UCI)#
+      	LCI <- exp(LCI)#
+      	lowerBound[1] <- exp(lowerBound[1])#
+        upperBound[1] <- exp(upperBound[1])#
+      }
+vo <- optim(alpha, var.funOU, method = "L-BFGS-B", lower = lowerBound, upper = upperBound, control = controlList)#
+      if (lambdaEst) {#
+        lambda <- vo$par[2]#
+        if(!is.ultrametric(phy)) lambda <- exp(lambda)#
+      } else {#
+        lambda <- 1#
+      }#
+      lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)#
+      ancestral.state <- brVar <- NA#
+      vcv.matrix <- NULL#
+      if (!is.ultrametric(phy)) {#
+      	ou.tr <- function(phylo, alpha) {#
+	      	vcv.matrix <- transformPhylo(y = y, phy = lambdaPhy, alpha = alpha, nodeIDs = nodeIDs, model = "OU", meserr = meserr)#
+    	  		mu <- motmot:::mu.mean(vcv.matrix, y)[1,1]#
+    		  	sigma.sq <- motmot:::sig.sq(ancestral.state, vcv.matrix, y)[1,1]#
+      		reml.lik <- dmvnorm(y[,1], mean=rep(mu, ncol(vcv.matrix)), sigma=vcv.matrix * sigma.sq, log=TRUE)#
+      		return(list(reml.lik=reml.lik, reml.sigma.sq=sigma.sq, reml.mu=mu))#
+      		}#
+      	reml.out <- ou.tr(phy, alpha=exp(vo$par[1]))#
+      		}
+if (is.ultrametric(phy)) {#
+      		ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- transformPhylo.ll(y, lambdaPhy, model = "OU", alpha = param, nodeIDs = nodeIDs, meserr = meserr, covPIC = covPIC)$logLikelihood#
+      			if (chiSq) {#
+      				return(ll - vo$value + 1.92)#
+      			} else {#
+      				return(ll)#
+      				}#
+      			}#
+        } else {#
+        		ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- ou.tr(phy, alpha=param)[[1]]#
+      			if (chiSq) {#
+      				return(ll - reml.out[[1]] + 1.92)#
+      			} else {#
+      				return(ll)#
+      				}#
+      			}#
+        }
+lower.attempt <- try(uniroot(ou.fun, interval = c(lowerBound[1], vo$par[1]))$root, silent=TRUE)#
+        if (is.numeric(lower.attempt)) {#
+          LCI <- uniroot(ou.fun, interval = c(lowerBound[1], vo$par[1]))$root#
+        } else {#
+          LCI <- lowerBound[1]#
+          lower.function.warning()#
+        }#
+        upper.attempt <- try(uniroot(ou.fun, interval = c(vo$par[1], upperBound[1]))$root, silent=TRUE)#
+        if (is.numeric(upper.attempt)) {#
+          UCI <- uniroot(ou.fun, interval = c(vo$par[1], upperBound[1]))$root#
+        } else {#
+          UCI <- upperBound[1]#
+          upper.function.warning()#
+        }#
+      }
+!is.ultrametric(phy) {#
+      	vo$par <- exp(vo$par)#
+      	UCI <- exp(UCI)#
+      	LCI <- exp(LCI)#
+      	lowerBound[1] <- exp(lowerBound[1])#
+        upperBound[1] <- exp(upperBound[1])#
+      }
+lowerBound
+lowerBound[1] <- exp(lowerBound[1])#
+        upperBound
+upperBound[1]
+model = NULL; modelCIs = TRUE; nodeIDs = NULL; rateType = NULL; minCladeSize = 1; nSplits = 2; splitTime = NULL; boundaryAge = 10; testAge = 1; restrictNode = NULL; lambdaEst = FALSE; acdcScalar = FALSE; branchLabels = NULL; hiddenSpeciation = FALSE; full.phy = NULL; useMean = FALSE; profilePlot = FALSE; lowerBound = NULL; upperBound = NULL; covPIC = TRUE; n.cores = 1; tol = NULL; meserr = NULL; returnPhy = FALSE; print.warnings = FALSE; mode.order=NULL; rate.var=FALSE#
+controlList = c(fnscale = -1, maxit = 100, factr = 1e-7, pgtol = 0, type = 2, lmm = 5)#
+sortedData <- sortTraitData(phy=anolis.tree, y=anolis.data, data.name="Male_SVL", pass.ultrametric=TRUE)#
 phy <- sortedData$phy#
 male.length <- sortedData$trait#
+model <- tolower(model)#
+  all.models <- c("bm", "kappa", "lambda", "delta", "ou", "acdc", "psi", "multipsi", "trend", "free", "clade", "tm1", "tm2", "timeslice")#
+  if (any(is.na((match(model, all.models))))) stop(paste(model, "not recognised - please provide one of", paste0(all.models, collapse = ", ")))#
+  bounds <- matrix(c(1e-08, 1, 1e-08, 1, 1e-08, 5, 1e-08, 20, 0, 1, 1e-08, 1000, 1e-10, 20), 7, 2, byrow = TRUE)#
+  rownames(bounds) <- c("kappa", "lambda", "delta", "alpha", "psi", "rate", "acdcrate")#
+  lower.function.warning <- function() if (print.warnings) warning("Confidence limits fall outside parameter bounds - consider changing lowerBound")#
+  upper.function.warning <- function() if (print.warnings) warning("Confidence limits fall outside parameter bounds - consider changing upperBound")#
+  aic.fun <- function(likelihood, k) return(-2 * likelihood + 2 * k)#
+  aicc.fun <- function(likelihood, k, n) return(-2 * likelihood + 2 * k + ((2 * k * (k + 1)) / (n - k - 1)))#
+  if (acdcScalar && !is.null(nodeIDs)) upperBound <- -1e-6#
+	x <- NULL#
 #
-traitData.plot(y=male.length, phy, lwd.traits=2, col.label="#00008050")
-y=male.length#
-lwd.traits=2#
-col.label="#00008050"
-col.label="red"
-col.tree="black"
-col.hist="navy"
-cex.plot=0.7
-cex.tips=0.7
-show.tips=FALSE
-n.split=5
-lwd.traits=1
-max.range <- abs(diff(range(y)))#
-	trait.data.range <- y + max.range#
-	if(max(trait.data.range) < 0) trait.data.range <- -trait.data.range#
-	t.data.scale <- trait.data.range / max(trait.data.range)#
-	tree.height <- nodeTimes(phy)[1,1]#
-	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))#
-	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)#
-    x_cord <- lastPP$xx#
-    y_cord  <- lastPP$yy#
-    tip.x.orig <- tip.x <- x_cord[1:Ntip(phy)]  + (range(x_cord)[2] * 0.005)#
-	tip.y.orig <- tip.y <- y_cord[1:Ntip(phy)]#
-	t.data.scale.orig <- t.data.scale <- (max(x_cord) * t.data.scale) * 0.95#
-	recycle.color <- rep(col.label, Ntip(phy))#
-	ord.y <- order(tip.y)#
-	tip.y <- tip.y[ord.y]#
-	tip.x <- tip.x[ord.y]#
-	recycle.color <- recycle.color[ord.y]#
-	t.data.scale <- t.data.scale[ord.y]#
-	zero.height <- tip.y[-length(tip.y)] + diff(tip.y) / 2#
-	all.y <- rep(c(tip.y, zero.height), each=3)#
-	all.x <- rep(tip.x[1], length(all.y))#
-	all.x[seq(2, length(all.y), 6)] <- tip.x + t.data.scale#
-	for(uu in seq(0, length(all.x)-7, 6)) all.x[c(4:6) + uu] <- NA#
-	ord.y2 <- order(all.y)#
-	all.y <- all.y[ord.y2]#
-	recycle.color <- rep(recycle.color, 6)#
-	splits <- seq(min(all.x, na.rm=TRUE), max(all.x, na.rm=TRUE), length.out=n.split)
-for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy), 1, 1, Ntip(phy)), col="#00000020", border=FALSE, xpd=TRUE)
-splits
-all.x
-label.splits <- seq(min(y), max(y), length.out=n.split)
-label.splits
-axis(3, at=splits, labels=signif(label.splits, 3), xpd=TRUE, ...)
+acdcScalar = F#
+model="modeslice"#
+#
+mammal.mass <- read.csv("~/Documents/motmotpaper/simulation.time.slice/mammals/mammal_mass.csv", row.names=1)#
+mammal.phy <- read.tree("~/Documents/motmotpaper/simulation.time.slice/mammals/mammal.phy")#
+#
+trait.phy <- sortTraitData(phy=mammal.phy,y=as.matrix(mammal.mass), data.name=c("mean", "sem") ,log.trait=FALSE)#
+phy <- trait.phy$phy#
+y <- as.matrix(trait.phy$trait[,1])#
+errors <- as.numeric(trait.phy$trait[,2])#
+splitTime=NULL#
+rate.var=FALSE#
+mode.order <- c("ou")
+alpha <- 0.5#
+      if (is.null(nodeIDs)) nodeIDs <- Ntip(phy) + 1 else nodeIDs <- nodeIDs#
+      if (lambdaEst) {#
+        alpha[2] <- 1#
+      }#
+      if (is.null(lowerBound)) {#
+        lowerBound <- bounds["alpha", 1]#
+        if (lambdaEst) lowerBound[2] <- bounds["lambda", 1]#
+      }#
+      if (is.null(upperBound)) {#
+        upperBound <- bounds["alpha", 2]#
+        if (lambdaEst) upperBound[2] <- bounds["lambda", 2]#
+      }#
+      n.par <- length(lowerBound)#
+      if (!is.ultrametric(phy)) {#
+      	if(ncol(y) > 1) stop("non-ultrametric phy and OU model only applicable for single traits, sorry")#
+      	print("non-ultrametric phy and OU model - using variance-covariance matrix, not tree-transformation")#
+        cophenetic.dist <- cophenetic.phylo(phy)#
+        vcv.matrix <- vcv(phy)#
+        alpha <- log(alpha[1])#
+        lowerBound <- log(lowerBound[1])#
+        upperBound <- log(upperBound[1])#
+        if (lambdaEst) {#
+        	alpha <- log(alpha[2])#
+        lowerBound <- log(lowerBound[2])#
+        upperBound <- log(upperBound[2])#
+        	anc.loc <- 4#
+        	bm.loc <- 3#
+        } else {#
+        	anc.loc <- 3#
+        	bm.loc <- 2#
+        }#
+        alpha[c(bm.loc, anc.loc)] <- log(c(0.1, 0.1))#
+        lowerBound[c(bm.loc, anc.loc)] <- log(c(1e-8, NA))#
+        upperBound[c(bm.loc, anc.loc)] <- c(NA,NA)#
+      }#
+		if(is.ultrametric(phy)) {#
+			var.funOU <- function(param) {#
+       		if (length(param) != 2) {#
+         	 lambda <- 1#
+       		 } else {#
+          	lambda <- param[2]#
+        		}#
+	        alpha.int <- param[1]#
+	        lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)#
+	        if(!is.ultrametric(phy)) vcv.matrix <- vcv(lambdaPhy)#
+	        return(transformPhylo.ll(y = y, phy = lambdaPhy, alpha = alpha.int, nodeIDs = nodeIDs, model = "OU", meserr = meserr, covPIC = covPIC, cophenetic.dist = cophenetic.dist, vcv.matrix = vcv.matrix)[[2]])#
+	      }#
+	     } else {#
+	     	var.funOU <- function(param) {#
+       		if (!lambdaEst) {#
+         	 lambda <- exp(log(1))#
+       		 } else {#
+          	lambda <- exp(param[2])#
+        		}#
+	        alpha.int <- exp(param[1])#
+	        lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)#
+	        return(transformPhylo.ll(y = y, phy = phy, model="OU", alpha=alpha.int, meserr = meserr, mu = exp(param[anc.loc]), sigma.sq = exp(param[bm.loc]), covPIC = covPIC))#
+	      }#
+	     }#
+      vo <- optim(alpha, var.funOU, method = "L-BFGS-B", lower = lowerBound, upper = upperBound, control = controlList)#
+      if (lambdaEst) {#
+        lambda <- vo$par[2]#
+        if(!is.ultrametric(phy)) lambda <- exp(lambda)#
+      } else {#
+        lambda <- 1#
+      }#
+      lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)#
+      ancestral.state <- brVar <- NA#
+      vcv.matrix <- NULL#
+      if (!is.ultrametric(phy)) {#
+      	ou.tr <- function(phylo, alpha) {#
+	      	vcv.matrix <- transformPhylo(y = y, phy = lambdaPhy, alpha = alpha, nodeIDs = nodeIDs, model = "OU", meserr = meserr)#
+    	  		mu <- motmot:::mu.mean(vcv.matrix, y)[1,1]#
+    		  	sigma.sq <- motmot:::sig.sq(ancestral.state, vcv.matrix, y)[1,1]#
+      		reml.lik <- dmvnorm(y[,1], mean=rep(mu, ncol(vcv.matrix)), sigma=vcv.matrix * sigma.sq, log=TRUE)#
+      		return(list(reml.lik=reml.lik, reml.sigma.sq=sigma.sq, reml.mu=mu))#
+      		}#
+      	reml.out <- ou.tr(phy, alpha=exp(vo$par[1]))#
+      		}#
+#
+      if (modelCIs == TRUE) {#
+      	if (is.ultrametric(phy)) {#
+      		ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- transformPhylo.ll(y, lambdaPhy, model = "OU", alpha = param, nodeIDs = nodeIDs, meserr = meserr, covPIC = covPIC)$logLikelihood#
+      			if (chiSq) {#
+      				return(ll - vo$value + 1.92)#
+      			} else {#
+      				return(ll)#
+      				}#
+      			}#
+        } else {#
+        		ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- ou.tr(phy, alpha=param)[[1]]#
+      			if (chiSq) {#
+      				return(ll - reml.out[[1]] + 1.92)#
+      			} else {#
+      				return(ll)#
+      				}#
+      			}#
+        }#
+        lower.attempt <- try(uniroot(ou.fun, interval = c(lowerBound[1], vo$par[1]))$root, silent=TRUE)#
+        if (is.numeric(lower.attempt)) {#
+          LCI <- uniroot(ou.fun, interval = c(lowerBound[1], vo$par[1]))$root#
+        } else {#
+          LCI <- lowerBound[1]#
+          lower.function.warning()#
+        }#
+        upper.attempt <- try(uniroot(ou.fun, interval = c(vo$par[1], upperBound[1]))$root, silent=TRUE)#
+        if (is.numeric(upper.attempt)) {#
+          UCI <- uniroot(ou.fun, interval = c(vo$par[1], upperBound[1]))$root#
+        } else {#
+          UCI <- upperBound[1]#
+          upper.function.warning()#
+        }#
+      }#
+      if(!is.ultrametric(phy)) {#
+      	vo$par <- exp(vo$par)#
+      	UCI <- exp(UCI)#
+      	LCI <- exp(LCI)#
+      	lowerBound[1] <- exp(lowerBound[1])#
+        upperBound[1] <- exp(upperBound[1])#
+      }
+par(mar = c(5, 5, 5, 5), oma = c(0, 0, 0, 0))#
+        if (is.ultrametric(phy)) {#
+        	ouCurve <- Vectorize(ou.fun)#
+        	curve(ouCurve(x, FALSE), from = lowerBound[1], to = upperBound[1], xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)#
+        	if (modelCIs) abline(v = c(LCI, vo$par[1], UCI), lty = c(3, 2, 3), lwd = 2, col = "#00000090")#
+		} else {#
+			ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- ou.tr(phy, alpha=param)[[1]]#
+      			return(ll - reml.out[[1]] + 1.92)#
+        			}#
+        		ouCurve <- Vectorize(ou.fun)#
+        		curve(ouCurve(x, FALSE), from = lowerBound[1], to = lowerBound[2], xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)#
+        	if (modelCIs) abline(v = c(LCI[1], vo$par[1], UCI[1]), lty = c(3, 2, 3), lwd = 2, col = "#00000090")#
+        		}
+ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- ou.tr(phy, alpha=param)[[1]]#
+      			return(ll - reml.out[[1]] + 1.92)#
+        			}#
+        		ouCurve <- Vectorize(ou.fun)
+ouCurve <- Vectorize(ou.fun)
+ouCurve (lowerBoundp1)
+ouCurve (lowerBound[1])
+lowerBound[1]
+curve(ouCurve(x), from = lowerBound[1], to = lowerBound[2], xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)
+lowerBound[2]
+lowerBound[1]
+curve(ouCurve(x), from = lowerBound[1], to = upperBound[1], xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)
+upperBound[1]
+ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- ou.tr(phy, alpha=param)[[1]]#
+      			return(ll - reml.out[[1]] + 1.92)#
+        			}#
+        		ouCurve <- Vectorize(ou.fun)#
+        		curve(ouCurve(x), from = lowerBound[1], to = upperBound[1], xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)
+model = NULL; modelCIs = TRUE; nodeIDs = NULL; rateType = NULL; minCladeSize = 1; nSplits = 2; splitTime = NULL; boundaryAge = 10; testAge = 1; restrictNode = NULL; lambdaEst = FALSE; acdcScalar = FALSE; branchLabels = NULL; hiddenSpeciation = FALSE; full.phy = NULL; useMean = FALSE; profilePlot = FALSE; lowerBound = NULL; upperBound = NULL; covPIC = TRUE; n.cores = 1; tol = NULL; meserr = NULL; returnPhy = FALSE; print.warnings = FALSE; mode.order=NULL; rate.var=FALSE#
+controlList = c(fnscale = -1, maxit = 100, factr = 1e-7, pgtol = 0, type = 2, lmm = 5)#
+sortedData <- sortTraitData(phy=anolis.tree, y=anolis.data, data.name="Male_SVL", pass.ultrametric=TRUE)#
+phy <- sortedData$phy#
+male.length <- sortedData$trait#
+model <- tolower(model)#
+  all.models <- c("bm", "kappa", "lambda", "delta", "ou", "acdc", "psi", "multipsi", "trend", "free", "clade", "tm1", "tm2", "timeslice")#
+  if (any(is.na((match(model, all.models))))) stop(paste(model, "not recognised - please provide one of", paste0(all.models, collapse = ", ")))#
+  bounds <- matrix(c(1e-08, 1, 1e-08, 1, 1e-08, 5, 1e-08, 20, 0, 1, 1e-08, 1000, 1e-10, 20), 7, 2, byrow = TRUE)#
+  rownames(bounds) <- c("kappa", "lambda", "delta", "alpha", "psi", "rate", "acdcrate")#
+  lower.function.warning <- function() if (print.warnings) warning("Confidence limits fall outside parameter bounds - consider changing lowerBound")#
+  upper.function.warning <- function() if (print.warnings) warning("Confidence limits fall outside parameter bounds - consider changing upperBound")#
+  aic.fun <- function(likelihood, k) return(-2 * likelihood + 2 * k)#
+  aicc.fun <- function(likelihood, k, n) return(-2 * likelihood + 2 * k + ((2 * k * (k + 1)) / (n - k - 1)))#
+  if (acdcScalar && !is.null(nodeIDs)) upperBound <- -1e-6#
+	x <- NULL#
+#
+acdcScalar = F#
+model="modeslice"#
+#
+mammal.mass <- read.csv("~/Documents/motmotpaper/simulation.time.slice/mammals/mammal_mass.csv", row.names=1)#
+mammal.phy <- read.tree("~/Documents/motmotpaper/simulation.time.slice/mammals/mammal.phy")#
+#
+trait.phy <- sortTraitData(phy=mammal.phy,y=as.matrix(mammal.mass), data.name=c("mean", "sem") ,log.trait=FALSE)#
+phy <- trait.phy$phy#
+y <- as.matrix(trait.phy$trait[,1])#
+errors <- as.numeric(trait.phy$trait[,2])#
+splitTime=NULL#
+rate.var=FALSE#
+mode.order <- c("ou")
+alpha <- 0.5#
+      if (is.null(nodeIDs)) nodeIDs <- Ntip(phy) + 1 else nodeIDs <- nodeIDs#
+      if (lambdaEst) {#
+        alpha[2] <- 1#
+      }#
+      if (is.null(lowerBound)) {#
+        lowerBound <- bounds["alpha", 1]#
+        if (lambdaEst) lowerBound[2] <- bounds["lambda", 1]#
+      }#
+      if (is.null(upperBound)) {#
+        upperBound <- bounds["alpha", 2]#
+        if (lambdaEst) upperBound[2] <- bounds["lambda", 2]#
+      }#
+      n.par <- length(lowerBound)#
+      if (!is.ultrametric(phy)) {#
+      	if(ncol(y) > 1) stop("non-ultrametric phy and OU model only applicable for single traits, sorry")#
+      	print("non-ultrametric phy and OU model - using variance-covariance matrix, not tree-transformation")#
+        cophenetic.dist <- cophenetic.phylo(phy)#
+        vcv.matrix <- vcv(phy)#
+        alpha <- log(alpha[1])#
+        lowerBound <- log(lowerBound[1])#
+        upperBound <- log(upperBound[1])#
+        if (lambdaEst) {#
+        	alpha <- log(alpha[2])#
+        lowerBound <- log(lowerBound[2])#
+        upperBound <- log(upperBound[2])#
+        	anc.loc <- 4#
+        	bm.loc <- 3#
+        } else {#
+        	anc.loc <- 3#
+        	bm.loc <- 2#
+        }#
+        alpha[c(bm.loc, anc.loc)] <- log(c(0.1, 0.1))#
+        lowerBound[c(bm.loc, anc.loc)] <- log(c(1e-8, NA))#
+        upperBound[c(bm.loc, anc.loc)] <- c(NA,NA)#
+      }#
+		if(is.ultrametric(phy)) {#
+			var.funOU <- function(param) {#
+       		if (length(param) != 2) {#
+         	 lambda <- 1#
+       		 } else {#
+          	lambda <- param[2]#
+        		}#
+	        alpha.int <- param[1]#
+	        lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)#
+	        if(!is.ultrametric(phy)) vcv.matrix <- vcv(lambdaPhy)#
+	        return(transformPhylo.ll(y = y, phy = lambdaPhy, alpha = alpha.int, nodeIDs = nodeIDs, model = "OU", meserr = meserr, covPIC = covPIC, cophenetic.dist = cophenetic.dist, vcv.matrix = vcv.matrix)[[2]])#
+	      }#
+	     } else {#
+	     	var.funOU <- function(param) {#
+       		if (!lambdaEst) {#
+         	 lambda <- exp(log(1))#
+       		 } else {#
+          	lambda <- exp(param[2])#
+        		}#
+	        alpha.int <- exp(param[1])#
+	        lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)#
+	        return(transformPhylo.ll(y = y, phy = phy, model="OU", alpha=alpha.int, meserr = meserr, mu = exp(param[anc.loc]), sigma.sq = exp(param[bm.loc]), covPIC = covPIC))#
+	      }#
+	     }#
+      vo <- optim(alpha, var.funOU, method = "L-BFGS-B", lower = lowerBound, upper = upperBound, control = controlList)#
+      if (lambdaEst) {#
+        lambda <- vo$par[2]#
+        if(!is.ultrametric(phy)) lambda <- exp(lambda)#
+      } else {#
+        lambda <- 1#
+      }#
+      lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)#
+      ancestral.state <- brVar <- NA#
+      vcv.matrix <- NULL#
+      if (!is.ultrametric(phy)) {#
+      	ou.tr <- function(phylo, alpha) {#
+	      	vcv.matrix <- transformPhylo(y = y, phy = lambdaPhy, alpha = alpha, nodeIDs = nodeIDs, model = "OU", meserr = meserr)#
+    	  		mu <- motmot:::mu.mean(vcv.matrix, y)[1,1]#
+    		  	sigma.sq <- motmot:::sig.sq(ancestral.state, vcv.matrix, y)[1,1]#
+      		reml.lik <- dmvnorm(y[,1], mean=rep(mu, ncol(vcv.matrix)), sigma=vcv.matrix * sigma.sq, log=TRUE)#
+      		return(list(reml.lik=reml.lik, reml.sigma.sq=sigma.sq, reml.mu=mu))#
+      		}#
+      	reml.out <- ou.tr(phy, alpha=exp(vo$par[1]))#
+      		}#
+#
+      if (modelCIs == TRUE) {#
+      	if (is.ultrametric(phy)) {#
+      		ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- transformPhylo.ll(y, lambdaPhy, model = "OU", alpha = param, nodeIDs = nodeIDs, meserr = meserr, covPIC = covPIC)$logLikelihood#
+      			if (chiSq) {#
+      				return(ll - vo$value + 1.92)#
+      			} else {#
+      				return(ll)#
+      				}#
+      			}#
+        } else {#
+        		ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- ou.tr(phy, alpha=param)[[1]]#
+      			if (chiSq) {#
+      				return(ll - reml.out[[1]] + 1.92)#
+      			} else {#
+      				return(ll)#
+      				}#
+      			}#
+        }#
+        lower.attempt <- try(uniroot(ou.fun, interval = c(lowerBound[1], vo$par[1]))$root, silent=TRUE)#
+        if (is.numeric(lower.attempt)) {#
+          LCI <- uniroot(ou.fun, interval = c(lowerBound[1], vo$par[1]))$root#
+        } else {#
+          LCI <- lowerBound[1]#
+          lower.function.warning()#
+        }#
+        upper.attempt <- try(uniroot(ou.fun, interval = c(vo$par[1], upperBound[1]))$root, silent=TRUE)#
+        if (is.numeric(upper.attempt)) {#
+          UCI <- uniroot(ou.fun, interval = c(vo$par[1], upperBound[1]))$root#
+        } else {#
+          UCI <- upperBound[1]#
+          upper.function.warning()#
+        }#
+      }#
+      if(!is.ultrametric(phy)) {#
+      	vo$par <- exp(vo$par)#
+      	UCI <- exp(UCI)#
+      	LCI <- exp(LCI)#
+      	lowerBound[1] <- exp(lowerBound[1])#
+        upperBound[1] <- exp(upperBound[1])#
+      }
+lowerBound
+upperBound
+is.ultrametric(phy)
+ou.fun <- function(param) {#
+      			ll <- ou.tr(phy, alpha=param)[[1]]#
+      			return(ll - reml.out[[1]] + 1.92)#
+        			}
+ouCurve <- Vectorize(ou.fun)
+curve(ouCurve(x), from = lowerBound[1], to = upperBound[1], xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)
+lowerBound[1]
+vo$par[1]
+param=lowerBound[1]
+ll <- ou.tr(phy, alpha=param)[[1]]
+ll
+ou.tr(phy, alpha=param)
+ou.tr <- function(alpha) {#
+	      	vcv.matrix <- transformPhylo(y = y, phy = lambdaPhy, alpha = alpha, nodeIDs = nodeIDs, model = "OU", meserr = meserr)#
+    	  		mu <- motmot:::mu.mean(vcv.matrix, y)[1,1]#
+    		  	sigma.sq <- motmot:::sig.sq(ancestral.state, vcv.matrix, y)[1,1]#
+      		reml.lik <- dmvnorm(y[,1], mean=rep(mu, ncol(vcv.matrix)), sigma=vcv.matrix * sigma.sq, log=TRUE)#
+      		return(list(reml.lik=reml.lik, reml.sigma.sq=sigma.sq, reml.mu=mu))#
+      		}#
+      	reml.out <- ou.tr(phy, alpha=exp(vo$par[1]))
+vo$par
+vo$par[1]
+reml.out <- ou.tr(alpha=exp(vo$par[1]))
+reml.out
+ou.tr(alpha=vo$par[1])
+vo$par[1]
+alpha=vo$par[1]
+vcv.matrix <- transformPhylo(y = y, phy = lambdaPhy, alpha = alpha, nodeIDs = nodeIDs, model = "OU", meserr = meserr)
+motmot:::mu.mean(vcv.matrix, y)[1,1]
+mu <- motmot:::mu.mean(vcv.matrix, y)[1,1]
+motmot:::sig.sq(mu, vcv.matrix, y)[1,1]
+sigma.sq <- motmot:::sig.sq(mu, vcv.matrix, y)[1,1]
+reml.lik <- dmvnorm(y[,1], mean=rep(mu, ncol(vcv.matrix)), sigma=vcv.matrix * sigma.sq, log=TRUE)
+reml.lik
+ou.tr <- function(alpha) {#
+	      	vcv.matrix <- transformPhylo(y = y, phy = lambdaPhy, alpha = alpha, nodeIDs = nodeIDs, model = "OU", meserr = meserr)#
+    	  		mu <- motmot:::mu.mean(vcv.matrix, y)[1,1]#
+    		  	sigma.sq <- motmot:::sig.sq(mu, vcv.matrix, y)[1,1]#
+      		reml.lik <- dmvnorm(y[,1], mean=rep(mu, ncol(vcv.matrix)), sigma=vcv.matrix * sigma.sq, log=TRUE)#
+      		return(list(reml.lik=reml.lik, reml.sigma.sq=sigma.sq, reml.mu=mu))#
+      		}
+ou.fun <- function(param) {#
+      			ll <- ou.tr(phy, alpha=param)[[1]]#
+      			return(ll - reml.out[[1]] + 1.92)#
+        			}
+ouCurve <- Vectorize(ou.fun)
+curve(ouCurve(x), from = lowerBound[1], to = upperBound[1], xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)
+ll <- ou.tr(alpha=param)[[1]]#
+      			return(ll - reml.out[[1]] + 1.92)#
+        			}#
+        		ouCurve <- Vectorize(ou.fun)#
+        		curve(ouCurve(x), from = lowerBound[1], to = upperBound[1], xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)
+ou.fun <- function(param) {#
+      			ll <- ou.tr(alpha=param)[[1]]#
+      			return(ll - reml.out[[1]] + 1.92)#
+        			}
+ouCurve <- Vectorize(ou.fun)
+curve(ouCurve(x), from = lowerBound[1], to = upperBound[1], xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)
+lowerBound[1]
+upperBound[1]
+ouCurve(x)
+ou.fun(lowerBound[1])
+ou.fun(lowerBound[2])
+lambdaPhy
+alpha
+vcv.matrix <- transformPhylo(y = y, phy = lambdaPhy, alpha = alpha, nodeIDs = nodeIDs, model = "OU", meserr = meserr)
+mu <- motmot:::mu.mean(vcv.matrix, y)[1,1]
+sigma.sq <- motmot:::sig.sq(mu, vcv.matrix, y)[1,1]
+reml.lik <- dmvnorm(y[,1], mean=rep(mu, ncol(vcv.matrix)), sigma=vcv.matrix * sigma.sq, log=TRUE)
+return(list(reml.lik=reml.lik, reml.sigma.sq=sigma.sq, reml.mu=mu))
+list(reml.lik=reml.lik, reml.sigma.sq=sigma.sq, reml.mu=mu)
+alpha
+alpha=1e-8
+transformPhylo(y = y, phy = lambdaPhy, alpha = alpha, nodeIDs = nodeIDs, model = "OU", meserr = meserr)
+vcv.matrix <- transformPhylo(y = y, phy = lambdaPhy, alpha = alpha, nodeIDs = nodeIDs, model = "OU", meserr = meserr)
+mu <- motmot:::mu.mean(vcv.matrix, y)[1,1]
+sigma.sq <- motmot:::sig.sq(mu, vcv.matrix, y)[1,1]
+reml.lik <- dmvnorm(y[,1], mean=rep(mu, ncol(vcv.matrix)), sigma=vcv.matrix * sigma.sq, log=TRUE)
+reml.lik
+ou.tr <- function(alpha) {#
+	      	vcv.matrix <- transformPhylo(y = y, phy = lambdaPhy, alpha = alpha, nodeIDs = nodeIDs, model = "OU", meserr = meserr)#
+    	  		mu <- motmot:::mu.mean(vcv.matrix, y)[1,1]#
+    		  	sigma.sq <- motmot:::sig.sq(mu, vcv.matrix, y)[1,1]#
+      		reml.lik <- dmvnorm(y[,1], mean=rep(mu, ncol(vcv.matrix)), sigma=vcv.matrix * sigma.sq, log=TRUE)#
+      		return(list(reml.lik=reml.lik, reml.sigma.sq=sigma.sq, reml.mu=mu))#
+      		}
+ou.fun <- function(param) {#
+      			ll <- ou.tr(param)[[1]]#
+      			return(ll - reml.out[[1]] + 1.92)#
+        			}
+reml.out[[1]]
+reml.out <- ou.tr(alpha=exp(vo$par[1]))
+reml.out
+reml.out <- ou.tr(alpha=exp(vo$par[1]))
+curve(ouCurve(x), from = lowerBound[1], to = upperBound[1], xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)
+if (modelCIs) abline(v = c(LCI[1], vo$par[1], UCI[1]), lty = c(3, 2, 3), lwd = 2, col = "#00000090")
+reml.out[[1]]
+ll - reml.out[[1]]
+ou.fun <- function(param) {#
+      			ll <- ou.tr(param)[[1]]#
+      			return(ll)#
+        			}#
+        		ouCurve <- Vectorize(ou.fun)
+curve(ouCurve(x), from = lowerBound[1], to = upperBound[1], xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)
+if (modelCIs) abline(v = c(LCI[1], vo$par[1], UCI[1]), lty = c(3, 2, 3), lwd = 2, col = "#00000090")
+UCI[1]
+model = NULL; modelCIs = TRUE; nodeIDs = NULL; rateType = NULL; minCladeSize = 1; nSplits = 2; splitTime = NULL; boundaryAge = 10; testAge = 1; restrictNode = NULL; lambdaEst = FALSE; acdcScalar = FALSE; branchLabels = NULL; hiddenSpeciation = FALSE; full.phy = NULL; useMean = FALSE; profilePlot = FALSE; lowerBound = NULL; upperBound = NULL; covPIC = TRUE; n.cores = 1; tol = NULL; meserr = NULL; returnPhy = FALSE; print.warnings = FALSE; mode.order=NULL; rate.var=FALSE#
+controlList = c(fnscale = -1, maxit = 100, factr = 1e-7, pgtol = 0, type = 2, lmm = 5)#
+sortedData <- sortTraitData(phy=anolis.tree, y=anolis.data, data.name="Male_SVL", pass.ultrametric=TRUE)#
+phy <- sortedData$phy#
+male.length <- sortedData$trait#
+model <- tolower(model)#
+  all.models <- c("bm", "kappa", "lambda", "delta", "ou", "acdc", "psi", "multipsi", "trend", "free", "clade", "tm1", "tm2", "timeslice")#
+  if (any(is.na((match(model, all.models))))) stop(paste(model, "not recognised - please provide one of", paste0(all.models, collapse = ", ")))#
+  bounds <- matrix(c(1e-08, 1, 1e-08, 1, 1e-08, 5, 1e-08, 20, 0, 1, 1e-08, 1000, 1e-10, 20), 7, 2, byrow = TRUE)#
+  rownames(bounds) <- c("kappa", "lambda", "delta", "alpha", "psi", "rate", "acdcrate")#
+  lower.function.warning <- function() if (print.warnings) warning("Confidence limits fall outside parameter bounds - consider changing lowerBound")#
+  upper.function.warning <- function() if (print.warnings) warning("Confidence limits fall outside parameter bounds - consider changing upperBound")#
+  aic.fun <- function(likelihood, k) return(-2 * likelihood + 2 * k)#
+  aicc.fun <- function(likelihood, k, n) return(-2 * likelihood + 2 * k + ((2 * k * (k + 1)) / (n - k - 1)))#
+  if (acdcScalar && !is.null(nodeIDs)) upperBound <- -1e-6#
+	x <- NULL#
+#
+acdcScalar = F#
+model="modeslice"#
+#
+mammal.mass <- read.csv("~/Documents/motmotpaper/simulation.time.slice/mammals/mammal_mass.csv", row.names=1)#
+mammal.phy <- read.tree("~/Documents/motmotpaper/simulation.time.slice/mammals/mammal.phy")#
+#
+trait.phy <- sortTraitData(phy=mammal.phy,y=as.matrix(mammal.mass), data.name=c("mean", "sem") ,log.trait=FALSE)#
+phy <- trait.phy$phy#
+y <- as.matrix(trait.phy$trait[,1])#
+errors <- as.numeric(trait.phy$trait[,2])#
+splitTime=NULL#
+rate.var=FALSE#
+mode.order <- c("ou")
+alpha <- 0.5#
+      if (is.null(nodeIDs)) nodeIDs <- Ntip(phy) + 1 else nodeIDs <- nodeIDs#
+      if (lambdaEst) {#
+        alpha[2] <- 1#
+      }#
+      if (is.null(lowerBound)) {#
+        lowerBound <- bounds["alpha", 1]#
+        if (lambdaEst) lowerBound[2] <- bounds["lambda", 1]#
+      }#
+      if (is.null(upperBound)) {#
+        upperBound <- bounds["alpha", 2]#
+        if (lambdaEst) upperBound[2] <- bounds["lambda", 2]#
+      }#
+      n.par <- length(lowerBound)#
+      if (!is.ultrametric(phy)) {#
+      	if(ncol(y) > 1) stop("non-ultrametric phy and OU model only applicable for single traits, sorry")#
+      	print("non-ultrametric phy and OU model - using variance-covariance matrix, not tree-transformation")#
+        cophenetic.dist <- cophenetic.phylo(phy)#
+        vcv.matrix <- vcv(phy)#
+        alpha <- log(alpha[1])#
+        lowerBound <- log(lowerBound[1])#
+        upperBound <- log(upperBound[1])#
+        if (lambdaEst) {#
+        	alpha <- log(alpha[2])#
+        lowerBound <- log(lowerBound[2])#
+        upperBound <- log(upperBound[2])#
+        	anc.loc <- 4#
+        	bm.loc <- 3#
+        } else {#
+        	anc.loc <- 3#
+        	bm.loc <- 2#
+        }#
+        alpha[c(bm.loc, anc.loc)] <- log(c(0.1, 0.1))#
+        lowerBound[c(bm.loc, anc.loc)] <- log(c(1e-8, NA))#
+        upperBound[c(bm.loc, anc.loc)] <- c(NA,NA)#
+      }#
+		if(is.ultrametric(phy)) {#
+			var.funOU <- function(param) {#
+       		if (length(param) != 2) {#
+         	 lambda <- 1#
+       		 } else {#
+          	lambda <- param[2]#
+        		}#
+	        alpha.int <- param[1]#
+	        lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)#
+	        if(!is.ultrametric(phy)) vcv.matrix <- vcv(lambdaPhy)#
+	        return(transformPhylo.ll(y = y, phy = lambdaPhy, alpha = alpha.int, nodeIDs = nodeIDs, model = "OU", meserr = meserr, covPIC = covPIC, cophenetic.dist = cophenetic.dist, vcv.matrix = vcv.matrix)[[2]])#
+	      }#
+	     } else {#
+	     	var.funOU <- function(param) {#
+       		if (!lambdaEst) {#
+         	 lambda <- exp(log(1))#
+       		 } else {#
+          	lambda <- exp(param[2])#
+        		}#
+	        alpha.int <- exp(param[1])#
+	        lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)#
+	        return(transformPhylo.ll(y = y, phy = phy, model="OU", alpha=alpha.int, meserr = meserr, mu = exp(param[anc.loc]), sigma.sq = exp(param[bm.loc]), covPIC = covPIC))#
+	      }#
+	     }#
+      vo <- optim(alpha, var.funOU, method = "L-BFGS-B", lower = lowerBound, upper = upperBound, control = controlList)#
+      if (lambdaEst) {#
+        lambda <- vo$par[2]#
+        if(!is.ultrametric(phy)) lambda <- exp(lambda)#
+      } else {#
+        lambda <- 1#
+      }#
+      lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)#
+      if (!is.ultrametric(phy)) {#
+      	ou.tr <- function(alpha) {#
+	      	vcv.matrix <- transformPhylo(y = y, phy = lambdaPhy, alpha = alpha, nodeIDs = nodeIDs, model = "OU", meserr = meserr)#
+    	  		mu <- motmot:::mu.mean(vcv.matrix, y)[1,1]#
+    		  	sigma.sq <- motmot:::sig.sq(mu, vcv.matrix, y)[1,1]#
+      		reml.lik <- dmvnorm(y[,1], mean=rep(mu, ncol(vcv.matrix)), sigma=vcv.matrix * sigma.sq, log=TRUE)#
+      		return(list(reml.lik=reml.lik, reml.sigma.sq=sigma.sq, reml.mu=mu))#
+      		}#
+      	reml.out <- ou.tr(alpha=exp(vo$par[1]))#
+      		}#
+#
+      if (modelCIs == TRUE) {#
+      	if (is.ultrametric(phy)) {#
+      		ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- transformPhylo.ll(y, lambdaPhy, model = "OU", alpha = param, nodeIDs = nodeIDs, meserr = meserr, covPIC = covPIC)$logLikelihood#
+      			if (chiSq) {#
+      				return(ll - vo$value + 1.92)#
+      			} else {#
+      				return(ll)#
+      				}#
+      			}#
+        } else {#
+        		ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- ou.tr(phy, alpha=param)[[1]]#
+      			if (chiSq) {#
+      				return(ll - reml.out[[1]] + 1.92)#
+      			} else {#
+      				return(ll)#
+      				}#
+      			}#
+        }#
+        lower.attempt <- try(uniroot(ou.fun, interval = c(lowerBound[1], vo$par[1]))$root, silent=TRUE)#
+        if (is.numeric(lower.attempt)) {#
+          LCI <- uniroot(ou.fun, interval = c(lowerBound[1], vo$par[1]))$root#
+        } else {#
+          LCI <- lowerBound[1]#
+          lower.function.warning()#
+        }#
+        upper.attempt <- try(uniroot(ou.fun, interval = c(vo$par[1], upperBound[1]))$root, silent=TRUE)#
+        if (is.numeric(upper.attempt)) {#
+          UCI <- uniroot(ou.fun, interval = c(vo$par[1], upperBound[1]))$root#
+        } else {#
+          UCI <- upperBound[1]#
+          upper.function.warning()#
+        }#
+      }#
+      if(!is.ultrametric(phy)) {#
+      	vo$par <- exp(vo$par)#
+      	UCI <- exp(UCI)#
+      	LCI <- exp(LCI)#
+      	lowerBound[1] <- exp(lowerBound[1])#
+        upperBound[1] <- exp(upperBound[1])#
+      }
+par(mar = c(5, 5, 5, 5), oma = c(0, 0, 0, 0))
+ou.fun <- function(param) {#
+      			ll <- ou.tr(param)[[1]]#
+      			return(ll)#
+        			}#
+        		ouCurve <- Vectorize(ou.fun)#
+        		curve(ouCurve(x), from = lowerBound[1], to = upperBound[1], xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)
+if (modelCIs) abline(v = c(LCI[1], vo$par[1], UCI[1]), lty = c(3, 2, 3), lwd = 2, col = "#00000090")
+UCI
+modelCIs == TRUE
+if (is.ultrametric(phy)) {#
+      		ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- transformPhylo.ll(y, lambdaPhy, model = "OU", alpha = param, nodeIDs = nodeIDs, meserr = meserr, covPIC = covPIC)$logLikelihood#
+      			if (chiSq) {#
+      				return(ll - vo$value + 1.92)#
+      			} else {#
+      				return(ll)#
+      				}#
+      			}#
+        } else {#
+        		ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- ou.tr(phy, alpha=param)[[1]]#
+      			if (chiSq) {#
+      				return(ll - reml.out[[1]] + 1.92)#
+      			} else {#
+      				return(ll)#
+      				}#
+      			}#
+        }#
+        lower.attempt <- try(uniroot(ou.fun, interval = c(lowerBound[1], vo$par[1]))$root, silent=TRUE)#
+        if (is.numeric(lower.attempt)) {#
+          LCI <- uniroot(ou.fun, interval = c(lowerBound[1], vo$par[1]))$root#
+        } else {#
+          LCI <- lowerBound[1]#
+          lower.function.warning()#
+        }#
+        upper.attempt <- try(uniroot(ou.fun, interval = c(vo$par[1], upperBound[1]))$root, silent=TRUE)#
+        if (is.numeric(upper.attempt)) {#
+          UCI <- uniroot(ou.fun, interval = c(vo$par[1], upperBound[1]))$root#
+        } else {#
+          UCI <- upperBound[1]#
+          upper.function.warning()#
+        }#
+      }
+if (is.ultrametric(phy)) {#
+      		ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- transformPhylo.ll(y, lambdaPhy, model = "OU", alpha = exp(param), nodeIDs = nodeIDs, meserr = meserr, covPIC = covPIC)$logLikelihood#
+      			if (chiSq) {#
+      				return(ll - vo$value + 1.92)#
+      			} else {#
+      				return(ll)#
+      				}#
+      			}#
+        } else {#
+        		ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- ou.tr(phy, alpha=param)[[1]]#
+      			if (chiSq) {#
+      				return(ll - reml.out[[1]] + 1.92)#
+      			} else {#
+      				return(ll)#
+      				}#
+      			}#
+        }#
+        lower.attempt <- try(uniroot(ou.fun, interval = c(lowerBound[1], vo$par[1]))$root, silent=TRUE)#
+        if (is.numeric(lower.attempt)) {#
+          LCI <- uniroot(ou.fun, interval = c(lowerBound[1], vo$par[1]))$root#
+        } else {#
+          LCI <- lowerBound[1]#
+          lower.function.warning()#
+        }#
+        upper.attempt <- try(uniroot(ou.fun, interval = c(vo$par[1], upperBound[1]))$root, silent=TRUE)#
+        if (is.numeric(upper.attempt)) {#
+          UCI <- uniroot(ou.fun, interval = c(vo$par[1], upperBound[1]))$root#
+        } else {#
+          UCI <- upperBound[1]#
+          upper.function.warning()#
+        }#
+      }
+LCI
+UCI
+alpha <- 0.5#
+      if (is.null(nodeIDs)) nodeIDs <- Ntip(phy) + 1 else nodeIDs <- nodeIDs#
+      if (lambdaEst) {#
+        alpha[2] <- 1#
+      }#
+      if (is.null(lowerBound)) {#
+        lowerBound <- bounds["alpha", 1]#
+        if (lambdaEst) lowerBound[2] <- bounds["lambda", 1]#
+      }#
+      if (is.null(upperBound)) {#
+        upperBound <- bounds["alpha", 2]#
+        if (lambdaEst) upperBound[2] <- bounds["lambda", 2]#
+      }#
+      n.par <- length(lowerBound)#
+      if (!is.ultrametric(phy)) {#
+      	if(ncol(y) > 1) stop("non-ultrametric phy and OU model only applicable for single traits, sorry")#
+      	print("non-ultrametric phy and OU model - using variance-covariance matrix, not tree-transformation")#
+        cophenetic.dist <- cophenetic.phylo(phy)#
+        vcv.matrix <- vcv(phy)#
+        alpha <- log(alpha[1])#
+        lowerBound <- log(lowerBound[1])#
+        upperBound <- log(upperBound[1])#
+        if (lambdaEst) {#
+        	alpha <- log(alpha[2])#
+        lowerBound <- log(lowerBound[2])#
+        upperBound <- log(upperBound[2])#
+        	anc.loc <- 4#
+        	bm.loc <- 3#
+        } else {#
+        	anc.loc <- 3#
+        	bm.loc <- 2#
+        }#
+        alpha[c(bm.loc, anc.loc)] <- log(c(0.1, 0.1))#
+        lowerBound[c(bm.loc, anc.loc)] <- log(c(1e-8, NA))#
+        upperBound[c(bm.loc, anc.loc)] <- c(NA,NA)#
+      }#
+		if(is.ultrametric(phy)) {#
+			var.funOU <- function(param) {#
+       		if (length(param) != 2) {#
+         	 lambda <- 1#
+       		 } else {#
+          	lambda <- param[2]#
+        		}#
+	        alpha.int <- param[1]#
+	        lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)#
+	        if(!is.ultrametric(phy)) vcv.matrix <- vcv(lambdaPhy)#
+	        return(transformPhylo.ll(y = y, phy = lambdaPhy, alpha = alpha.int, nodeIDs = nodeIDs, model = "OU", meserr = meserr, covPIC = covPIC, cophenetic.dist = cophenetic.dist, vcv.matrix = vcv.matrix)[[2]])#
+	      }#
+	     } else {#
+	     	var.funOU <- function(param) {#
+       		if (!lambdaEst) {#
+         	 lambda <- exp(log(1))#
+       		 } else {#
+          	lambda <- exp(param[2])#
+        		}#
+	        alpha.int <- exp(param[1])#
+	        lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)#
+	        return(transformPhylo.ll(y = y, phy = phy, model="OU", alpha=alpha.int, meserr = meserr, mu = exp(param[anc.loc]), sigma.sq = exp(param[bm.loc]), covPIC = covPIC))#
+	      }#
+	     }#
+      vo <- optim(alpha, var.funOU, method = "L-BFGS-B", lower = lowerBound, upper = upperBound, control = controlList)#
+      if (lambdaEst) {#
+        lambda <- vo$par[2]#
+        if(!is.ultrametric(phy)) lambda <- exp(lambda)#
+      } else {#
+        lambda <- 1#
+      }#
+      lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)#
+      if (!is.ultrametric(phy)) {#
+      	ou.tr <- function(alpha) {#
+	      	vcv.matrix <- transformPhylo(y = y, phy = lambdaPhy, alpha = alpha, nodeIDs = nodeIDs, model = "OU", meserr = meserr)#
+    	  		mu <- motmot:::mu.mean(vcv.matrix, y)[1,1]#
+    		  	sigma.sq <- motmot:::sig.sq(mu, vcv.matrix, y)[1,1]#
+      		reml.lik <- dmvnorm(y[,1], mean=rep(mu, ncol(vcv.matrix)), sigma=vcv.matrix * sigma.sq, log=TRUE)#
+      		return(list(reml.lik=reml.lik, reml.sigma.sq=sigma.sq, reml.mu=mu))#
+      		}#
+      	reml.out <- ou.tr(alpha=exp(vo$par[1]))#
+      		}#
+#
+      if (modelCIs == TRUE) {#
+      	if (is.ultrametric(phy)) {#
+      		ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- transformPhylo.ll(y, lambdaPhy, model = "OU", alpha = exp(param), nodeIDs = nodeIDs, meserr = meserr, covPIC = covPIC)$logLikelihood#
+      			if (chiSq) {#
+      				return(ll - vo$value + 1.92)#
+      			} else {#
+      				return(ll)#
+      				}#
+      			}#
+        } else {#
+        		ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- ou.tr(phy, alpha=param)[[1]]#
+      			if (chiSq) {#
+      				return(ll - reml.out[[1]] + 1.92)#
+      			} else {#
+      				return(ll)#
+      				}#
+      			}#
+        }#
+        lower.attempt <- try(uniroot(ou.fun, interval = c(lowerBound[1], vo$par[1]))$root, silent=TRUE)#
+        if (is.numeric(lower.attempt)) {#
+          LCI <- uniroot(ou.fun, interval = c(lowerBound[1], vo$par[1]))$root#
+        } else {#
+          LCI <- lowerBound[1]#
+          lower.function.warning()#
+        }#
+        upper.attempt <- try(uniroot(ou.fun, interval = c(vo$par[1], upperBound[1]))$root, silent=TRUE)#
+        if (is.numeric(upper.attempt)) {#
+          UCI <- uniroot(ou.fun, interval = c(vo$par[1], upperBound[1]))$root#
+        } else {#
+          UCI <- upperBound[1]#
+          upper.function.warning()#
+        }#
+      }
+UCI
+exp(          UCI)
+if (is.ultrametric(phy)) {#
+      		ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- transformPhylo.ll(y, lambdaPhy, model = "OU", alpha = param, nodeIDs = nodeIDs, meserr = meserr, covPIC = covPIC)$logLikelihood#
+      			if (chiSq) {#
+      				return(ll - vo$value + 1.92)#
+      			} else {#
+      				return(ll)#
+      				}#
+      			}#
+        } else {#
+        		ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- ou.tr(alpha=exp(param))[[1]]#
+      			if (chiSq) {#
+      				return(ll - reml.out[[1]] + 1.92)#
+      			} else {#
+      				return(ll)#
+      				}#
+      			}#
+        }
+upper.attempt <- try(uniroot(ou.fun, interval = c(vo$par[1], upperBound[1]))$root, silent=TRUE)
+upper.attempt
+UCI <- uniroot(ou.fun, interval = c(vo$par[1], upperBound[1]))$root
+UCI
+exp(UCI)
+model = NULL; modelCIs = TRUE; nodeIDs = NULL; rateType = NULL; minCladeSize = 1; nSplits = 2; splitTime = NULL; boundaryAge = 10; testAge = 1; restrictNode = NULL; lambdaEst = FALSE; acdcScalar = FALSE; branchLabels = NULL; hiddenSpeciation = FALSE; full.phy = NULL; useMean = FALSE; profilePlot = FALSE; lowerBound = NULL; upperBound = NULL; covPIC = TRUE; n.cores = 1; tol = NULL; meserr = NULL; returnPhy = FALSE; print.warnings = FALSE; mode.order=NULL; rate.var=FALSE#
+controlList = c(fnscale = -1, maxit = 100, factr = 1e-7, pgtol = 0, type = 2, lmm = 5)#
+sortedData <- sortTraitData(phy=anolis.tree, y=anolis.data, data.name="Male_SVL", pass.ultrametric=TRUE)#
+phy <- sortedData$phy#
+male.length <- sortedData$trait#
+model <- tolower(model)#
+  all.models <- c("bm", "kappa", "lambda", "delta", "ou", "acdc", "psi", "multipsi", "trend", "free", "clade", "tm1", "tm2", "timeslice")#
+  if (any(is.na((match(model, all.models))))) stop(paste(model, "not recognised - please provide one of", paste0(all.models, collapse = ", ")))#
+  bounds <- matrix(c(1e-08, 1, 1e-08, 1, 1e-08, 5, 1e-08, 20, 0, 1, 1e-08, 1000, 1e-10, 20), 7, 2, byrow = TRUE)#
+  rownames(bounds) <- c("kappa", "lambda", "delta", "alpha", "psi", "rate", "acdcrate")#
+  lower.function.warning <- function() if (print.warnings) warning("Confidence limits fall outside parameter bounds - consider changing lowerBound")#
+  upper.function.warning <- function() if (print.warnings) warning("Confidence limits fall outside parameter bounds - consider changing upperBound")#
+  aic.fun <- function(likelihood, k) return(-2 * likelihood + 2 * k)#
+  aicc.fun <- function(likelihood, k, n) return(-2 * likelihood + 2 * k + ((2 * k * (k + 1)) / (n - k - 1)))#
+  if (acdcScalar && !is.null(nodeIDs)) upperBound <- -1e-6#
+	x <- NULL#
+#
+acdcScalar = F#
+model="modeslice"#
+#
+mammal.mass <- read.csv("~/Documents/motmotpaper/simulation.time.slice/mammals/mammal_mass.csv", row.names=1)#
+mammal.phy <- read.tree("~/Documents/motmotpaper/simulation.time.slice/mammals/mammal.phy")#
+#
+trait.phy <- sortTraitData(phy=mammal.phy,y=as.matrix(mammal.mass), data.name=c("mean", "sem") ,log.trait=FALSE)#
+phy <- trait.phy$phy#
+y <- as.matrix(trait.phy$trait[,1])#
+errors <- as.numeric(trait.phy$trait[,2])#
+splitTime=NULL#
+rate.var=FALSE#
+mode.order <- c("ou")
+alpha <- 0.5#
+      if (is.null(nodeIDs)) nodeIDs <- Ntip(phy) + 1 else nodeIDs <- nodeIDs#
+      if (lambdaEst) {#
+        alpha[2] <- 1#
+      }#
+      if (is.null(lowerBound)) {#
+        lowerBound <- bounds["alpha", 1]#
+        if (lambdaEst) lowerBound[2] <- bounds["lambda", 1]#
+      }#
+      if (is.null(upperBound)) {#
+        upperBound <- bounds["alpha", 2]#
+        if (lambdaEst) upperBound[2] <- bounds["lambda", 2]#
+      }#
+      n.par <- length(lowerBound)#
+      if (!is.ultrametric(phy)) {#
+      	if(ncol(y) > 1) stop("non-ultrametric phy and OU model only applicable for single traits, sorry")#
+      	print("non-ultrametric phy and OU model - using variance-covariance matrix, not tree-transformation")#
+        cophenetic.dist <- cophenetic.phylo(phy)#
+        vcv.matrix <- vcv(phy)#
+        alpha <- log(alpha[1])#
+        lowerBound <- log(lowerBound[1])#
+        upperBound <- log(upperBound[1])#
+        if (lambdaEst) {#
+        	alpha <- log(alpha[2])#
+        lowerBound <- log(lowerBound[2])#
+        upperBound <- log(upperBound[2])#
+        	anc.loc <- 4#
+        	bm.loc <- 3#
+        } else {#
+        	anc.loc <- 3#
+        	bm.loc <- 2#
+        }#
+        alpha[c(bm.loc, anc.loc)] <- log(c(0.1, 0.1))#
+        lowerBound[c(bm.loc, anc.loc)] <- log(c(1e-8, NA))#
+        upperBound[c(bm.loc, anc.loc)] <- c(NA,NA)#
+      }#
+		if(is.ultrametric(phy)) {#
+			var.funOU <- function(param) {#
+       		if (length(param) != 2) {#
+         	 lambda <- 1#
+       		 } else {#
+          	lambda <- param[2]#
+        		}#
+	        alpha.int <- param[1]#
+	        lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)#
+	        if(!is.ultrametric(phy)) vcv.matrix <- vcv(lambdaPhy)#
+	        return(transformPhylo.ll(y = y, phy = lambdaPhy, alpha = alpha.int, nodeIDs = nodeIDs, model = "OU", meserr = meserr, covPIC = covPIC, cophenetic.dist = cophenetic.dist, vcv.matrix = vcv.matrix)[[2]])#
+	      }#
+	     } else {#
+	     	var.funOU <- function(param) {#
+       		if (!lambdaEst) {#
+         	 lambda <- exp(log(1))#
+       		 } else {#
+          	lambda <- exp(param[2])#
+        		}#
+	        alpha.int <- exp(param[1])#
+	        lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)#
+	        return(transformPhylo.ll(y = y, phy = phy, model="OU", alpha=alpha.int, meserr = meserr, mu = exp(param[anc.loc]), sigma.sq = exp(param[bm.loc]), covPIC = covPIC))#
+	      }#
+	     }#
+      vo <- optim(alpha, var.funOU, method = "L-BFGS-B", lower = lowerBound, upper = upperBound, control = controlList)#
+      if (lambdaEst) {#
+        lambda <- vo$par[2]#
+        if(!is.ultrametric(phy)) lambda <- exp(lambda)#
+      } else {#
+        lambda <- 1#
+      }#
+      lambdaPhy <- transformPhylo(y = y, phy = phy, lambda = lambda, model = "lambda", meserr = meserr)#
+      if (!is.ultrametric(phy)) {#
+      	ou.tr <- function(alpha) {#
+	      	vcv.matrix <- transformPhylo(y = y, phy = lambdaPhy, alpha = alpha, nodeIDs = nodeIDs, model = "OU", meserr = meserr)#
+    	  		mu <- motmot:::mu.mean(vcv.matrix, y)[1,1]#
+    		  	sigma.sq <- motmot:::sig.sq(mu, vcv.matrix, y)[1,1]#
+      		reml.lik <- dmvnorm(y[,1], mean=rep(mu, ncol(vcv.matrix)), sigma=vcv.matrix * sigma.sq, log=TRUE)#
+      		return(list(reml.lik=reml.lik, reml.sigma.sq=sigma.sq, reml.mu=mu))#
+      		}#
+      	reml.out <- ou.tr(alpha=exp(vo$par[1]))#
+      		}#
+#
+      if (modelCIs == TRUE) {#
+      	if (is.ultrametric(phy)) {#
+      		ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- transformPhylo.ll(y, lambdaPhy, model = "OU", alpha = param, nodeIDs = nodeIDs, meserr = meserr, covPIC = covPIC)$logLikelihood#
+      			if (chiSq) {#
+      				return(ll - vo$value + 1.92)#
+      			} else {#
+      				return(ll)#
+      				}#
+      			}#
+        } else {#
+        		ou.fun <- function(param, chiSq = TRUE) {#
+      			ll <- ou.tr(alpha=exp(param))[[1]]#
+      			if (chiSq) {#
+      				return(ll - reml.out[[1]] + 1.92)#
+      			} else {#
+      				return(ll)#
+      				}#
+      			}#
+        }#
+        lower.attempt <- try(uniroot(ou.fun, interval = c(lowerBound[1], vo$par[1]))$root, silent=TRUE)#
+        if (is.numeric(lower.attempt)) {#
+          LCI <- uniroot(ou.fun, interval = c(lowerBound[1], vo$par[1]))$root#
+        } else {#
+          LCI <- lowerBound[1]#
+          lower.function.warning()#
+        }#
+        upper.attempt <- try(uniroot(ou.fun, interval = c(vo$par[1], upperBound[1]))$root, silent=TRUE)#
+        if (is.numeric(upper.attempt)) {#
+          UCI <- uniroot(ou.fun, interval = c(vo$par[1], upperBound[1]))$root#
+        } else {#
+          UCI <- upperBound[1]#
+          upper.function.warning()#
+        }#
+      }
+if(!is.ultrametric(phy)) {#
+      	vo$par <- exp(vo$par)#
+      	UCI <- exp(UCI)#
+      	LCI <- exp(LCI)#
+      	lowerBound[1] <- exp(lowerBound[1])#
+        upperBound[1] <- exp(upperBound[1])#
+      }
+par(mar = c(5, 5, 5, 5), oma = c(0, 0, 0, 0))#
+        if (is.ultrametric(phy)) {#
+        	ouCurve <- Vectorize(ou.fun)#
+        	curve(ouCurve(x, FALSE), from = lowerBound[1], to = upperBound[1], xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)#
+        	if (modelCIs) abline(v = c(LCI, vo$par[1], UCI), lty = c(3, 2, 3), lwd = 2, col = "#00000090")#
+		} else {#
+			ou.fun <- function(param) {#
+      			ll <- ou.tr(param)[[1]]#
+      			return(ll)#
+        			}#
+        		ouCurve <- Vectorize(ou.fun)#
+        		curve(ouCurve(x), from = lowerBound[1], to = upperBound[1], xlab = expression(alpha), ylab = "log-likelihood", las = 1, main = "profile plot", lwd = 2)#
+        	if (modelCIs) abline(v = c(LCI[1], vo$par[1], UCI[1]), lty = c(3, 2, 3), lwd = 2, col = "#00000090")#
+        		}
+out <- list()
+out$MaximumLikelihood <- vo$value[1]#
+      if (modelCIs) {#
+        out$Alpha <- matrix(c(vo$par[1], LCI, UCI), 1, 3, byrow = TRUE)#
+        colnames(out$Alpha) <- c("MLAlpha", "LowerCI", "UpperCI")#
+      } else {#
+        out$Alpha <- matrix(vo$par[1], 1, 1, byrow = TRUE)#
+        colnames(out$Alpha) <- c("MLAlpha")#
+      }
+out
+vo$value[1] <- reml.out[[1]]
+out <- list()#
+      out$MaximumLikelihood <- vo$value[1]#
+      if (modelCIs) {#
+        out$Alpha <- matrix(c(vo$par[1], LCI, UCI), 1, 3, byrow = TRUE)#
+        colnames(out$Alpha) <- c("MLAlpha", "LowerCI", "UpperCI")#
+      } else {#
+        out$Alpha <- matrix(vo$par[1], 1, 1, byrow = TRUE)#
+        colnames(out$Alpha) <- c("MLAlpha")#
+      }
+out
+out <- list()#
+      out$MaximumLikelihood <- vo$value[1]#
+      if (modelCIs) {#
+        out$Alpha <- matrix(c(vo$par[1], LCI, UCI), 1, 3, byrow = TRUE)#
+        colnames(out$Alpha) <- c("MLAlpha", "LowerCI", "UpperCI")#
+      } else {#
+        out$Alpha <- matrix(vo$par[1], 1, 1, byrow = TRUE)#
+        colnames(out$Alpha) <- c("MLAlpha")#
+      }#
+      if(is.ultrametric(phy)) {#
+      	ouPhy <- transformPhylo(y = y, phy = lambdaPhy, model = "OU", alpha = vo$par[1], meserr = meserr)#
+      	out$brownianVariance <- likTraitPhylo(y = y, phy = ouPhy, covPIC = covPIC)$brownianVariance#
+      	out$root.state <- apply(y, 2, function(col.y) as.numeric(as.numeric(ace(col.y, phy = ouPhy, method = "pic")[[1]][1])))#
+      } else {#
+      	ouPhy <- vcv.matrix#
+      	out$brownianVariance <- sigma.sq#
+      	out$root.state <- mu#
+      }
+out
+param <- 3#
+      if (lambdaEst) {#
+        out$lambda <- vo$par[2]#
+        param <- 4#
+      }#
+      out$AIC <- aic.fun(out$MaximumLikelihood, param)#
+      out$AICc <- aicc.fun(out$MaximumLikelihood, param, Ntip(phy))
+if (returnPhy) out$ouPhy <- ouPhy
+out
+acdcScalar=TRUE
+lambdaEst=FALSE
+!acdcScalar && lambdaEst || acdcScalar && !lambdaEst
+acdcScalar=F
+!acdcScalar && lambdaEst || acdcScalar && !lambdaEst
+lambdaEst=R
+lambdaEst=T
+!acdcScalar && lambdaEst || acdcScalar && !lambdaEst
+acdcScalar=T
+!acdcScalar && lambdaEst || acdcScalar && !lambdaEst
+match(mode.order, c("bm", "ou", "kappa", "acdc"))
+mode.order=c("bm", "ou")
+match(mode.order, c("bm", "ou", "kappa", "acdc"))
+mode.order="trend"
+match(mode.order, c("bm", "ou", "kappa", "acdc"))
+if(any(is.na(match(mode.order, c("bm", "ou", "kappa", "acdc"))))) stop("mode.order must be one of 'bm', 'ou', 'kappa', or 'acdc'")
+if(any(is.na(match(mode.order, c("bm", "ou", "kappa", "acdc"))))) stop("mode.order must be a combination of 'bm', 'ou', 'kappa', and/or 'acdc'")

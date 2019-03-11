@@ -27,6 +27,7 @@
 #' @references Ricklefs RE. 2006. Thomas GH, Meiri S, & Phillimore AB. 2009. Body size diversification in Anolis: novel environments and island effects. Evolution 63, 2017-2030
 #' @author Gavin Thomas, Mark Puttick
 #' @seealso \code{\link{transformPhylo.ML}}, \code{\link{transformPhylo.ll}}, \code{\link{transformPhylo}}, \code{\link{transformPhylo.MCMC}}
+#' @import mvtnorm
 #' @examples
 #' data(anolis.tree)
 #' data(anolis.data)
@@ -53,7 +54,7 @@ transformPhylo.sim <- function(phy, n=1, x=NULL, model=NULL, kappa=NULL, lambda=
 					transformPhy <- phy
 					phyMat <- VCV.array(transformPhy)
 					attr(phyMat, "class") <- "matrix"
-					ydum <- as.matrix(t(rmvnorm(n, sigma = phyMat)))
+					ydum <- as.matrix(t(mvtnorm::rmvnorm(n, sigma = phyMat)))
 					rownames(ydum) <- rownames(phyMat)
 					},
 			
@@ -63,7 +64,7 @@ transformPhylo.sim <- function(phy, n=1, x=NULL, model=NULL, kappa=NULL, lambda=
 					attr(phyMat, "class") <- "matrix"
 					tip.distance <- diag(vcv(transformPhy))
 					trend.mean <- trend.anc.state + (tip.distance * trend)
-					ydum <- as.matrix(t(rmvnorm(n, mean=trend.mean, sigma = phyMat)))
+					ydum <- as.matrix(t(mvtnorm::rmvnorm(n, mean=trend.mean, sigma = phyMat)))
 					rownames(ydum) <- rownames(phyMat)
 					},
 		   
@@ -71,7 +72,7 @@ transformPhylo.sim <- function(phy, n=1, x=NULL, model=NULL, kappa=NULL, lambda=
 					transformPhy <- transformPhylo(phy=phy, model="kappa", kappa=kappa, nodeIDs=nodeIDs)
 					phyMat <- VCV.array(transformPhy)
 					attr(phyMat, "class") <- "matrix"
-					ydum <- as.matrix(t(rmvnorm(n, sigma = phyMat)))
+					ydum <- as.matrix(t(mvtnorm::rmvnorm(n, sigma = phyMat)))
 					rownames(ydum) <- rownames(phyMat)
 					},
 		   
@@ -79,7 +80,7 @@ transformPhylo.sim <- function(phy, n=1, x=NULL, model=NULL, kappa=NULL, lambda=
 					transformPhy <- transformPhylo(phy=phy, model="lambda", lambda=lambda)
 					phyMat <- VCV.array(transformPhy)
 					attr(phyMat, "class") <- "matrix"
-					ydum <- as.matrix(t(rmvnorm(n, sigma = phyMat)))
+					ydum <- as.matrix(t(mvtnorm::rmvnorm(n, sigma = phyMat)))
 					rownames(ydum) <- rownames(phyMat)
 					},
 		   
@@ -87,7 +88,7 @@ transformPhylo.sim <- function(phy, n=1, x=NULL, model=NULL, kappa=NULL, lambda=
 					transformPhy <- transformPhylo(phy=phy, model="delta", delta=delta, nodeIDs=nodeIDs)
 					phyMat <- VCV.array(transformPhy)
 					attr(phyMat, "class") <- "matrix"
-					ydum <- as.matrix(t(rmvnorm(n, sigma = phyMat)))
+					ydum <- as.matrix(t(mvtnorm::rmvnorm(n, sigma = phyMat)))
 					rownames(ydum) <- rownames(phyMat)
 					},
 					
@@ -95,7 +96,7 @@ transformPhylo.sim <- function(phy, n=1, x=NULL, model=NULL, kappa=NULL, lambda=
 					transformPhy <- transformPhylo(phy=phy, model="free", branchRates=branchRates)
 					phyMat <- VCV.array(transformPhy)
 					attr(phyMat, "class") <- "matrix"
-					ydum <- as.matrix(t(rmvnorm(n, sigma = phyMat)))
+					ydum <- as.matrix(t(mvtnorm::rmvnorm(n, sigma = phyMat)))
 					rownames(ydum) <- rownames(phyMat)		
 					},
 		   
@@ -103,7 +104,7 @@ transformPhylo.sim <- function(phy, n=1, x=NULL, model=NULL, kappa=NULL, lambda=
 					transformPhy <- transformPhylo(phy=phy, model="clade", nodeIDs=nodeIDs, cladeRates=cladeRates, rateType=rateType)
 					phyMat <- VCV.array(transformPhy)
 					attr(phyMat, "class") <- "matrix"
-					ydum <- as.matrix(t(rmvnorm(n, sigma = phyMat)))
+					ydum <- as.matrix(t(mvtnorm::rmvnorm(n, sigma = phyMat)))
 					rownames(ydum) <- rownames(phyMat)
 					},
 		   
@@ -113,13 +114,13 @@ transformPhylo.sim <- function(phy, n=1, x=NULL, model=NULL, kappa=NULL, lambda=
       			        cophenetic.dist <- cophenetic.phylo(phy)
       			        vcv.matrix <- VCV.array(vcv.matrix)
       			        phyMat <- transformPhylo(phy=phy, model="OU", alpha=alpha, nodeIDs=nodeIDs, cophenetic.dist=cophenetic.dist, vcv.matrix=vcv.matrix)
-      			        ydum <- as.matrix(t(rmvnorm(n, sigma = phyMat)))
+      			        ydum <- as.matrix(t(mvtnorm::rmvnorm(n, sigma = phyMat)))
       			        rownames(ydum) <- rownames(phyMat)
       			        } else {
       			        transformPhy <- transformPhylo(phy=phy, model="OU", alpha=alpha, nodeIDs=nodeIDs)
 						phyMat <- VCV.array(transformPhy)
 						attr(phyMat, "class") <- "matrix"
-						ydum <- as.matrix(t(rmvnorm(n, sigma = phyMat)))
+						ydum <- as.matrix(t(mvtnorm::rmvnorm(n, sigma = phyMat)))
 						rownames(ydum) <- rownames(phyMat)
 						}
 					},
@@ -127,21 +128,21 @@ transformPhylo.sim <- function(phy, n=1, x=NULL, model=NULL, kappa=NULL, lambda=
 					transformPhy <- transformPhylo(phy=phy, model="ACDC", acdcRate=acdcRate, nodeIDs=nodeIDs, cladeRates=cladeRates)
 					phyMat <- VCV.array(transformPhy)
 					attr(phyMat, "class") <- "matrix"
-					ydum <- as.matrix(t(rmvnorm(n, sigma = phyMat)))
+					ydum <- as.matrix(t(mvtnorm::rmvnorm(n, sigma = phyMat)))
 					rownames(ydum) <- rownames(phyMat)
 					},
 		   "psi" = {
 					transformPhy <- transformPhylo(phy = phy, model = "psi", psi = psi, lambda.sp = lambda.sp)
 					phyMat <- VCV.array(transformPhy)
 					attr(phyMat, "class") <- "matrix"
-					ydum <- as.matrix(t(rmvnorm(n, sigma = phyMat)))
+					ydum <- as.matrix(t(mvtnorm::rmvnorm(n, sigma = phyMat)))
 					rownames(ydum) <- rownames(phyMat)
 					},
 			"multipsi" = {
        				transformPhy <- transformPhylo(phy = phy, model = "multipsi", psi = psi, lambda.sp = lambda.sp, branchLabels = branchLabels)
        				phyMat <- VCV.array(transformPhy)
        				attr(phyMat, "class") <- "matrix"
-        			ydum <- as.matrix(t(rmvnorm(n, sigma = phyMat)))
+        			ydum <- as.matrix(t(mvtnorm::rmvnorm(n, sigma = phyMat)))
         			rownames(ydum) <- rownames(phyMat)
     				},
 					
@@ -150,7 +151,7 @@ transformPhylo.sim <- function(phy, n=1, x=NULL, model=NULL, kappa=NULL, lambda=
 		   		transformPhy <- transformPhylo(phy=phy, model="timeSlice", splitTime=splitTime, timeRates=timeRates)
 		   		phyMat <- VCV.array(transformPhy)
 				attr(phyMat, "class") <- "matrix"
-				ydum <- as.matrix(t(rmvnorm(n, sigma = phyMat)))
+				ydum <- as.matrix(t(mvtnorm::rmvnorm(n, sigma = phyMat)))
 				rownames(ydum) <- rownames(phyMat)
 		   		} ,
 
@@ -161,7 +162,7 @@ transformPhylo.sim <- function(phy, n=1, x=NULL, model=NULL, kappa=NULL, lambda=
 		        V <- transformRateMatrix(rateData, rate = rate)
 		        expect.sd <- sqrt(mean(V[upper.tri(V)]))
 		        if (is.null(group.means)) {
-		            ydum <- as.matrix(t(rmvnorm(n, sigma = (V))))
+		            ydum <- as.matrix(t(mvtnorm::rmvnorm(n, sigma = (V))))
 		            rownames(ydum) <- rownames(V)
 		        } else {
 		            x.means <- unique(rateData$x)

@@ -5,11 +5,12 @@
 \title{Phylogenetic tree transformations}
 \usage{
 transformPhylo(phy, model = NULL, y = NULL, meserr = NULL,
-  sigmaScale = NULL, kappa = NULL, lambda = NULL, delta = NULL,
-  alpha = NULL, psi = NULL, lambda.sp = NULL, nodeIDs = NULL,
-  rateType = NULL, branchRates = NULL, cladeRates = NULL,
-  splitTime = NULL, timeRates = NULL, acdcRate = NULL,
-  branchLabels = NULL, cophenetic.dist = NULL, vcv.matrix = NULL)
+  kappa = NULL, lambda = NULL, delta = NULL, alpha = NULL,
+  psi = NULL, lambda.sp = NULL, nodeIDs = NULL, rateType = NULL,
+  branchRates = NULL, cladeRates = NULL, splitTime = NULL,
+  timeRates = NULL, acdcRate = NULL, branchLabels = NULL,
+  cophenetic.dist = NULL, vcv.matrix = NULL, mode.order = NULL,
+  mode.param = NULL, rate.var = NULL)
 }
 \arguments{
 \item{phy}{An object of class \code{phylo} (see \pkg{ape}).}
@@ -38,7 +39,7 @@ transformPhylo(phy, model = NULL, y = NULL, meserr = NULL,
 
 \item{branchRates}{Numeric vector specifying relative rates for individual branches}
 
-\item{cladeRates}{Numeric vector specifying telative rates for clades.}
+\item{cladeRates}{Numeric vector specifying telative rates for clades or logical to indicate scalar is included in the 'modeslice' model (the scalar is included in the mode.param argument with the 'modeslice' model).}
 
 \item{splitTime}{A split time (measured from the present, or most recent species) at which a shift in the rate occurs for the "timeSlice" model}
 
@@ -51,6 +52,12 @@ transformPhylo(phy, model = NULL, y = NULL, meserr = NULL,
 \item{cophenetic.dist}{a cophenetic distance matrix showing the absolute distance between taxa - only applicable for OU models run on non-ultrmetric trees. If null will be calculated internally, but supplying the data can speed up run time}
 
 \item{vcv.matrix}{a variance-covariance matrix - only applicable for OU models run on non-ultrmetric trees. If null will be calculated internally, but supplying the data can speed up run time}
+
+\item{mode.order}{The order of modes for the 'modeslice' model. Any combination of 'BM', 'OU', 'acdc', and 'kappa'}
+
+\item{mode.param}{Parameters for the modes of evoluton in the 'modeslice' model}
+
+\item{rate.var}{Allows rate variation in BM modes in the 'modeslice' model}
 }
 \value{
 phy  A phylo object with branch lengths scaled according to the given model and parameters
@@ -72,6 +79,7 @@ Transforms the branch lengths of a phylo object according to one of the followin
 \item {model="multiPsi"} {fits a model to assess to the relative contributions of speciation and gradual evolution to a trait's evolutionary rate but allows seperate values of psi fitted to seperate branches (Ingram 2010; Ingram et al. 2016). Note that 'original nodes' from the full phylogeny can be included as an element on the phylogeny (e.g., phy$orig.node) as well as estimates of 'hidden' speciation (e.g., phy$hidden.speciation) if estimates of extinction (mu) are > 0.}
 \item {model="ACDC"} {fits a model to in which rates can exponentially increased or decrease through time (Blomberg et al. 2003). If the upper bound is < 0, the model is equivalent to the 'Early Burst' model of Harmon et al. 2010. If a nodeIDs is supplied, the model will fit a ACDC model nested within a clade, with a BM fit to the rest of the tree.}
 \item {model="timeSlice"} {A model in which all branch rates change at time(s) in the past.}
+\item {model="modeSlice"} {A model in which all branch modes change at a time or times set a priori by the user.}
  }
 }
 \examples{

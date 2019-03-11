@@ -6,8 +6,7 @@
 \usage{
 timeSliceSummary(timeSliceObject, cutoff = 4, AICc = TRUE,
   lowerBound = 1e-08, upperBound = 1000, plot.phylo = TRUE,
-  cex.tip = 1, tip.offset = 1, phylo.width = 1,
-  tip.colour = "grey50", colour.ramp = c("blue", "red"))
+  colour.ramp = c("blue", "red"), cex.plot = 1, ...)
 }
 \arguments{
 \item{timeSliceObject}{Output of a timeSlice analysis in \code{\link{transformPhylo.ML}}}
@@ -22,22 +21,18 @@ timeSliceSummary(timeSliceObject, cutoff = 4, AICc = TRUE,
 
 \item{plot.phylo}{Logical. If \code{TRUE}, the phylogeny is plotted}
 
-\item{cex.tip}{The character size of tip labels}
-
-\item{tip.offset}{the distance tip labels should be printed from pendant edges}
-
-\item{phylo.width}{The width of edges on the phylogeny}
-
-\item{tip.colour}{Colour of species' tip labels}
-
 \item{colour.ramp}{The colours signifying different rates from low (first colour) to high (second colour)}
+
+\item{cex.plot}{Character expansion for the plot of rates through time}
+
+\item{Further}{functions passed to APE \code{plot.phylo}}
 }
 \value{
 ModelFit Summary of the best optimal rate shift model.
 
 Rates Summary of the rate parameters from the best rate shift model.
 
-optimalTree A phylo object with branch lengths scaled relative to rate.
+optimalTree A phylo object with branch lengths scaled relative to rate and a plot of estimated rates through time with their associated CIs.
 }
 \description{
 Summarises phenotypic rate variation on phylogenies through

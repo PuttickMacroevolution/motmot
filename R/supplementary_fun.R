@@ -592,3 +592,29 @@ timeTravelPhy <- function(phy, node, nodeEstimate, timeCut, traits=TRUE){
 	if(traits == TRUE) return(list(phy=apeTree, tipData=tipObject))
 	if(traits == FALSE) return(phy=apeTree)
 }
+
+
+reml.lik <- function(node.state, bm.rate, vcv.phylo, y) {
+	n <- ncol(vcv.phylo)
+	s.b <- (t(y - rep(node.state, n)) %*% (solve(vcv.phylo)) %*% (y - rep(node.state, n)) / bm.rate)[1,1]
+	ll.in <- -0.5 * ((n) * log(2 * pi * bm.rate) + log(det(vcv.phylo)) + s.b)
+	return(ll.in )
+}
+      
+mu.mean <- function(vcv.phy, y.in) {
+	x <- rep(1, ncol(vcv.phy))
+	iV <- solve(vcv.phy)
+	xVix <- crossprod(x, iV %*% x)
+	xViy <- crossprod(x, iV %*% y.in)
+	mu <- solve(xVix) %*% xViy
+	return(mu)
+	}
+
+sig.sq <- function(mu, vcv.phy, y) {
+	n <- ncol(vcv.phy)
+	return((1 / (n - 1)) * (t(y - rep(mu, n)) %*% (solve(vcv.phy)) %*% (y - rep(mu, n))))
+	}
+		
+
+
+

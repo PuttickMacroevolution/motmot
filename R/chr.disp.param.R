@@ -33,7 +33,7 @@ chr.disp.param <- function (phy, n.sim = 100, n.steps=1000, max.sigma = 8, max.a
     atry <- runif(n.sim, 0, max.a)
     if(!all(is.na(allopatry))) allopatry <- as.matrix(allopatry)
 	if(!all(is.na(sympatry))) sympatry <- as.matrix(sympatry)    
-    param.spl <- mclapply(1:n.sim, mc.cores = mc.cores, function(i) {
+    param.spl <- parallel::mclapply(1:n.sim, mc.cores = mc.cores, function(i) {
         d.out <- chr.disp.sim(phy = phy, n.steps=n.steps, a = atry[i], sigma = sig[i], ntraits=ntraits, sympatry=sympatry, allopatry=allopatry, trait.lim=trait.lim)$tval
         stats.sim <- summary_stats(phy = phy, y = as.matrix(d.out), 
             est.blomberg.k = est.blomberg.k)

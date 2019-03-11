@@ -15,11 +15,14 @@
 #' @param timeRates The rates (from ancient to recent) for the timeSlice model
 #' @param rateType If model="clade", a vector specifying if rate shift occurs in a clade ("clade") or on the single branch leading to a clade ("branch").
 #' @param branchRates Numeric vector specifying relative rates for individual branches
-#' @param cladeRates Numeric vector specifying telative rates for clades.
+#' @param cladeRates Numeric vector specifying telative rates for clades or logical to indicate scalar is included in the 'modeslice' model (the scalar is included in the mode.param argument with the 'modeslice' model).
 #' @param branchLabels A vector of length equal to the number of internal branches, signifying the which "multiPsi" class it belongs to
 #' @param meserr A vector (or matrix) of measurement error for each tip. This is only applicable to univariate analyses. Largely untested - please use cautiously
 #' @param cophenetic.dist a cophenetic distance matrix showing the absolute distance between taxa - only applicable for OU models run on non-ultrmetric trees. If null will be calculated internally, but supplying the data can speed up run time
 #' @param vcv.matrix a variance-covariance matrix - only applicable for OU models run on non-ultrmetric trees. If null will be calculated internally, but supplying the data can speed up run time
+#' @param mode.order The order of modes for the 'modeslice' model. Any combination of 'BM', 'OU', 'acdc', and 'kappa'
+#' @param rate.var Allows rate variation in BM modes in the 'modeslice' model
+#' @param mode.param Parameters for the modes of evoluton in the 'modeslice' model
 #' @details Transforms the branch lengths of a phylo object according to one of the following models:
 #' \itemize{
 #'  \item {model="bm"}- Brownian motion (constant rates random walk)
@@ -33,6 +36,7 @@
 #' \item {model="multiPsi"} {fits a model to assess to the relative contributions of speciation and gradual evolution to a trait's evolutionary rate but allows seperate values of psi fitted to seperate branches (Ingram 2010; Ingram et al. 2016). Note that 'original nodes' from the full phylogeny can be included as an element on the phylogeny (e.g., phy$orig.node) as well as estimates of 'hidden' speciation (e.g., phy$hidden.speciation) if estimates of extinction (mu) are > 0.}
 #' \item {model="ACDC"} {fits a model to in which rates can exponentially increased or decrease through time (Blomberg et al. 2003). If the upper bound is < 0, the model is equivalent to the 'Early Burst' model of Harmon et al. 2010. If a nodeIDs is supplied, the model will fit a ACDC model nested within a clade, with a BM fit to the rest of the tree.}
 #' \item {model="timeSlice"} {A model in which all branch rates change at time(s) in the past.}
+#' \item {model="modeSlice"} {A model in which all branch modes change at a time or times set a priori by the user.}
 #'  }
 #' @return phy  A phylo object with branch lengths scaled according to the given model and parameters
 #' @seealso \code{\link{transformPhylo.ML}}, \code{\link{transformPhylo.ll}}, \code{\link{transformPhylo.MCMC}}
@@ -50,7 +54,7 @@
 #' anolis.treeDelta <- transformPhylo(phy=anolis.tree, model="delta", delta=0.5)
 #' @export
 
-transformPhylo <- function (phy, model = NULL, y = NULL, meserr=NULL, sigmaScale=NULL, kappa = NULL, lambda = NULL, delta = NULL, alpha = NULL, psi = NULL, lambda.sp = NULL, nodeIDs = NULL, rateType = NULL, branchRates = NULL, cladeRates = NULL,  splitTime = NULL, timeRates = NULL, acdcRate=NULL,  branchLabels = NULL, cophenetic.dist=NULL, vcv.matrix=NULL) {
+transformPhylo <- function (phy, model = NULL, y = NULL, meserr=NULL, kappa = NULL, lambda = NULL, delta = NULL, alpha = NULL, psi = NULL, lambda.sp = NULL, nodeIDs = NULL, rateType = NULL, branchRates = NULL, cladeRates = NULL,  splitTime = NULL, timeRates = NULL, acdcRate=NULL,  branchLabels = NULL, cophenetic.dist=NULL, vcv.matrix=NULL, mode.order=NULL, mode.param=NULL, rate.var=NULL) {
 
     n <- length(phy$tip.label)
 	
@@ -60,6 +64,8 @@ transformPhylo <- function (phy, model = NULL, y = NULL, meserr=NULL, sigmaScale
             (stop("Measurement error can only be included for univariate models. Set meserr to NULL."))
         }
     }
+    
+    model <- tolower(model)
 		
     switch(model, bm = {
 		   if (is.null(meserr) == FALSE) {
@@ -240,7 +246,7 @@ transformPhylo <- function (phy, model = NULL, y = NULL, meserr=NULL, sigmaScale
             phy$edge.length[externs] <- phy$edge.length[externs] +(meserr^2)/(var(y)/height)[1]
         	}
 		   
-		   }, OU = {
+		   }, ou = {
 		   	
 		   is.contemp <- is.ultrametric(phy)
 		   
@@ -357,7 +363,7 @@ transformPhylo <- function (phy, model = NULL, y = NULL, meserr=NULL, sigmaScale
         }, 
         
         
-        timeSlice = {
+        timeslice = {
 		   if (is.null(meserr) == FALSE) {
 		   height <- nodeTimes(phy)[1,1]
 		   interns <- which(phy$edge[, 2] > n)
@@ -373,7 +379,111 @@ transformPhylo <- function (phy, model = NULL, y = NULL, meserr=NULL, sigmaScale
 		   } ,
 		   
 		   
-		ACDC = {
+		modeslice = {
+		  		   
+		  		   
+		  phy.in <- phy
+		   if(!is.null(splitTime)) {
+				inputSplitTime <- splitTime
+				splitTime <- nodeTimes(phy)[1,1] - sort(splitTime, TRUE)
+				sliceLengths <- motmot:::sliceTree(phy, splitTime)
+				slice.phy <- lapply(1:length(mode.order), function(sx) {
+					phy2 <- phy
+					phy2$edge.length <-  sliceLengths[,sx]
+					phy2
+					}
+				)
+				all.splits <- c(max(nodeTimes(phy)), inputSplitTime)	
+		 	} else {
+		 		slice.phy <- list()
+		 		slice.phy[[1]] <- phy
+		 		all.splits <- max(nodeTimes(phy))	
+		 		
+		 	}
+		 
+		 
+		all.vcvs <- list()
+		count <- 1 	
+		for(x in 1:length(mode.order)) {
+			
+			#bm
+			if(mode.order[x] == "bm") {
+				if(rate.var) {
+					phy2 <- slice.phy[[x]]
+					all.vcvs[[x]] <- vcv(phy2) * mode.param[count]
+					count <- count + 1
+				} else {
+					phy2 <- slice.phy[[x]]
+					all.vcvs[[x]] <- vcv(phy2)
+				}
+				
+			}
+			
+			# OU 
+			if(mode.order[x] == "ou") {
+				alpha <- mode.param[count]
+				phy2 <- slice.phy[[x]]
+				t_ij <- cophenetic(phy2)
+				c_ij <- vcv(phy2)
+				all.vcvs[[x]] <- (1 / (2 * alpha)) * exp(-alpha * t_ij) * (1 - exp(-2 * alpha * c_ij))							
+				count <- count + 1
+			}
+			
+			
+
+			
+			if(mode.order[x] == "kappa") {
+				kappa <- mode.param[count]
+				phy2 <- slice.phy[[x]]
+				phy2$edge.length <- phy2$edge.length ^ kappa
+				all.vcvs[[x]] <- vcv(phy2) 
+				count <- count + 1
+			}
+			
+			if(mode.order[x] == "acdc") {
+				phy2 <- slice.phy[[x]]
+				if(isTRUE(cladeRates)) {
+					phy2$edge.length <- phy2$edge.length * mode.param[count]
+					count <- count + 1
+					}
+				acdcRate <- mode.param[count]
+				originTime <-  all.splits[x]
+				if(is.null(originTime)) originTime <- nodeTimes(phy)[1,1]
+				edges <- phy2$edge.length
+				if(!is.null(splitTime)) {
+					times <- sliceLengths[,x]
+				} else {
+					times <- nodeTimes(phy)[,1]
+					}
+				
+				edgeACDC <- sapply(1:length(edges), function(i) {
+					bl <- edges[i]
+					age <- times[i]
+					t1 <- originTime - age
+					t2 <- t1 + bl
+					(exp(acdcRate * t2) - exp(acdcRate * t1)) / (acdcRate)
+					}
+				)
+				phy2$edge.length <- edgeACDC
+				all.vcvs[[x]] <- vcv(phy2)
+				count <- count + 1
+				}
+			}
+
+
+		
+			
+		phy <- all.vcvs[[1]]
+		if(length(all.vcvs) > 1) for(u in 2:length(all.vcvs)) phy <- phy + all.vcvs[[u]]
+		
+		if (is.null(meserr) == FALSE) {
+			height <- nodeTimes(phy.in)[1,1]
+		   	diag(phy) <- diag(phy) + (meserr ^2 )/(var(y) / height)[1]
+		   	}
+		   } ,
+		   
+		   
+		acdc = {
 		   	
 			if(is.null(nodeIDs)) node <- Ntip(phy) + 1 else node <- nodeIDs
 			times <- nodeTimes(phy)[,1]
