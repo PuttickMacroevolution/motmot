@@ -39,7 +39,7 @@ chr.disp.lrt <- function(emp.tree, emp.data, param.out, posteriorSize=500) {
 	
 
     # Get summary stats for the true data, and distance to sims
-    tstat <- summary_stats(phy=emp.tree, est.blomberg.k=est.blomberg.k, y=emp.data)
+    tstat <- motmot:::summary_stats(phy=emp.tree, est.blomberg.k=est.blomberg.k, y=emp.data)
     diff <- colSums(abs(t(sstat)[-3,] - unlist(tstat[-3])) ^ 2)
 
     # Get simulations from nth closest to closest 
@@ -50,8 +50,8 @@ chr.disp.lrt <- function(emp.tree, emp.data, param.out, posteriorSize=500) {
     h.1_post[,1] <- u.sig
     h.1_post[,2] <- u.atry
 
-    k.out <- kde(h.1_post, xmin=c(0, 0), xmax=c(max.sigma, max.a))
-    k.0.out <- kde(h.1_post, xmin=c(0, 0), xmax=c(max.sigma, 0))
+    k.out <- kde(h.1_post, xmin=c(0, 0), xmax=c(max.sigma, max.a), binned=FALSE)
+    k.0.out <- kde(h.1_post, xmin=c(0, 0), xmax=c(max.sigma, 0), binned=FALSE)
 
     # Use kernel smoothing to estimate likelihood maxima with and without competition.
     k.max.index <- which(k.out$estimate == max(k.out$estimate), arr.ind = TRUE)
@@ -62,13 +62,13 @@ chr.disp.lrt <- function(emp.tree, emp.data, param.out, posteriorSize=500) {
     h.0.lik <- k.0.out$estimate[k.0.max.index[1], k.0.max.index[2]]
     h.0.est <- c(unlist(k.0.out$eval.points)[k.0.max.index[1]], unlist(k.0.out$eval.points)[length(k.0.out$estimate[,1]) + k.0.max.index[2]])
     
-    likelihood.ratio.test <- -2 * log( h.0.lik / h.1.lik )
+    likelihood.ratio.test <- -2 * log(h.0.lik / h.1.lik )
     p.value <- pchisq(likelihood.ratio.test, 1)
    
     output <- list()
     output$estimates <- data.frame(h.0.est, h.1.est)
     rownames(output$estimates) <- c("sigma", "a")
-    output$likelihood <- data.frame(h.0.lik, h.1.lik, likelihood.ratio.test, p.value)
+    output$likelihood <- data.frame(log(h.0.lik), log(h.1.lik), likelihood.ratio.test, p.value)
 	if(est.blomberg.k) output$blomberg.k <- c("empirical.blomberg.k"=unlist(tstat[3]), "simulated.mean.blomberg.k"=mean(param.out[[1]][,4]))
 	return(output)
 	

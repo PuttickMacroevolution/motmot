@@ -5,12 +5,12 @@
 \title{Phylogenetic tree transformations}
 \usage{
 transformPhylo.sim(phy, n = 1, x = NULL, model = NULL,
-  kappa = NULL, lambda = NULL, delta = NULL, alpha = NULL,
-  psi = NULL, acdcRate = NULL, lambda.sp = NULL, trend = NULL,
-  trend.anc.state = 0, nodeIDs = NULL, rateType = NULL,
-  cladeRates = NULL, branchRates = NULL, rate = NULL,
-  group.means = NULL, splitTime = NULL, timeRates = NULL,
-  branchLabels = NULL)
+  returnNodes = FALSE, kappa = NULL, lambda = NULL, delta = NULL,
+  alpha = NULL, psi = NULL, acdcRate = NULL, lambda.sp = NULL,
+  trend = NULL, trend.anc.state = 0, nodeIDs = NULL,
+  rateType = NULL, cladeRates = NULL, branchRates = NULL,
+  rate = NULL, group.means = NULL, splitTime = NULL,
+  timeRates = NULL, branchLabels = NULL)
 }
 \arguments{
 \item{phy}{An object of class \code{phylo} (see \pkg{ape}).}
@@ -20,6 +20,8 @@ transformPhylo.sim(phy, n = 1, x = NULL, model = NULL,
 \item{x}{Vector, matrix or data.frame (with taxon names as names or rownames) of categories for each species. Only applicable if model="mixedRate"}
 
 \item{model}{The model of trait evolution (see details).}
+
+\item{returnNodes}{Logical. If TRUE, alongside the tip values all node values are returned corresponding to APE's edge.matrix for the tree.}
 
 \item{kappa}{Value of kappa transform.}
 
@@ -56,12 +58,20 @@ transformPhylo.sim(phy, n = 1, x = NULL, model = NULL,
 \item{timeRates}{The rates (from ancient to recent) for the timeSlice model}
 
 \item{branchLabels}{Branches on which different psi parameters are estimated in the "multipsi" model.}
+
+\item{mode.order}{The order of modes for the 'modeslice' model. Any combination of 'BM', 'OU', 'acdc', and 'kappa'}
+
+\item{cladeRates}{Numeric vector specifying telative rates for clades or logical to indicate scalar is included in the 'modeslice' model (the scalar is included in the mode.param argument with the 'modeslice' model).}
+
+\item{acdcScalar}{Logical.For nested EB rate model, simultaneously estimated a rate scalar alongside EB model. Default=FALSE. Only applicable to 'nested mode' and 'modeSlice' models.}
+
+\item{rate.var}{Allows rate variation in BM modes in the 'modeslice' model}
 }
 \value{
 Returns a matrix of simulated dated with taxon names as rownames (number of columns=n).
 }
 \description{
-Transforms the branch lengths of a phylo object according to a model of trait evolution (see details).
+Simulates trait data on a tree using a specified model of evolution (see details).
 }
 \examples{
 data(anolis.tree)

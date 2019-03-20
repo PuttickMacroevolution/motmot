@@ -148,9 +148,13 @@ timeSliceSummary <- function(timeSliceObject, cutoff=4, AICc=TRUE, lowerBound=1e
 		par(new=TRUE)
 		par(oma=c(5,5,5,5))
 		plot(times.x, c(relative.rates, tail(relative.rates, 1)), type="s", ylim=c(0, max.y), xlim=c(start.time, 0), las=1, xaxs="i", yaxs="i", mgp=c(0, 0.7, 0), cex.axis=cex.plot, ylab="", xlab="")
-		for(x in 1:3) polygon(c(times.x[x], times.x[x + 1], times.x[x + 1], times.x[x]), c(relative.LCI[x], relative.LCI[x], relative.UCI[x], relative.UCI[x]), border=FALSE, col=col.in[x])
+		nn <- (length(times.x) - 1)
+		for(x in 1:nn) polygon(c(times.x[x], times.x[x + 1], times.x[x + 1], times.x[x]), c(relative.LCI[x], relative.LCI[x], relative.UCI[x], relative.UCI[x]), border=FALSE, col=col.in[x])
 		mtext("relative rates", 2, line=2, cex=cex.plot)
 		mtext("time (Ma)", 1, line=2, cex=cex.plot)
+		names.leg <- c()
+		for(kk in 1:nn) names.leg <- c(names.leg, paste0("rate ", kk, ": ", signif(relative.rates[kk], 3), "x (", signif(times.x[kk], 3), "-", signif(times.x[kk+1], 3), " Ma)"))
+		legend("topleft", legend=names.leg, col=col.in, pch=15)
 	}
 	output <- list()
 	output$ModelFit <- model.best

@@ -42,7 +42,7 @@ transformPhylo.ML(y, phy, model = NULL, modelCIs = TRUE,
 
 \item{lambdaEst}{Logical.Estimate lambda alongside parameter estimates to reduce data noise. Only applicable for models "kappa", "delta", "OU", "psi", "multispi", and "ACDC". Default=FALSE.}
 
-\item{acdcScalar}{Logical.For nested EB rate model, simultaneously estimated a rate scalar alongside EB model. Default=FALSE.}
+\item{acdcScalar}{Logical.For nested EB rate model, simultaneously estimated a rate scalar alongside EB model. Default=FALSE. Only applicable to 'nested mode' and 'modeSlice' models.}
 
 \item{branchLabels}{Branches on which different psi parameters are estimated in the "multipsi" model}
 
@@ -85,7 +85,7 @@ traitMedusaObject A list in which the first element contains a matrix summarisin
 Fits likelihood models for various models of continuous character evolution. Model fitting is based on maximum-likelihood evaluation using phylogenetically independent contrasts. This is exactly equivalent to, but substantially faster than, GLS approaches.
 }
 \details{
-This function finds the maximum likelihood parameter values for continuous character evolution. For "kappa", "delta", "OU", "multipsi", and "ACDC" it is possible to fit a 'nested' model of evolution in which the ancestral rate of BM swicthes to a different node, as specified by nodeIDs or branchLabels for multipsi. The function returns the maximum-likelihood parameter estimates for the following models.
+This function finds the maximum likelihood parameter values for continuous character evolution. For "kappa", "delta", "OU", "multipsi", and "ACDC" it is possible to fit a 'nested' model of evolution in which the ancestral rate of BM switches to a different node, as specified by nodeIDs or branchLabels for multipsi. The function returns the maximum-likelihood parameter estimates for the following models.
 \itemize{
 \item {model="bm"} {Brownian motion (constant rates random walk).}
 \item {model="kappa"} {fits Pagel's kappa by raising all branch lengths to the power kappa. As kappa approaches zero, trait change becomes focused at branching events. For complete phylogenies, if kappa approaches zero this infers speciational trait change. Default bounds from ~0 - 1.}

@@ -13,7 +13,7 @@
 #' @param testAge If splitTime=NULL, the interval between ages to be tested. For example, if testAge=1, all 1 Ma ages between the ages defined by 'boundaryAge' will be tested.
 #' @param restrictNode List defining monophyletic groups within which no further rate shifts are searched.
 #' @param lambdaEst Logical.Estimate lambda alongside parameter estimates to reduce data noise. Only applicable for models "kappa", "delta", "OU", "psi", "multispi", and "ACDC". Default=FALSE.
-#' @param acdcScalar Logical.For nested EB rate model, simultaneously estimated a rate scalar alongside EB model. Default=FALSE.
+#' @param acdcScalar Logical.For nested EB rate model, simultaneously estimated a rate scalar alongside EB model. Default=FALSE. Only applicable to 'nested mode' and 'modeSlice' models. 
 #' @param branchLabels Branches on which different psi parameters are estimated in the "multipsi" model
 #' @param hiddenSpeciation Logical. If TRUE the psi model will include nodes that are on the 'full.phy' but not the tree pruned of trait data
 #' @param full.phy The full phylogeny containing the species that do not contain trait data so are not included in 'phy'
@@ -30,7 +30,7 @@
 #' @param print.warnings Logical. If TRUE, warnings are issued if confidence intervals fall outside upper or lower bounds
 #' @param mode.order The order of modes for the 'modeslice' model. Any combination of 'BM', 'OU', 'acdc', and 'kappa'
 #' @param rate.var Allows rate variation in BM modes in the 'modeslice model'
-#' @details This function finds the maximum likelihood parameter values for continuous character evolution. For "kappa", "delta", "OU", "multipsi", and "ACDC" it is possible to fit a 'nested' model of evolution in which the ancestral rate of BM swicthes to a different node, as specified by nodeIDs or branchLabels for multipsi. The function returns the maximum-likelihood parameter estimates for the following models.
+#' @details This function finds the maximum likelihood parameter values for continuous character evolution. For "kappa", "delta", "OU", "multipsi", and "ACDC" it is possible to fit a 'nested' model of evolution in which the ancestral rate of BM switches to a different node, as specified by nodeIDs or branchLabels for multipsi. The function returns the maximum-likelihood parameter estimates for the following models.
 #' \itemize{
 #' \item {model="bm"} {Brownian motion (constant rates random walk).}
 #' \item {model="kappa"} {fits Pagel's kappa by raising all branch lengths to the power kappa. As kappa approaches zero, trait change becomes focused at branching events. For complete phylogenies, if kappa approaches zero this infers speciational trait change. Default bounds from ~0 - 1.}
@@ -1460,7 +1460,7 @@ transformPhylo.ML <- function(y, phy, model=NULL, modelCIs=TRUE, nodeIDs=NULL, r
 				aic <- aic.fun(log.lik, param)
 				aicc <- aicc.fun(log.lik, param, Ntip(phy))
 				
-				output.mat[q + 1, 1:to.here] <- c(log.lik, aic, aicc, as.numeric(diag(bm.model[[1]])), anc.state)
+				output.mat[q + 1, 1:to.here] <- c(log.lik, aic, aicc, bVar, anc.state)
 				output.mat[q + 1, (to.here + 1):(to.here +length(rates))] <- rates
 				start.time <- tail(1:dim(output.mat)[2], nSplits)[1:q]
 				output.mat[q + 1, start.time] <- sort(fixed.time)
