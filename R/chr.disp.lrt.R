@@ -7,6 +7,7 @@
 #' @return List containing element of 'estimates' with the estimates of sigma and a, with the Brownian motion (a = 0) summarised in column one and the character displacement (a > 0) in column two. 'likelihood' contains the likelihood of the Brownian motion model and the character displacement model, and the likelihood ratio test estimate. If used, there is an estimate of Blomberg's K for the empirical and simulated data.
 #' @useDynLib motmot
 #' @importFrom Rcpp sourceCpp
+#' @import ks
 #' @seealso \code{\link{chr.disp.sim}}, \code{\link{chr.disp.param}}
 #' @references Clarke M, Thomas GH, Freckleton RP. 2017. Trait evolution in adaptive radiations: modelling and measuring interspecific competition on phylogenies. The American Naturalist. 189, 121-137.
 #' @author Magnus Clarke and Mark Puttick
@@ -39,7 +40,7 @@ chr.disp.lrt <- function(emp.tree, emp.data, param.out, posteriorSize=500) {
 	
 
     # Get summary stats for the true data, and distance to sims
-    tstat <- motmot:::summary_stats(phy=emp.tree, est.blomberg.k=est.blomberg.k, y=emp.data)
+    tstat <- summary_stats(phy=emp.tree, est.blomberg.k=est.blomberg.k, y=emp.data)
     diff <- colSums(abs(t(sstat)[-3,] - unlist(tstat[-3])) ^ 2)
 
     # Get simulations from nth closest to closest 
@@ -50,8 +51,8 @@ chr.disp.lrt <- function(emp.tree, emp.data, param.out, posteriorSize=500) {
     h.1_post[,1] <- u.sig
     h.1_post[,2] <- u.atry
 
-    k.out <- kde(h.1_post, xmin=c(0, 0), xmax=c(max.sigma, max.a), binned=FALSE)
-    k.0.out <- kde(h.1_post, xmin=c(0, 0), xmax=c(max.sigma, 0), binned=FALSE)
+    k.out <- ks::kde(h.1_post, xmin=c(0, 0), xmax=c(max.sigma, max.a), binned=FALSE)
+    k.0.out <- ks::kde(h.1_post, xmin=c(0, 0), xmax=c(max.sigma, 0), binned=FALSE)
 
     # Use kernel smoothing to estimate likelihood maxima with and without competition.
     k.max.index <- which(k.out$estimate == max(k.out$estimate), arr.ind = TRUE)
@@ -68,6 +69,7 @@ chr.disp.lrt <- function(emp.tree, emp.data, param.out, posteriorSize=500) {
     output <- list()
     output$estimates <- data.frame(h.0.est, h.1.est)
     rownames(output$estimates) <- c("sigma", "a")
+    colnames(output$estimates) <- c("Brownian motion", "Character displacement model")
     output$likelihood <- data.frame(log(h.0.lik), log(h.1.lik), likelihood.ratio.test, p.value)
 	if(est.blomberg.k) output$blomberg.k <- c("empirical.blomberg.k"=unlist(tstat[3]), "simulated.mean.blomberg.k"=mean(param.out[[1]][,4]))
 	return(output)

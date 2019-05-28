@@ -17,6 +17,7 @@
 #' ## Convert data to class rateMatrix
 #' anolis.rateMatrix <- as.rateMatrix(phy=anolis.tree, x="geo_ecomorph", data=anolis.data)
 #' @export
+#' @import caper
 
 as.rateMatrix <- function(phy, x, data) {
 	
@@ -28,28 +29,21 @@ as.rateMatrix <- function(phy, x, data) {
 		
 		dropnms <- rownames(data)[idxphy]
 		phy <- drop.tip(phy, tip=dropnms) 
-		
-		
 		mch.miss <- match(rownames(data), dropnms)
 		keep.idx.miss <- is.na(mch.miss)
-
 		data <- data[keep.idx.miss,]	
 		
 		cat("Dropped species from data and tree due to missing data: ", dropnms, "\n")
 		}
-
 	
 		# Check that names in taxa and tree match using geiger name.check function
 		nmch <- name.check(phy, data)
-	
 		if(nmch[1]!="OK") {cat("Dropping species due to mismatch between tree and data:", "\n")
 		
 			phy <- drop.tip(phy, nmch[[1]])
-			
 			mch <- match(rownames(data), nmch[[2]])
 			keep.idx <- is.na(mch)
 			data <- data[keep.idx, ]
-			
 			cat("Dropped tips from tree: ", nmch[[1]], "\n")
 			cat("Dropped rows from data: ", nmch[[2]], "\n")
 		}
@@ -60,11 +54,9 @@ as.rateMatrix <- function(phy, x, data) {
 			cat("\n")
 			cat("Tree has no node labels. Reconstructing using discrete equal rates model with ace.", "\n")
 			cat("You are strongly advised to consider whether this model is suitable for your data.", "\n")
-
 			xanc <- data[,x]
 			names(xanc) <- rownames(data)
 			anc <- ace(xanc, phy, type="discrete", CI=TRUE) 
-		
             foo.anc <- function(x) {
                 out <- which(x == max(x))
                 if (length(out)>1) {out <- sample(out, 1)}
@@ -72,10 +64,8 @@ as.rateMatrix <- function(phy, x, data) {
             }
             ml_anc <- apply(anc$lik.anc, 1, foo.anc)
 			ml_anc <- colnames(anc$lik.anc)[ml_anc]
-			
 			phy$node.label <- ml_anc
 			}
-			
 	
 		# alphabetise tip labels with index return
 		speciesPhylo <- sort(phy$tip.label, index.return=TRUE)
@@ -95,13 +85,10 @@ as.rateMatrix <- function(phy, x, data) {
 		ancState <- data.frame(node = c((length(phy$tip.label)+2):max(phy$edge)), ancState = as.numeric(phy$node.label[c(2:length(phy$node.label))]))
 
 		# Put together node and tip indices and ancestral states then reorder
-		
 		takeCol <- which(regexpr("tipState", colnames(speState)) != -1)[1]
-		
 		state<- data.frame(edge.index = c(ancState$node, speState$tip.index), state = c(ancState$ancState, speState[,takeCol]))
 		state <- state[sort(state$edge.index, index.return = TRUE)$ix, ]
 	
-		
 		# Put tree edge in node order and then put it all together and order according to the tree edge index
         phyEdge <- sort(phy$edge[,2], index.return = TRUE)
         phyEdgeState <- data.frame(state, phyEdge = phyEdge$x, phyEdgeix = phyEdge$ix)
@@ -122,7 +109,7 @@ as.rateMatrix <- function(phy, x, data) {
 				state.edge <- x.anc * phy$edge.length
 				state.phy <- list(edge=phy$edge, edge.length=state.edge, Nnode=phy$Nnode, tip.label=phy$tip.label)
 				class(state.phy) <- "phylo"
-			state.matrix <- VCV.array(state.phy)
+			state.matrix <- caper::VCV.array(state.phy)
 			class(state.matrix) <- "matrix"
 			rateMatrix[[i]] <- state.matrix
 		}		

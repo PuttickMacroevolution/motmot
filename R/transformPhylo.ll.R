@@ -17,13 +17,15 @@
 #' @param timeRates The rates (from ancient to recent) for the timeSlice model
 #' @param splitTime A split time (measured from the present, or most recent species) at which a shift in the rate occurs for the "timeSlice" model
 #' @param acdcRate Value of ACDC transform
-#' @param cladeRates Numeric vector specifying telative rates for clades or logical to indicate scalar is included in the 'modeslice' model (the scalar is included in the mode.param argument with the 'modeslice' model).
+#' @param cladeRates Numeric vector specifying relative rates for clades or logical to indicate scalar is included in the 'modeslice' model (the scalar value is included in the mode.param argument with the 'modeslice' model).
 #' @param covPIC Logical. For multivariate analyses, allow for co-variance between traits rates (TRUE) or no covariance in trait rates (FALSE). If FALSE, only the trait variances not co-variances are used.
 #' @param cophenetic.dist a cophenetic distance matrix showing the absolute distance between taxa - only applicable for OU models run on non-ultrmetric trees. If null will be calculated internally, but supplying the data can speed up run time
 #' @param vcv.matrix a variance-covariance matrix - only applicable for OU models run on non-ultrmetric trees. If null will be calculated internally, but supplying the data can speed up run time
 #' @param mode.order The order of modes for the 'modeslice' model. Any combination of 'BM', 'OU', 'acdc', and 'kappa'
 #' @param rate.var Allows rate variation in BM modes in the 'modeslice' model
 #' @param mode.param Parameters for the modes of evoluton in the 'modeslice' model
+#' @param mu Phylogenetic mean estimate, Mainly for internal use when using the variance-covariance method to calculate likelihood for non-ultrametric trees with the OU model
+#' @param sigma.sq Brownian variance estimate, mainly for internal use when using the variance-covariance method to calculate likelihood for non-ultrametric trees with the OU model
 #' @details This function fits likelihood models (see below) for continuous character evolution where the parameter values are set a priori. The function returns the log-likihood and the Brownian variance (or variance covariance matrix).
 #' \itemize{
 #' \item {model="bm"} {Brownian motion (constant rates random walk).}
@@ -86,6 +88,7 @@
 #' transformPhylo.ll(traits, phy=tree, model="OU", alpha=2)
 #'
 #' @export
+#' @import mvtnorm
 
 transformPhylo.ll <- function(y=NULL, phy, model=NULL, meserr=NULL, kappa=NULL, lambda=NULL, delta=NULL, alpha=NULL, psi=NULL, lambda.sp = NULL, nodeIDs=NULL, rateType=NULL, branchRates=NULL, cladeRates=NULL, timeRates=NULL, splitTime=NULL, branchLabels = NULL, acdcRate=NULL,  covPIC = TRUE, cophenetic.dist=NULL, vcv.matrix=NULL, mode.order=NULL, mode.param=NULL, rate.var=NULL, mu=NULL, sigma.sq=NULL) {
 	
@@ -151,7 +154,7 @@ transformPhylo.ll <- function(y=NULL, phy, model=NULL, meserr=NULL, kappa=NULL, 
 		  }
 		 )
 	
-		if(is (transformPhy)[1] == "phylo") {
+		if(methods::is(transformPhy)[1] == "phylo") {
 			return(likTraitPhylo(y=y, phy=transformPhy, covPIC = covPIC))
 		} else {
 			transformPhy <- transformPhy * sigma.sq
@@ -160,6 +163,6 @@ transformPhylo.ll <- function(y=NULL, phy, model=NULL, meserr=NULL, kappa=NULL, 
 			} else {
 				mean.est <- mu
 			}
-	   		return(dmvnorm(y[,1], mean=mean.est, sigma=transformPhy, log=TRUE))	
+	   		return(mvtnorm::dmvnorm(y[,1], mean=mean.est, sigma=transformPhy, log=TRUE))	
 			}
 		}

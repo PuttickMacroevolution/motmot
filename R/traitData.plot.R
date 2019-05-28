@@ -6,7 +6,6 @@
 #' @param col.tree colour for the edge labels on the tree
 #' @param include.hist Logical. Include a histrogram alongside the plot of the tree?
 #' @param col.hist colour of the histogram
-#' @param ... arguments for the axis function used in the histogram
 #' @param cex.plot Numeric. The size of labels for the histogram axis labels
 #' @param show.tips Logical. If FALSE (default), no tip labels are shown. If TRUE, tip labels are shown
 #' @param cex.tips Numeric. The size of the phylogeny tip labels

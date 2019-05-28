@@ -36,8 +36,6 @@ traitData.plot(y, phy, col.label = "red", col.tree = "black",
 
 \item{transform.axis.label}{If the data are provided as logarithms the labels for trait axis can be transformed to their original values by calculating the exponential function of the natural (transform.axis.label="exp") or base 10 logarithm. The default (NULL) leaves the labels un-transformed.}
 
-\item{...}{arguments for the axis function used in the histogram}
-
 \item{...}{further arguments passed to the axis function}
 }
 \value{

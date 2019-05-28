@@ -40,7 +40,7 @@ transformPhylo.ll(y = NULL, phy, model = NULL, meserr = NULL,
 
 \item{branchRates}{Numeric vector specifying relative rates for individual branches}
 
-\item{cladeRates}{Numeric vector specifying telative rates for clades or logical to indicate scalar is included in the 'modeslice' model (the scalar is included in the mode.param argument with the 'modeslice' model).}
+\item{cladeRates}{Numeric vector specifying relative rates for clades or logical to indicate scalar is included in the 'modeslice' model (the scalar value is included in the mode.param argument with the 'modeslice' model).}
 
 \item{timeRates}{The rates (from ancient to recent) for the timeSlice model}
 
@@ -61,6 +61,10 @@ transformPhylo.ll(y = NULL, phy, model = NULL, meserr = NULL,
 \item{mode.param}{Parameters for the modes of evoluton in the 'modeslice' model}
 
 \item{rate.var}{Allows rate variation in BM modes in the 'modeslice' model}
+
+\item{mu}{Phylogenetic mean estimate, Mainly for internal use when using the variance-covariance method to calculate likelihood for non-ultrametric trees with the OU model}
+
+\item{sigma.sq}{Brownian variance estimate, mainly for internal use when using the variance-covariance method to calculate likelihood for non-ultrametric trees with the OU model}
 }
 \value{
 brownianVariance Brownian variance (or covariance for multiple traits) given the data and phylogeny

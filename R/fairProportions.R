@@ -14,13 +14,12 @@
 #' fp <- fairProportions(anolis.tree)
 #' fpNodes <- fairProportions(anolis.tree, nodeCount=TRUE)
 #' @export
+#' @import caper
 
 fairProportions <- function (phy, nodeCount=FALSE) {
 	
-	treeMatrix <- clade.matrix(phy)
-	
+	treeMatrix <- caper::clade.matrix(phy)
 	fpEdgeVals <- treeMatrix$edge.length / apply(treeMatrix$clade.matrix, 1, sum) 
-		
 	fpTips <- as.matrix(apply(fpEdgeVals * treeMatrix$clade.matrix, 2, sum))
 
 	if (nodeCount == TRUE) {	

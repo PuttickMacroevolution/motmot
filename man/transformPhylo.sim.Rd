@@ -10,7 +10,8 @@ transformPhylo.sim(phy, n = 1, x = NULL, model = NULL,
   trend = NULL, trend.anc.state = 0, nodeIDs = NULL,
   rateType = NULL, cladeRates = NULL, branchRates = NULL,
   rate = NULL, group.means = NULL, splitTime = NULL,
-  timeRates = NULL, branchLabels = NULL)
+  timeRates = NULL, branchLabels = NULL, rate.var = NULL,
+  mode.order = NULL)
 }
 \arguments{
 \item{phy}{An object of class \code{phylo} (see \pkg{ape}).}
@@ -45,7 +46,7 @@ transformPhylo.sim(phy, n = 1, x = NULL, model = NULL,
 
 \item{rateType}{If model="clade", a vector specifying if rate shift occurs in a clade ("clade") or on the single branch leading to a clade ("branch").}
 
-\item{cladeRates}{Numeric vector specifying telative rates for clades.}
+\item{cladeRates}{Numeric vector specifying telative rates for clades or logical to indicate scalar is included in the 'modeslice' model (the scalar is included in the mode.param argument with the 'modeslice' model).}
 
 \item{branchRates}{Numeric vector specifying relative rates for individual branches}
 
@@ -59,13 +60,9 @@ transformPhylo.sim(phy, n = 1, x = NULL, model = NULL,
 
 \item{branchLabels}{Branches on which different psi parameters are estimated in the "multipsi" model.}
 
-\item{mode.order}{The order of modes for the 'modeslice' model. Any combination of 'BM', 'OU', 'acdc', and 'kappa'}
-
-\item{cladeRates}{Numeric vector specifying telative rates for clades or logical to indicate scalar is included in the 'modeslice' model (the scalar is included in the mode.param argument with the 'modeslice' model).}
-
-\item{acdcScalar}{Logical.For nested EB rate model, simultaneously estimated a rate scalar alongside EB model. Default=FALSE. Only applicable to 'nested mode' and 'modeSlice' models.}
-
 \item{rate.var}{Allows rate variation in BM modes in the 'modeslice' model}
+
+\item{mode.order}{The order of modes for the 'modeslice' model. Any combination of 'BM', 'OU', 'acdc', and 'kappa'}
 }
 \value{
 Returns a matrix of simulated dated with taxon names as rownames (number of columns=n).

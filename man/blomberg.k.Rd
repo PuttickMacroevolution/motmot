@@ -19,19 +19,6 @@ The estimate of the K statistic
 Blomberg's K
 Estimate Blomberg's K (Blomberg et al. 2003)
 }
-\examples{
-# Data and phylogeny
-data(anolis.tree)
-data(anolis.data)
-sortedData <- sortTraitData(anolis.tree, anolis.data,
-data.name="Male_SVL", log.trait=TRUE)
-phy <- sortedData$phy
-male.length <- sortedData$trait
-phy.clade <- extract.clade(phy, 182)
-male.length.clade <- as.matrix(male.length[match(phy.clade$tip.label, rownames(male.length)),])
-# Blomberg's K
-blomberg.k(phy=phy.clade, male.length.clade)
-}
 \references{
 Blomberg SP, Garland T, & Ives AR. 2003. Testing for phylogenetic signal in comparative data: behavioral traits are more labile. Evolution 57, 717-745.
 }

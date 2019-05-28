@@ -67,7 +67,6 @@
 #' @references Pagel M. 1999 Inferring the historical patterns of biological evolution. Nature 401, 877-884.
 #' @references Thomas GH, Meiri S, & Phillimore AB. 2009. Body size diversification in Anolis: novel environments and island effects. Evolution 63, 2017-2030.
 #' @author Gavin Thomas, Mark Puttick
-#' @import MASS
 #' @import stats
 #' @import coda
 #' @import ape
@@ -77,6 +76,7 @@
 #' @import graphics
 #' @import mvtnorm
 #' @import ks
+#' @import methods
 #' @useDynLib motmot, .registration=TRUE
 #' @importFrom Rcpp sourceCpp
 #' @examples
@@ -400,7 +400,7 @@ transformPhylo.ML <- function(y, phy, model=NULL, modelCIs=TRUE, nodeIDs=NULL, r
 			bm.loc <- 2
 			alpha[c(bm.loc, anc.loc)] <- log(c(0.1, 0.1))
 			lowerBound[c(bm.loc, anc.loc)] <- log(c(1e-8, NA))
-			upperBound[c(bm.loc, anc.loc)] <- c(NA,NA)
+			upperBound[c(bm.loc, anc.loc)] <- c(log(10), NA)
 			}
 		
 		if(is.ultrametric(phy)) {
@@ -414,15 +414,28 @@ transformPhylo.ML <- function(y, phy, model=NULL, modelCIs=TRUE, nodeIDs=NULL, r
 			lambdaPhy <- transformPhylo(y=y, phy=phy, lambda=lambda, model="lambda")
 			return(transformPhylo.ll(y=y, phy=lambdaPhy, alpha=alpha.int, nodeIDs=nodeIDs, model="OU", meserr=meserr, covPIC=covPIC)[[2]])
 				}
+			vo <- optim(as.numeric(alpha), var.funOU, method="L-BFGS-B", lower=as.numeric(lowerBound), upper=as.numeric(upperBound), control=controlList)
 		} else {
 			var.funOU <- function(param) {
 			vcv.phy <- vcv(phy)
 			co.phy <- cophenetic(phy)
 			return(transformPhylo.ll(y=y, phy=phy, model="OU", alpha=exp(param[1]), meserr=meserr, mu=exp(param[anc.loc]), sigma.sq=exp(param[bm.loc]), covPIC=covPIC, vcv.matrix=vcv.phy, cophenetic.dist=co.phy))
 			}
+		start <- 200
+		count <- 0
+		no.solution <- TRUE
+		while(no.solution) {
+			vo <- try(optim(as.numeric(alpha), var.funOU, method="L-BFGS-B", lower=as.numeric(lowerBound), upper=as.numeric(upperBound), control=controlList), silent=TRUE)
+			if(is(vo)[1] != "try-error") {
+				no.solution <- FALSE
+			} else {
+				start <- start - count
+				upperBound[c(bm.loc, anc.loc)] <- c(log(start), log(start))
+				count <- count + 10
+				}
+			}
 		}
 		 
-		vo <- optim(as.numeric(alpha), var.funOU, method="L-BFGS-B", lower=as.numeric(lowerBound), upper=as.numeric(upperBound), control=controlList)
 		if (lambdaEst) {
 			lambda <- vo$par[2]
 		} else {
@@ -433,9 +446,9 @@ transformPhylo.ML <- function(y, phy, model=NULL, modelCIs=TRUE, nodeIDs=NULL, r
 		if (!is.ultrametric(phy)) {
 			ou.tr <- function(alpha) {
 				vcv.matrix <- transformPhylo(y=y, phy=phy, alpha=alpha, nodeIDs=nodeIDs, model="OU", meserr=meserr)
-				mu <- motmot:::mu.mean(vcv.matrix, y)[1,1]
-				sigma.sq <- motmot:::sig.sq(mu, vcv.matrix, y)[1,1]
-				reml.lik <- dmvnorm(y[,1], mean=rep(mu, ncol(vcv.matrix)), sigma=vcv.matrix * sigma.sq, log=TRUE)
+				mu <- mu.mean(vcv.matrix, y)[1,1]
+				sigma.sq <- sig.sq(mu, vcv.matrix, y)[1,1]
+				reml.lik <- mvtnorm::dmvnorm(y[,1], mean=rep(mu, ncol(vcv.matrix)), sigma=vcv.matrix * sigma.sq, log=TRUE)
 				return(list(reml.lik=reml.lik, reml.sigma.sq=sigma.sq, reml.mu=mu))
 				}
 			reml.out <- ou.tr(alpha=exp(vo$par[1]))
@@ -480,8 +493,10 @@ transformPhylo.ML <- function(y, phy, model=NULL, modelCIs=TRUE, nodeIDs=NULL, r
 		
 		if(!is.ultrametric(phy)) {
 			vo$par[1] <- exp(vo$par[1])
-			UCI <- exp(UCI[1])
-			LCI <- exp(LCI[1])
+			if (modelCIs == TRUE)  {
+				UCI <- exp(UCI[1])
+				LCI <- exp(LCI[1])
+				}
 			lowerBound[1] <- exp(lowerBound[1])
 			upperBound[1] <- exp(upperBound[1])
 			}
@@ -493,11 +508,11 @@ transformPhylo.ML <- function(y, phy, model=NULL, modelCIs=TRUE, nodeIDs=NULL, r
 				curve(ouCurve(x, FALSE), from=lowerBound[1], to=upperBound[1], xlab=expression(alpha), ylab="log-likelihood", las=1, main="profile plot", lwd=2)
 				if (modelCIs) abline(v=c(LCI, vo$par[1], UCI), lty=c(3, 2, 3), lwd=2, col="#00000090")
 			} else {
-				ou.fun <- function(param) {
+				ou.fun.profile <- function(param) {
 				ll <- ou.tr(param)[[1]]
 				return(ll)
 				}
-			ouCurve <- Vectorize(ou.fun)
+			ouCurve <- Vectorize(ou.fun.profile)
 			curve(ouCurve(x), from=lowerBound[1], to=upperBound[1], xlab=expression(alpha), ylab="log-likelihood", las=1, main="profile plot", lwd=2)
 			if (modelCIs) abline(v=c(LCI[1], vo$par[1], UCI[1]), lty=c(3, 2, 3), lwd=2, col="#00000090")
 				}
@@ -1015,7 +1030,7 @@ transformPhylo.ML <- function(y, phy, model=NULL, modelCIs=TRUE, nodeIDs=NULL, r
 		
 		if (is.null(restrictNode) == FALSE) {
 			ngroups <- length(restrictNode)
-			cm <- clade.matrix(phy)
+			cm <- caper::clade.matrix(phy)
 			colnames(cm$clade.matrix) <- cm$tip.label
 			cmMat <- cm$clade.matrix
 			skipNodes <- numeric()
@@ -1105,7 +1120,7 @@ transformPhylo.ML <- function(y, phy, model=NULL, modelCIs=TRUE, nodeIDs=NULL, r
 		
 		if (is.null(restrictNode) == FALSE) {
 			ngroups <- length(restrictNode)
-			cm <- clade.matrix(phy)
+			cm <- caper::clade.matrix(phy)
 			colnames(cm$clade.matrix) <- cm$tip.label
 			cmMat <- cm$clade.matrix
 			skipNodes <- numeric()
@@ -1198,7 +1213,7 @@ transformPhylo.ML <- function(y, phy, model=NULL, modelCIs=TRUE, nodeIDs=NULL, r
 		mode.order <- tolower(mode.order)
 		count <- 1
 		
-		if(is(splitTime)[1] == "NULL") stop("please provide a shift time(s)")
+		if(methods::is(splitTime)[1] == "NULL") stop("please provide a shift time(s)")
 		if(lambdaEst) stop("sorry Lambda estimation not applicable with modeslice model, sorry")
 		if((length(splitTime) + 1) != length(mode.order)) stop("mismatch between number of nodes and shift times")
 		transformation <- c()
@@ -1272,9 +1287,9 @@ transformPhylo.ML <- function(y, phy, model=NULL, modelCIs=TRUE, nodeIDs=NULL, r
 			transform <- transformation[-rm.param]
 			for(u in 1:length(transform)) if(transform[u] == "log") mode.param.input[u] <- exp(mode.param.input[u])
 			vcv.matrix <- transformPhylo(y=y, phy=phy, mode.order=mode.order, mode.param=mode.param.input, model="modeslice", splitTime=splitTime, rate.var=rate.var, cladeRates=acdcScalar, meserr=meserr)
-			mu <- motmot:::mu.mean(vcv.matrix, y)[1,1]
-			sigma.sq <- motmot:::sig.sq(mu, vcv.matrix, y)[1,1]
-			reml.lik <- dmvnorm(y[,1], mean=rep(mu, ncol(vcv.matrix)), sigma=vcv.matrix * sigma.sq, log=TRUE)
+			mu <- mu.mean(vcv.matrix, y)[1,1]
+			sigma.sq <- sig.sq(mu, vcv.matrix, y)[1,1]
+			reml.lik <- mvtnorm::dmvnorm(y[,1], mean=rep(mu, ncol(vcv.matrix)), sigma=vcv.matrix * sigma.sq, log=TRUE)
 			return(list(reml.lik=reml.lik, reml.sigma.sq=sigma.sq, reml.mu=mu))
 			}
 		

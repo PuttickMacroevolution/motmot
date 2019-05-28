@@ -37,8 +37,6 @@ chr.disp.sim <- function(phy, n.steps=1000, sigma=1, a=0, ntraits=1, sympatry=NA
 
     symp <- vectortime(sympatry, 0, num_tips)
     allo <- vectortime(allopatry, 99e9, num_tips )
-    
-
     if(is.na(trait.lim)) trait.lim <- 9e99
 
     result <- .C("pathsim", ntip=as.integer(num_tips), dt=as.double(dt), rate = as.double(sigma^2), a=as.double(a), r_intervals=as.double(times), splitters=as.integer(splitting_nodes), tval = as.double(tval), ntraits=as.integer(ntraits), symp=as.double(symp), allo=as.double(allo), lim=as.numeric(trait.lim))

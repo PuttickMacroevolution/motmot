@@ -53,6 +53,7 @@
 #' data(anolis.tree)
 #' anolis.treeDelta <- transformPhylo(phy=anolis.tree, model="delta", delta=0.5)
 #' @export
+#' @import caper
 
 transformPhylo <- function (phy, model = NULL, y = NULL, meserr=NULL, kappa = NULL, lambda = NULL, delta = NULL, alpha = NULL, psi = NULL, lambda.sp = NULL, nodeIDs = NULL, rateType = NULL, branchRates = NULL, cladeRates = NULL,  splitTime = NULL, timeRates = NULL, acdcRate=NULL,  branchLabels = NULL, cophenetic.dist=NULL, vcv.matrix=NULL, mode.order=NULL, mode.param=NULL, rate.var=NULL) {
 
@@ -119,7 +120,7 @@ transformPhylo <- function (phy, model = NULL, y = NULL, meserr=NULL, kappa = NU
 		   }
 		   if (is.ultrametric(phy) == FALSE) {
 		   tips <- match(c(1:Ntip(phy)), phy$edge[, 2])
-		   cladeMat <- clade.matrix(phy)
+		   cladeMat <- caper::clade.matrix(phy)
 		   branchHeights <- sapply(1:Ntip(phy), function(x) sum(cladeMat$edge.length[cladeMat$clade.matrix[, x] == 1]))
 		   phy$edge.length <- phy$edge.length * lambda
 		   phy$edge.length[tips] <- phy$edge.length[tips] + (branchHeights * (1 - lambda))
@@ -386,7 +387,7 @@ transformPhylo <- function (phy, model = NULL, y = NULL, meserr=NULL, kappa = NU
 		   if(!is.null(splitTime)) {
 				inputSplitTime <- splitTime
 				splitTime <- nodeTimes(phy)[1,1] - sort(splitTime, TRUE)
-				sliceLengths <- motmot:::sliceTree(phy, splitTime)
+				sliceLengths <- sliceTree(phy, splitTime)
 				slice.phy <- lapply(1:length(mode.order), function(sx) {
 					phy2 <- phy
 					phy2$edge.length <-  sliceLengths[,sx]

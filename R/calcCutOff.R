@@ -30,10 +30,18 @@ calcCutOff <- function(phy, n=1000, mc.cores=1, model, measure="AICc", alpha.err
 	sim.data <- transformPhylo.sim(phy, n=n, model="bm")
 	y.out <- quiet(
 				parallel::mclapply(1:n, mc.cores=mc.cores, function(xx) {
-					transformPhylo.ML(as.matrix(sim.data[,xx]), phy, model=model, ...)[[1]][,measure]
-					}
-				)
+					model.fit <- transformPhylo.ML(as.matrix(sim.data[, xx]), phy, model = model, ...)
+					if(model == "timeSlice") {
+						model.fit <- model.fit[[1]]
+						model.fit[, measure]
+					} else {
+						model.fit <- c(transformPhylo.ML(as.matrix(sim.data[, xx]), phy, model = "BM")[[measure]], model.fit[[measure]])
+						model.fit
+            		}
+            	}	
 			)
+		)
+	
 	y.out <- matrix(unlist(y.out), nrow=2)
 	aicc.add <- quantile(-apply(y.out, 2, diff), (1-alpha.error))
 	return(aicc.add)

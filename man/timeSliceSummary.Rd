@@ -25,7 +25,7 @@ timeSliceSummary(timeSliceObject, cutoff = 4, AICc = TRUE,
 
 \item{cex.plot}{Character expansion for the plot of rates through time}
 
-\item{Further}{functions passed to APE \code{plot.phylo}}
+\item{...}{Further functions passed to APE \code{plot.phylo}}
 }
 \value{
 ModelFit Summary of the best optimal rate shift model.

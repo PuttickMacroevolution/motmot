@@ -2,8 +2,8 @@ Package: motmot
 Type: Package
 Title: Models of Trait Macroevolution on Trees
 Version: 2.1
-Depends: R (>= 2.10.0), ape (>= 3.0-7), caper, MASS, coda, caper, ks, mvtnorm, truncnorm
-Date: 2018-11-30
+Depends: R (>= 2.10.0), ape (>= 3.0-7)
+Date: 2019-05-27
 Author: Mark Puttick [aut, cre, cph], Gavin Thomas [aut, cph], Rob Freckleton [aut, cph], Magnus Clarke [ctb], Travis Ingram [ctb], David Orme [ctb], Emmanuel Paradis [ctb]
 Maintainer: Mark Puttick <marknputtick@gmail.com>
 Description: Functions for fitting models of trait evolution
@@ -17,6 +17,6 @@ LazyData: true
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
 LinkingTo: Rcpp
-Imports: Rcpp
+Imports: Rcpp, coda, ks, mvtnorm, caper, methods
 Encoding: UTF-8
 SystemRequirements: C++11

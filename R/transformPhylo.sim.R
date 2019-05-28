@@ -20,13 +20,12 @@
 #' @param trend.anc.state the expected ancestal state for the trend model (default is 0)
 #' @param branchLabels Branches on which different psi parameters are estimated in the "multipsi" model.
 #' @param branchRates Numeric vector specifying relative rates for individual branches
-#' @param cladeRates Numeric vector specifying telative rates for clades.
 #' @param rate a vector of relative rate parameters. The length of the vector is equal to the number of rates being estimated. 
 #' @param group.means a vector of the relative difference in means between rate categories, expressed as a scalar applied to the expected standard deviation (see Ricklefs 2006)
-#' @param mode.order The order of modes for the 'modeslice' model. Any combination of 'BM', 'OU', 'acdc', and 'kappa'
 #' @param cladeRates Numeric vector specifying telative rates for clades or logical to indicate scalar is included in the 'modeslice' model (the scalar is included in the mode.param argument with the 'modeslice' model).
-#' @param acdcScalar Logical.For nested EB rate model, simultaneously estimated a rate scalar alongside EB model. Default=FALSE. Only applicable to 'nested mode' and 'modeSlice' models.
 #' @param rate.var Allows rate variation in BM modes in the 'modeslice' model
+#' @param mode.order The order of modes for the 'modeslice' model. Any combination of 'BM', 'OU', 'acdc', and 'kappa'
+
 #' @return Returns a matrix of simulated dated with taxon names as rownames (number of columns=n).
 #' @references Ricklefs RE. 2006. Time, species, and the generation of trait variation in clades. Systematic Biology 55, 151-159.
 #' @references Ricklefs RE. 2006. Thomas GH, Meiri S, & Phillimore AB. 2009. Body size diversification in Anolis: novel environments and island effects. Evolution 63, 2017-2030
@@ -46,8 +45,9 @@
 #' sim.dat2 <- transformPhylo.sim(phy=anolis.tree, n=10, x=x, model="mixedRate", rate=c(1,1,2,4),
 #' group.means=c(0,5,0,0))
 #' @export
+#' @import caper
 
-transformPhylo.sim <- function(phy, n=1, x=NULL, model=NULL, returnNodes=FALSE, kappa=NULL, lambda=NULL, delta=NULL, alpha=NULL, psi=NULL, acdcRate=NULL, lambda.sp = NULL, trend=NULL, trend.anc.state=0, nodeIDs=NULL, rateType=NULL, cladeRates=NULL, branchRates=NULL, rate=NULL, group.means=NULL, splitTime=NULL, timeRates=NULL, branchLabels = NULL) {
+transformPhylo.sim <- function(phy, n=1, x=NULL, model=NULL, returnNodes=FALSE, kappa=NULL, lambda=NULL, delta=NULL, alpha=NULL, psi=NULL, acdcRate=NULL, lambda.sp = NULL, trend=NULL, trend.anc.state=0, nodeIDs=NULL, rateType=NULL, cladeRates=NULL, branchRates=NULL, rate=NULL, group.means=NULL, splitTime=NULL, timeRates=NULL, branchLabels = NULL, rate.var=NULL, mode.order=NULL) {
 	
 	  model <- tolower(model)
 	all.models <- c("bm", "trend", "kappa", "lambda", "delta", "free", "clade", "ou", "acdc", "psi", "multipsi", "timeslice", "mixedrate")
@@ -89,7 +89,7 @@ transformPhylo.sim <- function(phy, n=1, x=NULL, model=NULL, returnNodes=FALSE, 
 			
 			 "trend" = {
 					transformPhy <- phy
-					phyMat <- VCV.array(transformPhy)
+					phyMat <- caper::VCV.array(transformPhy)
 					attr(phyMat, "class") <- "matrix"
 					tip.distance <- diag(vcv(transformPhy))
 					trend.mean <- trend.anc.state + (tip.distance * trend)
@@ -142,8 +142,9 @@ transformPhylo.sim <- function(phy, n=1, x=NULL, model=NULL, returnNodes=FALSE, 
 		   	
 		   			if (!is.ultrametric(phy)) {
       			        cophenetic.dist <- cophenetic.phylo(phy)
-      			        vcv.matrix <- VCV.array(vcv.matrix)
+      			        vcv.matrix <- caper::VCV.array(phy)
       			        phyMat <- transformPhylo(phy=phy, model="OU", alpha=alpha, nodeIDs=nodeIDs, cophenetic.dist=cophenetic.dist, vcv.matrix=vcv.matrix)
+      			        class(phyMat) <- "matrix"
       			        ydum <- as.matrix(t(mvtnorm::rmvnorm(n, sigma = phyMat)))
       			        rownames(ydum) <- rownames(phyMat)
       			        if(returnNodes) warning("returnNodes not applicable to OU model with non-ultrametric trees, sorry")
@@ -214,7 +215,7 @@ transformPhylo.sim <- function(phy, n=1, x=NULL, model=NULL, returnNodes=FALSE, 
 		            for (i in 1:n.means) {
 		                samp.means[which(rateData$x == (i - 1))] <- rep(0 + (expect.sd * group.means[i]), length(which(rateData$x == (i - 1))))
 		            }
-		            ydum <- as.matrix(t(rmvnorm(n, mean = samp.means, sigma = (V))))
+		            ydum <- as.matrix(t(mvtnorm::rmvnorm(n, mean = samp.means, sigma = (V))))
 		            rownames(ydum) <- rownames(V)
 		       		if(returnNodes) warning("returnNodes not applicable to mixedrate model with non-ultrametric trees unique nodes, sorry")
 		       		}

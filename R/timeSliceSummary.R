@@ -8,7 +8,7 @@
 #' @param plot.phylo Logical. If \code{TRUE}, the phylogeny is plotted
 #' @param cex.plot Character expansion for the plot of rates through time
 #' @param colour.ramp The colours signifying different rates from low (first colour) to high (second colour)
-#' @param Further functions passed to APE \code{plot.phylo}
+#' @param ... Further functions passed to APE \code{plot.phylo}
 #' @details This functions summarises the output of a "timeSlice" model in \code{\link{transformPhylo.ML}} (see below). The best overall model is chosen based on AIC (or AICc if AICc=TRUE). The cut-off point for improvement in AIC score between successively more complex models can be defined using cutoff. The default cutoff is 4 but this is somewhat arbitrary and a "good" cut-off may well vary between data sets so it may well be worth exploring different cutoffs.
 #' @return ModelFit Summary of the best optimal rate shift model.
 #' @return Rates Summary of the rate parameters from the best rate shift model.

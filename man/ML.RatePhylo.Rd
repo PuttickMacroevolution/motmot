@@ -69,13 +69,13 @@ anolis.rateMatrix <- as.rateMatrix(phy=anolis.tree, x="geo_ecomorph",
 data=anolis.data)
 anolis.rateData <- as.rateData(y="Female_SVL", x="geo_ecomorph", 
 rateMatrix = anolis.rateMatrix, phy=NULL, data=anolis.data, log.y=TRUE)
-# A model with a different rate in each of the four groups. The 'fixed' command is used to determine
+# A model with a different rate in one of the four groups. The 'fixed' command is used to determine
 # whether a particular rate is to be constrained or not. Use '1' to fix a group and 'FALSE' to show
 # that the parameter is not fixed and should be estimated. The values should be entered in the same 
 # order as the ranking of the groups. That is, group 0 (small islands) takes position one in the 
 # fixed vector, group 1 (large island trunk crown and trunk ground) takes position 2 and so on. 
 # The default is to allow each group to take a different mean. 
-ML.RatePhylo(anolis.rateData, fixed=c(1,FALSE,FALSE, FALSE), pretty=TRUE)
+ML.RatePhylo(anolis.rateData, fixed=c(1, FALSE, FALSE, FALSE), pretty=TRUE, lambda.est = FALSE)
 }
 \references{
 Thomas GH, Freckleton RP, & Szekely T. 2006. Comparative analyses of the influence of developmental mode on phenotypic diversification rates in shorebirds. Proceedings of the Royal Society B 273, 1619-1624.

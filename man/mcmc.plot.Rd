@@ -24,8 +24,6 @@ mcmc.plot(mcmc.input, y.limit = NULL, x.limit = NULL,
 \item{col.hist}{colour for the histogram bars}
 
 \item{col.trace}{colour for the trace plot}
-
-\item{col.tree}{colour for the edge labels on the tree}
 }
 \value{
 Two plots showing the histogram of the estimated parameter value and a trace of the MCMC estimation
@@ -34,6 +32,7 @@ Two plots showing the histogram of the estimated parameter value and a trace of 
 Plots a histogram of the estimated parameter and a trace of the results
 }
 \examples{
+library(motmot)
 data(anolis.tree)
 data(anolis.data)
 attach(anolis.data)
@@ -43,11 +42,11 @@ phy <- sortedData$phy
 male.length <- sortedData$trait
 phy.clade <- extract.clade(phy, 182)
 male.length.clade <- as.matrix(male.length[match(phy.clade$tip.label, rownames(male.length)),])
-## please note, this model will be need to run for longer to achieve convergence
-lambda.mcmc <- transformPhylo.MCMC(y=male.length.clade, phy=phy.clade, 
-model="lambda", mcmc.iteration=100, burn.in=0.1)
 ## not run
-## mcmc.plot(lambda.mcmc)
+# please note, this model will be need to run for longer to achieve convergence
+# lambda.mcmc <- transformPhylo.MCMC(y=male.length.clade, phy=phy.clade, 
+# model="lambda", mcmc.iteration=100, burn.in=0.1)
+# mcmc.plot(lambda.mcmc)
 }
 \author{
 Mark Puttick
