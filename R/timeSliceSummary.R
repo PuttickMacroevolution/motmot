@@ -30,8 +30,8 @@
 #' rownames(male.length)),])
 #' timeSlice.10.ml <- transformPhylo.ML(y=male.length.clade, phy=phy.clade, model="timeSlice", 
 #' splitTime=c(10))
-#' outputSummary <- timeSliceSummary(timeSlice.10.ml, cutoff=0.001, cex.tip=0.5, 
-#' phylo.width=2, colour.ramp=c("blue", "red"))
+#' outputSummary <- timeSliceSummary(timeSlice.10.ml, cutoff=0.001, cex=0.5, 
+#' colour.ramp=c("blue", "red"))
 #' @export
 
 timeSliceSummary <- function(timeSliceObject, cutoff=4, AICc=TRUE, lowerBound=1e-8, upperBound=1000, plot.phylo=TRUE, colour.ramp=c("blue", "red"), cex.plot=1, ...) {

@@ -126,7 +126,7 @@ double Sim::pnorm(double q)
 
 /*  Copy all the parameters from R  */
 void Sim::set_values(double &r_dt, double &r_rate,double &r_a, 
-                    double r_intervals[], Tree &t, int &nt, double symp[], double allo[], double &lim)
+                     double r_intervals[], Tree &t, int &nt, double symp[], double allo[], double &lim)
 {
 
     limit = lim;
@@ -142,18 +142,18 @@ void Sim::set_values(double &r_dt, double &r_rate,double &r_a,
     s.assign(tree.num_tips, x);
     al.assign(tree.num_tips, x);
 
-    for (int i = 0; i < tree.num_tips; ++i)
+    for (int i = 0; i < (tree.num_tips - 5); ++i)
     {
-        for (int j = 0; j < tree.num_tips; ++j)
+        for (int j = 0; j < (tree.num_tips - 5); ++j)
         {
-            s[i][j] = symp[i*tree.num_tips + j] ;
+            s[i][j] = symp[i*(tree.num_tips - 5) + j] ;
         }
     }
-    for (int i = 0; i < tree.num_tips; ++i)
+    for (int i = 0; i < (tree.num_tips - 5); ++i)
     {
-        for (int j = 0; j < tree.num_tips; ++j)
+        for (int j = 0; j < (tree.num_tips - 5); ++j)
         {
-            al[i][j] = allo[i*tree.num_tips + j];
+            al[i][j] = allo[i*(tree.num_tips - 5) + j];
         }
     }
 
