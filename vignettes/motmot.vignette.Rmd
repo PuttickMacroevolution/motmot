@@ -349,7 +349,7 @@ timeSlice.ml <- transformPhylo.ML(y=male.length.clade, phy=phy.clade, model="tim
 And summarise the results. We can selected the cutoff AICc improvement needed to justify selecting the next model. Here we use the arbitary cut-off value of 1. We could test this formally by estimating the correct AICc value needed to reduced type-error > 5% by using BM simulated data (an example using the tm2 is shown above)
 
 ```{r plot11, fig.cap = "Figure 11. TimeSlice plot with Maximum likelihood estimation of split time", echo = T, fig.height = 5, fig.width = 5, fig.path='figures/', dev='png', dpi=200}
-outputSummary <- timeSliceSummary(timeSlice.10.ml, cutoff=1, cex=0.2, edge.width=2, cex.plot=0.8, colour.ramp=c("blue", "red"), label.offset=0.5)
+outputSummary <- timeSliceSummary(timeSlice.ml, cutoff=1, cex=0.2, edge.width=2, cex.plot=0.8, colour.ramp=c("blue", "red"), label.offset=0.5)
 ```
 
 # modeSlice model

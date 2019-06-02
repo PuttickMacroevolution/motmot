@@ -5897,3 +5897,241 @@ dim(out[[5]])
 length(seq(1,900, 20))
 out <- transformPhylo.MCMC(y=male.length.clade, phy=phy.clade,model="acdc", upper=-1e-6, mcmc.iteration=10000, burn.in=0.1, sample.every=10)
 mcmc.plot(out)
+rm(list=ls(all=TRUE))#
+library(ape)#
+library(Matrix)#
+#
+anc.state <- function(phy, states, gamma.shape.prior=1/8, gamma.rate.prior=1, beta.shape.1=1, beta.shape.2=beta.shape.1, iterations=1000) {#
+#
+	n.tip <- Ntip(phy)#
+	n.node <- Nnode(phy)#
+	if (!is.factor(states)) states <- factor(states)#
+	n.states <- nlevels(states)#
+#
+	probs <- matrix(0, nrow=nrow(phy$edge) + 1, n.states)#
+	probs[cbind(1:n.tip, states)] <- 1#
+	phy <- reorder(phy, "postorder")#
+	br.lens <- phy$edge.length#
+	ed.mat.int <- phy$edge[,1]#
+	ed.mat.ext <- phy$edge[,2]#
+	gen.Q <- function(theta, beta, branch.length) {#
+		beta.1 <- beta#
+		beta.2 <- 1 - beta.1#
+		probs <- c(-theta, theta, (theta * beta.1) / (beta.2), -((theta * beta.1) / (beta.2)))#
+		Q <- matrix(probs, nrow=2, ncol=2, byrow=TRUE)#
+		Q <- expm(Q) * branch.length#
+		Q <- as.matrix(Q)#
+		return(Q)#
+		}#
+#
+	anc.state <- function(theta, beta) {#
+		comp <- c()#
+		for (br.ind in seq(from = 1, by = 2, length.out = n.node)) {#
+			j <- br.ind + 1L#
+			anc <- ed.mat.int[br.ind]#
+			des1 <- ed.mat.ext[br.ind]#
+			des2 <- ed.mat.ext[j]#
+			v.l <- gen.Q(theta, beta, br.lens[br.ind]) %*% probs[des1, ]#
+			v.r <- gen.Q(theta, beta, br.lens[j]) %*% probs[des2, ]#
+			v <- c(v.l * v.r) #
+			comp[anc] <- sum(v)#
+			probs[anc, ] <- v / comp[anc]#
+			}#
+		sum(log(comp), na.rm=TRUE)#
+	}#
+	prior <- function(param){#
+    	theta.prior <- dgamma(x=param[1], shape=gamma.shape.prior, rate=gamma.rate.prior, log=TRUE)#
+    	beta.prior <- dbeta(param[2], shape1=beta.shape.1, shape2=beta.shape.2, log=TRUE)#
+		return(sum(theta.prior + beta.prior))#
+		}#
+	posterior <- function(param) {#
+		return(anc.state(theta=param[1], beta=param[2]) + prior(param))#
+		}#
+	proposalfunction <- function(param){#
+		param.one <- rgamma(1, shape=gamma.shape.prior, rate=gamma.rate.prior)#
+		param.two <- rbeta(1, shape1=beta.shape.1, shape2=beta.shape.2)#
+		return(c(param.one, param.two))#
+	}#
+#
+	run_metropolis_MCMC <- function(startvalue, iterations){#
+    	chain = array(dim = c(iterations + 1, length(startvalue)))#
+    	chain[1,] = startvalue#
+		like <- c()#
+    	for (i in 1:iterations){#
+			proposal <- chain[i,]#
+        	proposal <- proposalfunction(proposal)#
+			post.proposal <- posterior(param=proposal)#
+			post.current <- posterior(chain[i,])#
+        	probab <- exp(post.proposal - post.current)#
+    		if (runif(1) < probab){#
+				chain[i+1,] <- proposal#
+				like[i] <- post.proposal#
+    		} else {#
+        		chain[i+1,] <- chain[i,]#
+				like[i] <- post.current#
+        		}#
+			cat("\r", paste0("MCMC progress (%): ", sprintf("%.4f", i/iterations * 100)))#
+    		}#
+		cat("\n", " ")#
+		cat("\r", "finished MCMC")#
+		cat("\r", "")#
+	   return(list(chain=chain, likelihood=like))#
+	}#
+	start.one <- rgamma(1, shape=gamma.shape.prior, rate=gamma.rate.prior)#
+	start <- c(start.one, rbeta(1, shape1=beta.shape.1, shape2=beta.shape.2))#
+	chain <- run_metropolis_MCMC(start, iterations=iterations)#
+	cat("\n", " ")#
+	return(chain)#
+}#
+	set.seed(12331)#
+	phy <- rtree(20)#
+	x <- sample(c(0:1), 20, TRUE, prob=c(0.8, 0.2))#
+	ace.anc <- ace(x, phy, type="d", model="ARD")#
+	mcmc.out <- anc.state(phy, x)
+plot(mcmc.out[[1]][,1], type="l")
+plot(mcmc.out[[1]][,2], type="l")
+ace.anc
+rm(list=ls(all=TRUE))#
+library(ape)#
+library(Matrix)#
+#
+anc.state <- function(phy, states, gamma.shape.prior=1/8, gamma.rate.prior=1, beta.shape.1=1, beta.shape.2=beta.shape.1, iterations=1000) {#
+#
+	n.tip <- Ntip(phy)#
+	n.node <- Nnode(phy)#
+	if (!is.factor(states)) states <- factor(states)#
+	n.states <- nlevels(states)#
+#
+	probs <- matrix(0, nrow=nrow(phy$edge) + 1, n.states)#
+	probs[cbind(1:n.tip, states)] <- 1#
+	phy <- reorder(phy, "postorder")#
+	br.lens <- phy$edge.length#
+	ed.mat.int <- phy$edge[,1]#
+	ed.mat.ext <- phy$edge[,2]#
+	gen.Q <- function(theta, beta, branch.length) {#
+		beta.1 <- beta#
+		beta.2 <- 1 - beta.1#
+		probs <- c(-theta, theta, (theta * beta.1) / (beta.2), -((theta * beta.1) / (beta.2)))#
+		Q <- matrix(probs, nrow=2, ncol=2, byrow=TRUE)#
+		Q <- expm(Q) * branch.length#
+		Q <- as.matrix(Q)#
+		return(Q)#
+		}#
+#
+	anc.state <- function(theta, beta) {#
+		comp <- c()#
+		for (br.ind in seq(from = 1, by = 2, length.out = n.node)) {#
+			j <- br.ind + 1L#
+			anc <- ed.mat.int[br.ind]#
+			des1 <- ed.mat.ext[br.ind]#
+			des2 <- ed.mat.ext[j]#
+			v.l <- gen.Q(theta, beta, br.lens[br.ind]) %*% probs[des1, ]#
+			v.r <- gen.Q(theta, beta, br.lens[j]) %*% probs[des2, ]#
+			v <- c(v.l * v.r) #
+			comp[anc] <- sum(v)#
+			probs[anc, ] <- v / comp[anc]#
+			}#
+		sum(log(comp), na.rm=TRUE)#
+	}#
+	prior <- function(param){#
+    	theta.prior <- dgamma(x=param[1], shape=gamma.shape.prior, rate=gamma.rate.prior, log=TRUE)#
+    	beta.prior <- dbeta(param[2], shape1=beta.shape.1, shape2=beta.shape.2, log=TRUE)#
+		return(sum(theta.prior + beta.prior))#
+		}#
+	posterior <- function(param) {#
+		return(anc.state(theta=param[1], beta=param[2]) + prior(param))#
+		}#
+	proposalfunction <- function(param){#
+		param.one <- rgamma(1, shape=gamma.shape.prior, rate=gamma.rate.prior)#
+		param.two <- rbeta(1, shape1=beta.shape.1, shape2=beta.shape.2)#
+		return(c(param.one, param.two))#
+	}#
+#
+	run_metropolis_MCMC <- function(startvalue, iterations){#
+    	chain = array(dim = c(iterations + 1, length(startvalue)))#
+    	chain[1,] = startvalue#
+		like <- c()#
+    	for (i in 1:iterations){#
+			proposal <- chain[i,]#
+        	proposal <- proposalfunction(proposal)#
+			post.proposal <- posterior(param=proposal)#
+			post.current <- posterior(chain[i,])#
+        	probab <- exp(post.proposal - post.current)#
+    		if (runif(1) < probab){#
+				chain[i+1,] <- proposal#
+				like[i] <- post.proposal#
+    		} else {#
+        		chain[i+1,] <- chain[i,]#
+				like[i] <- post.current#
+        		}#
+			cat("\r", paste0("MCMC progress (%): ", sprintf("%.4f", i/iterations * 100)))#
+    		}#
+		cat("\n", " ")#
+		cat("\r", "finished MCMC")#
+		cat("\r", "")#
+	   return(list(chain=chain, likelihood=like))#
+	}#
+	start.one <- rgamma(1, shape=gamma.shape.prior, rate=gamma.rate.prior)#
+	start <- c(start.one, rbeta(1, shape1=beta.shape.1, shape2=beta.shape.2))#
+	chain <- run_metropolis_MCMC(start, iterations=iterations)#
+	cat("\n", " ")#
+	return(chain)#
+}#
+	set.seed(12331)#
+	phy <- rtree(20)#
+	x <- sample(c(0:1), 20, TRUE, prob=c(0.8, 0.2))#
+	ace.anc <- ace(x, phy, type="d", model="ARD")#
+	mcmc.out <- anc.state(phy, x, gamma.shape.prior=1, iterations=2000)#
+	plot(mcmc.out[[1]][,1], type="l")#
+	plot(mcmc.out[[1]][,2], type="l")
+plot(mcmc.out[[1]][,1], type="l")
+plot(mcmc.out[[2]], type="l")
+ace.anc
+c(2.1622, 0.3582 ) / sum(v)
+c(2.1622, 0.3582 ) / sum(c(2.1622, 0.3582 ))
+apply(mcmc.out[[1]], 2, median)
+gen.Q <- function(theta, beta, branch.length) {#
+		beta.1 <- beta#
+		beta.2 <- 1 - beta.1#
+		probs <- c(-theta, theta, (theta * beta.1) / (beta.2), -((theta * beta.1) / (beta.2)))#
+		Q <- matrix(probs, nrow=2, ncol=2, byrow=TRUE)#
+		Q <- expm(Q) * branch.length#
+		Q <- as.matrix(Q)#
+		return(Q)#
+		}
+apply(mcmc.out[[1]], 2, median)
+gen.Q (0.4575814, 0.8267996, 1)
+gen.Q <- function(theta, beta, branch.length) {#
+		beta.1 <- beta#
+		beta.2 <- 1 - beta.1#
+		probs <- c(-theta, theta, (theta * beta.1) / (beta.2), -((theta * beta.1) / (beta.2)))#
+		Q <- matrix(probs, nrow=2, ncol=2, byrow=TRUE)#
+		Q <- as.matrix(Q)#
+		return(Q)#
+		}
+gen.Q (0.4575814, 0.8267996, 1)
+ks::kde
+kde.grid.nd
+ks:::kde.grid.nd
+ks::: kde.points
+ks::dmvnorm.mixt
+dmvnorm
+ks:::dmvnorm
+dmvnorm.mixt
+ks::: dmvnorm.mixt
+MASS:::dmvnorm
+MASS::dmvnorm
+mvtnorm
+mvtnorm:::dmvnorm
+ks:::dstemr
+dstemr
+backsolve
+ks::kde
+kde.points
+ks::: kde.points
+dmvnorm.mixt
+mvtnorm:::dmvnorm.mixt
+mvtnorm::dmvnorm.mixt
+ks:::dmvnorm.mixt
+La_version()
+?kde
