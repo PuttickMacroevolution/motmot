@@ -18,9 +18,9 @@ chr.disp.sim(phy, n.steps = 1000, sigma = 1, a = 0, ntraits = 1,
 
 \item{ntraits}{Number of traits to be simulated}
 
-\item{sympatry}{an optional matrix giving the time that each pair of species starts to interact.}
+\item{sympatry}{An optional matrix giving the time that each pair of species starts to interact (default = NA).}
 
-\item{allopatry}{an optional matrix giving the times when species stop interacting. This is a pairwise matrix of the times that species became allopatric. For sympatric species this is 9e9, aka never. For allopatric species this is the time from the tree root to the species' creation node.}
+\item{allopatry}{An optional matrix giving the times when species stop interacting. This is a pairwise matrix of the times that species became allopatric. For sympatric species this is 9e9, aka never. For allopatric species this is the time from the tree root to the species' creation node (default = NA).}
 
 \item{trait.lim}{an optional parameter that puts limits on the available trait-space, preventing trait values with magnitude greater than the value of lim}
 }
@@ -38,7 +38,8 @@ emp.data <- finch.data
 ## simulate small amount of data 
 ## (example only - many more datasets are required for accuracy)
 sim.data <- chr.disp.sim(emp.tree, n.steps=100,
-sigma=1, a=2, ntraits=1, sympatry=NA, allopatry=NA, trait.lim=NA)
+sigma=1, a=2, ntraits=1, allopatry=as.matrix(allopatric.data), 
+sympatry=as.matrix(sympatric.data),trait.lim=NA)
 }
 \references{
 Clarke M, Thomas GH, Freckleton RP. 2017. Trait evolution in adaptive radiations: modelling and measuring interspecific competition on phylogenies. The American Naturalist. 189, 121-137.

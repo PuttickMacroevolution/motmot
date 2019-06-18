@@ -5,8 +5,8 @@
 #' @param sigma The value of Brownian variance in the simulation
 #' @param a The strength of competition between inter-specific lineages
 #' @param ntraits Number of traits to be simulated
-#' @param sympatry an optional matrix giving the time that each pair of species starts to interact.
-#' @param allopatry an optional matrix giving the times when species stop interacting. This is a pairwise matrix of the times that species became allopatric. For sympatric species this is 9e9, aka never. For allopatric species this is the time from the tree root to the species' creation node.
+#' @param sympatry An optional matrix giving the time that each pair of species starts to interact (default = NA).
+#' @param allopatry An optional matrix giving the times when species stop interacting. This is a pairwise matrix of the times that species became allopatric. For sympatric species this is 9e9, aka never. For allopatric species this is the time from the tree root to the species' creation node (default = NA).
 #' @param trait.lim an optional parameter that puts limits on the available trait-space, preventing trait values with magnitude greater than the value of lim
 #' @return A list containing the the simulated data (tval) showing the sigma, a, mean gap and gap standard deviation. Additionally, if used, the user input sympatry (symp) and/or allopatry (allo) matrices
 #' @useDynLib motmot
@@ -22,7 +22,8 @@
 #' ## simulate small amount of data 
 #' ## (example only - many more datasets are required for accuracy)
 #' sim.data <- chr.disp.sim(emp.tree, n.steps=100,
-#' sigma=1, a=2, ntraits=1, sympatry=NA, allopatry=NA, trait.lim=NA)
+#' sigma=1, a=2, ntraits=1, allopatry=as.matrix(allopatric.data), 
+#' sympatry=as.matrix(sympatric.data),trait.lim=NA)
 #' @export
 
 chr.disp.sim <- function(phy, n.steps=1000, sigma=1, a=0, ntraits=1, sympatry=NA, allopatry=NA, trait.lim=NA) {
