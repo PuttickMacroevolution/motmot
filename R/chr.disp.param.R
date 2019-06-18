@@ -7,8 +7,8 @@
 #' @param max.a The maximum value of the strength of competition between inter-specific lineages sampled from a U(0, max.a) distribution for each iteration
 #' @param est.blomberg.k Logical. If TRUE, Blomberg's K is simultaneously estimated
 #' @param ntraits Number of traits to be simulated
-#' @param sympatry an optional matrix giving the time that each pair of species starts to interact
-#' @param allopatry an optional matrix giving the times when species stop interacting
+#' @param sympatry an optional matrix giving the time that each pair of species starts to interact.
+#' @param allopatry an optional matrix giving the times when species stop interacting. This is a pairwise matrix of the times that species became allopatric. For sympatric species this is 9e9, aka never. For allopatric species this is the time from the tree root to the species' creation node.
 #' @param trait.lim an optional parameter that puts limits on the available trait-space, preventing trait values with magnitude greater than the value of lim
 #' @param mc.cores Numeric. The number of parallel cores to be used in simulations. Only applicable on Linux and Mac systems
 #' @return List containing the simulated data 'simulated.param': a matrix with each row represented an iteration, the sigma (Brownian variance) used in the iteration, the 'a' value used in each iteration, the mean and standard deviation between neighbouring trait values. The 'input.arguments' from the model, the 'input.phy' from the model, and the input 'sympatry' and 'allopatry' matrices. 

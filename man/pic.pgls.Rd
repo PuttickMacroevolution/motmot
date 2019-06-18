@@ -34,7 +34,7 @@ lm.data <- transformPhylo.sim(phy=anolis.tree, n=2, model="bm")
 dat <- data.frame(x = lm.data[,1], y = lm.data[,2],
 names = anolis.tree$tip, row.names = anolis.tree$tip)
 picModel <- pic.pgls(formula=y ~  x,
-phy=anolis.tree, y = dat, lambda="ML",
+phy=anolis.tree, y = dat, lambda=1,
 return.intercept.stat=FALSE)
 }
 \seealso{

@@ -18,9 +18,9 @@ chr.disp.sim(phy, n.steps = 1000, sigma = 1, a = 0, ntraits = 1,
 
 \item{ntraits}{Number of traits to be simulated}
 
-\item{sympatry}{an optional matrix giving the time that each pair of species starts to interact}
+\item{sympatry}{an optional matrix giving the time that each pair of species starts to interact.}
 
-\item{allopatry}{an optional matrix giving the times when species stop interacting}
+\item{allopatry}{an optional matrix giving the times when species stop interacting. This is a pairwise matrix of the times that species became allopatric. For sympatric species this is 9e9, aka never. For allopatric species this is the time from the tree root to the species' creation node.}
 
 \item{trait.lim}{an optional parameter that puts limits on the available trait-space, preventing trait values with magnitude greater than the value of lim}
 }
