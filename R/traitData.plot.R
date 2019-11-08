@@ -29,18 +29,29 @@
 
 
 
-traitData.plot <- function(y, phy, col.label="red", col.tree="black", col.hist="navy", cex.plot=0.7, cex.tips=0.7, show.tips=FALSE, include.hist=FALSE, n.split=5, lwd.traits=1, axis.text=NULL, transform.axis.label=NULL, ...) {
+traitData.plot <- function(y, phy, col.label="red", col.tree="black", col.hist="navy", cex.plot=0.7, cex.tips=0.7, 
+  show.tips=FALSE, include.hist=FALSE, n.split=5, lwd.traits=1, show.axis = TRUE,  axis.text=NULL, transform.axis.label=NULL, at = NULL, labels = NULL, axis.test.line = 1, node.label = NULL, node.label.names = NULL, offset.bars = 1, ...) {
 
 	if(include.hist) {
 		par(mfrow=c(1,2), mar=c(3,3,3,3), oma=c(1,1,1,1))
 		} else {
-		par(mfrow=c(1,1), mar=c(4,4,4,4), oma=c(0,0,0,0))	
+		# par(mfrow=c(1,1), mar=c(4,4,4,4), oma=c(0,0,0,0))	
 		}
 			
-	tree.height <- nodeTimes(phy)[1,1]
+	tree.height <- nodeTimes(phy)[1,1] * offset.bars
 	times <- tree.height / (max(y))
 	range.fun <- function(x) (x- min(x)) / (max(x) - min(x))
-	splits <- (seq(0, max(y), length.out=n.split + 1) * times * 0.9) + (tree.height)
+	if (is.null(at)) {
+	  splits <- (seq(0, max(y), length.out=n.split + 1) * times * 0.9) + (tree.height)
+	} else {
+	  splits <- (at * times * 0.9) + (tree.height)
+	}
+	
+	if (is.null(labels)) {
+	  label.splits <- seq(min(y), max(y), length.out=n.split + 1)
+	} else {
+	  label.splits <- labels
+	}
 	
 	plot(ladderize(phy), show.tip.label=FALSE, edge.col=col.tree, x.lim=c(0, tree.height * 2))
 	lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)
@@ -65,16 +76,18 @@ traitData.plot <- function(y, phy, col.label="red", col.tree="black", col.hist="
 	ord.y2 <- order(all.y)
 	all.y <- all.y[ord.y2]
 	recycle.color <- rep(recycle.color, 6)
-	label.splits <- seq(min(y), max(y), length.out=n.split + 1)
 	for(x in seq(1, length(splits), 2)) polygon(rep(splits[(x):(x+1)], each=2), c(Ntip(phy), 1, 1, Ntip(phy)), col="#00000020", border=FALSE, xpd=TRUE)
-	polygon(all.x, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=lwd.traits)
+	polygon(all.x * offset.bars, all.y, xpd=TRUE, col=NA, border=recycle.color, lwd=lwd.traits)
 	if(!is.null(transform.axis.label)) {
 		if(transform.axis.label == "exp") label.splits <- exp(label.splits)
 		if(transform.axis.label == "exp10") label.splits <- 10^(label.splits)
 	}
-	axis(3, at=splits, labels=signif(label.splits, 3), xpd=TRUE, line=-0.5,...)
+	
+	if (show.axis)
+	  axis(3, at = splits, labels = signif(label.splits, 3), xpd = TRUE, line = -0.5, ...)
+
 	if(show.tips) text(t.data.scale.orig, tip.y.orig, phy$tip.label, pos=4, cex=cex.tips, xpd=TRUE)
-	if(!is.null(axis.text)) mtext(axis.text, 3, at=mean(splits), line=1, cex=cex.plot)
+	if(!is.null(axis.text)) mtext(axis.text, 3, at=mean(splits), line= axis.test.line, cex=cex.plot)
 	
 	if(include.hist) {
 		par(mar=c(3,3,3,3))

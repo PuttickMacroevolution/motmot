@@ -13,7 +13,8 @@ transformPhylo.ML(y, phy, model = NULL, modelCIs = TRUE,
   upperBound = NULL, covPIC = TRUE, n.cores = 1, tol = NULL,
   meserr = NULL, controlList = c(fnscale = -1, maxit = 100, factr =
   1e-07, pgtol = 0, type = 2, lmm = 5), returnPhy = FALSE,
-  print.warnings = FALSE, mode.order = NULL, rate.var = FALSE)
+  print.warnings = FALSE, mode.order = NULL, rate.var = FALSE,
+  testShiftTimes = NULL, saveAll = TRUE)
 }
 \arguments{
 \item{y}{A matrix of trait values.}
@@ -36,7 +37,7 @@ transformPhylo.ML(y, phy, model = NULL, modelCIs = TRUE,
 
 \item{boundaryAge}{Only applicable if splitTime=NULL, the age distance from the tips and and youngest tip for which to search for rate shifts. For example, if boundaryAge=10, only ages between the root age - 10 and the latest tip + 10 will be included in the search. If one value is given this will be used for upper and lower ages, but if a vector with two ages is provided the first is used for the upper age boundary and the second for the lower age boundary. Set to zero to allow testing of all ages.}
 
-\item{testAge}{If splitTime=NULL, the interval between ages to be tested. For example, if testAge=1, all 1 Ma ages between the ages defined by 'boundaryAge' will be tested.}
+\item{testAge}{If splitTime=NULL, the interval between ages to be tested. For example, if testAge=1, all 1 Ma ages between the ages defined by 'boundaryAge' will be tested. If you would like to sequentially test specific shift times only, please use the argument "specificShiftTimes".}
 
 \item{restrictNode}{List defining monophyletic groups within which no further rate shifts are searched.}
 
@@ -75,6 +76,10 @@ transformPhylo.ML(y, phy, model = NULL, modelCIs = TRUE,
 \item{mode.order}{The order of modes for the 'modeslice' model. Any combination of 'BM', 'OU', 'acdc', and 'kappa'}
 
 \item{rate.var}{Allows rate variation in BM modes in the 'modeslice model'}
+
+\item{testShiftTimes}{A vector of times to be used in the search for split times. For use in the timeSlice model when splitTime=NULL. This allows users to specify ages that are test suquentially, rather than all shifts optimised simultaneously as is done when ages are provided in the argument 'splitTime'.}
+
+\item{saveAll}{Logical. If TRUE, saves all the outputs from traitMedusa search in timeSlice (i.e, the log-likelihood and rate estimates for all considered shifts, not just the best fitting shift model). This can be used for model averaging with the function \code{\link{timeSliceSummary}}}
 }
 \value{
 Returns the maximum log-likelihood and parameter estimates (with 95 percent confidence intervals if specified). If model="bm" instead returns the Brownian (co)variance and log-likelihood. Also returned are the root estimate, the AIC, and AICc.

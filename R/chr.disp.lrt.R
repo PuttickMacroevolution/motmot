@@ -39,7 +39,7 @@ chr.disp.lrt <- function(emp.tree, emp.data, param.out, posteriorSize=500) {
 	
 
     # Get summary stats for the true data, and distance to sims
-    tstat <- summary_stats(phy=emp.tree, est.blomberg.k=est.blomberg.k, y=emp.data)
+    tstat <- motmot:::summary_stats(phy=emp.tree, est.blomberg.k=est.blomberg.k, y=emp.data)
     diff <- colSums(abs(t(sstat)[-3,] - unlist(tstat[-3])) ^ 2)
 
     # Get simulations from nth closest to closest 
@@ -63,7 +63,7 @@ chr.disp.lrt <- function(emp.tree, emp.data, param.out, posteriorSize=500) {
     h.0.est <- c(unlist(k.0.out$eval.points)[k.0.max.index[1]], unlist(k.0.out$eval.points)[length(k.0.out$estimate[,1]) + k.0.max.index[2]])
     
     likelihood.ratio.test <- -2 * log(h.0.lik / h.1.lik )
-    p.value <- pchisq(likelihood.ratio.test, 1)
+    p.value <- 1 - pchisq(likelihood.ratio.test, 1)
    
     output <- list()
     output$estimates <- data.frame(h.0.est, h.1.est)

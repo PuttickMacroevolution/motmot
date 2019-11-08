@@ -6,7 +6,8 @@
 \usage{
 timeSliceSummary(timeSliceObject, cutoff = 4, AICc = TRUE,
   lowerBound = 1e-08, upperBound = 1000, plot.phylo = TRUE,
-  colour.ramp = c("blue", "red"), cex.plot = 1, ...)
+  colour.ramp = c("blue", "red"), cex.plot = 1,
+  model.average = FALSE, ...)
 }
 \arguments{
 \item{timeSliceObject}{Output of a timeSlice analysis in \code{\link{transformPhylo.ML}}}
@@ -25,12 +26,14 @@ timeSliceSummary(timeSliceObject, cutoff = 4, AICc = TRUE,
 
 \item{cex.plot}{Character expansion for the plot of rates through time}
 
+\item{model.average}{Logical only applicable to "timeSlice" models. Will return the model averaged timeSlice for models in which multiple shifts were considered (i.e, when splitTime is NULL). If TRUE, the function returns a plot showing the relative weights of each shift time and the model-averaged rates through time that are weighted by their relative weights. If TRUE, plot.phylo is ignored.}
+
 \item{...}{Further functions passed to APE \code{plot.phylo}}
 }
 \value{
-ModelFit Summary of the best optimal rate shift model.
+ModelFit Summary of the best optimal rate shift model or the model average of each split time (if model averaging was used).
 
-Rates Summary of the rate parameters from the best rate shift model.
+Rates Summary of the rate parameters from the best rate shift model or the model averaged rates through time.
 
 optimalTree A phylo object with branch lengths scaled relative to rate and a plot of estimated rates through time with their associated CIs.
 }

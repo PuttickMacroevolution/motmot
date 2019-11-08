@@ -167,8 +167,12 @@ summary_stats <- function(phy, y, est.blomberg.k=FALSE) {
     # Summary statistics: mean and sd of gaps between neighbours. Plus Blomberg's K optionally.
     k.est <- c()
     if(est.blomberg.k) {
-        k.est <- 1:ntraits
-        k.est <- sapply(1:ntraits, function(k.int) blomberg.k(y=as.matrix(y[,k.int]), phy=phy))
+        k.est <- sapply(1:ntraits, function(k.int) {
+        		y.nit <- as.matrix(y[, k.int])
+        		rownames(y.nit) <- phy$tip.label
+        		blomberg.k(y=y.nit, phy=phy)
+        		}
+        	)
         k.est <- mean(k.est)
         output$blom.k <- k.est
     }

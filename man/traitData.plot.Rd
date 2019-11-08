@@ -7,7 +7,10 @@
 traitData.plot(y, phy, col.label = "red", col.tree = "black",
   col.hist = "navy", cex.plot = 0.7, cex.tips = 0.7,
   show.tips = FALSE, include.hist = FALSE, n.split = 5,
-  lwd.traits = 1, axis.text = NULL, transform.axis.label = NULL, ...)
+  lwd.traits = 1, show.axis = TRUE, axis.text = NULL,
+  transform.axis.label = NULL, at = NULL, labels = NULL,
+  axis.test.line = 1, node.label = NULL, node.label.names = NULL,
+  offset.bars = 1, ...)
 }
 \arguments{
 \item{y}{A matrix of trait values with taxon names as rownames.}
