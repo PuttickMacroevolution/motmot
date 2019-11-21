@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <h4 class="author">Mark Puttick</h4>
-<h4 class="date">02 June 2019</h4>
+<h4 class="date">21 November 2019</h4>
 </div>
 <p>Models Of Trait Macroevolution On Trees (MOTMOT) is an R package that allows for testing of models of trait evolution (Thomas <em>et al.</em> 2012).</p>
 <ul>
