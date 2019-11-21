@@ -4,9 +4,15 @@
 \alias{RatePhylo.allCI}
 \title{Confidence intervals for rate parameters}
 \usage{
-RatePhylo.allCI(rateData, MLrate = NULL, fixed = NULL,
-  rateMIN = 0.001, rateMAX = 50, common.mean = FALSE,
-  lambda.est = TRUE)
+RatePhylo.allCI(
+  rateData,
+  MLrate = NULL,
+  fixed = NULL,
+  rateMIN = 0.001,
+  rateMAX = 50,
+  common.mean = FALSE,
+  lambda.est = TRUE
+)
 }
 \arguments{
 \item{rateData}{an object of class \code{rateData}}

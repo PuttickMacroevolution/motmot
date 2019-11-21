@@ -17,7 +17,8 @@
 #' ## simulate small amount of data 
 #' ## (example only - many more datasets are required for accuracy)
 #' param.simulation <- chr.disp.param(finch.tree, n.sim = 100, n.steps=100,
-#' max.sigma = 8, max.a = 8, ntraits=1, mc.cores = 1)
+#' max.sigma = 8, max.a = 8, ntraits=1, 
+#' allopatry=as.matrix(allopatric.data), mc.cores = 1)
 #' chr.disp.lrt(finch.tree, finch.data, param.simulation, 50)
 #' @export
 
@@ -39,7 +40,7 @@ chr.disp.lrt <- function(emp.tree, emp.data, param.out, posteriorSize=500) {
 	
 
     # Get summary stats for the true data, and distance to sims
-    tstat <- motmot:::summary_stats(phy=emp.tree, est.blomberg.k=est.blomberg.k, y=emp.data)
+    tstat <- summary_stats(phy=emp.tree, est.blomberg.k=est.blomberg.k, y=emp.data)
     diff <- colSums(abs(t(sstat)[-3,] - unlist(tstat[-3])) ^ 2)
 
     # Get simulations from nth closest to closest 
@@ -63,7 +64,7 @@ chr.disp.lrt <- function(emp.tree, emp.data, param.out, posteriorSize=500) {
     h.0.est <- c(unlist(k.0.out$eval.points)[k.0.max.index[1]], unlist(k.0.out$eval.points)[length(k.0.out$estimate[,1]) + k.0.max.index[2]])
     
     likelihood.ratio.test <- -2 * log(h.0.lik / h.1.lik )
-    p.value <- 1 - pchisq(likelihood.ratio.test, 1)
+    p.value <- pchisq(likelihood.ratio.test, 1)
    
     output <- list()
     output$estimates <- data.frame(h.0.est, h.1.est)

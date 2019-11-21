@@ -4,8 +4,15 @@
 \alias{likRatePhylo}
 \title{Log-likelihood rate estimation for traits and phylogenies}
 \usage{
-likRatePhylo(rateData, rate = NULL, common.mean = FALSE,
-  lambda.est = TRUE, lambda = 1, meserr = FALSE, sigmaScale = NULL)
+likRatePhylo(
+  rateData,
+  rate = NULL,
+  common.mean = FALSE,
+  lambda.est = TRUE,
+  lambda = 1,
+  meserr = FALSE,
+  sigmaScale = NULL
+)
 }
 \arguments{
 \item{rateData}{an object of class \code{rateData}}

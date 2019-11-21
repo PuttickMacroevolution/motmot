@@ -4,8 +4,15 @@
 \alias{contemporaryPhy}
 \title{prune tree and data to lineages present in a time bin in the past}
 \usage{
-contemporaryPhy(phy, maxBin, minBin, reScale = 0, allTraits,
-  closest.min = TRUE, traits.from.tip = TRUE)
+contemporaryPhy(
+  phy,
+  maxBin,
+  minBin,
+  reScale = 0,
+  allTraits,
+  closest.min = TRUE,
+  traits.from.tip = TRUE
+)
 }
 \arguments{
 \item{phy}{An object of class \code{phylo} (see \pkg{ape}).}

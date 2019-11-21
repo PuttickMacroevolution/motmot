@@ -5,8 +5,8 @@
 #' @param sigma The value of Brownian variance in the simulation
 #' @param a The strength of competition between inter-specific lineages
 #' @param ntraits Number of traits to be simulated
-#' @param sympatry An optional matrix giving the time that each pair of species starts to interact (default = NA).
-#' @param allopatry An optional matrix giving the times when species stop interacting. This is a pairwise matrix of the times that species became allopatric. For sympatric species this is 9e9, aka never. For allopatric species this is the time from the tree root to the species' creation node (default = NA).
+#' @param sympatry an optional matrix giving the time that each pair of species starts to interact
+#' @param allopatry an optional matrix giving the times when species stop interacting
 #' @param trait.lim an optional parameter that puts limits on the available trait-space, preventing trait values with magnitude greater than the value of lim
 #' @return A list containing the the simulated data (tval) showing the sigma, a, mean gap and gap standard deviation. Additionally, if used, the user input sympatry (symp) and/or allopatry (allo) matrices
 #' @useDynLib motmot
@@ -22,8 +22,7 @@
 #' ## simulate small amount of data 
 #' ## (example only - many more datasets are required for accuracy)
 #' sim.data <- chr.disp.sim(emp.tree, n.steps=100,
-#' sigma=1, a=2, ntraits=1, allopatry=as.matrix(allopatric.data), 
-#' sympatry=as.matrix(sympatric.data),trait.lim=NA)
+#' sigma=1, a=2, ntraits=1, sympatry=NA, allopatry=NA, trait.lim=NA)
 #' @export
 
 chr.disp.sim <- function(phy, n.steps=1000, sigma=1, a=0, ntraits=1, sympatry=NA, allopatry=NA, trait.lim=NA) {
@@ -41,9 +40,10 @@ chr.disp.sim <- function(phy, n.steps=1000, sigma=1, a=0, ntraits=1, sympatry=NA
     if(is.na(trait.lim)) trait.lim <- 9e99
 
     result <- .C("pathsim", ntip=as.integer(num_tips), dt=as.double(dt), rate = as.double(sigma^2), a=as.double(a), r_intervals=as.double(times), splitters=as.integer(splitting_nodes), tval = as.double(tval), ntraits=as.integer(ntraits), symp=as.double(symp), allo=as.double(allo), lim=as.numeric(trait.lim))
+
     result$tval <- as.matrix(reorder_data(phy.chr.disp, result$tval, ntraits))
     rownames(result$tval) <- phy.names
-    	if(all(result$symp == 0)) result$symp <- NULL
+    if(all(result$symp == 0)) result$symp <- NULL
     if(all(result$allo == 0)) result$allo <- NULL
     result
 }

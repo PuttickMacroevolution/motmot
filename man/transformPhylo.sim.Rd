@@ -4,14 +4,33 @@
 \alias{transformPhylo.sim}
 \title{Phylogenetic tree transformations}
 \usage{
-transformPhylo.sim(phy, n = 1, x = NULL, model = NULL,
-  returnNodes = FALSE, kappa = NULL, lambda = NULL, delta = NULL,
-  alpha = NULL, psi = NULL, acdcRate = NULL, lambda.sp = NULL,
-  trend = NULL, trend.anc.state = 0, nodeIDs = NULL,
-  rateType = NULL, cladeRates = NULL, branchRates = NULL,
-  rate = NULL, group.means = NULL, splitTime = NULL,
-  timeRates = NULL, branchLabels = NULL, rate.var = NULL,
-  mode.order = NULL)
+transformPhylo.sim(
+  phy,
+  n = 1,
+  x = NULL,
+  model = NULL,
+  returnNodes = FALSE,
+  kappa = NULL,
+  lambda = NULL,
+  delta = NULL,
+  alpha = NULL,
+  psi = NULL,
+  acdcRate = NULL,
+  lambda.sp = NULL,
+  trend = NULL,
+  trend.anc.state = 0,
+  nodeIDs = NULL,
+  rateType = NULL,
+  cladeRates = NULL,
+  branchRates = NULL,
+  rate = NULL,
+  group.means = NULL,
+  splitTime = NULL,
+  timeRates = NULL,
+  branchLabels = NULL,
+  rate.var = NULL,
+  mode.order = NULL
+)
 }
 \arguments{
 \item{phy}{An object of class \code{phylo} (see \pkg{ape}).}

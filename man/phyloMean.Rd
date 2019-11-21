@@ -4,8 +4,14 @@
 \alias{phyloMean}
 \title{Calculation of phylogenetically corrected mean.}
 \usage{
-phyloMean(rateData, rate = NULL, common.mean = FALSE,
-  lambda.est = TRUE, lambda = 1, meserr = FALSE)
+phyloMean(
+  rateData,
+  rate = NULL,
+  common.mean = FALSE,
+  lambda.est = TRUE,
+  lambda = 1,
+  meserr = FALSE
+)
 }
 \arguments{
 \item{rateData}{an object of class \code{rateData}}

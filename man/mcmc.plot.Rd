@@ -4,9 +4,16 @@
 \alias{mcmc.plot}
 \title{plot the output from transformPhylo.MCMC}
 \usage{
-mcmc.plot(mcmc.input, y.limit = NULL, x.limit = NULL,
-  label.text = NULL, cex.axis = 1, cex.labels = 0.7,
-  col.hist = "green4", col.trace = "navy")
+mcmc.plot(
+  mcmc.input,
+  y.limit = NULL,
+  x.limit = NULL,
+  label.text = NULL,
+  cex.axis = 1,
+  cex.labels = 0.7,
+  col.hist = "green4",
+  col.trace = "navy"
+)
 }
 \arguments{
 \item{mcmc.input}{an object of class "mcmc.motmot" output from \code{\link{transformPhylo.MCMC}}}

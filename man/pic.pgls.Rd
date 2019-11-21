@@ -4,8 +4,14 @@
 \alias{pic.pgls}
 \title{Fast PLGS estimation based on contrasts}
 \usage{
-pic.pgls(formula, phy, y, lambda = "ML", return.intercept.stat = FALSE,
-  meserr = NULL)
+pic.pgls(
+  formula,
+  phy,
+  y,
+  lambda = "ML",
+  return.intercept.stat = FALSE,
+  meserr = NULL
+)
 }
 \arguments{
 \item{formula}{A model formula with continuous variables only}

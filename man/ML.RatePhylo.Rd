@@ -4,9 +4,19 @@
 \alias{ML.RatePhylo}
 \title{Maximum likelihood rate estimation for traits and phylogenies}
 \usage{
-ML.RatePhylo(rateData, rate = NULL, fixed = NULL, pretty = TRUE,
-  rateMIN = 0.001, rateMAX = 50, common.mean = FALSE,
-  lambda.est = TRUE, est.CI = FALSE, meserr = FALSE, file = NULL)
+ML.RatePhylo(
+  rateData,
+  rate = NULL,
+  fixed = NULL,
+  pretty = TRUE,
+  rateMIN = 0.001,
+  rateMAX = 50,
+  common.mean = FALSE,
+  lambda.est = TRUE,
+  est.CI = FALSE,
+  meserr = FALSE,
+  file = NULL
+)
 }
 \arguments{
 \item{rateData}{an object of class \code{rateData}}

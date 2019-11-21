@@ -4,8 +4,14 @@
 \alias{addFossilToPhy}
 \title{add a fossil to an interior branch of a time-scaled phylogeny}
 \usage{
-addFossilToPhy(phy, inGroup, fossil, fossilAge, minLength = 0.1,
-  maxLength = NULL)
+addFossilToPhy(
+  phy,
+  inGroup,
+  fossil,
+  fossilAge,
+  minLength = 0.1,
+  maxLength = NULL
+)
 }
 \arguments{
 \item{phy}{Input phylogeny an object of class \code{phylo} (see \pkg{ape})}

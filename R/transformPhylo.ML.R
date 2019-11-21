@@ -11,7 +11,7 @@
 #' @param splitTime A split time (measured from the present, or most recent species) at which a shift in the rate occurs for the "timeSlice" model. If splitTime=NULL, then all ages between 1 million year intervals from the root age - 10 Ma to the present + 10 Ma will be included in the search. The best model will be retained in each search, and will be used as a fixed age in the next search. The model will calculate the likelihood for the number of shifts defined by 'nSplits'.
 #' @param boundaryAge Only applicable if splitTime=NULL, the age distance from the tips and and youngest tip for which to search for rate shifts. For example, if boundaryAge=10, only ages between the root age - 10 and the latest tip + 10 will be included in the search. If one value is given this will be used for upper and lower ages, but if a vector with two ages is provided the first is used for the upper age boundary and the second for the lower age boundary. Set to zero to allow testing of all ages.
 #' @param testAge If splitTime=NULL, the interval between ages to be tested. For example, if testAge=1, all 1 Ma ages between the ages defined by 'boundaryAge' will be tested. If you would like to sequentially test specific shift times only, please use the argument "specificShiftTimes".
-#' @param saveAll Logical. If TRUE, saves all the outputs from traitMedusa search in timeSlice (i.e, the log-likelihood and rate estimates for all considered shifts, not just the best fitting shift model). This can be used for model averaging with the function \code{\link{timeSliceSummary}}
+#' @param saveAll Logical. If TRUE, saves all the outputs from traitMedusa search in timeSlice (i.e, the log-likelihood and rate estimates for all considered shifts, not just the best fitting shift model). This can be used for model averaging with the function \code{\link{plot.timeSlice.ML}}
 #' @param testShiftTimes A vector of times to be used in the search for split times. For use in the timeSlice model when splitTime=NULL. This allows users to specify ages that are test suquentially, rather than all shifts optimised simultaneously as is done when ages are provided in the argument 'splitTime'.
 #' @param restrictNode List defining monophyletic groups within which no further rate shifts are searched.
 #' @param lambdaEst Logical.Estimate lambda alongside parameter estimates to reduce data noise. Only applicable for models "kappa", "delta", "OU", "psi", "multispi", and "ACDC". Default=FALSE.
@@ -160,6 +160,7 @@ transformPhylo.ML <- function (y, phy, model = NULL, modelCIs = TRUE, nodeIDs = 
         out$AIC <- aic.fun(out$logLikelihood, 2)
         out$AICc <- aicc.fun(out$logLikelihood, 2, Ntip(phy))
         if (returnPhy) out$bmPhy <- phy
+        class(out) <- "bm.ML"
     }, lambda = {
         if (is.null(lowerBound)) {
             lowerBound <- bounds["lambda", 1]
@@ -225,6 +226,7 @@ transformPhylo.ML <- function (y, phy, model = NULL, modelCIs = TRUE, nodeIDs = 
         out$AIC <- aic.fun(out$MaximumLikelihood, 3)
         out$AICc <- aicc.fun(out$MaximumLikelihood, 3, Ntip(lambdaPhy))
         if (returnPhy) out$lambdaPhy <- lambdaPhy
+        class(out) <- "lambda.ML"
     }, kappa = {
         if (is.null(nodeIDs)) {
             nodeIDs <- Ntip(phy) + 1
@@ -324,6 +326,7 @@ transformPhylo.ML <- function (y, phy, model = NULL, modelCIs = TRUE, nodeIDs = 
         out$AIC <- aic.fun(out$MaximumLikelihood, param)
         out$AICc <- aicc.fun(out$MaximumLikelihood, param, Ntip(phy))
         if (returnPhy) out$kappaPhy <- kappaPhy
+        class(out) <- "kappa.ML"
     }, delta = {
         if (is.null(nodeIDs)) {
             nodeIDs <- Ntip(phy) + 1
@@ -424,6 +427,7 @@ transformPhylo.ML <- function (y, phy, model = NULL, modelCIs = TRUE, nodeIDs = 
         if (returnPhy) {
             out$deltaPhy <- deltaPhy
         }
+        class(out) <- "delta.ML"
     }, ou = {
         if (is.null(nodeIDs)) nodeIDs <- Ntip(phy) + 1 else nodeIDs <- nodeIDs
         if (is.null(lowerBound)) {
@@ -625,6 +629,7 @@ transformPhylo.ML <- function (y, phy, model = NULL, modelCIs = TRUE, nodeIDs = 
         out$AIC <- aic.fun(out$MaximumLikelihood, param)
         out$AICc <- aicc.fun(out$MaximumLikelihood, param, Ntip(phy))
         if (returnPhy) out$ouPhy <- ouPhy
+        class(out) <- "ou.ML"
     }, acdc = {
         if (is.null(nodeIDs)) {
             nodeIDs <- Ntip(phy) + 1
@@ -746,6 +751,7 @@ transformPhylo.ML <- function (y, phy, model = NULL, modelCIs = TRUE, nodeIDs = 
         out$AIC <- aic.fun(out$MaximumLikelihood, param)
         out$AICc <- aicc.fun(out$MaximumLikelihood, param, Ntip(phy))
         if (returnPhy) out$acdcPhy <- acdcPhy
+        class(out) <- "acdc.ML"
     }, psi = {
         if (is.null(lowerBound)) {
             lowerBound <- bounds["psi", 1]
@@ -853,6 +859,7 @@ transformPhylo.ML <- function (y, phy, model = NULL, modelCIs = TRUE, nodeIDs = 
         out$AIC <- aic.fun(out$MaximumLikelihood, param)
         out$AICc <- aicc.fun(out$MaximumLikelihood, param, Ntip(phy))
         if (returnPhy) out$psiPhy <- psiPhy
+        class(out) <- "psi.ML"
     }, multipsi = {
         if (is.null(branchLabels)) stop("for 'multipsi' model must provide branchLabels giving state for each branch")
         states <- levels(factor(branchLabels))
@@ -977,6 +984,7 @@ transformPhylo.ML <- function (y, phy, model = NULL, modelCIs = TRUE, nodeIDs = 
         out$AIC <- aic.fun(out$MaximumLikelihood, param)
         out$AICc <- aicc.fun(out$MaximumLikelihood, param, Ntip(phy))
         if (returnPhy) out$psiPhy <- multipsiPhy
+        class(out) <- "multipsi.ML"
     }, trend = {
         if (is.ultrametric(phy)) stop("trend model only makes sense with non-ultrametric trees")
         if (ncol(y) > 1) stop("only when trait at a one time, please run each trait individually")
@@ -1037,6 +1045,7 @@ transformPhylo.ML <- function (y, phy, model = NULL, modelCIs = TRUE, nodeIDs = 
         if (returnPhy) {
             out$TrendPhy <- lambdaPhy
         }
+        class(out) <- "trend.ML"
     }, free = {
         if (is.null(lowerBound)) {
             lowerBound <- bounds["rate", 1]
@@ -1074,6 +1083,7 @@ transformPhylo.ML <- function (y, phy, model = NULL, modelCIs = TRUE, nodeIDs = 
         out$AIC <- aic.fun(out$MaximumLikelihood, param)
         out$AICc <- aicc.fun(out$MaximumLikelihood, param, Ntip(phy))
         if (returnPhy) out$freePhy <- phy2
+        class(out) <- "free.ML"
     }, clade = {
         if (is.null(lowerBound)) {
             lowerBound <- bounds["rate", 1]
@@ -1146,6 +1156,7 @@ transformPhylo.ML <- function (y, phy, model = NULL, modelCIs = TRUE, nodeIDs = 
         out$AIC <- aic.fun(out$MaximumLikelihood, param)
         out$AICc <- aicc.fun(out$MaximumLikelihood, param, Ntip(phy))
         if (returnPhy) out$freePhy <- phyCladeFull
+        class(out) <- "clade.ML"
     }, tm1 = {
         if (is.null(lowerBound)) {
             lowerBound <- bounds["rate", 1]
@@ -1256,6 +1267,7 @@ transformPhylo.ML <- function (y, phy, model = NULL, modelCIs = TRUE, nodeIDs = 
         }
         out <- list(as.data.frame(BERateOut), fullModelOut, y, 
             phy)
+        class(out) <- "traitMedusa"
     }, tm2 = {
         if (is.null(lowerBound)) lowerBound <- bounds["rate", 
             1]
@@ -1393,6 +1405,7 @@ transformPhylo.ML <- function (y, phy, model = NULL, modelCIs = TRUE, nodeIDs = 
         }
         out <- list(as.data.frame(BERateOut), fullModelOut, y, 
             phy)
+        class(out) <- "traitMedusa"
     }, modeslice = {
         maxTime <- nodeTimes(phy)[1, 1]
         input <- lowerBound <- upperBound <- c()
@@ -1605,6 +1618,8 @@ transformPhylo.ML <- function (y, phy, model = NULL, modelCIs = TRUE, nodeIDs = 
         names(out)[length(out)] <- "AIC"
         out[length(out) + 1] <- aicc.fun(vo$value, k, n)
         names(out)[length(out)] <- "AICc"
+        class(out) <- "modeSlice.ML"
+        
     }, timeslice = {
     	
     	if (!is.null(splitTime) && !is.null(testShiftTimes))
@@ -1801,6 +1816,7 @@ transformPhylo.ML <- function (y, phy, model = NULL, modelCIs = TRUE, nodeIDs = 
         if (output.all) 
           out$all.models <- full.model.out
         out$testShiftTimes <- testShiftTimes
+        class(out) <- "timeSlice.ML"
     })
     return(out)
 }

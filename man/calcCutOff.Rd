@@ -4,8 +4,15 @@
 \alias{calcCutOff}
 \title{Calculate multiple-test cut-off}
 \usage{
-calcCutOff(phy, n = 1000, mc.cores = 1, model, measure = "AICc",
-  alpha.error = 0.05, ...)
+calcCutOff(
+  phy,
+  n = 1000,
+  mc.cores = 1,
+  model,
+  measure = "AICc",
+  alpha.error = 0.05,
+  ...
+)
 }
 \arguments{
 \item{phy}{An object of class \code{phylo} (see \pkg{ape}).}

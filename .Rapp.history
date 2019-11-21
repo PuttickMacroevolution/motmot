@@ -1,401 +1,1407 @@
-c((akaike.weights * all.models[1, ])[1], (akaike.weights * all.models[2, ])[2])
-x=1
-len.na <- rep(NA, length(splitTime))#
-      len.na[1:x] <- (akaike.weights * all.models[1, ])[1:x]#
-      len.na[-c(1:x)] <- (akaike.weights * all.models[2, ])[-c(1:x)]
-len.na
-(akaike.weights * all.models[2, ])
-all.models
-akaike.weights
-(akaike.weights[1:x] * all.models[1, ])
-(akaike.weights[1:x] * all.models[1, ])[1:x]
-akaike.weights[1:x]
-(akaike.weights[1:x] * all.models[1, 1:x])
-(akaike.weights[-c(1:x)] * all.models[2, 1-c(1:x)])
-(akaike.weights[-c(1:x)] * all.models[2, -c(1:x)])
-(akaike.weights[x] * all.models[2, -c(1:x)])
-(akaike.weights[x] * all.models[2, x])
-c((akaike.weights[x] * all.models[1, x]), #
-        (akaike.weights[x] * all.models[2, x]))
-length(akaike.weights)
-c(rep(akaike.weights[x] * all.models[1, x], x), #
-        rep(akaike.weights[x] * all.models[2, x], length(akaike.weights) - x))
-alls <- c()#
-      len.na <- c(rep(akaike.weights[x] * all.models[1, x], x), #
-        rep(akaike.weights[x] * all.models[2, x], length(akaike.weights) - x))#
-      alls <- cbind(alls , len.na)
-alls
-alls <- c()#
-      len.na <- c(rep(akaike.weights[x] * all.models[1, x], x), #
-        rep(akaike.weights[x] * all.models[2, x], length(akaike.weights) - x))#
-      alls <- rbind(alls , len.na)
-alls
-alls <- c()#
-      for(x in 1:(length(akaike.weights) - 1)) {#
-        len.na <- c(rep(akaike.weights[x] * all.models[1, x], x), #
-          rep(akaike.weights[x] * all.models[2, x], length(akaike.weights) - x))#
-        alls <- rbind(alls , len.na)#
-      }
-alls
-colSums(alls)
-plot(splitTime, colSums(alls))
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "s")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "l")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "s")
-alls
-akaike.weights
-akaike.weights[x] * all.models[1, x]
-akaike.weights[x] * all.models[2, x]
-alls <- c()#
-      for(x in 1:(length(akaike.weights) - 1)) {#
-        len.na <- c(rep(akaike.weights[x] * all.models[1, x], x), #
-          rep(akaike.weights[x] * all.models[2, x], length(akaike.weights) - x))#
-        alls <- rbind(alls , len.na)#
-      }
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "s")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "l")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "e")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "r")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "c")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "b")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "a")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "d")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "e")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "f")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "g")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "h")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "i")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "j")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "k")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "l")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "m")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "n")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "o")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "p")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "q")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "r")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "s")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "t")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "u")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "v")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "w")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "x")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "y")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "z")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "n")
-o")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "o")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "p")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "r")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "s")
-alls
-plot(akaike.weights, type="h")
-plot(splitTime , akaike.weights, type="h")
-plot(splitTime, akaike.weights, xlim = c(70, 0), type="h")
-plot(splitTime, akaike.weights, xlim = c(70, 0), type="h", lwd = 2)
-plot(splitTime, akaike.weights, xlim = c(70, 0), type="h", lwd = 2, yaxs = "i")
-plot(splitTime, akaike.weights, xlim = c(70, 0), type="h", #
-        lwd = 2, yaxs = "i")
-plot(splitTime, akaike.weights, xlim = c(70, 0), type="h", #
-        lwd = 2, yaxs = "i", ylim = c(0, 0.2))
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "s")
-par(mfrow = c(2, 2), mar = c(0, 0, 0, 0), oma = c(4, 4, 4, 4))      #
-     plot(splitTime, akaike.weights, xlim = c(70, 0), type="h", #
-        lwd = 2, yaxs = "i", ylim = c(0, 0.2))#
-     plot(splitTime, colSums(alls), xlim = c(70, 0), type = "s")
-akaike.weights
-splitTime
-shift.time
-splitTime
-par(mfrow = c(2, 2), mar = c(0, 0, 0, 0), oma = c(4, 4, 4, 4))      #
-     plot(splitTime, akaike.weights, xlim = c(70, 0), type="h", #
-        lwd = 2, yaxs = "i", ylim = c(0, 0.2))#
-     plot(splitTime, colSums(alls), xlim = c(70, 0), type = "s")
-plot(NA, NA, xlim = c(70, 0), ylim = c(70, 0), type = "s")
-plot(NA, NA, xlim = c(70, 0), ylim = c(70, 0), type = "b")
-plot(NA, NA, xlim = c(70, 0), ylim = c(70, 0), type = "n")
-plot(NA, NA, xlim = c(70, 0), ylim = c(70, 0), type = "n", bty = "n")
-plot(NA, NA, xlim = c(70, 0), ylim = c(70, 0), type = "n", bty = "n",#
-       xaxs = "n", yaxs = "n")
-plot(NA, NA, xlim = c(70, 0), ylim = c(70, 0), type = "n", bty = "n",#
-       xaxt = "n", yaxt = "n")
-par(mfrow = c(2, 2), mar = c(0, 0, 0, 0), oma = c(4, 4, 4, 4))      #
-     plot(splitTime, akaike.weights, xlim = c(70, 0), type="h", #
-        lwd = 2, yaxs = "i", ylim = c(0, 0.2))#
-     plot(NA, NA, xlim = c(70, 0), ylim = c(70, 0), type = "n", bty = "n",#
-       xaxt = "n", yaxt = "n")#
-     plot(splitTime, colSums(alls), xlim = c(70, 0), type = "s")
-par(mfrow = c(2, 2), mar = c(0, 0, 0, 0), oma = c(4, 4, 4, 4))      #
-     plot(splitTime, akaike.weights, xlim = c(70, 0), type="h", #
-        lwd = 2, yaxs = "i", ylim = c(0, 0.2), las = 1)
-par(mfrow = c(2, 2), mar = c(0, 0, 0, 0), oma = c(4, 4, 4, 4))      #
-     plot(splitTime, akaike.weights, xlim = c(70, 0), type="h", #
-        lwd = 2, yaxs = "i", ylim = c(0, 0.2), las = 1, xaxt = "n")
-par(mfrow = c(2, 2), mar = c(0, 0, 0, 0), oma = c(8, 4, 4, 4))      #
-     plot(splitTime, akaike.weights, xlim = c(70, 0), type="h", #
-        lwd = 2, yaxs = "i", ylim = c(0, 0.2), las = 1, xaxt = "n")#
-     plot(NA, NA, xlim = c(70, 0), ylim = c(70, 0), type = "n", bty = "n",#
-       xaxt = "n", yaxt = "n")
-par(mfrow = c(2, 2), mar = c(0, 0, 0, 0), oma = c(4, 4, 4, 8))      #
-     plot(splitTime, akaike.weights, xlim = c(70, 0), type="h", #
-        lwd = 2, yaxs = "i", ylim = c(0, 0.2), las = 1, xaxt = "n")#
-     plot(NA, NA, xlim = c(70, 0), ylim = c(70, 0), type = "n", bty = "n",#
-       xaxt = "n", yaxt = "n")
-par(mfrow = c(2, 2), mar = c(0, 0, 0, 0), oma = c(4, 10, 4, 4))      #
-     plot(splitTime, akaike.weights, xlim = c(70, 0), type="h", #
-        lwd = 2, yaxs = "i", ylim = c(0, 0.2), las = 1, xaxt = "n")#
-     plot(NA, NA, xlim = c(70, 0), ylim = c(70, 0), type = "n", bty = "n",#
-       xaxt = "n", yaxt = "n")
-p
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "s")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "s", las = 1)
-par(mfrow = c(2, 2), mar = c(0, 0, 0, 0), oma = c(4, 10, 4, 4))      #
-     plot(splitTime, akaike.weights, xlim = c(70, 0), type="h", #
-        lwd = 2, yaxs = "i", ylim = c(0, 0.2), las = 1, xaxt = "n")#
-     plot(NA, NA, xlim = c(70, 0), ylim = c(70, 0), type = "n", bty = "n",#
-       xaxt = "n", yaxt = "n")#
-     plot(splitTime, colSums(alls), xlim = c(70, 0), type = "s", las = 1)
-par(mfrow = c(2, 2), mar = c(0, 0, 0, 0), oma = c(4, 10, 4, 4))      #
-     plot(splitTime, akaike.weights, xlim = c(70, 0), type="h", #
-        lwd = 1.2, yaxs = "i", ylim = c(0, 0.2), las = 1, xaxt = "n")#
-     plot(NA, NA, xlim = c(70, 0), ylim = c(70, 0), type = "n", bty = "n",#
-       xaxt = "n", yaxt = "n")#
-     plot(splitTime, colSums(alls), xlim = c(70, 0), type = "s", las = 1)
-len.na
-rep(akaike.weights[x] * all.models[1, x], x)
-alls <- c()#
-      for(x in 1:(length(akaike.weights) - 1)) {#
-        len.na <- c(rep(akaike.weights[x] * all.models[1, x], x + 1), #
-          rep(akaike.weights[x] * all.models[2, x], #
-            length(akaike.weights) - (x + 1))#
-        alls <- rbind(alls , len.na)#
-      }
-alls <- c()#
-      for(x in 1:(length(akaike.weights) - 1)) {#
-        len.na <- c(rep(akaike.weights[x] * all.models[1, x], x + 1), #
-          rep(akaike.weights[x] * all.models[2, x], #
-            length(akaike.weights) - (x + 1)))#
-        alls <- rbind(alls , len.na)#
-      }
-alls
-plot(splitTime, akaike.weights, xlim = c(70, 0), type="h", #
-        lwd = 1.2, yaxs = "i", ylim = c(0, 0.2), las = 1, xaxt = "n")
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "s", las = 1)
-x + 1
-x
-length(akaike.weights) - (x + 1)
-alls <- c()#
-      for(x in 1:(length(akaike.weights) - 1)) {#
-        len.na <- c(rep(akaike.weights[x] * all.models[1, x], x + 1), #
-          rep(akaike.weights[x] * all.models[2, x], #
-            (length(akaike.weights) + 2) - (x + 1)))#
-        alls <- rbind(alls , len.na)#
-      }
-alls
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "s", las = 1)
-colSums(alls)
-plot(splitTime, colSums(alls), xlim = c(70, 0), type = "s", las = 1)
-plot(c(maxTime , splitTime, 0), colSums(alls), xlim = c(70, 0), type = "s", las = 1)
-par(mfrow = c(2, 2), mar = c(0, 0, 0, 0), oma = c(4, 10, 4, 4))      #
-     plot(splitTime, akaike.weights, xlim = c(70, 0), type="h", #
-        lwd = 1.2, yaxs = "i", ylim = c(0, 0.2), las = 1, xaxt = "n")#
-     plot(NA, NA, xlim = c(70, 0), ylim = c(70, 0), type = "n", bty = "n",#
-       xaxt = "n", yaxt = "n")#
-     plot(c(maxTime , splitTime, 0), colSums(alls), xlim = c(70, 0), type = "s", las = 1)
-mtext("AICc Weight", 2, 1)
-mtext("AICc Weight", 2, 1, line = 2)
-mtext("AICc Weight", 2, line = 2)
-par(mfrow = c(2, 2), mar = c(0, 0, 0, 0), oma = c(4, 10, 4, 4))      #
-     plot(splitTime, akaike.weights, xlim = c(70, 0), type="h", #
-        lwd = 1.2, yaxs = "i", ylim = c(0, 0.2), las = 1, xaxt = "n")#
-     mtext("AICc Weight", 2, line = 2)
-mtext("AICc Weight", 2, line = 3)
-par(mfrow = c(2, 2), mar = c(0, 0, 0, 0), oma = c(4, 10, 4, 4))      #
-     plot(splitTime, akaike.weights, xlim = c(70, 0), type="h", #
-        lwd = 1.2, yaxs = "i", ylim = c(0, 0.2), las = 1, xaxt = "n")#
-     mtext("AICc Weight", 2, line = 3)#
-     plot(NA, NA, xlim = c(70, 0), ylim = c(70, 0), type = "n", bty = "n",#
-       xaxt = "n", yaxt = "n")#
-     plot(c(maxTime , splitTime, 0), colSums(alls), #
-       xlim = c(70, 0), type = "s", las = 1)#
-     mtext("model averaged rates", 2, line = 3)
-par(mfrow = c(2, 2), mar = c(0, 0, 0, 0), oma = c(4, 10, 4, 4))      #
-     plot(splitTime, akaike.weights, xlim = c(70, 0), type="h", #
-        lwd = 1.2, yaxs = "i", ylim = c(0, 0.2), las = 1, xaxt = "n")#
-     mtext("AICc Weight", 2, line = 3)#
-     plot(NA, NA, xlim = c(70, 0), ylim = c(70, 0), type = "n", bty = "n",#
-       xaxt = "n", yaxt = "n")#
-     plot(c(maxTime , splitTime, 0), colSums(alls), #
-       xlim = c(70, 0), type = "s", las = 1, ylim = c(0, 2.3))#
-     mtext("model averaged rates", 2, line = 3)
-akaike.weights
-all.models
-apply(alls, 2, mean)
-par(mfrow = c(2, 2), mar = c(0, 0, 0, 0), oma = c(4, 10, 4, 4))      #
-     plot(splitTime, akaike.weights, xlim = c(70, 0), type="h", #
-        lwd = 1.2, yaxs = "i", ylim = c(0, 0.2), las = 1, xaxt = "n")#
-     mtext("AICc Weight", 2, line = 3)#
-     plot(NA, NA, xlim = c(70, 0), ylim = c(70, 0), type = "n", bty = "n",#
-       xaxt = "n", yaxt = "n")#
-     plot(c(maxTime , splitTime, 0), apply(alls, 2, mean), #
-       xlim = c(70, 0), type = "s", las = 1, ylim = c(0, 2.3))#
-     mtext("model averaged rates", 2, line = 3)
-par(mfrow = c(2, 2), mar = c(0, 0, 0, 0), oma = c(4, 10, 4, 4))      #
-     plot(splitTime, akaike.weights, xlim = c(70, 0), type="h", #
-        lwd = 1.2, yaxs = "i", ylim = c(0, 0.2), las = 1, xaxt = "n")#
-     mtext("AICc Weight", 2, line = 3)#
-     plot(NA, NA, xlim = c(70, 0), ylim = c(70, 0), type = "n", bty = "n",#
-       xaxt = "n", yaxt = "n")#
-     plot(c(maxTime , splitTime, 0), apply(alls, 2, sum), #
-       xlim = c(70, 0), type = "s", las = 1, ylim = c(0, 2.3))#
-     mtext("model averaged rates", 2, line = 3)
-alls
-par(mfrow = c(2, 2), mar = c(0, 0, 0, 0), oma = c(4, 10, 4, 4))      #
-     plot(splitTime, akaike.weights, xlim = c(70, 0), type="h", #
-        lwd = 1.2, yaxs = "i", ylim = c(0, 0.2), las = 1, xaxt = "n")#
-     mtext("AICc Weight", 2, line = 3)#
-     plot(NA, NA, xlim = c(70, 0), ylim = c(70, 0), type = "n", bty = "n",#
-       xaxt = "n", yaxt = "n")#
-     plot(c(maxTime , splitTime, 0), apply(alls, 1, sum), #
-       xlim = c(70, 0), type = "s", las = 1, ylim = c(0, 2.3))#
-     mtext("model averaged rates", 2, line = 3)
-par(mfrow = c(2, 2), mar = c(0, 0, 0, 0), oma = c(4, 10, 4, 4))      #
-     plot(splitTime, akaike.weights, xlim = c(70, 0), type="h", #
-        lwd = 1.2, yaxs = "i", ylim = c(0, 0.2), las = 1, xaxt = "n")#
-     mtext("AICc Weight", 2, line = 3)#
-     plot(NA, NA, xlim = c(70, 0), ylim = c(70, 0), type = "n", bty = "n",#
-       xaxt = "n", yaxt = "n")#
-     plot(c(maxTime , splitTime, 0), apply(alls, 2, sum), #
-       xlim = c(70, 0), type = "s", las = 1, ylim = c(0, 2.3))#
-     mtext("model averaged rates", 2, line = 3)
-install.packages("RSelenium")
+split.txt <- strsplit(text[[1]], '\n')
+series <- split.txt[2]#
+  team.one <- split.txt[3]#
+  team.two <- split.txt[5]#
+  numbers.one <- as.numeric(strsplit(split.txt[4], " |&")[[1]])#
+  if (any(is.na(numbers.one))) numbers.one <- numbers.one[-which(is.na(numbers.one))]#
+  numbers.two <- as.numeric(strsplit(split.txt[6], " |&")[[1]])#
+  if (any(is.na(numbers.two))) numbers.two <- numbers.two[-which(is.na(numbers.two))]#
+  result <- paste0(strsplit(split.txt[7], " ")[[1]][1:2], collapse = " ")
+split.txt
+split.txt <- strsplit(text[[1]], '\n')[[1]]#
+  series <- split.txt[2]#
+  team.one <- split.txt[3]#
+  team.two <- split.txt[5]#
+  numbers.one <- as.numeric(strsplit(split.txt[4], " |&")[[1]])#
+  if (any(is.na(numbers.one))) numbers.one <- numbers.one[-which(is.na(numbers.one))]#
+  numbers.two <- as.numeric(strsplit(split.txt[6], " |&")[[1]])#
+  if (any(is.na(numbers.two))) numbers.two <- numbers.two[-which(is.na(numbers.two))]#
+  result <- paste0(strsplit(split.txt[7], " ")[[1]][1:2], collapse = " ")
+result
+elements <- driver$findElements(using = "class","sub-module")#
+  all.classes <- lapply(elements, function(kk) kk$getElementText()[[1]])#
+  inns.here <- which(grepl('Innings', all.classes))
+inns.here
+inns.x <- inns.here[1]
+text <- all.classes[[inns.x]]
+txty <- strsplit(text[[1]], "\n")[[1]]#
+  start <- which(txty == "6s") + 1#
+  end <- which(txty == "Extras")#
+  batting.matrix <- matrix(NA, ncol = 6, nrow = (end - start) /  6 )#
+  colnames(batting.matrix) <- c("Batsmen", "Dismissal", "Runs", "Minutes", "Fours", "Sixes")#
+  sts <- seq(start, end, 6)#
+  for(ct in 1:(length(sts) - 1)) batting.matrix[ct, ] <-  txty[sts[ct]:(sts[ct + 1] - 1)]#
+  batting.matrix[1, ] <-  txty[start:(start + 5)]#
+  link.to.name <- names.etc[seq(1, nrow(batting.matrix) * 2, 2)]
+for(i in 1:length(link.to.name)) {#
+    driver$navigate(link.to.name[i])#
+    Sys.sleep(0.2)#
+    ele.name <- driver$findElements(using = "class","ciPlayerinformationtxt")#
+    all.classes <- lapply(ele.name, function(kk) kk$getElementText()[[1]])[[1]]#
+    batting.matrix[i, 1] <- gsub("Full name ", "", all.classes)#
+  }
+batting.matrix
+driver$navigate(test.match.now)
+counter <- (nrow(batting.matrix) * 2) + 2
+bowling.here <- which(grepl("BOWLING O", txty))
+bowling.here
+n.bowlers <- length(txty) - bowling.here
+n.bowlers
+seq.now <- names.etc[counter:(counter + (n.bowlers * 2) - 1)]
+seq.now
+link.bowl <- seq.now[seq(2, length(seq.now), 2)]
+bowling.matrix <- matrix(NA, ncol = 8, nrow = n.bowlers)#
+  colnames(bowling.matrix) <- c("Bowler", "Overs", "Maidens", "Runs", "Wickets", "Economy",#
+    "Wides", "No Balls")#
+  for(z in 1: n.bowlers)#
+    bowling.matrix[z, -1] <- tail(strsplit(txty[bowling.here + z], " ")[[1]], 7)
+bowling.matrix
+for(i in 1:length(link.bowl)) {#
+    driver$navigate(link.bowl[i])#
+    Sys.sleep(0.2)#
+    ele.name <- driver$findElements(using = "class","ciPlayerinformationtxt")#
+    all.classes <- lapply(ele.name, function(kk) kk$getElementText()[[1]])[[1]]#
+    bowling.matrix[i, 1] <- gsub("Full name ", "", all.classes)#
+  }
+bowling.matrix
+link.bowl
+seq.now
+names.etc
+counter
+counter <- (nrow(batting.matrix) * 2)
+names.etc[counter]
+counter <- (nrow(batting.matrix) * 2) + 1
+names.etc[counter]
+names.etc[counter:(counter + (n.bowlers * 2) - 1)]
+counter <- (nrow(batting.matrix) * 2) + 1
+names.etc[counter:(counter + (n.bowlers * 2) - 1)]
+counter
+seq.now <- names.etc[counter:(counter + (n.bowlers * 2) - 1)]
+seq.now[seq(2, length(seq.now), 2)]
+link.bowl <- seq.now[seq(1, length(seq.now), 2)]
+link.bowl
+rm(list = ls(all = TRUE))
+# Load the Library#
 library(RSelenium)#
-  library(rvest)#
-  library(httr)
-rD <- rsDriver(browser="chrome", port=402L)
-rD <- rsDriver(browser="firefox", port=402L)
-rD <- rsDriver(browser="firefox", port=433L)
+require(rvest)#
+require(httr)#
+# start the server and browser(you can use other browsers here)#
+rD <- rsDriver(browser=c("firefox"), port=4421L)#
+Sys.sleep(1)#
 driver <- rD$client
-driver$navigate("https://twitter.com/9bills/followers")
-? rsDriver
-binman::list_versions("seleniumserver")
-rD <- rsDriver(browser="firefox", port=443L, version = "3.141.59")
-driver <- rD$client
-driver$navigate("https://twitter.com/9bills/followers")
-binman::list_versions("seleniumserver")
-rD <- rsDriver(browser="firefox", port=443L, version = "4.0.0-alpha-1")
-rD <- rsDriver(browser="firefox", port=44e3L, version = "4.0.0-alpha-1")
-rD <- rsDriver(browser="firefox", port=4423L, version = "4.0.0-alpha-1")
-driver <- rD$client
-driver$navigate("https://twitter.com/9bills/followers")
+list.of.test.matches <- as.character(read.table("list.of.test.matches.txt")[, 1])#
+####
+#
+test.match.now <- list.of.test.matches[1]
+driver$navigate(test.match.now)
+Sys.sleep(0.8)
+tabs <- GET(test.match.now)#
+  chrs <- rawToChar(tabs$content)#
+  ki <- gregexpr("a name=\"&amp;lpos=cricket:game:scorecard:player", chrs)[[1]]#
+  names.etc <- sapply(ki, function(uu) {#
+    string.now <- substring(chrs, uu, uu + 300)#
+    split.out <- strsplit(strsplit(string.now, ' href=\"')[[1]][2], '\" title=\"')[[1]]#
+    link.out <- split.out[1]#
+    name.out <-#
+      strsplit(strsplit(#
+        split.out[2], "View the player profile of ")[[1]][2], '\" data')[[1]][1]#
+    c(link.out, name.out)#
+  })#
+  elements <- driver$findElements(using = "class","col-b")#
+  text <- elements[[1]]$getElementText()#
+  split.txt <- strsplit(text[[1]], '\n')[[1]]#
+  series <- split.txt[2]#
+  team.one <- split.txt[3]#
+  team.two <- split.txt[5]#
+  numbers.one <- as.numeric(strsplit(split.txt[4], " |&")[[1]])#
+  if (any(is.na(numbers.one))) numbers.one <- numbers.one[-which(is.na(numbers.one))]#
+  numbers.two <- as.numeric(strsplit(split.txt[6], " |&")[[1]])#
+  if (any(is.na(numbers.two))) numbers.two <- numbers.two[-which(is.na(numbers.two))]#
+  result <- paste0(strsplit(split.txt[7], " ")[[1]][1:2], collapse = " ")#
+#
+  elements <- driver$findElements(using = "class","sub-module")#
+  all.classes <- lapply(elements, function(kk) kk$getElementText()[[1]])#
+  inns.here <- which(grepl('Innings', all.classes))#
+  # inns.x#
+  inns.x <- inns.here[1]#
+  text <- all.classes[[inns.x]]  #
+  txty <- strsplit(text[[1]], "\n")[[1]]#
+  start <- which(txty == "6s") + 1#
+  end <- which(txty == "Extras")#
+  batting.matrix <- matrix(NA, ncol = 6, nrow = (end - start) /  6 )#
+  colnames(batting.matrix) <- c("Batsmen", "Dismissal", "Runs", "Minutes", "Fours", "Sixes")#
+  sts <- seq(start, end, 6)#
+  for(ct in 1:(length(sts) - 1)) batting.matrix[ct, ] <-  txty[sts[ct]:(sts[ct + 1] - 1)]#
+  batting.matrix[1, ] <-  txty[start:(start + 5)]#
+  link.to.name <- names.etc[seq(1, nrow(batting.matrix) * 2, 2)]#
+  for(i in 1:length(link.to.name)) {#
+    driver$navigate(link.to.name[i])#
+    Sys.sleep(0.2)#
+    ele.name <- driver$findElements(using = "class","ciPlayerinformationtxt")#
+    all.classes <- lapply(ele.name, function(kk) kk$getElementText()[[1]])[[1]]#
+    batting.matrix[i, 1] <- gsub("Full name ", "", all.classes)#
+  }#
+  driver$navigate(test.match.now)#
+  counter <- (nrow(batting.matrix) * 2) + 1#
+  bowling.here <- which(grepl("BOWLING O", txty))#
+  n.bowlers <- length(txty) - bowling.here#
+  seq.now <- names.etc[counter:(counter + (n.bowlers * 2) - 1)]#
+  link.bowl <- seq.now[seq(1, length(seq.now), 2)]#
+  bowling.matrix <- matrix(NA, ncol = 8, nrow = n.bowlers)#
+  colnames(bowling.matrix) <- c("Bowler", "Overs", "Maidens", "Runs", "Wickets", "Economy",#
+    "Wides", "No Balls")#
+  for(z in 1: n.bowlers)#
+    bowling.matrix[z, -1] <- tail(strsplit(txty[bowling.here + z], " ")[[1]], 7)#
+   for(i in 1:length(link.bowl)) {#
+    driver$navigate(link.bowl[i])#
+    Sys.sleep(0.2)#
+    ele.name <- driver$findElements(using = "class","ciPlayerinformationtxt")#
+    all.classes <- lapply(ele.name, function(kk) kk$getElementText()[[1]])[[1]]#
+    bowling.matrix[i, 1] <- gsub("Full name ", "", all.classes)#
+  }
+bowling.matrix
+driver$navigate(test.match.now)
+counter <- counter + nrow(bowling.matrix)
+bowl.save <- bat.save <- list()
+inns.here
+rm(list = ls(all = T))
+# Load the Library#
 library(RSelenium)#
-selServ <- startServer(args = c("-port 4455"), log = FALSE)#
-remDr <- remoteDriver(browserName = "chrome", port = 4455)#
-remDr$open()
-rD <- rsDriver(browser="firefox", port=4423L, version = "4.0.0-alpha-2")
-rD <- rsDriver(browser="firefox", port=113L, version = "4.0.0-alpha-2")
+require(rvest)#
+require(httr)#
+# start the server and browser(you can use other browsers here)#
+rD <- rsDriver(browser=c("firefox"), port=4421L)#
+Sys.sleep(1)#
 driver <- rD$client
-driver$navigate("https://twitter.com/9bills/followers")
-rD <- rsDriver(browser="chrome", port=113L, version = "4.0.0-alpha-2")
-rD <- rsDriver(browser="chrome", port=123L, version = "4.0.0-alpha-2")
-25 * 0.64
-25 * 0.8 * 0.8
-97.81 + 251.81 + 107.69
-97.81 + 251.81 + 107.69 + 65
-190 * 0.64
-https://drive.google.com/open?id=1slzrYgy7Cgl8MCVNncenC4bmL_hYCkN_w
-sample(1:47, replace = FALSE)
-sample(1:47, 6, replace = FALSE)
-sample(1:10, 1, replace = FALSE)
-sample(1:47, 5, replace = FALSE)
-sample(1:10, 1, replace = FALSE)
+rD <- rsDriver(browser=c("firefox"), port=44221L)
+Sys.sleep(1)#
+driver <- rD$client
+list.of.test.matches <- as.character(read.table("list.of.test.matches.txt")[, 1])
+test.match.now <- list.of.test.matches[1]
+driver$navigate(test.match.now)#
+  Sys.sleep(0.8)#
+  tabs <- GET(test.match.now)#
+  chrs <- rawToChar(tabs$content)#
+  ki <- gregexpr("a name=\"&amp;lpos=cricket:game:scorecard:player", chrs)[[1]]#
+  names.etc <- sapply(ki, function(uu) {#
+    string.now <- substring(chrs, uu, uu + 300)#
+    split.out <- strsplit(strsplit(string.now, ' href=\"')[[1]][2], '\" title=\"')[[1]]#
+    link.out <- split.out[1]#
+    name.out <-#
+      strsplit(strsplit(#
+        split.out[2], "View the player profile of ")[[1]][2], '\" data')[[1]][1]#
+    c(link.out, name.out)#
+  })#
+  elements <- driver$findElements(using = "class","col-b")#
+  text <- elements[[1]]$getElementText()#
+  split.txt <- strsplit(text[[1]], '\n')[[1]]#
+  series <- split.txt[2]#
+  team.one <- split.txt[3]#
+  team.two <- split.txt[5]#
+  numbers.one <- as.numeric(strsplit(split.txt[4], " |&")[[1]])#
+  if (any(is.na(numbers.one))) numbers.one <- numbers.one[-which(is.na(numbers.one))]#
+  numbers.two <- as.numeric(strsplit(split.txt[6], " |&")[[1]])#
+  if (any(is.na(numbers.two))) numbers.two <- numbers.two[-which(is.na(numbers.two))]#
+  result <- paste0(strsplit(split.txt[7], " ")[[1]][1:2], collapse = " ")#
+#
+  elements <- driver$findElements(using = "class","sub-module")#
+  all.classes <- lapply(elements, function(kk) kk$getElementText()[[1]])#
+  inns.here <- which(grepl('Innings', all.classes))
+bowl.save <- bat.save <- list()#
+  count.bowl <- count.bat <- 1  #
+  # inns.x#
+  inns.x <- inns.here[1]#
+  counter <- 1
+for(inns.x in inns.here) {#
+    text <- all.classes[[inns.x]]  #
+    txty <- strsplit(text[[1]], "\n")[[1]]#
+    start <- which(txty == "6s") + 1#
+    end <- which(txty == "Extras")#
+    batting.matrix <- matrix(NA, ncol = 6, nrow = (end - start) /  6 )#
+    colnames(batting.matrix) <-#
+      c("Batsmen", "Dismissal", "Runs", "Minutes", "Fours", "Sixes")#
+    sts <- seq(start, end, 6)#
+    for(ct in 1:(length(sts) - 1)) batting.matrix[ct, ] <-  txty[sts[ct]:(sts[ct + 1] - 1)]#
+    batting.matrix[1, ] <-  txty[start:(start + 5)]#
+    link.to.name <- names.etc[seq(counter, nrow(batting.matrix) * 2, 2)]#
+    for(i in 1:length(link.to.name)) {#
+      driver$navigate(link.to.name[i])#
+      Sys.sleep(0.2)#
+      ele.name <- driver$findElements(using = "class","ciPlayerinformationtxt")#
+      all.classes <- lapply(ele.name, function(kk) kk$getElementText()[[1]])[[1]]#
+      batting.matrix[i, 1] <- gsub("Full name ", "", all.classes)#
+    }#
+    bat.save[[count.bat]] <- batting.matrix#
+    count.bat <- count.bat + 1#
+    driver$navigate(test.match.now)#
+    counter <- (nrow(batting.matrix) * 2) + 1#
+    bowling.here <- which(grepl("BOWLING O", txty))#
+    n.bowlers <- length(txty) - bowling.here#
+    seq.now <- names.etc[counter:(counter + (n.bowlers * 2) - 1)]#
+    link.bowl <- seq.now[seq(1, length(seq.now), 2)]#
+    bowling.matrix <- matrix(NA, ncol = 8, nrow = n.bowlers)#
+    colnames(bowling.matrix) <- c("Bowler", "Overs", "Maidens", "Runs", "Wickets", "Economy",#
+      "Wides", "No Balls")#
+    for(z in 1: n.bowlers)#
+      bowling.matrix[z, -1] <- tail(strsplit(txty[bowling.here + z], " ")[[1]], 7)#
+    for(i in 1:length(link.bowl)) {#
+      driver$navigate(link.bowl[i])#
+      Sys.sleep(0.2)#
+      ele.name <- driver$findElements(using = "class","ciPlayerinformationtxt")#
+      all.classes <- lapply(ele.name, function(kk) kk$getElementText()[[1]])[[1]]#
+      bowling.matrix[i, 1] <- gsub("Full name ", "", all.classes)#
+    }#
+    bowl.save[[count.bowl]] <- batting.matrix#
+    count.bowl <- count.bowl + 1#
+    counter <- counter + nrow(bowling.matrix)#
+   }
+rm(list=ls(all = TRUE))
+# Load the Library#
+library(RSelenium)#
+require(rvest)#
+require(httr)#
+# start the server and browser(you can use other browsers here)#
+rD <- rsDriver(browser=c("firefox"), port=44211L)#
+Sys.sleep(1)#
+driver <- rD$client
+# list.of.test.matches <- paste0("http://", list.of.test.matches)#
+# write.table(list.of.test.matches, "list.of.test.matches.txt")#
+list.of.test.matches <- as.character(read.table("list.of.test.matches.txt")[, 1])#
+####
+#
+test.match.now <- list.of.test.matches[1]
+driver$navigate(test.match.now)#
+  Sys.sleep(0.8)#
+  tabs <- GET(test.match.now)#
+  chrs <- rawToChar(tabs$content)#
+  ki <- gregexpr("a name=\"&amp;lpos=cricket:game:scorecard:player", chrs)[[1]]#
+  names.etc <- sapply(ki, function(uu) {#
+    string.now <- substring(chrs, uu, uu + 300)#
+    split.out <- strsplit(strsplit(string.now, ' href=\"')[[1]][2], '\" title=\"')[[1]]#
+    link.out <- split.out[1]#
+    name.out <-#
+      strsplit(strsplit(#
+        split.out[2], "View the player profile of ")[[1]][2], '\" data')[[1]][1]#
+    c(link.out, name.out)#
+  })
+elements <- driver$findElements(using = "class","col-b")#
+  text <- elements[[1]]$getElementText()#
+  split.txt <- strsplit(text[[1]], '\n')[[1]]#
+  series <- split.txt[2]#
+  team.one <- split.txt[3]#
+  team.two <- split.txt[5]#
+  numbers.one <- as.numeric(strsplit(split.txt[4], " |&")[[1]])#
+  if (any(is.na(numbers.one))) numbers.one <- numbers.one[-which(is.na(numbers.one))]#
+  numbers.two <- as.numeric(strsplit(split.txt[6], " |&")[[1]])#
+  if (any(is.na(numbers.two))) numbers.two <- numbers.two[-which(is.na(numbers.two))]#
+  result <- paste0(strsplit(split.txt[7], " ")[[1]][1:2], collapse = " ")#
+#
+  elements <- driver$findElements(using = "class","sub-module")#
+  all.classes <- lapply(elements, function(kk) kk$getElementText()[[1]])#
+  inns.here <- which(grepl('Innings', all.classes))#
+  bowl.save <- bat.save <- list()#
+  count.bowl <- count.bat <- 1  #
+  # inns.x
+inns.here
+all.classes
+counter <- 1#
+  for(inns.x in inns.here) {#
+    text <- all.classes[[inns.x]]  #
+    txty <- strsplit(text[[1]], "\n")[[1]]#
+    start <- which(txty == "6s") + 1#
+    end <- which(txty == "Extras")#
+    batting.matrix <- matrix(NA, ncol = 6, nrow = (end - start) /  6 )#
+    colnames(batting.matrix) <-#
+      c("Batsmen", "Dismissal", "Runs", "Minutes", "Fours", "Sixes")#
+    sts <- seq(start, end, 6)#
+    for(ct in 1:(length(sts) - 1)) batting.matrix[ct, ] <-  txty[sts[ct]:(sts[ct + 1] - 1)]#
+    batting.matrix[1, ] <-  txty[start:(start + 5)]#
+    link.to.name <- names.etc[seq(counter, nrow(batting.matrix) * 2, 2)]#
+    for(i in 1:length(link.to.name)) {#
+      driver$navigate(link.to.name[i])#
+      Sys.sleep(0.2)#
+      ele.name <- driver$findElements(using = "class","ciPlayerinformationtxt")#
+      all.classes <- lapply(ele.name, function(kk) kk$getElementText()[[1]])[[1]]#
+      batting.matrix[i, 1] <- gsub("Full name ", "", all.classes)#
+    }#
+    bat.save[[count.bat]] <- batting.matrix#
+    count.bat <- count.bat + 1#
+    driver$navigate(test.match.now)#
+    counter <- (nrow(batting.matrix) * 2) + 1#
+    bowling.here <- which(grepl("BOWLING O", txty))#
+    n.bowlers <- length(txty) - bowling.here#
+    seq.now <- names.etc[counter:(counter + (n.bowlers * 2) - 1)]#
+    link.bowl <- seq.now[seq(1, length(seq.now), 2)]#
+    bowling.matrix <- matrix(NA, ncol = 8, nrow = n.bowlers)#
+    colnames(bowling.matrix) <- c("Bowler", "Overs", "Maidens", "Runs", "Wickets", "Economy",#
+      "Wides", "No Balls")#
+    for(z in 1: n.bowlers)#
+      bowling.matrix[z, -1] <- tail(strsplit(txty[bowling.here + z], " ")[[1]], 7)#
+    for(i in 1:length(link.bowl)) {#
+      driver$navigate(link.bowl[i])#
+      Sys.sleep(0.2)#
+      ele.name <- driver$findElements(using = "class","ciPlayerinformationtxt")#
+      all.classes <- lapply(ele.name, function(kk) kk$getElementText()[[1]])[[1]]#
+      bowling.matrix[i, 1] <- gsub("Full name ", "", all.classes)#
+    }#
+    bowl.save[[count.bowl]] <- batting.matrix#
+    count.bowl <- count.bowl + 1#
+    counter <- counter + nrow(bowling.matrix)#
+   }
+inns.x
+all.classes[[inns.x]]
+all.classes
+bowl.save <- bat.save <- list()#
+  count.bowl <- count.bat <- 1  #
+  # inns.x#
+  counter <- 1#
+  for(inns.x in inns.here) {#
+    text <- all.classes[[inns.x]]  #
+    txty <- strsplit(text[[1]], "\n")[[1]]#
+    start <- which(txty == "6s") + 1#
+    end <- which(txty == "Extras")#
+    batting.matrix <- matrix(NA, ncol = 6, nrow = (end - start) /  6 )#
+    colnames(batting.matrix) <-#
+      c("Batsmen", "Dismissal", "Runs", "Minutes", "Fours", "Sixes")#
+    sts <- seq(start, end, 6)#
+    for(ct in 1:(length(sts) - 1)) batting.matrix[ct, ] <-  txty[sts[ct]:(sts[ct + 1] - 1)]#
+    batting.matrix[1, ] <-  txty[start:(start + 5)]#
+    link.to.name <- names.etc[seq(counter, nrow(batting.matrix) * 2, 2)]#
+    for(i in 1:length(link.to.name)) {#
+      driver$navigate(link.to.name[i])#
+      Sys.sleep(0.2)#
+      ele.name <- driver$findElements(using = "class","ciPlayerinformationtxt")#
+      all.classes.bat <- lapply(ele.name, function(kk) kk$getElementText()[[1]])[[1]]#
+      batting.matrix[i, 1] <- gsub("Full name ", "", all.classes.bat)#
+    }#
+    bat.save[[count.bat]] <- batting.matrix#
+    count.bat <- count.bat + 1#
+    driver$navigate(test.match.now)#
+    counter <- (nrow(batting.matrix) * 2) + 1#
+    bowling.here <- which(grepl("BOWLING O", txty))#
+    n.bowlers <- length(txty) - bowling.here#
+    seq.now <- names.etc[counter:(counter + (n.bowlers * 2) - 1)]#
+    link.bowl <- seq.now[seq(1, length(seq.now), 2)]#
+    bowling.matrix <- matrix(NA, ncol = 8, nrow = n.bowlers)#
+    colnames(bowling.matrix) <- c("Bowler", "Overs", "Maidens", "Runs", "Wickets", "Economy",#
+      "Wides", "No Balls")#
+    for(z in 1: n.bowlers)#
+      bowling.matrix[z, -1] <- tail(strsplit(txty[bowling.here + z], " ")[[1]], 7)#
+    for(i in 1:length(link.bowl)) {#
+      driver$navigate(link.bowl[i])#
+      Sys.sleep(0.2)#
+      ele.name <- driver$findElements(using = "class","ciPlayerinformationtxt")#
+      all.classes.bowl <- lapply(ele.name, function(kk) kk$getElementText()[[1]])[[1]]#
+      bowling.matrix[i, 1] <- gsub("Full name ", "", all.classes.bowl)#
+    }#
+    bowl.save[[count.bowl]] <- batting.matrix#
+    count.bowl <- count.bowl + 1#
+    counter <- counter + nrow(bowling.matrix)#
+   }
+all.classes <- lapply(elements, function(kk) kk$getElementText()[[1]])#
+  inns.here <- which(grepl('Innings', all.classes))#
+  bowl.save <- bat.save <- list()#
+  count.bowl <- count.bat <- 1  #
+  # inns.x#
+  counter <- 1#
+  for(inns.x in inns.here) {#
+    text <- all.classes[[inns.x]]  #
+    txty <- strsplit(text[[1]], "\n")[[1]]#
+    start <- which(txty == "6s") + 1#
+    end <- which(txty == "Extras")#
+    batting.matrix <- matrix(NA, ncol = 6, nrow = (end - start) /  6 )#
+    colnames(batting.matrix) <-#
+      c("Batsmen", "Dismissal", "Runs", "Minutes", "Fours", "Sixes")#
+    sts <- seq(start, end, 6)#
+    for(ct in 1:(length(sts) - 1)) batting.matrix[ct, ] <-  txty[sts[ct]:(sts[ct + 1] - 1)]#
+    batting.matrix[1, ] <-  txty[start:(start + 5)]#
+    link.to.name <- names.etc[seq(counter, nrow(batting.matrix) * 2, 2)]#
+    for(i in 1:length(link.to.name)) {#
+      driver$navigate(link.to.name[i])#
+      Sys.sleep(0.2)#
+      ele.name <- driver$findElements(using = "class","ciPlayerinformationtxt")#
+      all.classes.bat <- lapply(ele.name, function(kk) kk$getElementText()[[1]])[[1]]#
+      batting.matrix[i, 1] <- gsub("Full name ", "", all.classes.bat)#
+    }#
+    bat.save[[count.bat]] <- batting.matrix#
+    count.bat <- count.bat + 1#
+    driver$navigate(test.match.now)#
+    counter <- (nrow(batting.matrix) * 2) + 1#
+    bowling.here <- which(grepl("BOWLING O", txty))#
+    n.bowlers <- length(txty) - bowling.here#
+    seq.now <- names.etc[counter:(counter + (n.bowlers * 2) - 1)]#
+    link.bowl <- seq.now[seq(1, length(seq.now), 2)]#
+    bowling.matrix <- matrix(NA, ncol = 8, nrow = n.bowlers)#
+    colnames(bowling.matrix) <- c("Bowler", "Overs", "Maidens", "Runs", "Wickets", "Economy",#
+      "Wides", "No Balls")#
+    for(z in 1: n.bowlers)#
+      bowling.matrix[z, -1] <- tail(strsplit(txty[bowling.here + z], " ")[[1]], 7)#
+    for(i in 1:length(link.bowl)) {#
+      driver$navigate(link.bowl[i])#
+      Sys.sleep(0.2)#
+      ele.name <- driver$findElements(using = "class","ciPlayerinformationtxt")#
+      all.classes.bowl <- lapply(ele.name, function(kk) kk$getElementText()[[1]])[[1]]#
+      bowling.matrix[i, 1] <- gsub("Full name ", "", all.classes.bowl)#
+    }#
+    bowl.save[[count.bowl]] <- batting.matrix#
+    count.bowl <- count.bowl + 1#
+    counter <- counter + nrow(bowling.matrix)#
+   }
+test.match.now <- list.of.test.matches[1]#
+#
+  driver$navigate(test.match.now)#
+  Sys.sleep(0.8)#
+  tabs <- GET(test.match.now)#
+  chrs <- rawToChar(tabs$content)#
+  ki <- gregexpr("a name=\"&amp;lpos=cricket:game:scorecard:player", chrs)[[1]]#
+  names.etc <- sapply(ki, function(uu) {#
+    string.now <- substring(chrs, uu, uu + 300)#
+    split.out <- strsplit(strsplit(string.now, ' href=\"')[[1]][2], '\" title=\"')[[1]]#
+    link.out <- split.out[1]#
+    name.out <-#
+      strsplit(strsplit(#
+        split.out[2], "View the player profile of ")[[1]][2], '\" data')[[1]][1]#
+    c(link.out, name.out)#
+  })#
+  elements <- driver$findElements(using = "class","col-b")#
+  text <- elements[[1]]$getElementText()#
+  split.txt <- strsplit(text[[1]], '\n')[[1]]#
+  series <- split.txt[2]#
+  team.one <- split.txt[3]#
+  team.two <- split.txt[5]#
+  numbers.one <- as.numeric(strsplit(split.txt[4], " |&")[[1]])#
+  if (any(is.na(numbers.one))) numbers.one <- numbers.one[-which(is.na(numbers.one))]#
+  numbers.two <- as.numeric(strsplit(split.txt[6], " |&")[[1]])#
+  if (any(is.na(numbers.two))) numbers.two <- numbers.two[-which(is.na(numbers.two))]#
+  result <- paste0(strsplit(split.txt[7], " ")[[1]][1:2], collapse = " ")#
+#
+  elements <- driver$findElements(using = "class","sub-module")#
+  all.classes <- lapply(elements, function(kk) kk$getElementText()[[1]])#
+  inns.here <- which(grepl('Innings', all.classes))#
+  bowl.save <- bat.save <- list()#
+  count.bowl <- count.bat <- 1  #
+  # inns.x#
+  counter <- 1#
+  for(inns.x in inns.here) {#
+    text <- all.classes[[inns.x]]  #
+    txty <- strsplit(text[[1]], "\n")[[1]]#
+    start <- which(txty == "6s") + 1#
+    end <- which(txty == "Extras")#
+    batting.matrix <- matrix(NA, ncol = 6, nrow = (end - start) /  6 )#
+    colnames(batting.matrix) <-#
+      c("Batsmen", "Dismissal", "Runs", "Minutes", "Fours", "Sixes")#
+    sts <- seq(start, end, 6)#
+    for(ct in 1:(length(sts) - 1)) batting.matrix[ct, ] <-  txty[sts[ct]:(sts[ct + 1] - 1)]#
+    batting.matrix[1, ] <-  txty[start:(start + 5)]#
+    link.to.name <- names.etc[seq(counter, nrow(batting.matrix) * 2, 2)]#
+    for(i in 1:length(link.to.name)) {#
+      driver$navigate(link.to.name[i])#
+      Sys.sleep(0.2)#
+      ele.name <- driver$findElements(using = "class","ciPlayerinformationtxt")#
+      all.classes.bat <- lapply(ele.name, function(kk) kk$getElementText()[[1]])[[1]]#
+      batting.matrix[i, 1] <- gsub("Full name ", "", all.classes.bat)#
+    }#
+    bat.save[[count.bat]] <- batting.matrix#
+    count.bat <- count.bat + 1#
+    driver$navigate(test.match.now)#
+    counter <- (nrow(batting.matrix) * 2) + 1#
+    bowling.here <- which(grepl("BOWLING O", txty))#
+    n.bowlers <- length(txty) - bowling.here#
+    seq.now <- names.etc[counter:(counter + (n.bowlers * 2) - 1)]#
+    link.bowl <- seq.now[seq(1, length(seq.now), 2)]#
+    bowling.matrix <- matrix(NA, ncol = 8, nrow = n.bowlers)#
+    colnames(bowling.matrix) <- c("Bowler", "Overs", "Maidens", "Runs", "Wickets", "Economy",#
+      "Wides", "No Balls")#
+    for(z in 1: n.bowlers)#
+      bowling.matrix[z, -1] <- tail(strsplit(txty[bowling.here + z], " ")[[1]], 7)#
+    for(i in 1:length(link.bowl)) {#
+      driver$navigate(link.bowl[i])#
+      Sys.sleep(0.2)#
+      ele.name <- driver$findElements(using = "class","ciPlayerinformationtxt")#
+      all.classes.bowl <- lapply(ele.name, function(kk) kk$getElementText()[[1]])[[1]]#
+      bowling.matrix[i, 1] <- gsub("Full name ", "", all.classes.bowl)#
+    }#
+    bowl.save[[count.bowl]] <- batting.matrix#
+    count.bowl <- count.bowl + 1#
+    counter <- counter + nrow(bowling.matrix)#
+   }
+inns.x
+text <- all.classes[[inns.x]]
+txty <- strsplit(text[[1]], "\n")[[1]]#
+    start <- which(txty == "6s") + 1#
+    end <- which(txty == "Extras")#
+    batting.matrix <- matrix(NA, ncol = 6, nrow = (end - start) /  6 )#
+    colnames(batting.matrix) <-#
+      c("Batsmen", "Dismissal", "Runs", "Minutes", "Fours", "Sixes")#
+    sts <- seq(start, end, 6)#
+    for(ct in 1:(length(sts) - 1)) batting.matrix[ct, ] <-  txty[sts[ct]:(sts[ct + 1] - 1)]#
+    batting.matrix[1, ] <-  txty[start:(start + 5)]#
+    link.to.name <- names.etc[seq(counter, nrow(batting.matrix) * 2, 2)]
+txty <- strsplit(text[[1]], "\n")[[1]]#
+    start <- which(txty == "6s") + 1#
+    end <- which(txty == "Extras")#
+    batting.matrix <- matrix(NA, ncol = 6, nrow = (end - start) /  6 )#
+    colnames(batting.matrix) <-#
+      c("Batsmen", "Dismissal", "Runs", "Minutes", "Fours", "Sixes")
+batting.matrix
+sts <- seq(start, end, 6)
+for(ct in 1:(length(sts) - 1)) batting.matrix[ct, ] <-  txty[sts[ct]:(sts[ct + 1] - 1)]
+batting.matrix[1, ] <-  txty[start:(start + 5)]
+batting.matrix
+txty <- strsplit(text[[1]], "\n")[[1]]#
+    start <- which(txty == "6s") + 1#
+    end <- which(txty == "Extras")#
+    batting.matrix <- matrix(NA, ncol = 6, nrow = (end - start) /  6 )#
+    colnames(batting.matrix) <-#
+      c("Batsmen", "Dismissal", "Runs", "Minutes", "Fours", "Sixes")#
+    sts <- seq(start, end, 6)#
+    for(ct in 1:(length(sts) - 1)) batting.matrix[ct, ] <-  txty[sts[ct]:(sts[ct + 1] - 1)]
+batting.matrix
+text <- all.classes[[inns.x]]  #
+    txty <- strsplit(text[[1]], "\n")[[1]]#
+    start <- which(txty == "6s") + 1#
+    end <- which(txty == "Extras")#
+    batting.matrix <- matrix(NA, ncol = 6, nrow = (end - start) /  6 )#
+    colnames(batting.matrix) <-#
+      c("Batsmen", "Dismissal", "Runs", "Minutes", "Fours", "Sixes")#
+    sts <- seq(start, end, 6)
+sts
+txty[sts[ct]:(sts[ct + 1] - 1)]
+text
+inns.x
+inns.here
+text <- all.classes[[inns.x]]
+txty <- strsplit(text[[1]], "\n")[[1]]
+txty
+driver$navigate(test.match.now)
+which(txty == "6s")
+which(txty == "SR")
+start <- which(txty == "SR")
+driver$navigate(test.match.now)#
+  Sys.sleep(0.8)#
+  tabs <- GET(test.match.now)#
+  chrs <- rawToChar(tabs$content)#
+  ki <- gregexpr("a name=\"&amp;lpos=cricket:game:scorecard:player", chrs)[[1]]#
+  names.etc <- sapply(ki, function(uu) {#
+    string.now <- substring(chrs, uu, uu + 300)#
+    split.out <- strsplit(strsplit(string.now, ' href=\"')[[1]][2], '\" title=\"')[[1]]#
+    link.out <- split.out[1]#
+    name.out <-#
+      strsplit(strsplit(#
+        split.out[2], "View the player profile of ")[[1]][2], '\" data')[[1]][1]#
+    c(link.out, name.out)#
+  })#
+  elements <- driver$findElements(using = "class","col-b")#
+  text <- elements[[1]]$getElementText()#
+  split.txt <- strsplit(text[[1]], '\n')[[1]]#
+  series <- split.txt[2]#
+  team.one <- split.txt[3]#
+  team.two <- split.txt[5]#
+  numbers.one <- as.numeric(strsplit(split.txt[4], " |&")[[1]])#
+  if (any(is.na(numbers.one))) numbers.one <- numbers.one[-which(is.na(numbers.one))]#
+  numbers.two <- as.numeric(strsplit(split.txt[6], " |&")[[1]])#
+  if (any(is.na(numbers.two))) numbers.two <- numbers.two[-which(is.na(numbers.two))]#
+  result <- paste0(strsplit(split.txt[7], " ")[[1]][1:2], collapse = " ")#
+#
+  elements <- driver$findElements(using = "class","sub-module")#
+  all.classes <- lapply(elements, function(kk) kk$getElementText()[[1]])#
+  inns.here <- which(grepl('Innings', all.classes))#
+  bowl.save <- bat.save <- list()#
+  count.bowl <- count.bat <- 1  #
+  # inns.x#
+  counter <- 1#
+  for(inns.x in inns.here) {#
+    text <- all.classes[[inns.x]]  #
+    txty <- strsplit(text[[1]], "\n")[[1]]#
+    start <- which(txty == "SR")#
+    if (length(start) == 0) {#
+      start <- which(txty == "6s") + 1 #
+    } else {#
+      start <- start + 1#
+    }#
+    end <- which(txty == "Extras")#
+    batting.matrix <- matrix(NA, ncol = 6, nrow = (end - start) /  6 )#
+    colnames(batting.matrix) <-#
+      c("Batsmen", "Dismissal", "Runs", "Minutes", "Fours", "Sixes")#
+    sts <- seq(start, end, 6)#
+    for(ct in 1:(length(sts) - 1)) batting.matrix[ct, ] <-  txty[sts[ct]:(sts[ct + 1] - 1)]#
+    batting.matrix[1, ] <-  txty[start:(start + 5)]#
+    link.to.name <- names.etc[seq(counter, nrow(batting.matrix) * 2, 2)]#
+    for(i in 1:length(link.to.name)) {#
+      driver$navigate(link.to.name[i])#
+      Sys.sleep(0.2)#
+      ele.name <- driver$findElements(using = "class","ciPlayerinformationtxt")#
+      all.classes.bat <- lapply(ele.name, function(kk) kk$getElementText()[[1]])[[1]]#
+      batting.matrix[i, 1] <- gsub("Full name ", "", all.classes.bat)#
+    }#
+    bat.save[[count.bat]] <- batting.matrix#
+    count.bat <- count.bat + 1#
+    driver$navigate(test.match.now)#
+    counter <- (nrow(batting.matrix) * 2) + 1#
+    bowling.here <- which(grepl("BOWLING O", txty))#
+    n.bowlers <- length(txty) - bowling.here#
+    seq.now <- names.etc[counter:(counter + (n.bowlers * 2) - 1)]#
+    link.bowl <- seq.now[seq(1, length(seq.now), 2)]#
+    bowling.matrix <- matrix(NA, ncol = 8, nrow = n.bowlers)#
+    colnames(bowling.matrix) <- c("Bowler", "Overs", "Maidens", "Runs", "Wickets", "Economy",#
+      "Wides", "No Balls")#
+    for(z in 1: n.bowlers)#
+      bowling.matrix[z, -1] <- tail(strsplit(txty[bowling.here + z], " ")[[1]], 7)#
+    for(i in 1:length(link.bowl)) {#
+      driver$navigate(link.bowl[i])#
+      Sys.sleep(0.2)#
+      ele.name <- driver$findElements(using = "class","ciPlayerinformationtxt")#
+      all.classes.bowl <- lapply(ele.name, function(kk) kk$getElementText()[[1]])[[1]]#
+      bowling.matrix[i, 1] <- gsub("Full name ", "", all.classes.bowl)#
+    }#
+    bowl.save[[count.bowl]] <- batting.matrix#
+    count.bowl <- count.bowl + 1#
+    counter <- counter + nrow(bowling.matrix)#
+   }
+inns.x
+inns.here
+text <- all.classes[[inns.x]]  #
+    txty <- strsplit(text[[1]], "\n")[[1]]#
+    start <- which(txty == "SR")
+start
+if (length(start) == 0) {#
+      start <- which(txty == "6s") + 1 #
+    } else {#
+      start <- start + 1#
+    }
+end <- which(txty == "Extras")
+end
+batting.matrix <- matrix(NA, ncol = 6, nrow = (end - start) /  6 )
+colnames(batting.matrix) <-#
+      c("Batsmen", "Dismissal", "Runs", "Minutes", "Fours", "Sixes")
+driver$navigate(test.match.now)
+test.match.now <- list.of.test.matches[1]#
+#
+  driver$navigate(test.match.now)#
+  Sys.sleep(0.8)#
+  tabs <- GET(test.match.now)#
+  chrs <- rawToChar(tabs$content)#
+  ki <- gregexpr("a name=\"&amp;lpos=cricket:game:scorecard:player", chrs)[[1]]#
+  names.etc <- sapply(ki, function(uu) {#
+    string.now <- substring(chrs, uu, uu + 300)#
+    split.out <- strsplit(strsplit(string.now, ' href=\"')[[1]][2], '\" title=\"')[[1]]#
+    link.out <- split.out[1]#
+    name.out <-#
+      strsplit(strsplit(#
+        split.out[2], "View the player profile of ")[[1]][2], '\" data')[[1]][1]#
+    c(link.out, name.out)#
+  })#
+  elements <- driver$findElements(using = "class","col-b")#
+  text <- elements[[1]]$getElementText()#
+  split.txt <- strsplit(text[[1]], '\n')[[1]]#
+  series <- split.txt[2]#
+  team.one <- split.txt[3]#
+  team.two <- split.txt[5]#
+  numbers.one <- as.numeric(strsplit(split.txt[4], " |&")[[1]])#
+  if (any(is.na(numbers.one))) numbers.one <- numbers.one[-which(is.na(numbers.one))]#
+  numbers.two <- as.numeric(strsplit(split.txt[6], " |&")[[1]])#
+  if (any(is.na(numbers.two))) numbers.two <- numbers.two[-which(is.na(numbers.two))]#
+  result <- paste0(strsplit(split.txt[7], " ")[[1]][1:2], collapse = " ")#
+#
+  elements <- driver$findElements(using = "class","sub-module")#
+  all.classes <- lapply(elements, function(kk) kk$getElementText()[[1]])#
+  inns.here <- which(grepl('Innings', all.classes))#
+  bowl.save <- bat.save <- list()#
+  count.bowl <- count.bat <- 1  #
+  # inns.x#
+  counter <- 1
+inns.here
+text <- all.classes[[inns.x]]  #
+    txty <- strsplit(text[[1]], "\n")[[1]]#
+    start <- which(txty == "SR")
+batting.matrix <- matrix(NA, ncol = 8, nrow = (end - start) /  6 )#
+    colnames(batting.matrix) <-#
+      c("Batsmen", "Dismissal", "Runs", "Balls Faced", "Minutes",#
+      "Fours", "Sixes", "Strike Rate")
+batting.matrix
+text <- all.classes[[inns.x]]  #
+    txty <- strsplit(text[[1]], "\n")[[1]]#
+    start <- which(txty == "SR")
+txty
+start <- which(txty == "SR")
+text <- all.classes[[inns.x]]  #
+    txty <- strsplit(text[[1]], "\n")[[1]]#
+    start <- which(txty == "SR")#
+    if (length(start) == 0) {#
+      start <- which(txty == "6s") + 1 #
+    } else {#
+      start <- start + 1#
+    }#
+    end <- which(txty == "Extras")#
+    batting.matrix <- matrix(NA, ncol = 8, nrow = (end - start) /  6 )#
+    colnames(batting.matrix) <-#
+      c("Batsmen", "Dismissal", "Runs", "Balls Faced", "Minutes",#
+      "Fours", "Sixes", "Strike Rate")
+txty
+which(txty == "BATSMEN")
+which(txty == "BATSMEN") + 1
+txty[(which(txty == "BATSMEN") + 1)]
+start
+txty[(which(txty == "BATSMEN") + 1):(start - 1)]
+inns.here
+inns.x
+c("R", "B", "M", "4s", "6s", "SR")
+match(txty[(which(txty == "BATSMEN") + 1):(start - 1)],#
+      c("R", "B", "M", "4s", "6s", "SR"))
+inns.here
+inns.x
+inns.x=3
+text <- all.classes[[inns.x]]  #
+    txty <- strsplit(text[[1]], "\n")[[1]]#
+    start <- which(txty == "SR")#
+    if (length(start) == 0) {#
+      start <- which(txty == "6s") + 1 #
+    } else {#
+      start <- start + 1#
+    }#
+    end <- which(txty == "Extras")#
+    batting.matrix <- matrix(NA, ncol = 8, nrow = (end - start) /  6 )#
+    colnames(batting.matrix) <-#
+      c("Batsmen", "Dismissal", "Runs", "Balls Faced", "Minutes",#
+      "Fours", "Sixes", "Strike Rate")#
+    match(txty[(which(txty == "BATSMEN") + 1):(start - 1)],#
+      c("R", "B", "M", "4s", "6s", "SR"))
+fn <- match(txty[(which(txty == "BATSMEN") + 1):(start - 1)],
+c("R", "B", "M", "4s", "6s", "SR"))
+end
+start
+fn
+txty[(which(txty == "BATSMEN") + 1):(start - 1)]
+txty[(which(txty == "BATSMEN") + 1):start]
+txty[(which(txty == "BATSMEN") + 1):(start - 1)]
+start
+text <- all.classes[[inns.x]]  #
+    txty <- strsplit(text[[1]], "\n")[[1]]#
+    start <- which(txty == "SR")#
+    if (length(start) == 0) {#
+      start <- which(txty == "6s") + 1 #
+    } else {#
+      start <- start + 1#
+    }#
+    end <- which(txty == "Extras")#
+    batting.matrix <- matrix(NA, ncol = 8, nrow = (end - start) /  6 )#
+    colnames(batting.matrix) <-#
+      c("Batsmen", "Dismissal", "Runs", "Balls Faced", "Minutes",#
+      "Fours", "Sixes", "Strike Rate")
+start
+txty[(which(txty == "BATSMEN") + 1):(start + 1)]
+(which(txty == "BATSMEN") + 1)
+txty[2:8]
+text <- all.classes[[inns.x]]  #
+    txty <- strsplit(text[[1]], "\n")[[1]]#
+    start <- which(txty == "SR")#
+    if (length(start) == 0) {#
+      start <- which(txty == "6s") + 1 #
+    } else {#
+      start <- start + 1#
+    }#
+    end <- which(txty == "Extras")#
+    batting.matrix <- matrix(NA, ncol = 8, nrow = (end - start) /  6 )#
+    colnames(batting.matrix) <-#
+      c("Batsmen", "Dismissal", "Runs", "Balls Faced", "Minutes",#
+      "Fours", "Sixes", "Strike Rate")
+txty
+txty[1:10]
+txty[(which(txty == "BATSMEN") + 1):(start + 1)]
+match(txty[(which(txty == "BATSMEN") + 1):(start + 1)],#
+      c("R", "B", "M", "4s", "6s", "SR"))
+fn <- match(txty[1:10], c("R", "B", "M", "4s", "6s", "SR"))
+fn
+fn <- fn[-which(is.na(fn))]
+fn
+fn <- fn[-which(is.na(fn))] + 2
+fn
+fn <- match(txty[1:10], c("R", "B", "M", "4s", "6s", "SR"))#
+    fn <- fn[-which(is.na(fn))] + 2
+fn
+seq(start, end, 6)
+start
+end
+txty
+fn
+length(c(1, 1, fn))
+len.now <- length(c(1, 1, fn))
+sts <- seq(start, end, len.now)
+sts
+batting.matrix
+ct
+ct=1
+txty[sts[ct]:(sts[ct + 1] - 1)]
+fn <- c(1, 2, fn)
+for(ct in 1:(length(sts) - 1)) batting.matrix[ct, fn] <-  txty[sts[ct]:(sts[ct + 1] - 1)]
+batting.matrix
+txty[start:(start + 5)]
+link.to.name <- names.etc[seq(counter, nrow(batting.matrix) * 2, 2)]
+link.to.name
+driver$navigate(test.match.now)#
+  Sys.sleep(0.8)#
+  tabs <- GET(test.match.now)#
+  chrs <- rawToChar(tabs$content)#
+  ki <- gregexpr("a name=\"&amp;lpos=cricket:game:scorecard:player", chrs)[[1]]#
+  names.etc <- sapply(ki, function(uu) {#
+    string.now <- substring(chrs, uu, uu + 300)#
+    split.out <- strsplit(strsplit(string.now, ' href=\"')[[1]][2], '\" title=\"')[[1]]#
+    link.out <- split.out[1]#
+    name.out <-#
+      strsplit(strsplit(#
+        split.out[2], "View the player profile of ")[[1]][2], '\" data')[[1]][1]#
+    c(link.out, name.out)#
+  })#
+  elements <- driver$findElements(using = "class","col-b")#
+  text <- elements[[1]]$getElementText()#
+  split.txt <- strsplit(text[[1]], '\n')[[1]]#
+  series <- split.txt[2]#
+  team.one <- split.txt[3]#
+  team.two <- split.txt[5]#
+  numbers.one <- as.numeric(strsplit(split.txt[4], " |&")[[1]])#
+  if (any(is.na(numbers.one))) numbers.one <- numbers.one[-which(is.na(numbers.one))]#
+  numbers.two <- as.numeric(strsplit(split.txt[6], " |&")[[1]])#
+  if (any(is.na(numbers.two))) numbers.two <- numbers.two[-which(is.na(numbers.two))]#
+  result <- paste0(strsplit(split.txt[7], " ")[[1]][1:2], collapse = " ")#
+#
+  elements <- driver$findElements(using = "class","sub-module")#
+  all.classes <- lapply(elements, function(kk) kk$getElementText()[[1]])#
+  inns.here <- which(grepl('Innings', all.classes))#
+  bowl.save <- bat.save <- list()#
+  count.bowl <- count.bat <- 1  #
+  # inns.x#
+  counter <- 1#
+  for(inns.x in inns.here) {#
+    text <- all.classes[[inns.x]]  #
+    txty <- strsplit(text[[1]], "\n")[[1]]#
+    start <- which(txty == "SR")#
+    if (length(start) == 0) {#
+      start <- which(txty == "6s") + 1 #
+    } else {#
+      start <- start + 1#
+    }#
+    end <- which(txty == "Extras")#
+    batting.matrix <- matrix(NA, ncol = 8, nrow = (end - start) /  6 )#
+    colnames(batting.matrix) <-#
+      c("Batsmen", "Dismissal", "Runs", "Balls Faced", "Minutes",#
+      "Fours", "Sixes", "Strike Rate")#
+    fn <- match(txty[1:10], c("R", "B", "M", "4s", "6s", "SR"))#
+    fn <- fn[-which(is.na(fn))] + 2#
+    fn <- c(1, 2, fn)#
+    len.now <- length(fn)#
+    sts <- seq(start, end, len.now)#
+    for(ct in 1:(length(sts) - 1)) batting.matrix[ct, fn] <-  txty[sts[ct]:(sts[ct + 1] - 1)]#
+    link.to.name <- names.etc[seq(counter, nrow(batting.matrix) * 2, 2)]#
+    for(i in 1:length(link.to.name)) {#
+      driver$navigate(link.to.name[i])#
+      Sys.sleep(0.2)#
+      ele.name <- driver$findElements(using = "class","ciPlayerinformationtxt")#
+      all.classes.bat <- lapply(ele.name, function(kk) kk$getElementText()[[1]])[[1]]#
+      batting.matrix[i, 1] <- gsub("Full name ", "", all.classes.bat)#
+    }#
+    bat.save[[count.bat]] <- batting.matrix#
+    count.bat <- count.bat + 1#
+    driver$navigate(test.match.now)#
+    counter <- (nrow(batting.matrix) * 2) + 1#
+    bowling.here <- which(grepl("BOWLING O", txty))#
+    n.bowlers <- length(txty) - bowling.here#
+    seq.now <- names.etc[counter:(counter + (n.bowlers * 2) - 1)]#
+    link.bowl <- seq.now[seq(1, length(seq.now), 2)]#
+    bowling.matrix <- matrix(NA, ncol = 8, nrow = n.bowlers)#
+    colnames(bowling.matrix) <- c("Bowler", "Overs", "Maidens", "Runs", "Wickets", "Economy",#
+      "Wides", "No Balls")#
+    for(z in 1: n.bowlers)#
+      bowling.matrix[z, -1] <- tail(strsplit(txty[bowling.here + z], " ")[[1]], 7)#
+    for(i in 1:length(link.bowl)) {#
+      driver$navigate(link.bowl[i])#
+      Sys.sleep(0.2)#
+      ele.name <- driver$findElements(using = "class","ciPlayerinformationtxt")#
+      all.classes.bowl <- lapply(ele.name, function(kk) kk$getElementText()[[1]])[[1]]#
+      bowling.matrix[i, 1] <- gsub("Full name ", "", all.classes.bowl)#
+    }#
+    bowl.save[[count.bowl]] <- batting.matrix#
+    count.bowl <- count.bowl + 1#
+    counter <- counter + nrow(bowling.matrix)#
+   }
+inns.here
+inns.x
+text <- all.classes[[inns.x]]  #
+    txty <- strsplit(text[[1]], "\n")[[1]]#
+    start <- which(txty == "SR")#
+    if (length(start) == 0) {#
+      start <- which(txty == "6s") + 1 #
+    } else {#
+      start <- start + 1#
+    }#
+    end <- which(txty == "Extras")#
+    batting.matrix <- matrix(NA, ncol = 8, nrow = (end - start) /  6 )#
+    colnames(batting.matrix) <-#
+      c("Batsmen", "Dismissal", "Runs", "Balls Faced", "Minutes",#
+      "Fours", "Sixes", "Strike Rate")
+fn <- match(txty[1:10], c("R", "B", "M", "4s", "6s", "SR"))#
+    fn <- fn[-which(is.na(fn))] + 2#
+    fn <- c(1, 2, fn)#
+    len.now <- length(fn)#
+    sts <- seq(start, end, len.now)#
+    for(ct in 1:(length(sts) - 1)) batting.matrix[ct, fn] <-  txty[sts[ct]:(sts[ct + 1] - 1)]#
+    link.to.name <- names.etc[seq(counter, nrow(batting.matrix) * 2, 2)]
+counter
+nrow(batting.matrix) * 2
+names.etc
+test.match.now <- list.of.test.matches[1]#
+#
+  driver$navigate(test.match.now)#
+  Sys.sleep(0.8)#
+  tabs <- GET(test.match.now)#
+  chrs <- rawToChar(tabs$content)#
+  ki <- gregexpr("a name=\"&amp;lpos=cricket:game:scorecard:player", chrs)[[1]]#
+  names.etc <- sapply(ki, function(uu) {#
+    string.now <- substring(chrs, uu, uu + 300)#
+    split.out <- strsplit(strsplit(string.now, ' href=\"')[[1]][2], '\" title=\"')[[1]]#
+    link.out <- split.out[1]#
+    name.out <-#
+      strsplit(strsplit(#
+        split.out[2], "View the player profile of ")[[1]][2], '\" data')[[1]][1]#
+    c(link.out, name.out)#
+  })#
+  elements <- driver$findElements(using = "class","col-b")#
+  text <- elements[[1]]$getElementText()#
+  split.txt <- strsplit(text[[1]], '\n')[[1]]#
+  series <- split.txt[2]#
+  team.one <- split.txt[3]#
+  team.two <- split.txt[5]#
+  numbers.one <- as.numeric(strsplit(split.txt[4], " |&")[[1]])#
+  if (any(is.na(numbers.one))) numbers.one <- numbers.one[-which(is.na(numbers.one))]#
+  numbers.two <- as.numeric(strsplit(split.txt[6], " |&")[[1]])#
+  if (any(is.na(numbers.two))) numbers.two <- numbers.two[-which(is.na(numbers.two))]#
+  result <- paste0(strsplit(split.txt[7], " ")[[1]][1:2], collapse = " ")#
+#
+  elements <- driver$findElements(using = "class","sub-module")#
+  all.classes <- lapply(elements, function(kk) kk$getElementText()[[1]])#
+  inns.here <- which(grepl('Innings', all.classes))#
+  bowl.save <- bat.save <- list()#
+  count.bowl <- count.bat <- 1  #
+  # inns.x#
+  counter <- 1#
+  for(inns.x in inns.here) {#
+    text <- all.classes[[inns.x]]  #
+    txty <- strsplit(text[[1]], "\n")[[1]]#
+    start <- which(txty == "SR")#
+    if (length(start) == 0) {#
+      start <- which(txty == "6s") + 1 #
+    } else {#
+      start <- start + 1#
+    }#
+    end <- which(txty == "Extras")#
+    batting.matrix <- matrix(NA, ncol = 8, nrow = (end - start) /  6 )#
+    colnames(batting.matrix) <-#
+      c("Batsmen", "Dismissal", "Runs", "Balls Faced", "Minutes",#
+      "Fours", "Sixes", "Strike Rate")#
+    fn <- match(txty[1:10], c("R", "B", "M", "4s", "6s", "SR"))#
+    fn <- fn[-which(is.na(fn))] + 2#
+    fn <- c(1, 2, fn)#
+    len.now <- length(fn)#
+    sts <- seq(start, end, len.now)#
+    for(ct in 1:(length(sts) - 1)) batting.matrix[ct, fn] <-  txty[sts[ct]:(sts[ct + 1] - 1)]#
+    link.to.name <- names.etc[seq(counter, (counter + (nrow(batting.matrix) * 2)), 2)]#
+    for(i in 1:length(link.to.name)) {#
+      driver$navigate(link.to.name[i])#
+      Sys.sleep(0.2)#
+      ele.name <- driver$findElements(using = "class","ciPlayerinformationtxt")#
+      all.classes.bat <- lapply(ele.name, function(kk) kk$getElementText()[[1]])[[1]]#
+      batting.matrix[i, 1] <- gsub("Full name ", "", all.classes.bat)#
+    }#
+    bat.save[[count.bat]] <- batting.matrix#
+    count.bat <- count.bat + 1#
+    driver$navigate(test.match.now)#
+    counter <- (nrow(batting.matrix) * 2) + 1#
+    bowling.here <- which(grepl("BOWLING O", txty))#
+    n.bowlers <- length(txty) - bowling.here#
+    seq.now <- names.etc[counter:(counter + (n.bowlers * 2) - 1)]#
+    link.bowl <- seq.now[seq(1, length(seq.now), 2)]#
+    bowling.matrix <- matrix(NA, ncol = 8, nrow = n.bowlers)#
+    colnames(bowling.matrix) <- c("Bowler", "Overs", "Maidens", "Runs", "Wickets", "Economy",#
+      "Wides", "No Balls")#
+    for(z in 1: n.bowlers)#
+      bowling.matrix[z, -1] <- tail(strsplit(txty[bowling.here + z], " ")[[1]], 7)#
+    for(i in 1:length(link.bowl)) {#
+      driver$navigate(link.bowl[i])#
+      Sys.sleep(0.2)#
+      ele.name <- driver$findElements(using = "class","ciPlayerinformationtxt")#
+      all.classes.bowl <- lapply(ele.name, function(kk) kk$getElementText()[[1]])[[1]]#
+      bowling.matrix[i, 1] <- gsub("Full name ", "", all.classes.bowl)#
+    }#
+    bowl.save[[count.bowl]] <- batting.matrix#
+    count.bowl <- count.bowl + 1#
+    counter <- counter + nrow(bowling.matrix)#
+   }
+6,222,626,606
+7700000000 - 6,222,626,606
+7700000000 - 6222626606
+sum(c(131.45, 132.12, 132.91, 133.80, 134.72, 135.66, 136.58, 137.46, 138.28, 138.98, 139.57, 140.05, 140.43, 140.70, 140.87, 140.95, 140.95, 140.89, 140.79))
+inns.x
+inns.here
+text <- all.classes[[inns.x]]  #
+    txty <- strsplit(text[[1]], "\n")[[1]]#
+    start <- which(txty == "SR")#
+    if (length(start) == 0) {#
+      start <- which(txty == "6s") + 1 #
+    } else {#
+      start <- start + 1#
+    }
+end <- which(txty == "Extras")#
+    batting.matrix <- matrix(NA, ncol = 8, nrow = (end - start) /  6 )#
+    colnames(batting.matrix) <-#
+      c("Batsmen", "Dismissal", "Runs", "Balls Faced", "Minutes",#
+      "Fours", "Sixes", "Strike Rate")
+fn <- match(txty[1:10], c("R", "B", "M", "4s", "6s", "SR"))#
+    fn <- fn[-which(is.na(fn))] + 2#
+    fn <- c(1, 2, fn)#
+    len.now <- length(fn)#
+    sts <- seq(start, end, len.now)#
+    for(ct in 1:(length(sts) - 1)) batting.matrix[ct, fn] <-  txty[sts[ct]:(sts[ct + 1] - 1)]#
+    link.to.name <- names.etc[seq(counter, (counter + (nrow(batting.matrix) * 2)), 2)]
+for(i in 1:length(link.to.name)) {#
+      driver$navigate(link.to.name[i])#
+      Sys.sleep(0.2)#
+      ele.name <- driver$findElements(using = "class","ciPlayerinformationtxt")#
+      all.classes.bat <- lapply(ele.name, function(kk) kk$getElementText()[[1]])[[1]]#
+      batting.matrix[i, 1] <- gsub("Full name ", "", all.classes.bat)#
+    }
+batting.matrix
+link.to.name
+link.to.name <- names.etc[seq(counter, (counter + (nrow(batting.matrix) * 2)), 2)]
+link.to.name
+counter
+test.match.now <- list.of.test.matches[1]#
+#
+  driver$navigate(test.match.now)#
+  Sys.sleep(0.8)#
+  tabs <- GET(test.match.now)#
+  chrs <- rawToChar(tabs$content)#
+  ki <- gregexpr("a name=\"&amp;lpos=cricket:game:scorecard:player", chrs)[[1]]#
+  names.etc <- sapply(ki, function(uu) {#
+    string.now <- substring(chrs, uu, uu + 300)#
+    split.out <- strsplit(strsplit(string.now, ' href=\"')[[1]][2], '\" title=\"')[[1]]#
+    link.out <- split.out[1]#
+    name.out <-#
+      strsplit(strsplit(#
+        split.out[2], "View the player profile of ")[[1]][2], '\" data')[[1]][1]#
+    c(link.out, name.out)#
+  })#
+  elements <- driver$findElements(using = "class","col-b")#
+  text <- elements[[1]]$getElementText()#
+  split.txt <- strsplit(text[[1]], '\n')[[1]]#
+  series <- split.txt[2]#
+  team.one <- split.txt[3]#
+  team.two <- split.txt[5]#
+  numbers.one <- as.numeric(strsplit(split.txt[4], " |&")[[1]])#
+  if (any(is.na(numbers.one))) numbers.one <- numbers.one[-which(is.na(numbers.one))]#
+  numbers.two <- as.numeric(strsplit(split.txt[6], " |&")[[1]])#
+  if (any(is.na(numbers.two))) numbers.two <- numbers.two[-which(is.na(numbers.two))]#
+  result <- paste0(strsplit(split.txt[7], " ")[[1]][1:2], collapse = " ")#
+#
+  elements <- driver$findElements(using = "class","sub-module")#
+  all.classes <- lapply(elements, function(kk) kk$getElementText()[[1]])#
+  inns.here <- which(grepl('Innings', all.classes))#
+  bowl.save <- bat.save <- list()#
+  count.bowl <- count.bat <- 1  #
+  # inns.x#
+  counter <- 1#
+  for(inns.x in inns.here) {#
+    text <- all.classes[[inns.x]]  #
+    txty <- strsplit(text[[1]], "\n")[[1]]#
+    start <- which(txty == "SR")#
+    if (length(start) == 0) {#
+      start <- which(txty == "6s") + 1 #
+    } else {#
+      start <- start + 1#
+    }#
+    end <- which(txty == "Extras")#
+    batting.matrix <- matrix(NA, ncol = 8, nrow = (end - start) /  6 )#
+    colnames(batting.matrix) <-#
+      c("Batsmen", "Dismissal", "Runs", "Balls Faced", "Minutes",#
+      "Fours", "Sixes", "Strike Rate")#
+    fn <- match(txty[1:10], c("R", "B", "M", "4s", "6s", "SR"))#
+    fn <- fn[-which(is.na(fn))] + 2#
+    fn <- c(1, 2, fn)#
+    len.now <- length(fn)#
+    sts <- seq(start, end, len.now)#
+    for(ct in 1:(length(sts) - 1)) batting.matrix[ct, fn] <-  txty[sts[ct]:(sts[ct + 1] - 1)]#
+    link.to.name <- names.etc[seq(counter, (counter + (nrow(batting.matrix) * 2)), 2)]#
+    for(i in 1:length(link.to.name)) {#
+      driver$navigate(link.to.name[i])#
+      Sys.sleep(0.2)#
+      ele.name <- driver$findElements(using = "class","ciPlayerinformationtxt")#
+      all.classes.bat <- lapply(ele.name, function(kk) kk$getElementText()[[1]])[[1]]#
+      batting.matrix[i, 1] <- gsub("Full name ", "", all.classes.bat)#
+    }#
+    bat.save[[count.bat]] <- batting.matrix#
+    count.bat <- count.bat + 1#
+    driver$navigate(test.match.now)#
+    counter <- (nrow(batting.matrix) * 2) + 1#
+    bowling.here <- which(grepl("BOWLING O", txty))#
+    n.bowlers <- length(txty) - bowling.here#
+    seq.now <- names.etc[counter:(counter + (n.bowlers * 2) - 1)]#
+    link.bowl <- seq.now[seq(1, length(seq.now), 2)]#
+    bowling.matrix <- matrix(NA, ncol = 8, nrow = n.bowlers)#
+    colnames(bowling.matrix) <- c("Bowler", "Overs", "Maidens", "Runs", "Wickets", "Economy",#
+      "Wides", "No Balls")#
+    for(z in 1: n.bowlers)#
+      bowling.matrix[z, -1] <- tail(strsplit(txty[bowling.here + z], " ")[[1]], 7)#
+    for(i in 1:length(link.bowl)) {#
+      driver$navigate(link.bowl[i])#
+      Sys.sleep(0.2)#
+      ele.name <- driver$findElements(using = "class","ciPlayerinformationtxt")#
+      all.classes.bowl <- lapply(ele.name, function(kk) kk$getElementText()[[1]])[[1]]#
+      bowling.matrix[i, 1] <- gsub("Full name ", "", all.classes.bowl)#
+    }#
+    bowl.save[[count.bowl]] <- batting.matrix#
+    count.bowl <- count.bowl + 1#
+    counter <- counter + nrow(bowling.matrix)#
+   }
+bowl.save
+count.bowl
+inns.here
+test.match.now <- list.of.test.matches[1]#
+#
+  driver$navigate(test.match.now)#
+  Sys.sleep(0.8)#
+  tabs <- GET(test.match.now)#
+  chrs <- rawToChar(tabs$content)#
+  ki <- gregexpr("a name=\"&amp;lpos=cricket:game:scorecard:player", chrs)[[1]]#
+  names.etc <- sapply(ki, function(uu) {#
+    string.now <- substring(chrs, uu, uu + 300)#
+    split.out <- strsplit(strsplit(string.now, ' href=\"')[[1]][2], '\" title=\"')[[1]]#
+    link.out <- split.out[1]#
+    name.out <-#
+      strsplit(strsplit(#
+        split.out[2], "View the player profile of ")[[1]][2], '\" data')[[1]][1]#
+    c(link.out, name.out)#
+  })#
+  elements <- driver$findElements(using = "class","col-b")#
+  text <- elements[[1]]$getElementText()#
+  split.txt <- strsplit(text[[1]], '\n')[[1]]#
+  series <- split.txt[2]#
+  team.one <- split.txt[3]#
+  team.two <- split.txt[5]#
+  numbers.one <- as.numeric(strsplit(split.txt[4], " |&")[[1]])#
+  if (any(is.na(numbers.one))) numbers.one <- numbers.one[-which(is.na(numbers.one))]#
+  numbers.two <- as.numeric(strsplit(split.txt[6], " |&")[[1]])#
+  if (any(is.na(numbers.two))) numbers.two <- numbers.two[-which(is.na(numbers.two))]#
+  result <- paste0(strsplit(split.txt[7], " ")[[1]][1:2], collapse = " ")#
+#
+  elements <- driver$findElements(using = "class","sub-module")#
+  all.classes <- lapply(elements, function(kk) kk$getElementText()[[1]])#
+  inns.here <- which(grepl('Innings', all.classes))
+inns.here
+all.classes
+test.match.now <- list.of.test.matches[1]
+driver$navigate(test.match.now)
+Sys.sleep(0.8)#
+  tabs <- GET(test.match.now)#
+  chrs <- rawToChar(tabs$content)#
+  ki <- gregexpr("a name=\"&amp;lpos=cricket:game:scorecard:player", chrs)[[1]]#
+  names.etc <- sapply(ki, function(uu) {#
+    string.now <- substring(chrs, uu, uu + 300)#
+    split.out <- strsplit(strsplit(string.now, ' href=\"')[[1]][2], '\" title=\"')[[1]]#
+    link.out <- split.out[1]#
+    name.out <-#
+      strsplit(strsplit(#
+        split.out[2], "View the player profile of ")[[1]][2], '\" data')[[1]][1]#
+    c(link.out, name.out)#
+  })
+elements <- driver$findElements(using = "class","col-b")#
+  text <- elements[[1]]$getElementText()#
+  split.txt <- strsplit(text[[1]], '\n')[[1]]#
+  series <- split.txt[2]#
+  team.one <- split.txt[3]#
+  team.two <- split.txt[5]#
+  numbers.one <- as.numeric(strsplit(split.txt[4], " |&")[[1]])#
+  if (any(is.na(numbers.one))) numbers.one <- numbers.one[-which(is.na(numbers.one))]#
+  numbers.two <- as.numeric(strsplit(split.txt[6], " |&")[[1]])#
+  if (any(is.na(numbers.two))) numbers.two <- numbers.two[-which(is.na(numbers.two))]#
+  result <- paste0(strsplit(split.txt[7], " ")[[1]][1:2], collapse = " ")
+elements <- driver$findElements(using = "class","sub-module")
+elements
+all.classes <- lapply(elements, function(kk) kk$getElementText()[[1]])#
+  inns.here <- which(grepl('Innings', all.classes))
+inns.here
+bowl.save <- bat.save <- list()#
+  count.bowl <- count.bat <- 1  #
+  # inns.x
+counter <- 1#
+  for(inns.x in inns.here) {#
+    text <- all.classes[[inns.x]]  #
+    txty <- strsplit(text[[1]], "\n")[[1]]#
+    start <- which(txty == "SR")#
+    if (length(start) == 0) {#
+      start <- which(txty == "6s") + 1 #
+    } else {#
+      start <- start + 1#
+    }#
+    end <- which(txty == "Extras")#
+    batting.matrix <- matrix(NA, ncol = 8, nrow = (end - start) /  6 )#
+    colnames(batting.matrix) <-#
+      c("Batsmen", "Dismissal", "Runs", "Balls Faced", "Minutes",#
+      "Fours", "Sixes", "Strike Rate")#
+    fn <- match(txty[1:10], c("R", "B", "M", "4s", "6s", "SR"))#
+    fn <- fn[-which(is.na(fn))] + 2#
+    fn <- c(1, 2, fn)#
+    len.now <- length(fn)#
+    sts <- seq(start, end, len.now)#
+    for(ct in 1:(length(sts) - 1)) batting.matrix[ct, fn] <-  txty[sts[ct]:(sts[ct + 1] - 1)]#
+    link.to.name <- names.etc[seq(counter, (counter + (nrow(batting.matrix) * 2)), 2)]#
+    for(i in 1:length(link.to.name)) {#
+      driver$navigate(link.to.name[i])#
+      Sys.sleep(0.2)#
+      ele.name <- driver$findElements(using = "class","ciPlayerinformationtxt")#
+      all.classes.bat <- lapply(ele.name, function(kk) kk$getElementText()[[1]])[[1]]#
+      batting.matrix[i, 1] <- gsub("Full name ", "", all.classes.bat)#
+    }#
+    bat.save[[count.bat]] <- batting.matrix#
+    count.bat <- count.bat + 1#
+    driver$navigate(test.match.now)#
+    counter <- (nrow(batting.matrix) * 2) + 1#
+    bowling.here <- which(grepl("BOWLING O", txty))#
+    n.bowlers <- length(txty) - bowling.here#
+    seq.now <- names.etc[counter:(counter + (n.bowlers * 2) - 1)]#
+    link.bowl <- seq.now[seq(1, length(seq.now), 2)]#
+    bowling.matrix <- matrix(NA, ncol = 8, nrow = n.bowlers)#
+    colnames(bowling.matrix) <- c("Bowler", "Overs", "Maidens", "Runs", "Wickets", "Economy",#
+      "Wides", "No Balls")#
+    for(z in 1: n.bowlers)#
+      bowling.matrix[z, -1] <- tail(strsplit(txty[bowling.here + z], " ")[[1]], 7)#
+    for(i in 1:length(link.bowl)) {#
+      driver$navigate(link.bowl[i])#
+      Sys.sleep(0.2)#
+      ele.name <- driver$findElements(using = "class","ciPlayerinformationtxt")#
+      all.classes.bowl <- lapply(ele.name, function(kk) kk$getElementText()[[1]])[[1]]#
+      bowling.matrix[i, 1] <- gsub("Full name ", "", all.classes.bowl)#
+    }#
+    bowl.save[[count.bowl]] <- batting.matrix#
+    count.bowl <- count.bowl + 1#
+    counter <- counter + nrow(bowling.matrix)#
+   }
+counter
+inns.here
+inns.x
+link.to.name
+counter
+(counter + (nrow(batting.matrix) * 2))
+link.to.name <- names.etc[seq(counter, (counter + (nrow(batting.matrix) * 2) - 1), 2)]
+link.to.name
+bowl.save <- bat.save <- list()#
+  count.bowl <- count.bat <- 1  #
+  # inns.x#
+  counter <- 1#
+  for(inns.x in inns.here) {#
+    text <- all.classes[[inns.x]]  #
+    txty <- strsplit(text[[1]], "\n")[[1]]#
+    start <- which(txty == "SR")#
+    if (length(start) == 0) {#
+      start <- which(txty == "6s") + 1 #
+    } else {#
+      start <- start + 1#
+    }#
+    end <- which(txty == "Extras")#
+    batting.matrix <- matrix(NA, ncol = 8, nrow = (end - start) /  6 )#
+    colnames(batting.matrix) <-#
+      c("Batsmen", "Dismissal", "Runs", "Balls Faced", "Minutes",#
+      "Fours", "Sixes", "Strike Rate")#
+    fn <- match(txty[1:10], c("R", "B", "M", "4s", "6s", "SR"))#
+    fn <- fn[-which(is.na(fn))] + 2#
+    fn <- c(1, 2, fn)#
+    len.now <- length(fn)#
+    sts <- seq(start, end, len.now)#
+    for(ct in 1:(length(sts) - 1)) batting.matrix[ct, fn] <-  txty[sts[ct]:(sts[ct + 1] - 1)]#
+    link.to.name <- names.etc[seq(counter, (counter + (nrow(batting.matrix) * 2) - 1), 2)]#
+    for(i in 1:length(link.to.name)) {#
+      driver$navigate(link.to.name[i])#
+      Sys.sleep(0.2)#
+      ele.name <- driver$findElements(using = "class","ciPlayerinformationtxt")#
+      all.classes.bat <- lapply(ele.name, function(kk) kk$getElementText()[[1]])[[1]]#
+      batting.matrix[i, 1] <- gsub("Full name ", "", all.classes.bat)#
+    }#
+    bat.save[[count.bat]] <- batting.matrix#
+    count.bat <- count.bat + 1#
+    driver$navigate(test.match.now)#
+    counter <- (nrow(batting.matrix) * 2) + 1#
+    bowling.here <- which(grepl("BOWLING O", txty))#
+    n.bowlers <- length(txty) - bowling.here#
+    seq.now <- names.etc[counter:(counter + (n.bowlers * 2) - 1)]#
+    link.bowl <- seq.now[seq(1, length(seq.now), 2)]#
+    bowling.matrix <- matrix(NA, ncol = 8, nrow = n.bowlers)#
+    colnames(bowling.matrix) <- c("Bowler", "Overs", "Maidens", "Runs", "Wickets", "Economy",#
+      "Wides", "No Balls")#
+    for(z in 1: n.bowlers)#
+      bowling.matrix[z, -1] <- tail(strsplit(txty[bowling.here + z], " ")[[1]], 7)#
+    for(i in 1:length(link.bowl)) {#
+      driver$navigate(link.bowl[i])#
+      Sys.sleep(0.2)#
+      ele.name <- driver$findElements(using = "class","ciPlayerinformationtxt")#
+      all.classes.bowl <- lapply(ele.name, function(kk) kk$getElementText()[[1]])[[1]]#
+      bowling.matrix[i, 1] <- gsub("Full name ", "", all.classes.bowl)#
+    }#
+    bowl.save[[count.bowl]] <- batting.matrix#
+    count.bowl <- count.bowl + 1#
+    counter <- counter + nrow(bowling.matrix)#
+   }
+bowl.save
+bat.save
+install.packages("devtools")
+install.packages("roxygen2")
 library(motmot)
-plotTrait.data()
-plotTrait.Data()
-traitData.plot()
-traitData.plot
-library(rjava)
-library(java)
-install.packages("Rjava")
-install.packages("rJava")
-library(rJava)
-install.packages("rJava")
-library(rJava)
-dyn.load('/Library/Java/JavaVirtualMachines/jdk1.8.0_66.jdk/Contents/Home/jre/lib/server/libjvm.dylib')
-library(rJava)
-0.16955 * 69
-60 / 0.16955
-353 / 17
-20 * 30
-install.packages("rJava")
-library(rJava)
-install.packages("rJava")
-library(rJavba)
-library(rJava)
-install.packages("rJava")
-library(rJava)
-install.packages("rJava")
-library(rJava)
-options("java.home"="/Library/Java/JavaVirtualMachines/jdk-9.0.4.jdk/Contents/Home/lib")
-Sys.setenv(LD_LIBRARY_PATH='$JAVA_HOME/server')
-dyn.load('/Library/Java/JavaVirtualMachines/jdk-9.0.4.jdk/Contents/Home/lib/server/libjvm.dylib')
-dyn.load('/Library/Java/JavaVirtualMachines/jdk-10.0.1.jdk/Contents/Home/lib/server/libjvm.dylib')
-library(rJava)
-dyn.load('/Library/Java/JavaVirtualMachines/jdk-10.0.1.jdk/Contents/Home/lib/server/libjvm.dylib')
-library(rJava)
-options("java.home"="/Library/Java/JavaVirtualMachines/jdk-9.0.4.jdk/Contents/Home/lib")#
+? plot.motmot
+# Data and phylogeny#
+data(anolis.tree)#
+data(anolis.data)#
 #
-Sys.setenv(LD_LIBRARY_PATH='$JAVA_HOME/server')#
+# female SVL data#
+female.svl <- matrix(anolis.data[,"Female_SVL"], #
+dimnames=list(rownames(anolis.data)))#
+input.data <- sortTraitData(phy=anolis.tree, y=female.svl, log.trait=TRUE)#
 #
-dyn.load('/Library/Java/JavaVirtualMachines/jdk-10.0.1.jdk/Contents/Home/lib/server/libjvm.dylib')#
-#
-library(rJava)
-library(rJava)
-install.packages("rJava")
-library(rJava)
-install.packages("rJava")
-library(rJava)
-install.packages("rJava")
-library(rJava)
-javareconf
-library(rJava)
-install.packages("rJava")
-library(rJava)
-install.packages("rJava")
-library(rJava)
-install.packages("rJava")
-install.packages("https://cran.r-project.org/src/contrib/Archive/rJava/rJava_0.9-11.tar.gz")
-install.packages("https://cran.r-project.org/src/contrib/Archive/rJava/rJava_0.9-10.tar.gz")
-353.4 / 17
-20.7 * 90
-17 * 20.788824
-353.41 * 90
-353.41 * 90 / 100
-* 90 / 10017
-17 * 90 / 100
-4.396 * 190
-4.396 * 190 / 100
-45.5 * 190 / 100
-library(rJava)
-install.packages("rJava")
-library(rJava)
-install.packages("rJava")
-library(rJava)
-install.packages("rJava")
-library(rJava)
-install.packages("rJava")
-library(rJava)
-install.packages("rJava")
-library(rJava)
-dyn.load('/Library/Java/JavaVirtualMachines/jdk1.8.0_231.jdk/Contents/Home/jre/lib/server/libjvm.dylib')
-library(rJava)
-?install.packages
-library(rJava)
-25 + -5 + -1 + 200 + -40 + -8
-25 + -5 + -1 + 200 + -40 + -8 + 80
+# arbitarily reduce data size for speed in this example#
+phy.clade <- extract.clade(input.data[[1]], 182)#
+male.length.clade <- as.matrix(input.data[[2]][match(input.data[[1]]$tip.label, #
+rownames(input.data[[2]])),])#
+# Identify rate shifts and print and plot results with up to one rate shifts #
+# and minimum clade size of 10.#
+anolisSVL_MEDUSA <- transformPhylo.ML(male.length.clade, phy=phy.clade, #
+model="tm1",minCladeSize=10, nSplits=1)
+anolisSVL_MEDUSA_out <- summary(anolisSVL_MEDUSA,#
+cutoff=1, AICc=FALSE)
+colours <- plot(phy=phy.clade, traitMedusaObject = anolisSVL_MEDUSA_out,#
+reconType = "rates", type = "fan", cex=0.6, edge.width=3)
+colours <- plot(anolisSVL_MEDUSA_out,#
+reconType = "rates", type = "fan", cex=0.6, edge.width=3)
+library(dispRity)
+?plot.dispRity
+library(motmot)
+?motmot
+?dispRity
+?motmot-package
+?dispRity-package
+?dispRity
 rm(list=ls(all=T))#
 	library("devtools")#
-	library(roxygen2)
-setwd("~/Documents/GitHub/motmot")#
+	library(roxygen2)#
+#
+	setwd("~/Documents/GitHub/motmot")#
+	usethis::use_rcpp()#
+	devtools::document()
+rm(list=ls(all=T))#
+	library("devtools")#
+	library(roxygen2)#
+#
+	setwd("~/Documents/GitHub/motmot")#
+	usethis::use_rcpp()#
+	devtools::document()
+rm(list=ls(all=T))#
+	library("devtools")#
+	library(roxygen2)#
+#
+	setwd("~/Documents/GitHub/motmot")#
 	usethis::use_rcpp()#
 	devtools::document()

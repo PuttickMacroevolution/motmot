@@ -4,9 +4,16 @@
 \alias{optim.likRatePhylo}
 \title{Maximum likelihood rate estimation for traits and phylogenies}
 \usage{
-optim.likRatePhylo(rateData, rate = NULL, fixed = NULL,
-  rateMIN = 0.001, rateMAX = 50, common.mean = FALSE,
-  lambda.est = TRUE, meserr = FALSE)
+optim.likRatePhylo(
+  rateData,
+  rate = NULL,
+  fixed = NULL,
+  rateMIN = 0.001,
+  rateMAX = 50,
+  common.mean = FALSE,
+  lambda.est = TRUE,
+  meserr = FALSE
+)
 }
 \arguments{
 \item{rateData}{an object of class \code{rateData}}

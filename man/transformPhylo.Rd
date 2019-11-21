@@ -4,13 +4,31 @@
 \alias{transformPhylo}
 \title{Phylogenetic tree transformations}
 \usage{
-transformPhylo(phy, model = NULL, y = NULL, meserr = NULL,
-  kappa = NULL, lambda = NULL, delta = NULL, alpha = NULL,
-  psi = NULL, lambda.sp = NULL, nodeIDs = NULL, rateType = NULL,
-  branchRates = NULL, cladeRates = NULL, splitTime = NULL,
-  timeRates = NULL, acdcRate = NULL, branchLabels = NULL,
-  cophenetic.dist = NULL, vcv.matrix = NULL, mode.order = NULL,
-  mode.param = NULL, rate.var = NULL)
+transformPhylo(
+  phy,
+  model = NULL,
+  y = NULL,
+  meserr = NULL,
+  kappa = NULL,
+  lambda = NULL,
+  delta = NULL,
+  alpha = NULL,
+  psi = NULL,
+  lambda.sp = NULL,
+  nodeIDs = NULL,
+  rateType = NULL,
+  branchRates = NULL,
+  cladeRates = NULL,
+  splitTime = NULL,
+  timeRates = NULL,
+  acdcRate = NULL,
+  branchLabels = NULL,
+  cophenetic.dist = NULL,
+  vcv.matrix = NULL,
+  mode.order = NULL,
+  mode.param = NULL,
+  rate.var = NULL
+)
 }
 \arguments{
 \item{phy}{An object of class \code{phylo} (see \pkg{ape}).}

@@ -27,7 +27,8 @@ data(finches)
 ## simulate small amount of data 
 ## (example only - many more datasets are required for accuracy)
 param.simulation <- chr.disp.param(finch.tree, n.sim = 100, n.steps=100,
-max.sigma = 8, max.a = 8, ntraits=1, mc.cores = 1)
+max.sigma = 8, max.a = 8, ntraits=1, 
+allopatry=as.matrix(allopatric.data), mc.cores = 1)
 chr.disp.lrt(finch.tree, finch.data, param.simulation, 50)
 }
 \references{

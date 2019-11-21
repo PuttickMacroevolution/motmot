@@ -4,13 +4,27 @@
 \alias{traitData.plot}
 \title{plot a univariate continuous trait data on a phylogeny}
 \usage{
-traitData.plot(y, phy, col.label = "red", col.tree = "black",
-  col.hist = "navy", cex.plot = 0.7, cex.tips = 0.7,
-  show.tips = FALSE, include.hist = FALSE, n.split = 5,
-  lwd.traits = 1, show.axis = TRUE, axis.text = NULL,
-  transform.axis.label = NULL, at = NULL, labels = NULL,
-  axis.test.line = 1, node.label = NULL, node.label.names = NULL,
-  offset.bars = 1, ...)
+traitData.plot(
+  y,
+  phy,
+  col.label = "red",
+  col.tree = "black",
+  col.hist = "navy",
+  cex.plot = 0.7,
+  cex.tips = 0.7,
+  show.tips = FALSE,
+  include.hist = FALSE,
+  n.split = 5,
+  lwd.traits = 1,
+  show.axis = TRUE,
+  axis.text = NULL,
+  transform.axis.label = NULL,
+  at = NULL,
+  labels = NULL,
+  axis.text.line = 1,
+  offset.bars = 1,
+  ...
+)
 }
 \arguments{
 \item{y}{A matrix of trait values with taxon names as rownames.}
@@ -35,9 +49,19 @@ traitData.plot(y, phy, col.label = "red", col.tree = "black",
 
 \item{lwd.traits}{Line widths of traits shown on the plot}
 
+\item{show.axis}{Logical. If TRUE, shows the axis of trait values on the plot.}
+
 \item{axis.text}{text shown above the trait label axis. If NULL (default), nothing is displayed}
 
 \item{transform.axis.label}{If the data are provided as logarithms the labels for trait axis can be transformed to their original values by calculating the exponential function of the natural (transform.axis.label="exp") or base 10 logarithm. The default (NULL) leaves the labels un-transformed.}
+
+\item{at}{Axis tick point locations for if show.axis is TRUE.}
+
+\item{labels}{Axis labels locations for if show.axis is TRUE.}
+
+\item{axis.text.line}{The location of the label for the trait axis beside the plot.}
+
+\item{offset.bars}{The distance of trait plot lines from the phylogeny.}
 
 \item{...}{further arguments passed to the axis function}
 }

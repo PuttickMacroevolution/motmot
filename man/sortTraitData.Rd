@@ -4,8 +4,13 @@
 \alias{sortTraitData}
 \title{Sort data and remove missing entries for tree and trait data}
 \usage{
-sortTraitData(phy, y, data.name = NULL, log.trait = TRUE,
-  pass.ultrametric = FALSE)
+sortTraitData(
+  phy,
+  y,
+  data.name = NULL,
+  log.trait = TRUE,
+  pass.ultrametric = FALSE
+)
 }
 \arguments{
 \item{phy}{An object of class \code{phylo} or \code{multiPhylo}  (see \pkg{ape})}

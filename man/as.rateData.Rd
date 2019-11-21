@@ -4,9 +4,17 @@
 \alias{as.rateData}
 \title{Conversion among data and phylogeny objects}
 \usage{
-as.rateData(y, x, rateMatrix = NULL, phy = NULL, data,
-  meserr.col = NULL, meserr.propn = NULL, log.y = FALSE,
-  report_prune = FALSE)
+as.rateData(
+  y,
+  x,
+  rateMatrix = NULL,
+  phy = NULL,
+  data,
+  meserr.col = NULL,
+  meserr.propn = NULL,
+  log.y = FALSE,
+  report_prune = FALSE
+)
 }
 \arguments{
 \item{y}{The response variable - typically a continuous trait. Specified as a column name or index}

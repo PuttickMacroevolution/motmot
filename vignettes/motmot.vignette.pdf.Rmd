@@ -283,20 +283,20 @@ We can now fit the `tm2` algorithm. The output shows the log-likelihood, AIC, AI
 ```{r}
 # tm1 algorithm not run
 # tm1.ml <- transformPhylo.ML(y=male.length.clade, phy=phy.clade, model="tm1", minCladeSize=2, nSplits=3)
-# trait.medusa.tm1.summary <- traitMedusaSummary(tm1.ml, cutoff=2, AICc=T)
+# trait.medusa.tm1.summary <- summary(tm1.ml, cutoff=2, AICc=T)
 # tm2 model
 tm2.ml <- transformPhylo.ML(y=male.length.clade, phy=phy.clade, model="tm2", minCladeSize=5, nSplits=2)
 ```
 
-We can summarise the analyses using `traitMedusaSummary` and plotting the shifts on the phylogeny using the function `plotPhylo.motmot`. These results show a decrease at node 39 that we can visualise on the phylogeny. 
+We can summarise the analyses using `summary.traitMedusa` or just and `summary`plotting the shifts on the phylogeny using the function `plot.traitMedusa.model` or just `plot`. These results show a decrease at node 39 that we can visualise on the phylogeny. 
 
 ```{r plot9, fig.cap = "The subset of the tree showing the rate heterogeneity estimated from the traitMedusa model", echo = T, fig.height = 5, fig.width = 5, fig.path='figures/', dev='png', dpi=200}
-trait.medusa.tm2.summary <- traitMedusaSummary(tm2.ml, cutoff=2, AICc=TRUE)
+trait.medusa.tm2.summary <- summary(tm2.ml, cutoff=2, AICc=TRUE)
 trait.medusa.tm2.summary
-colour_motmot <- plotPhylo.motmot(phy=phy.clade, traitMedusaObject=trait.medusa.tm2.summary, reconType = "rates", type = "fan", cex=0.5, edge.width=2)
+colour_motmot <- plot(trait.medusa.tm2.summary, reconType = "rates", type = "fan", cex=0.5, edge.width=2)
 ```
 
-Thomas and Freckleton (2012) showed the `tm2` algortihm has a high type-one error rate. One way to ameliorate this is to estimate the level a one shift is supported when we know BM is the true model. For example, we could simulate 1000 BM datasets on the tree, estimate a single shift using the `tm2` algortihm, and calculating the difference between the AICcs for each BM and one shift model. We can these use this difference to estimate the AICc 'penalty' the is needed to reduce the `tm2` type-one error rate to 0.05. We could use this penalty in the `cutoff` argument of the `traitMedusaSummary` argument. 
+Thomas and Freckleton (2012) showed the `tm2` algortihm has a high type-one error rate. One way to ameliorate this is to estimate the level a one shift is supported when we know BM is the true model. For example, we could simulate 1000 BM datasets on the tree, estimate a single shift using the `tm2` algortihm, and calculating the difference between the AICcs for each BM and one shift model. We can these use this difference to estimate the AICc 'penalty' the is needed to reduce the `tm2` type-one error rate to 0.05. We could use this penalty in the `cutoff` argument of the `summary.traitMedusa` (or `summary`) argument.
 
 This can all be calculated with the MOTMOT function `calcCutOff`. The function requires the tree and input from the model applied to the empirical data as well as the number of simulations. Here we calculated the AICc cut-off required for the `tm2` analysis from above (for brevity this is not run here, but should be run for each analysis individually).
 
@@ -311,7 +311,7 @@ This can all be calculated with the MOTMOT function `calcCutOff`. The function r
 Here if we repeat this analysis with the appropriate AICc cut-off (5.698) the we see that the single-rate Brownian motion is, in fact, supported. 
 
 ```{r}
-traitMedusaSummary(tm2.ml, cutoff=5.698198, AICc=TRUE)$Rates
+summary(tm2.ml, cutoff=5.698198, AICc=TRUE)$Rates
 ```
 
 # timeSlice model 
@@ -326,10 +326,10 @@ First we will test for a shift in the rate of evolution 10 million years ago.
 timeSlice.10.ml <- transformPhylo.ML(y=male.length.clade, phy=phy.clade, model="timeSlice", splitTime=10)
 ```
 
-We can use the function `timeSliceSummary` to summarise and plot the results. The output summarises the best model according to AICc fit. This function automatically plots the original tree showing the location of shift(s), and the colours show the relative rates in each time slice. The second plot below shows the same tree and colours, but with the branch lengths scaled to the ML optimised rates
+We can use the function `plot.timeSlice.ML` or simply `plot` to summarise and plot the results. The output summarises the best model according to AICc fit. This function automatically plots the original tree showing the location of shift(s), and the colours show the relative rates in each time slice. The second plot below shows the same tree and colours, but with the branch lengths scaled to the ML optimised rates.
  
 ```{r plot10, fig.cap = "TimeSlice plot with a split at 10 Ma", echo = T, fig.height = 5, fig.width = 5, fig.path='figures/', dev='png', dpi=200}
-outputSummary <- timeSliceSummary(timeSlice.10.ml, cutoff=0.001, cex=0.55, edge.width=2, cex.plot=0.8, colour.ramp=c("blue", "red"), label.offset=0.5)
+outputSummary <- plot(timeSlice.10.ml, cutoff=0.001, cex=0.55, edge.width=2, cex.plot=0.8, colour.ramp=c("blue", "red"), label.offset=0.5)
 ```
 
 We can also see other summarise information, such as the CI for each rate estimate. 
@@ -346,10 +346,10 @@ This model searches for the highest likelihood single shift by searching for the
 timeSlice.ml <- transformPhylo.ML(y=male.length.clade, phy=phy.clade, model="timeSlice", nSplits=1, boundaryAge=8)
 ```
 
-And summarise the results. We can selected the cutoff AICc improvement needed to justify selecting the next model. Here we use the arbitary cut-off value of 1. We could test this formally by estimating the correct AICc value needed to reduced type-error > 5% by using BM simulated data (an example using the tm2 is shown above)
+And summarise the results. We can selected the cutoff AICc improvement needed to justify selecting the next model. Here we use the arbitary cut-off value of 1. We could test this formally by estimating the correct AICc value needed to reduced type-error > 5% by using BM simulated data (an example using the tm2 is shown above).
 
 ```{r plot11, fig.cap = "TimeSlice plot with Maximum likelihood estimation of split time", echo = T, fig.height = 5, fig.width = 5, fig.path='figures/', dev='png', dpi=200}
-outputSummary <- timeSliceSummary(timeSlice.ml, cutoff=1, cex=0.2, edge.width=2, cex.plot=0.8, colour.ramp=c("blue", "red"), label.offset=0.5)
+outputSummary <- plot(timeSlice.ml, cutoff=1, cex=0.2, edge.width=2, cex.plot=0.8, colour.ramp=c("blue", "red"), label.offset=0.5)
 ```
 
 # modeSlice model

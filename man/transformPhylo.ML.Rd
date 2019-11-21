@@ -4,17 +4,41 @@
 \alias{transformPhylo.ML}
 \title{Maximum likelihood for models of trait evoluion}
 \usage{
-transformPhylo.ML(y, phy, model = NULL, modelCIs = TRUE,
-  nodeIDs = NULL, rateType = NULL, minCladeSize = 1, nSplits = 2,
-  splitTime = NULL, boundaryAge = 10, testAge = 1,
-  restrictNode = NULL, lambdaEst = FALSE, acdcScalar = FALSE,
-  branchLabels = NULL, hiddenSpeciation = FALSE, full.phy = NULL,
-  useMean = FALSE, profilePlot = FALSE, lowerBound = NULL,
-  upperBound = NULL, covPIC = TRUE, n.cores = 1, tol = NULL,
-  meserr = NULL, controlList = c(fnscale = -1, maxit = 100, factr =
-  1e-07, pgtol = 0, type = 2, lmm = 5), returnPhy = FALSE,
-  print.warnings = FALSE, mode.order = NULL, rate.var = FALSE,
-  testShiftTimes = NULL, saveAll = TRUE)
+transformPhylo.ML(
+  y,
+  phy,
+  model = NULL,
+  modelCIs = TRUE,
+  nodeIDs = NULL,
+  rateType = NULL,
+  minCladeSize = 1,
+  nSplits = 2,
+  splitTime = NULL,
+  boundaryAge = 10,
+  testAge = 1,
+  restrictNode = NULL,
+  lambdaEst = FALSE,
+  acdcScalar = FALSE,
+  branchLabels = NULL,
+  hiddenSpeciation = FALSE,
+  full.phy = NULL,
+  useMean = FALSE,
+  profilePlot = FALSE,
+  lowerBound = NULL,
+  upperBound = NULL,
+  covPIC = TRUE,
+  n.cores = 1,
+  tol = NULL,
+  meserr = NULL,
+  controlList = c(fnscale = -1, maxit = 100, factr = 1e-07, pgtol = 0, type = 2, lmm =
+    5),
+  returnPhy = FALSE,
+  print.warnings = FALSE,
+  mode.order = NULL,
+  rate.var = FALSE,
+  testShiftTimes = NULL,
+  saveAll = TRUE
+)
 }
 \arguments{
 \item{y}{A matrix of trait values.}
@@ -79,7 +103,7 @@ transformPhylo.ML(y, phy, model = NULL, modelCIs = TRUE,
 
 \item{testShiftTimes}{A vector of times to be used in the search for split times. For use in the timeSlice model when splitTime=NULL. This allows users to specify ages that are test suquentially, rather than all shifts optimised simultaneously as is done when ages are provided in the argument 'splitTime'.}
 
-\item{saveAll}{Logical. If TRUE, saves all the outputs from traitMedusa search in timeSlice (i.e, the log-likelihood and rate estimates for all considered shifts, not just the best fitting shift model). This can be used for model averaging with the function \code{\link{timeSliceSummary}}}
+\item{saveAll}{Logical. If TRUE, saves all the outputs from traitMedusa search in timeSlice (i.e, the log-likelihood and rate estimates for all considered shifts, not just the best fitting shift model). This can be used for model averaging with the function \code{\link{plot.timeSlice.ML}}}
 }
 \value{
 Returns the maximum log-likelihood and parameter estimates (with 95 percent confidence intervals if specified). If model="bm" instead returns the Brownian (co)variance and log-likelihood. Also returned are the root estimate, the AIC, and AICc.
