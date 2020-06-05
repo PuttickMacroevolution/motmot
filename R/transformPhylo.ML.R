@@ -766,7 +766,7 @@ transformPhylo.ML <- function (y, phy, model = NULL, modelCIs = TRUE, nodeIDs = 
             }
         }
         psi <- runif(1, lowerBound[1], upperBound[1])
-        if (lambdaEst) psi[1] <- runif(1, lowerBound[2], upperBound[2])
+        if (lambdaEst) psi[2] <- runif(1, lowerBound[2], upperBound[2])
         if (hiddenSpeciation) {
             if (is.null(full.phy)) stop("please provide a full phylogeny")
             full.data.match <- match(full.phy$tip.label, rownames(y))
@@ -774,9 +774,9 @@ transformPhylo.ML <- function (y, phy, model = NULL, modelCIs = TRUE, nodeIDs = 
             phy <- dropTipPartial(full.phy, tips.no.data)
         }
         if (is.ultrametric(phy)) {
-            phy.bd <- birthdeath(phy)
+            phy.bd <- suppressWarnings(birthdeath(phy))
         } else {
-            phy.bd <- birthdeath_motmot(phy)
+            phy.bd <- suppressWarnings (birthdeath_motmot(phy))
         }
         mu_over_lambda <- phy.bd[[4]][1]
         lambda_minus_mu <- phy.bd[[4]][2]
